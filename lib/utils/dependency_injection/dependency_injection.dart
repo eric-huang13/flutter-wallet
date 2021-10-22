@@ -5,6 +5,9 @@ import 'package:pylons_wallet/pylons_app.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/stores/wallets_store_imp.dart';
 import 'package:pylons_wallet/utils/base_env.dart';
+import 'package:pylons_wallet/utils/custom_transaction_broadcaster/custom_transaction_broadcaster.dart';
+import 'package:pylons_wallet/utils/custom_transaction_signer/custom_transaction_signer.dart';
+import 'package:pylons_wallet/utils/custom_transaction_signing_gateaway/custom_transaction_signing_gateway.dart';
 import 'package:pylons_wallet/utils/third_party_services/local_storage_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:transaction_signing_gateway/alan/alan_credentials_serializer.dart';
@@ -56,5 +59,22 @@ Future<void> init() async {
 
 
 
-  sl.registerLazySingleton<WalletsStore>(() => WalletsStoreImp(sl(), sl()));
+  sl.registerLazySingleton(() => CustomTransactionSigningGateway(
+    transactionSummaryUI: NoOpTransactionSummaryUI(),
+    signers: [
+      CustomTransactionSigner(sl.get<BaseEnv>().networkInfo),
+    ],
+    broadcasters: [
+      CustomTransactionBroadcaster(sl.get<BaseEnv>().networkInfo),
+    ],
+    infoStorage: MobileKeyInfoStorage(
+      serializers: [AlanCredentialsSerializer()],
+    ),
+  ));
+
+
+
+
+
+  sl.registerLazySingleton<WalletsStore>(() => WalletsStoreImp(sl(), sl(), sl()));
 }

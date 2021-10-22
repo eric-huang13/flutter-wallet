@@ -32,6 +32,7 @@ class HandlerFactory {
   static const String ERR_ITEM_DOES_NOT_EXIST = 'itemDoesNotExist';
   static const String ERR_ITEM_NOT_OWNED = 'itemNotOwned';
   static const String ERR_MISSING_ITEM_INPUTS = 'missingItemInputs';
+  static const String ERR_SOMETHING_WENT_WRONG = 'somethingWentWrong';
 
   BaseHandler getHandler(List<String> message) {
     final key = message[1];

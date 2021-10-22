@@ -32,10 +32,6 @@ abstract class WalletsStore {
   /// [userName] The name that the user entered
   Future<void> broadcastWalletCreationMessageOnBlockchain(AlanPrivateWalletCredentials creds, String creatorAddress, String userName);
 
-  /// This method creates the custom signing Gateway for the user
-  /// Output : [TransactionSigningGateway] custom signing Gateway with custom logic
-  TransactionSigningGateway createCustomSigningGateway();
-
   /// This method sends the money from one address to another
   /// Input : [WalletPublicInfo] contains the info regarding the current network
   /// [balance] the amount that we want to send
@@ -48,8 +44,18 @@ abstract class WalletsStore {
 
   /// This method creates the cookbook
   /// Input : [Map] containing the info related to the creation of cookbook
-  /// Output : [TransactionHash] hash of the transaction
-  Future<TransactionHash> createCookBook(Map json);
+  /// Output : [String] response
+  Future<String> createCookBook(Map json);
+
+
+
+
+  /// This method creates the recipe in the block chain
+  /// Input : [Map] containing the info related to the creation of recipe
+  /// Output : [String] response
+  Future<String> createRecipe(Map json);
+
+
 
 
 

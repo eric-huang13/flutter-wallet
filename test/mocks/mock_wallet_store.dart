@@ -22,11 +22,6 @@ class MockWalletStore implements WalletsStore{
     return MOCK_TRANSACTION;
   }
 
-  @override
-  TransactionSigningGateway createCustomSigningGateway() {
-    // TODO: implement createCustomSigningGateway
-    throw UnimplementedError();
-  }
 
   @override
   Observable<bool> getAreWalletsLoading() {
@@ -62,6 +57,12 @@ class MockWalletStore implements WalletsStore{
   Future<void> sendCosmosMoney(WalletPublicInfo info, Balance balance, String toAddress
       ) {
     // TODO: implement sendCosmosMoney
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<TransactionHash> createRecipe(Map<dynamic, dynamic> json) {
+    // TODO: implement createRecipe
     throw UnimplementedError();
   }
 

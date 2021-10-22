@@ -21,7 +21,6 @@ Future<void> main() async {
   await EasyLocalization.ensureInitialized();
   // Read the values from .env file
   await dotenv.load();
-  _buildDependencies();
   await di.init();
 
   runApp(
@@ -29,9 +28,7 @@ Future<void> main() async {
   );
 }
 
-void _buildDependencies() {
 
-}
 
 class MyHttpOverrides extends HttpOverrides {
   @override

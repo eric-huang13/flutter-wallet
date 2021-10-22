@@ -1,14 +1,14 @@
-
-
 import 'package:alan/alan.dart' as alan;
 import 'package:cosmos_utils/extensions.dart';
 import 'package:cosmos_utils/future_either.dart';
 import 'package:mobx/mobx.dart';
 import 'package:pylons_wallet/entities/balance.dart';
+import 'package:pylons_wallet/ipc/handler/handler_factory.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart' as pylons;
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/base_env.dart';
 import 'package:pylons_wallet/utils/custom_transaction_signer/custom_transaction_signer.dart';
+import 'package:pylons_wallet/utils/custom_transaction_signing_gateaway/custom_transaction_signing_gateway.dart';
 import 'package:pylons_wallet/utils/token_sender.dart';
 import 'package:transaction_signing_gateway/alan/alan_transaction_broadcaster.dart';
 import 'package:transaction_signing_gateway/gateway/transaction_signing_gateway.dart';
@@ -21,11 +21,10 @@ import 'package:transaction_signing_gateway/transaction_signing_gateway.dart';
 
 class WalletsStoreImp implements WalletsStore {
   final TransactionSigningGateway _transactionSigningGateway;
+  final CustomTransactionSigningGateway _customTransactionSigningGateway;
   final BaseEnv baseEnv;
 
-  WalletsStoreImp(this._transactionSigningGateway, this.baseEnv);
-
-
+  WalletsStoreImp(this._transactionSigningGateway, this.baseEnv, this._customTransactionSigningGateway);
 
   final Observable<bool> isSendMoneyLoading = Observable(false);
   final Observable<bool> isSendMoneyError = Observable(false);
@@ -38,9 +37,7 @@ class WalletsStoreImp implements WalletsStore {
 
   Observable<List<WalletPublicInfo>> wallets = Observable([]);
 
-
   final Observable<bool> areWalletsLoadingObservable = Observable(false);
-
 
   /// This method loads the user stored wallets.
   @override
@@ -53,9 +50,6 @@ class WalletsStoreImp implements WalletsStore {
     );
     areWalletsLoadingObservable.value = false;
   }
-
-
-
 
   /// This method creates uer wallet and broadcast it in the blockchain
   /// Input: [mnemonic] mnemonic for creating user account, [userName] is the user entered nick name
@@ -76,17 +70,12 @@ class WalletsStoreImp implements WalletsStore {
       mnemonic: mnemonic,
     );
 
-
     wallets.value.add(creds.publicInfo);
 
     await broadcastWalletCreationMessageOnBlockchain(creds, wallet.bech32Address, userName);
 
-
-
     return creds.publicInfo;
   }
-
-
 
   /// This method broadcast the wallet creation message on the blockchain
   /// Input: [AlanPrivateWalletCredentials] credential of the newly created wallet
@@ -101,55 +90,22 @@ class WalletsStoreImp implements WalletsStore {
 
     final info = wallets.value.last;
 
-
     final msgObj = pylons.MsgCreateAccount.create()..mergeFromProto3Json({'creator': creatorAddress, 'username': userName});
 
-    final walletLookupKey = WalletLookupKey(
-      walletId: info.walletId,
-      chainId: info.chainId,
-      password: '',
-    );
+    WalletLookupKey walletLookupKey = createWalletLookUp(info);
 
     final unsignedTransaction = UnsignedAlanTransaction(messages: [msgObj]);
 
-
-
-    final customSigningGateway = createCustomSigningGateway();
-
-
-
-    final result = await customSigningGateway.signTransaction(transaction: unsignedTransaction, walletLookupKey: walletLookupKey).mapError<dynamic>((error) {
-
+    final result = await _customTransactionSigningGateway.signTransaction(transaction: unsignedTransaction, walletLookupKey: walletLookupKey).mapError<dynamic>((error) {
       throw error;
     }).flatMap(
-          (signed) => customSigningGateway.broadcastTransaction(
+      (signed) => _customTransactionSigningGateway.broadcastTransaction(
         walletLookupKey: walletLookupKey,
         transaction: signed,
       ),
     );
     print(result);
   }
-
-  /// This method creates the custom signing Gateway for the user
-  /// Output : [TransactionSigningGateway] custom signing Gateway with custom logic
-  @override
-  TransactionSigningGateway createCustomSigningGateway() {
-    return  TransactionSigningGateway(
-      transactionSummaryUI: NoOpTransactionSummaryUI(),
-      signers: [
-        CustomTransactionSigner(baseEnv.networkInfo),
-      ],
-      broadcasters: [
-        AlanTransactionBroadcaster(baseEnv.networkInfo),
-      ],
-      infoStorage: MobileKeyInfoStorage(
-        serializers: [AlanCredentialsSerializer()],
-      ),
-    );
-  }
-
-
-
 
   /// This method sends the money from one address to another
   /// Input : [WalletPublicInfo] contains the info regarding the current network
@@ -179,18 +135,28 @@ class WalletsStoreImp implements WalletsStore {
   /// Input : [Map] containing the info related to the creation of cookbook
   /// Output : [TransactionHash] hash of the transaction
   @override
-  Future<TransactionHash> createCookBook(Map json) async {
+  Future<String> createCookBook(Map json) async {
     final msgObj = pylons.MsgCreateCookbook.create()..mergeFromProto3Json(json);
 
     final unsignedTransaction = UnsignedAlanTransaction(messages: [msgObj]);
 
-    final info = wallets.value.last;
 
-    final walletLookupKey = WalletLookupKey(
-      walletId: info.walletId,
-      chainId: info.chainId,
-      password: '',
-    );
+    final walletsResultEither = await _transactionSigningGateway.getWalletsList();
+
+    if (walletsResultEither.isLeft()) {
+      return HandlerFactory.ERR_SOMETHING_WENT_WRONG;
+    }
+
+    final accountsList = walletsResultEither.getOrElse(() => []);
+    if (accountsList.isEmpty) {
+      return HandlerFactory.ERR_PROFILE_DOES_NOT_EXIST;
+    }
+
+    final info = accountsList.last;
+
+
+
+    final walletLookupKey = createWalletLookUp(info);
 
     msgObj.creator = info.publicAddress;
 
@@ -204,7 +170,7 @@ class WalletsStoreImp implements WalletsStore {
       ),
     );
 
-    return result.getOrElse(() => TransactionHash(txHash: ''));
+    return result.getOrElse(() => TransactionHash(txHash: '')).txHash;
   }
 
   @override
@@ -220,5 +186,55 @@ class WalletsStoreImp implements WalletsStore {
   @override
   Observable<CredentialsStorageFailure?> getLoadWalletsFailure() {
     return loadWalletsFailureObservable;
+  }
+
+  @override
+  Future<String> createRecipe(Map<dynamic, dynamic> json) async {
+    final msgObj = pylons.MsgCreateRecipe.create()..mergeFromProto3Json(json);
+
+    final unsignedTransaction = UnsignedAlanTransaction(messages: [msgObj]);
+
+    final walletsResultEither = await _transactionSigningGateway.getWalletsList();
+
+    if (walletsResultEither.isLeft()) {
+      return HandlerFactory.ERR_SOMETHING_WENT_WRONG;
+    }
+
+    walletsResultEither.fold(
+      (fail) => loadWalletsFailureObservable.value = fail,
+      (newWallets) => wallets.value = newWallets,
+    );
+
+    final accountsList = walletsResultEither.getOrElse(() => []);
+    if (accountsList.isEmpty) {
+      return HandlerFactory.ERR_PROFILE_DOES_NOT_EXIST;
+    }
+
+    final info = accountsList.last;
+
+    final walletLookupKey = createWalletLookUp(info);
+
+    msgObj.creator = info.publicAddress;
+
+    final result = await _transactionSigningGateway.signTransaction(transaction: unsignedTransaction, walletLookupKey: walletLookupKey).mapError<dynamic>((error) {
+      print(error);
+      throw error;
+    }).flatMap(
+      (signed) => _transactionSigningGateway.broadcastTransaction(
+        walletLookupKey: walletLookupKey,
+        transaction: signed,
+      ),
+    );
+
+    return result.getOrElse(() => TransactionHash(txHash: '')).txHash;
+  }
+
+  WalletLookupKey createWalletLookUp(WalletPublicInfo info) {
+    final walletLookupKey = WalletLookupKey(
+      walletId: info.walletId,
+      chainId: info.chainId,
+      password: '',
+    );
+    return walletLookupKey;
   }
 }
