@@ -65,4 +65,16 @@ class MockWalletStore implements WalletsStore{
     throw UnimplementedError();
   }
 
+  @override
+  Future<TransactionHash> createRecipe(Map<dynamic, dynamic> json) {
+    // TODO: implement createRecipe
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<TransactionHash> executeRecipe(Map<dynamic, dynamic> json) {
+    // TODO: implement executeRecipe
+    throw UnimplementedError();
+  }
+
 }

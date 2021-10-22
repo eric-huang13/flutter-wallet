@@ -8,13 +8,6 @@ import 'package:transaction_signing_gateway/transaction_signing_gateway.dart';
 
 abstract class WalletsStore {
 
-
-
-
-
-
-
-
   /// This method loads the user stored wallets.
   Future<void> loadWallets();
 
@@ -51,6 +44,14 @@ abstract class WalletsStore {
   /// Output : [TransactionHash] hash of the transaction
   Future<TransactionHash> createCookBook(Map json);
 
+  /// This method creates the recipe
+  /// Input : [Map] containing the info related to the creation of recipe
+  /// Output : [TransactionHash] hash of the transaction
+  Future<TransactionHash> createRecipe(Map json);
+
+
+  Future<TransactionHash> executeRecipe(Map json);
+
 
 
 
@@ -59,5 +60,7 @@ abstract class WalletsStore {
 
   Observable<bool> getAreWalletsLoading();
   Observable<CredentialsStorageFailure?> getLoadWalletsFailure();
+
+
 
 }

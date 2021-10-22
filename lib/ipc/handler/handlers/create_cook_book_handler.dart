@@ -31,6 +31,7 @@ class CreateCookBookHandler implements BaseHandler {
 
 
       response = (await walletsStore.createCookBook(jsonMap)).txHash;
+      print(response);
     } catch (e, stacktrace) {
       log('$e', name: 'Create Cook book Handler', stackTrace: stacktrace);
     }

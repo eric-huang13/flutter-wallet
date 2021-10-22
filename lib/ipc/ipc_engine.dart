@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/ipc/handler/handler_factory.dart';
 import 'package:pylons_wallet/pylons_app.dart';
+import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -34,7 +35,11 @@ class IPCEngine {
         return;
       }
 
-      handleLink(link);
+      if(_isEaselUniLink(link)) {
+        _handleEaselLink(link);
+      }else {
+        handleLink(link);
+      }
 
       // Link contains the data that the wallet need
     }, onError: (err) {});
@@ -53,6 +58,7 @@ class IPCEngine {
     }
     handleLink(initialLink);
   }
+
 
   /// This method encodes the message that we need to send to wallet
   /// Input]  [msg] is the string received from the wallet
@@ -83,6 +89,7 @@ class IPCEngine {
       return [];
     }
 
+
     print(getMessage);
 
     systemHandlingASignal = true;
@@ -94,6 +101,78 @@ class IPCEngine {
     );
     systemHandlingASignal = false;
     return getMessage;
+  }
+
+  Future<void> _handleEaselLink(String link) async{
+    final queryParameters = Uri.parse(link).queryParameters;
+    final amount = queryParameters['nft_amount']!;
+    final recipeId = queryParameters['recipe_id'];
+    debugPrint("amount: $amount, recipe_id: $recipeId");
+
+    final walletsStore = GetIt.I.get<WalletsStore>();
+
+    // var jsonString ='''{
+    //     "cookbookID": "cookbookLOUD",
+    //     "ID": "LOUDEasel",
+    //     "name": "Easel Recipe",
+    //     "description": "Tests recipe",
+    //     "version": "v0.0.1",
+    //     "coinInputs": [
+    //     {
+    //     "coins": [
+    //       {
+    //         "denom": "upylon",
+    //         "amount": "10000"
+    //       }
+    //     ]
+    //   }
+    //     ],
+    //     "itemInputs": [],
+    //     "entries": {
+    //       "coinOutputs": [],
+    //       "itemOutputs": [
+    //         {
+    //           "ID": "item output",
+    //           "strings": [
+    //             {
+    //               "key": "NFT_URL",
+    //               "value": "https://image_here"
+    //             }
+    //           ],
+    //           "mutableStrings": [],
+    //           "transferFee": [],
+    //           "tradePercentage": "0.2",
+    //           "tradeable": true
+    //         }
+    //       ],
+    //       "itemModifyOutputs": []
+    //     },
+    //     "outputs": [
+    //       {
+    //         "entryIDs": [
+    //           "basic_character_lv1"
+    //         ],
+    //         "weight": 1
+    //       }
+    //     ],
+    //     "enabled": true,
+    //     "extraInfo": "extraInfo"
+    //   }''';
+
+    var jsonExecuteRecipe = '''{
+        "creator": "",
+        "cookbookID": "cookbookLOUD",
+        "recipeID": "LOUDEasel",
+        "coinInputsIndex": 0,
+        "itemIDs": ["item output"]
+        }''';
+
+    final jsonMap = jsonDecode(jsonExecuteRecipe) as Map;
+    var response = (await walletsStore.executeRecipe(jsonMap)).txHash;
+
+    print(response);
+
+
   }
 
   /// This method sends the unilink to the wallet app
@@ -141,5 +220,10 @@ class IPCEngine {
   Future<void> disconnectThisSignal({required String sender, required String key}) async {
     final encodedMessage = encodeMessage([key, 'Wallet Busy: A transaction is already is already in progress']);
     await dispatchUniLink('pylons://$sender/$encodedMessage');
+  }
+
+  bool _isEaselUniLink(String link){
+    final queryParam = Uri.parse(link).queryParameters;
+    return queryParam.containsKey("action") && queryParam.containsKey("recipe_id") && queryParam.containsKey("nft_amount");
   }
 }

@@ -25,7 +25,6 @@ class CreateRecipeHandler implements BaseHandler {
 
       jsonMap.remove('nodeVersion');
 
-
       var walletsStore = GetIt.I.get<WalletsStore>();
 
       response = (await walletsStore.createCookBook(jsonMap)).txHash;

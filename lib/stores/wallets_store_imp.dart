@@ -3,9 +3,11 @@
 import 'package:alan/alan.dart' as alan;
 import 'package:cosmos_utils/extensions.dart';
 import 'package:cosmos_utils/future_either.dart';
+import 'package:grpc/grpc.dart';
 import 'package:mobx/mobx.dart';
 import 'package:pylons_wallet/entities/balance.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart' as pylons;
+import 'package:pylons_wallet/pylons_app.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/base_env.dart';
 import 'package:pylons_wallet/utils/custom_transaction_signer/custom_transaction_signer.dart';
@@ -80,8 +82,6 @@ class WalletsStoreImp implements WalletsStore {
     wallets.value.add(creds.publicInfo);
 
     await broadcastWalletCreationMessageOnBlockchain(creds, wallet.bech32Address, userName);
-
-
 
     return creds.publicInfo;
   }
@@ -204,7 +204,49 @@ class WalletsStoreImp implements WalletsStore {
       ),
     );
 
+    print(result.getOrElse(() => TransactionHash(txHash: '')).txHash);
+
+    ClientChannel channel = baseEnv.networkInfo.gRPCChannel;
+    var response = await pylons.MsgClient(channel).createCookbook(msgObj);
+    print(response.toProto3Json());
+
     return result.getOrElse(() => TransactionHash(txHash: ''));
+  }
+
+  @override
+  Future<TransactionHash> createRecipe(Map json) async {
+    final msgObj = pylons.MsgCreateRecipe.create()..mergeFromProto3Json(json);
+
+    final unsignedTransaction = UnsignedAlanTransaction(messages: [msgObj]);
+
+    final info = wallets.value.last;
+
+    final walletLookupKey = WalletLookupKey(
+      walletId: info.walletId,
+      chainId: info.chainId,
+      password: '',
+    );
+
+    msgObj.creator = info.publicAddress;
+
+    final result = await _transactionSigningGateway.signTransaction(transaction: unsignedTransaction, walletLookupKey: walletLookupKey).mapError<dynamic>((error) {
+      print(error);
+      throw error;
+    }).flatMap(
+          (signed) => _transactionSigningGateway.broadcastTransaction(
+        walletLookupKey: walletLookupKey,
+        transaction: signed,
+      ),
+    );
+    print(result.getOrElse(() => TransactionHash(txHash: '')).txHash);
+
+
+    ClientChannel channel = baseEnv.networkInfo.gRPCChannel;
+    var response = await pylons.MsgClient(channel).createRecipe(msgObj);
+    print(response.toProto3Json());
+
+    return result.getOrElse(() => TransactionHash(txHash: ''));
+
   }
 
   @override
@@ -220,5 +262,40 @@ class WalletsStoreImp implements WalletsStore {
   @override
   Observable<CredentialsStorageFailure?> getLoadWalletsFailure() {
     return loadWalletsFailureObservable;
+  }
+
+  @override
+  Future<TransactionHash> executeRecipe(Map json) async {
+    final msgObj = pylons.MsgExecuteRecipe.create()..mergeFromProto3Json(json);
+
+    final unsignedTransaction = UnsignedAlanTransaction(messages: [msgObj]);
+
+    final info = wallets.value.last;
+
+    final walletLookupKey = WalletLookupKey(
+      walletId: info.walletId,
+      chainId: info.chainId,
+      password: '',
+    );
+
+    msgObj.creator = info.publicAddress;
+
+    final result = await _transactionSigningGateway.signTransaction(transaction: unsignedTransaction, walletLookupKey: walletLookupKey).mapError<dynamic>((error) {
+      print(error);
+      throw error;
+    }).flatMap(
+          (signed) => _transactionSigningGateway.broadcastTransaction(
+        walletLookupKey: walletLookupKey,
+        transaction: signed,
+      ),
+    );
+    print(result.getOrElse(() => TransactionHash(txHash: '')).txHash);
+
+    ClientChannel channel = baseEnv.networkInfo.gRPCChannel;
+    var response = await pylons.MsgClient(channel).executeRecipe(msgObj);
+    print(response.toProto3Json());
+
+    return result.getOrElse(() => TransactionHash(txHash: ''));
+
   }
 }
