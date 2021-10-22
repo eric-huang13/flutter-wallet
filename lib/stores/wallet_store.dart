@@ -1,5 +1,9 @@
+
+import 'package:fixnum/fixnum.dart';
 import 'package:mobx/mobx.dart';
 import 'package:pylons_wallet/entities/balance.dart';
+import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart';
+import 'package:pylons_wallet/modules/cosmos.authz.v1beta1/module/export.dart';
 import 'package:transaction_signing_gateway/gateway/transaction_signing_gateway.dart';
 import 'package:transaction_signing_gateway/model/credentials_storage_failure.dart';
 import 'package:transaction_signing_gateway/model/transaction_hash.dart';
@@ -7,13 +11,6 @@ import 'package:transaction_signing_gateway/model/wallet_public_info.dart';
 import 'package:transaction_signing_gateway/transaction_signing_gateway.dart';
 
 abstract class WalletsStore {
-
-
-
-
-
-
-
 
   /// This method loads the user stored wallets.
   Future<void> loadWallets();
@@ -51,7 +48,73 @@ abstract class WalletsStore {
   /// Output : [TransactionHash] hash of the transaction
   Future<TransactionHash> createCookBook(Map json);
 
+  /// This method is for create recipe
+  /// MsgCreateRecipe proto
+  /// request fields: { String creator, String cookbookID, String ID, String name, String description, String version, List<CoinInput> coinInputs, List<ItemInput> itemInput, List<EntriesList> entries, List<WeightedOutputs> outputs, Int64 blockInterval}
+  /// Input : [Map] containing the info related to the creation of recipe
+  /// Output : [TransactionHash] hash of the transaction
+  Future<TransactionHash> createRecipe(Map json);
 
+  /// This method is for execute recipe
+  /// MsgExecuteRecipe proto
+  /// request fields: {String creator, String cookbookID, String recipeID, List<String> itemIDs}
+  /// Input : [Map] containing the info related to the execution of recipe
+  /// Output : [TransactionHash] hash of the transaction
+  Future<TransactionHash> executeRecipe(Map json);
+
+  /// This method is for create Trade
+  /// MsgCreateTrade proto
+  /// request fields: {String creator, list<CoinInput> coinInputs, List<ItemInputs> itemInputs, List<Coin> coinOutputs, List<ItemRef> itemOutputs, String extraInfo}
+  /// Input : [Map] containing the info related to the creation of Trade
+  /// Output : [TransactionHash] hash of the transaction
+  Future<TransactionHash> createTrade(Map json);
+
+  /// This method is for fulfillTrade
+  /// MsgFulfillTrade proto
+  /// request fields: {String creator, Int64 ID, List<ItemRef> items, Int64 coinInputIndex ???}
+  /// Input : [Map] containing the info related to the fulfillTrade
+  /// Output : [TransactionHash] hash of the transaction
+  Future<TransactionHash> fulfillTrade(Map json);
+
+  /// This method is for get Transaction info
+  /// Input : [txHash] txHash
+  /// Output : [TxResponse] Tx response
+  Future<TxResponse> getTxs(String txHash);
+
+  /// This method is for get Cookbook info by cookbookID
+  /// Input : [cookbookID] cookbookID
+  /// Output : [Cookbook?] return Cookbook for cookbookID, return null if not exists
+  Future<Cookbook?> getCookbookById(String cookbookID);
+
+  /// This method is for get list of cookbooks
+  /// Input : [creator] creator ID
+  /// Output : [List<Cookbook>] return list of Cookbooks created by creatorID
+  Future<List<Cookbook>> getCookbooksByCreator(String creator);
+
+  /// This method is for get Trade Info
+  /// Input : [ID] tradeID
+  /// Output : [Trade?] return Trade Info of the tradeID, reutrn null if not exists
+  Future<Trade?> getTradeByID(Int64 ID);
+
+  /// This method is for get Recipe Info
+  /// Input : [cookbookID, recipeID]
+  /// Output : [Recipe] return Recipe of cookbookID, recipeID, return null if not exists
+  Future<Recipe?> getRecipe(String cookbookID, String recipeID);
+
+  /// This method is for get List of Recipe of cookbookID
+  /// Input : [cookbookID]
+  /// Output : [List<Recipe>] return List of Recipes of cookbookID
+  Future<List<Recipe>> getRecipesByCookbookID(String cookbookID);
+
+  /// This method is for get Item info of cookbookID, itemID
+  /// Input : [cookbookID, itemID]
+  /// Output : [Item?] return Item info, return null if not exists
+  Future<Item?> getItem(String cookbookID, String itemID);
+
+  /// This method is for get list of Items info by owner
+  /// Input : [owner] owner iD
+  /// Output : [Item?] return list of Items owned by owner
+  Future<List<Item>> getItemsByOwner(String owner);
 
 
   Observable<List<WalletPublicInfo>> getWallets();

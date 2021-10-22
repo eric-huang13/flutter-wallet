@@ -1,12 +1,15 @@
-import 'package:alan/alan.dart';
+import 'package:fixnum/fixnum.dart';
 import 'package:mobx/src/core.dart';
 import 'package:pylons_wallet/entities/balance.dart';
+import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart';
+import 'package:pylons_wallet/modules/cosmos.authz.v1beta1/module/client/cosmos/base/abci/v1beta1/abci.pb.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:transaction_signing_gateway/alan/alan_private_wallet_credentials.dart';
 import 'package:transaction_signing_gateway/gateway/transaction_signing_gateway.dart';
 import 'package:transaction_signing_gateway/model/credentials_storage_failure.dart';
 import 'package:transaction_signing_gateway/model/transaction_hash.dart';
 import 'package:transaction_signing_gateway/model/wallet_public_info.dart';
+import 'package:pylons_wallet/modules/cosmos.authz.v1beta1/module/export.dart';
 
 import 'mock_constants.dart';
 
@@ -64,5 +67,78 @@ class MockWalletStore implements WalletsStore{
     // TODO: implement sendCosmosMoney
     throw UnimplementedError();
   }
+
+  @override
+  Future<TransactionHash> createRecipe(Map json) {
+    // TODO: implement createRecipe
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<TransactionHash> createTrade(Map json) {
+    // TODO: implement createTrade
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<TransactionHash> executeRecipe(Map json) {
+    // TODO: implement executeRecipe
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<TransactionHash> fulfillTrade(Map json) {
+    // TODO: implement fulfillTrade
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Cookbook> getCookbookById(String cookbookID) {
+    // TODO: implement getCookbookById
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<Cookbook>> getCookbooksByCreator(String creator) {
+    // TODO: implement getCookbooksByCreator
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Item> getItem(String cookbookID, String itemID) {
+    // TODO: implement getItem
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<Item>> getItemsByOwner(String owner) {
+    // TODO: implement getItemsByOwner
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Recipe> getRecipe(String cookbookID, String recipeID) {
+    // TODO: implement getRecipe
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<Recipe>> getRecipesByCookbookID(String cookbookID) {
+    // TODO: implement getRecipesByCookbookID
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Trade?> getTradeByID(Int64 ID) {
+    // TODO: implement getTradeByID
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<TxResponse> getTxs(String txHash) {
+    // TODO: implement getTxs
+    throw UnimplementedError();
+  }
+
 
 }

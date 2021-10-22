@@ -67,6 +67,7 @@ dependencies:
   cupertino_icons: ^1.0.3
   decimal: 1.3.0
   uuid: 3.0.4
+  fixnum: ^1.0.0
 
 dev_dependencies:
   flutter_test:

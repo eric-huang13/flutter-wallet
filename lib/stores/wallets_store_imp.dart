@@ -1,11 +1,12 @@
-
-
+import 'package:fixnum/fixnum.dart';
 import 'package:alan/alan.dart' as alan;
 import 'package:cosmos_utils/extensions.dart';
 import 'package:cosmos_utils/future_either.dart';
 import 'package:mobx/mobx.dart';
+import 'package:protobuf/protobuf.dart';
 import 'package:pylons_wallet/entities/balance.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart' as pylons;
+import 'package:pylons_wallet/modules/cosmos.authz.v1beta1/module/client/cosmos/base/abci/v1beta1/abci.pb.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/base_env.dart';
 import 'package:pylons_wallet/utils/custom_transaction_signer/custom_transaction_signer.dart';
@@ -18,6 +19,7 @@ import 'package:transaction_signing_gateway/model/transaction_hash.dart';
 import 'package:transaction_signing_gateway/model/wallet_lookup_key.dart';
 import 'package:transaction_signing_gateway/model/wallet_public_info.dart';
 import 'package:transaction_signing_gateway/transaction_signing_gateway.dart';
+import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart';
 
 class WalletsStoreImp implements WalletsStore {
   final TransactionSigningGateway _transactionSigningGateway;
@@ -25,7 +27,7 @@ class WalletsStoreImp implements WalletsStore {
 
   WalletsStoreImp(this._transactionSigningGateway, this.baseEnv);
 
-
+  late pylons.QueryClient _queryClient;
 
   final Observable<bool> isSendMoneyLoading = Observable(false);
   final Observable<bool> isSendMoneyError = Observable(false);
@@ -52,6 +54,7 @@ class WalletsStoreImp implements WalletsStore {
       (newWallets) => wallets.value = newWallets,
     );
     areWalletsLoadingObservable.value = false;
+    _queryClient = pylons.QueryClient(this.baseEnv.networkInfo.gRPCChannel);
   }
 
 
@@ -130,6 +133,13 @@ class WalletsStoreImp implements WalletsStore {
     print(result);
   }
 
+  QueryClient? getQueryClient() {
+    if (_queryClient == null){
+      _queryClient = pylons.QueryClient(baseEnv.networkInfo.gRPCChannel);
+    }
+    return _queryClient;
+  }
+
   /// This method creates the custom signing Gateway for the user
   /// Output : [TransactionSigningGateway] custom signing Gateway with custom logic
   @override
@@ -175,14 +185,8 @@ class WalletsStoreImp implements WalletsStore {
     isSendMoneyLoading.value = false;
   }
 
-  /// This method creates the cookbook
-  /// Input : [Map] containing the info related to the creation of cookbook
-  /// Output : [TransactionHash] hash of the transaction
-  @override
-  Future<TransactionHash> createCookBook(Map json) async {
-    final msgObj = pylons.MsgCreateCookbook.create()..mergeFromProto3Json(json);
-
-    final unsignedTransaction = UnsignedAlanTransaction(messages: [msgObj]);
+  Future<TransactionHash> _signAndBroadcast(GeneratedMessage message)async {
+    final unsignedTransaction = UnsignedAlanTransaction(messages: [message]);
 
     final info = wallets.value.last;
 
@@ -192,19 +196,28 @@ class WalletsStoreImp implements WalletsStore {
       password: '',
     );
 
-    msgObj.creator = info.publicAddress;
 
     final result = await _transactionSigningGateway.signTransaction(transaction: unsignedTransaction, walletLookupKey: walletLookupKey).mapError<dynamic>((error) {
       print(error);
       throw error;
     }).flatMap(
-      (signed) => _transactionSigningGateway.broadcastTransaction(
+          (signed) => _transactionSigningGateway.broadcastTransaction(
         walletLookupKey: walletLookupKey,
         transaction: signed,
       ),
     );
 
     return result.getOrElse(() => TransactionHash(txHash: ''));
+  }
+
+  /// This method creates the cookbook
+  /// Input : [Map] containing the info related to the creation of cookbook
+  /// Output : [TransactionHash] hash of the transaction
+  @override
+  Future<TransactionHash> createCookBook(Map json) async {
+    final msgObj = pylons.MsgCreateCookbook.create()..mergeFromProto3Json(json);
+    msgObj.creator = wallets.value.last.publicAddress;
+    return await _signAndBroadcast(msgObj);
   }
 
   @override
@@ -221,4 +234,106 @@ class WalletsStoreImp implements WalletsStore {
   Observable<CredentialsStorageFailure?> getLoadWalletsFailure() {
     return loadWalletsFailureObservable;
   }
+
+  @override
+  Future<TransactionHash> createRecipe(Map json) async {
+    final msgObj = pylons.MsgCreateRecipe.create()..mergeFromProto3Json(json);
+    return await _signAndBroadcast(msgObj);
+  }
+
+  @override
+  Future<TransactionHash> createTrade(Map json) async {
+    final msgObj = pylons.MsgCreateTrade.create()..mergeFromProto3Json(json);
+    return await _signAndBroadcast(msgObj);
+  }
+
+  @override
+  Future<TransactionHash> executeRecipe(Map json) async {
+    final msgObj = pylons.MsgExecuteRecipe.create()..mergeFromProto3Json(json);
+    return await _signAndBroadcast(msgObj);
+  }
+
+  @override
+  Future<TransactionHash> fulfillTrade(Map json) async {
+    final msgObj = pylons.MsgFulfillTrade.create()..mergeFromProto3Json(json);
+    return await _signAndBroadcast(msgObj);
+  }
+
+  @override
+  Future<Cookbook?> getCookbookById(String cookbookID) async {
+    final request = pylons.QueryGetCookbookRequest.create()
+      ..iD=cookbookID;
+
+    final response = await _queryClient.cookbook(request);
+    if(!response.hasCookbook()){
+      return null;
+    }
+    return response.cookbook;
+  }
+
+  @override
+  Future<List<Cookbook>> getCookbooksByCreator(String creator) async {
+    final request = pylons.QueryListCookbooksByCreatorRequest.create()
+    ..creator=creator;
+    final response = await _queryClient.listCookbooksByCreator(request);
+    return response.cookbooks;
+  }
+
+  @override
+  Future<Item?> getItem(String cookbookID, String itemID) async {
+    final request = pylons.QueryGetItemRequest.create()
+        ..cookbookID=cookbookID
+        ..iD=itemID;
+    final response = await _queryClient.item(request);
+    if(!response.hasItem()){
+      return null;
+    }
+    return response.item;
+  }
+
+  @override
+  Future<List<Item>> getItemsByOwner(String owner) async {
+    final request = pylons.QueryListItemByOwnerRequest.create()
+        ..owner=owner;
+    final response = await _queryClient.listItemByOwner(request);
+    return response.items;
+  }
+
+  @override
+  Future<Recipe?> getRecipe(String cookbookID, String recipeID) async {
+    final request = pylons.QueryGetRecipeRequest.create()
+        ..cookbookID=cookbookID
+        ..iD=recipeID;
+    final response = await _queryClient.recipe(request);
+    if(!response.hasRecipe()){
+      return null;
+    }
+    return response.recipe;
+  }
+
+  @override
+  Future<List<Recipe>> getRecipesByCookbookID(String cookbookID) async {
+    final request = pylons.QueryListRecipesByCookbookRequest.create()
+        ..cookbookID=cookbookID;
+    final response = await _queryClient.listRecipesByCookbook(request);
+    return response.recipes;
+  }
+
+  @override
+  Future<Trade?> getTradeByID(Int64 ID) async {
+    final request = pylons.QueryGetTradeRequest.create()
+        ..iD= ID;
+    final response = await _queryClient.trade(request);
+    if(!response.hasTrade()){
+      return null;
+    }
+    return response.trade;
+  }
+
+  @override
+  Future<TxResponse> getTxs(String txHash) {
+    // TODO: implement getTradesByCreator
+    throw UnimplementedError();
+  }
+
 }
