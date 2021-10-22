@@ -1,5 +1,6 @@
 import 'package:fixnum/fixnum.dart';
 import 'package:alan/alan.dart' as alan;
+import 'package:http/http.dart' as http;
 import 'package:cosmos_utils/extensions.dart';
 import 'package:cosmos_utils/future_either.dart';
 import 'package:mobx/mobx.dart';
@@ -8,6 +9,8 @@ import 'package:pylons_wallet/entities/balance.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart' as pylons;
 import 'package:pylons_wallet/modules/cosmos.authz.v1beta1/module/client/cosmos/base/abci/v1beta1/abci.pb.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
+import 'package:pylons_wallet/transactions/pylons_balance.dart';
+import 'package:pylons_wallet/utils/query_helper.dart';
 import 'package:pylons_wallet/utils/base_env.dart';
 import 'package:pylons_wallet/utils/custom_transaction_signer/custom_transaction_signer.dart';
 import 'package:pylons_wallet/utils/token_sender.dart';
@@ -28,6 +31,7 @@ class WalletsStoreImp implements WalletsStore {
   WalletsStoreImp(this._transactionSigningGateway, this.baseEnv);
 
   late pylons.QueryClient _queryClient;
+  final http.Client  _httpClient = http.Client();
 
   final Observable<bool> isSendMoneyLoading = Observable(false);
   final Observable<bool> isSendMoneyError = Observable(false);
@@ -334,6 +338,45 @@ class WalletsStoreImp implements WalletsStore {
   Future<TxResponse> getTxs(String txHash) {
     // TODO: implement getTradesByCreator
     throw UnimplementedError();
+  }
+
+  @override
+  Future<String> getAccountAddressByName(String username) async {
+    final request = pylons.QueryGetAddressByUsernameRequest.create()
+        ..username=username;
+    final response = await _queryClient.addressByUsername(request);
+    if(!response.hasAddress()){
+      return "";
+    }
+    return response.address.value;
+  }
+
+  @override
+  Future<String> getAccountNameByAddress(String address) async {
+    final request = pylons.QueryGetUsernameByAddressRequest.create()
+        ..address=address;
+    final response = await _queryClient.usernameByAddress(request);
+    if(!response.hasUsername()){
+      return "";
+    }
+
+    return response.username.value;
+  }
+
+  @override
+  Future<bool> getFaucetCoin({String? denom}) async {
+    Map data = {
+      "address": wallets.value.last.publicAddress,
+    };
+    if(denom != null){
+      data["coins"] = [denom];
+    }
+    final helper = QueryHelper( httpClient: _httpClient);
+    final result = await helper.queryPost(this.baseEnv.baseFaucetUrl, data);
+    if(!result.isSuccessful){
+      return false;
+    }
+    return true;
   }
 
 }

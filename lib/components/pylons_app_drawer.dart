@@ -1,13 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pylons_wallet/pages/dashboard/dashboard_assets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import '../pylons_app.dart';
 
-class PylonsAppDrawer extends StatelessWidget {
+class PylonsAppDrawer extends StatefulWidget {
   final String title;
 
-  const PylonsAppDrawer({
+  PylonsAppDrawer({
     Key? key,
     this.title = "",
   }) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => PylonsAppDrawerState();
+}
+
+class PylonsAppDrawerState extends State<PylonsAppDrawer> {
+  String accountName = PylonsApp.currentWallet.name;
+  String walletAddress = PylonsApp.currentWallet.publicAddress;
+  String avatarUrl = "";
+
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void copyToClipboard() {
+    Clipboard.setData(new ClipboardData(text: PylonsApp.currentWallet.publicAddress)).then((_){
+      Fluttertoast.showToast(
+          msg: "Wallet address copied to clipboard",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,12 +44,29 @@ class PylonsAppDrawer extends StatelessWidget {
       child: Drawer(
         child: ListView(
           children: [
-            const UserAccountsDrawerHeader(
-              accountName: Text('Tierre'),
-              accountEmail: Text('werwerw'),
+            UserAccountsDrawerHeader(
+              accountName: Row(
+                  children: [
+                    Text(accountName, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, fontFamily: 'Inter')),
+                    Icon(Icons.check_circle_rounded, size: 14, color: Color(0xFFFFB094)),
+                ],
+              ),
+              accountEmail: Row(
+                children: [
+                Flexible(
+                  child: Text(walletAddress),
+                ),
+                  IconButton(
+                    icon: ImageIcon(AssetImage('assets/icons/copy.png'), size: 20, color: Color(0xFF616161)),
+                    onPressed: ()=>{
+                      copyToClipboard()
+                    },
+                  )
+                ]
+              ),
               currentAccountPicture: CircleAvatar(
                 child: FlutterLogo(size: 42.0),
-              ),
+              )
             ),
             ListTile(
               title: const Text('qwerqwerqwer'),

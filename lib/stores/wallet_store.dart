@@ -116,6 +116,13 @@ abstract class WalletsStore {
   /// Output : [Item?] return list of Items owned by owner
   Future<List<Item>> getItemsByOwner(String owner);
 
+  Future<String> getAccountNameByAddress(String address);
+
+  Future<String> getAccountAddressByName(String username);
+
+
+  Future <bool> getFaucetCoin({String denom=""});
+
 
   Observable<List<WalletPublicInfo>> getWallets();
 

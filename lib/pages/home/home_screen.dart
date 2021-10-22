@@ -98,7 +98,10 @@ class _HomeScreenState extends State<HomeScreen> {
           forceElevated: true,
           collapsedHeight: kAppBarSize,
           backgroundColor: Colors.white,
-          leading: IconButton(onPressed: () {}, icon: const ImageIcon(AssetImage('assets/icons/sort.png'), size: kIconSize, color: kSelectedIcon)),
+          leading: IconButton(onPressed: () {
+            Scaffold.of(context).openDrawer();
+
+          }, icon: const ImageIcon(AssetImage('assets/icons/sort.png'), size: kIconSize, color: kSelectedIcon)),
           actions: [
             IconButton(
                 icon: const ImageIcon(

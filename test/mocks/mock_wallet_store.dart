@@ -140,5 +140,23 @@ class MockWalletStore implements WalletsStore{
     throw UnimplementedError();
   }
 
+  @override
+  Future<String> getAccountAddressByName(String username) {
+    // TODO: implement getAccountAddressByName
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<String> getAccountNameByAddress(String address) {
+    // TODO: implement getAccountNameByAddress
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> getFaucetCoin({String? denom}) {
+    // TODO: implement getFaucetCoin
+    throw UnimplementedError();
+  }
+
 
 }
