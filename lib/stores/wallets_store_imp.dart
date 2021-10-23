@@ -3,11 +3,14 @@ import 'package:alan/alan.dart' as alan;
 import 'package:http/http.dart' as http;
 import 'package:cosmos_utils/extensions.dart';
 import 'package:cosmos_utils/future_either.dart';
+import 'package:grpc/grpc.dart';
 import 'package:mobx/mobx.dart';
 import 'package:protobuf/protobuf.dart';
 import 'package:pylons_wallet/entities/balance.dart';
-import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart' as pylons;
+import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart'
+    as pylons;
 import 'package:pylons_wallet/modules/cosmos.authz.v1beta1/module/client/cosmos/base/abci/v1beta1/abci.pb.dart';
+import 'package:pylons_wallet/pylons_app.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/transactions/pylons_balance.dart';
 import 'package:pylons_wallet/utils/query_helper.dart';
@@ -31,7 +34,7 @@ class WalletsStoreImp implements WalletsStore {
   WalletsStoreImp(this._transactionSigningGateway, this.baseEnv);
 
   late pylons.QueryClient _queryClient;
-  final http.Client  _httpClient = http.Client();
+  final http.Client _httpClient = http.Client();
 
   final Observable<bool> isSendMoneyLoading = Observable(false);
   final Observable<bool> isSendMoneyError = Observable(false);
@@ -40,19 +43,19 @@ class WalletsStoreImp implements WalletsStore {
 
   final Observable<List<Balance>> balancesList = Observable([]);
 
-  final Observable<CredentialsStorageFailure?> loadWalletsFailureObservable = Observable(null);
+  final Observable<CredentialsStorageFailure?> loadWalletsFailureObservable =
+      Observable(null);
 
   Observable<List<WalletPublicInfo>> wallets = Observable([]);
 
-
   final Observable<bool> areWalletsLoadingObservable = Observable(false);
-
 
   /// This method loads the user stored wallets.
   @override
   Future<void> loadWallets() async {
     areWalletsLoadingObservable.value = true;
-    final walletsResultEither = await _transactionSigningGateway.getWalletsList();
+    final walletsResultEither =
+        await _transactionSigningGateway.getWalletsList();
     walletsResultEither.fold(
       (fail) => loadWalletsFailureObservable.value = fail,
       (newWallets) => wallets.value = newWallets,
@@ -60,9 +63,6 @@ class WalletsStoreImp implements WalletsStore {
     areWalletsLoadingObservable.value = false;
     _queryClient = pylons.QueryClient(this.baseEnv.networkInfo.gRPCChannel);
   }
-
-
-
 
   /// This method creates uer wallet and broadcast it in the blockchain
   /// Input: [mnemonic] mnemonic for creating user account, [userName] is the user entered nick name
@@ -83,24 +83,23 @@ class WalletsStoreImp implements WalletsStore {
       mnemonic: mnemonic,
     );
 
-
     wallets.value.add(creds.publicInfo);
 
-    await broadcastWalletCreationMessageOnBlockchain(creds, wallet.bech32Address, userName);
-
-
+    await broadcastWalletCreationMessageOnBlockchain(
+        creds, wallet.bech32Address, userName);
 
     return creds.publicInfo;
   }
-
-
 
   /// This method broadcast the wallet creation message on the blockchain
   /// Input: [AlanPrivateWalletCredentials] credential of the newly created wallet
   /// [creatorAddress] The address of the new wallet
   /// [userName] The name that the user entered
   @override
-  Future<void> broadcastWalletCreationMessageOnBlockchain(AlanPrivateWalletCredentials creds, String creatorAddress, String userName) async {
+  Future<void> broadcastWalletCreationMessageOnBlockchain(
+      AlanPrivateWalletCredentials creds,
+      String creatorAddress,
+      String userName) async {
     await _transactionSigningGateway.storeWalletCredentials(
       credentials: creds,
       password: '',
@@ -108,8 +107,8 @@ class WalletsStoreImp implements WalletsStore {
 
     final info = wallets.value.last;
 
-
-    final msgObj = pylons.MsgCreateAccount.create()..mergeFromProto3Json({'creator': creatorAddress, 'username': userName});
+    final msgObj = pylons.MsgCreateAccount.create()
+      ..mergeFromProto3Json({'creator': creatorAddress, 'username': userName});
 
     final walletLookupKey = WalletLookupKey(
       walletId: info.walletId,
@@ -119,17 +118,15 @@ class WalletsStoreImp implements WalletsStore {
 
     final unsignedTransaction = UnsignedAlanTransaction(messages: [msgObj]);
 
-
-
     final customSigningGateway = createCustomSigningGateway();
 
-
-
-    final result = await customSigningGateway.signTransaction(transaction: unsignedTransaction, walletLookupKey: walletLookupKey).mapError<dynamic>((error) {
-
+    final result = await customSigningGateway
+        .signTransaction(
+            transaction: unsignedTransaction, walletLookupKey: walletLookupKey)
+        .mapError<dynamic>((error) {
       throw error;
     }).flatMap(
-          (signed) => customSigningGateway.broadcastTransaction(
+      (signed) => customSigningGateway.broadcastTransaction(
         walletLookupKey: walletLookupKey,
         transaction: signed,
       ),
@@ -138,7 +135,7 @@ class WalletsStoreImp implements WalletsStore {
   }
 
   QueryClient? getQueryClient() {
-    if (_queryClient == null){
+    if (_queryClient == null) {
       _queryClient = pylons.QueryClient(baseEnv.networkInfo.gRPCChannel);
     }
     return _queryClient;
@@ -148,7 +145,7 @@ class WalletsStoreImp implements WalletsStore {
   /// Output : [TransactionSigningGateway] custom signing Gateway with custom logic
   @override
   TransactionSigningGateway createCustomSigningGateway() {
-    return  TransactionSigningGateway(
+    return TransactionSigningGateway(
       transactionSummaryUI: NoOpTransactionSummaryUI(),
       signers: [
         CustomTransactionSigner(baseEnv.networkInfo),
@@ -161,9 +158,6 @@ class WalletsStoreImp implements WalletsStore {
       ),
     );
   }
-
-
-
 
   /// This method sends the money from one address to another
   /// Input : [WalletPublicInfo] contains the info regarding the current network
@@ -189,7 +183,7 @@ class WalletsStoreImp implements WalletsStore {
     isSendMoneyLoading.value = false;
   }
 
-  Future<TransactionHash> _signAndBroadcast(GeneratedMessage message)async {
+  Future<TransactionHash> _signAndBroadcast(GeneratedMessage message) async {
     final unsignedTransaction = UnsignedAlanTransaction(messages: [message]);
 
     final info = wallets.value.last;
@@ -200,16 +194,24 @@ class WalletsStoreImp implements WalletsStore {
       password: '',
     );
 
-
-    final result = await _transactionSigningGateway.signTransaction(transaction: unsignedTransaction, walletLookupKey: walletLookupKey).mapError<dynamic>((error) {
+    final result = await _transactionSigningGateway
+        .signTransaction(
+            transaction: unsignedTransaction, walletLookupKey: walletLookupKey)
+        .mapError<dynamic>((error) {
       print(error);
       throw error;
     }).flatMap(
-          (signed) => _transactionSigningGateway.broadcastTransaction(
+      (signed) => _transactionSigningGateway.broadcastTransaction(
         walletLookupKey: walletLookupKey,
         transaction: signed,
       ),
     );
+
+    print(result.getOrElse(() => TransactionHash(txHash: '')).txHash);
+
+    ClientChannel channel = baseEnv.networkInfo.gRPCChannel;
+    var response = await pylons.MsgClient(channel).createCookbook(msgObj);
+    print(response.toProto3Json());
 
     return result.getOrElse(() => TransactionHash(txHash: ''));
   }
@@ -222,6 +224,43 @@ class WalletsStoreImp implements WalletsStore {
     final msgObj = pylons.MsgCreateCookbook.create()..mergeFromProto3Json(json);
     msgObj.creator = wallets.value.last.publicAddress;
     return await _signAndBroadcast(msgObj);
+  }
+
+  @override
+  Future<TransactionHash> createRecipe(Map json) async {
+    final msgObj = pylons.MsgCreateRecipe.create()..mergeFromProto3Json(json);
+
+    final unsignedTransaction = UnsignedAlanTransaction(messages: [msgObj]);
+
+    final info = wallets.value.last;
+
+    final walletLookupKey = WalletLookupKey(
+      walletId: info.walletId,
+      chainId: info.chainId,
+      password: '',
+    );
+
+    msgObj.creator = info.publicAddress;
+
+    final result = await _transactionSigningGateway
+        .signTransaction(
+            transaction: unsignedTransaction, walletLookupKey: walletLookupKey)
+        .mapError<dynamic>((error) {
+      print(error);
+      throw error;
+    }).flatMap(
+      (signed) => _transactionSigningGateway.broadcastTransaction(
+        walletLookupKey: walletLookupKey,
+        transaction: signed,
+      ),
+    );
+    print(result.getOrElse(() => TransactionHash(txHash: '')).txHash);
+
+    ClientChannel channel = baseEnv.networkInfo.gRPCChannel;
+    var response = await pylons.MsgClient(channel).createRecipe(msgObj);
+    print(response.toProto3Json());
+
+    return result.getOrElse(() => TransactionHash(txHash: ''));
   }
 
   @override
@@ -265,11 +304,10 @@ class WalletsStoreImp implements WalletsStore {
 
   @override
   Future<Cookbook?> getCookbookById(String cookbookID) async {
-    final request = pylons.QueryGetCookbookRequest.create()
-      ..iD=cookbookID;
+    final request = pylons.QueryGetCookbookRequest.create()..iD = cookbookID;
 
     final response = await _queryClient.cookbook(request);
-    if(!response.hasCookbook()){
+    if (!response.hasCookbook()) {
       return null;
     }
     return response.cookbook;
@@ -278,7 +316,7 @@ class WalletsStoreImp implements WalletsStore {
   @override
   Future<List<Cookbook>> getCookbooksByCreator(String creator) async {
     final request = pylons.QueryListCookbooksByCreatorRequest.create()
-    ..creator=creator;
+      ..creator = creator;
     final response = await _queryClient.listCookbooksByCreator(request);
     return response.cookbooks;
   }
@@ -286,10 +324,10 @@ class WalletsStoreImp implements WalletsStore {
   @override
   Future<Item?> getItem(String cookbookID, String itemID) async {
     final request = pylons.QueryGetItemRequest.create()
-        ..cookbookID=cookbookID
-        ..iD=itemID;
+      ..cookbookID = cookbookID
+      ..iD = itemID;
     final response = await _queryClient.item(request);
-    if(!response.hasItem()){
+    if (!response.hasItem()) {
       return null;
     }
     return response.item;
@@ -297,8 +335,7 @@ class WalletsStoreImp implements WalletsStore {
 
   @override
   Future<List<Item>> getItemsByOwner(String owner) async {
-    final request = pylons.QueryListItemByOwnerRequest.create()
-        ..owner=owner;
+    final request = pylons.QueryListItemByOwnerRequest.create()..owner = owner;
     final response = await _queryClient.listItemByOwner(request);
     return response.items;
   }
@@ -306,10 +343,10 @@ class WalletsStoreImp implements WalletsStore {
   @override
   Future<Recipe?> getRecipe(String cookbookID, String recipeID) async {
     final request = pylons.QueryGetRecipeRequest.create()
-        ..cookbookID=cookbookID
-        ..iD=recipeID;
+      ..cookbookID = cookbookID
+      ..iD = recipeID;
     final response = await _queryClient.recipe(request);
-    if(!response.hasRecipe()){
+    if (!response.hasRecipe()) {
       return null;
     }
     return response.recipe;
@@ -318,17 +355,16 @@ class WalletsStoreImp implements WalletsStore {
   @override
   Future<List<Recipe>> getRecipesByCookbookID(String cookbookID) async {
     final request = pylons.QueryListRecipesByCookbookRequest.create()
-        ..cookbookID=cookbookID;
+      ..cookbookID = cookbookID;
     final response = await _queryClient.listRecipesByCookbook(request);
     return response.recipes;
   }
 
   @override
   Future<Trade?> getTradeByID(Int64 ID) async {
-    final request = pylons.QueryGetTradeRequest.create()
-        ..iD= ID;
+    final request = pylons.QueryGetTradeRequest.create()..iD = ID;
     final response = await _queryClient.trade(request);
-    if(!response.hasTrade()){
+    if (!response.hasTrade()) {
       return null;
     }
     return response.trade;
@@ -343,9 +379,9 @@ class WalletsStoreImp implements WalletsStore {
   @override
   Future<String> getAccountAddressByName(String username) async {
     final request = pylons.QueryGetAddressByUsernameRequest.create()
-        ..username=username;
+      ..username = username;
     final response = await _queryClient.addressByUsername(request);
-    if(!response.hasAddress()){
+    if (!response.hasAddress()) {
       return "";
     }
     return response.address.value;
@@ -354,9 +390,9 @@ class WalletsStoreImp implements WalletsStore {
   @override
   Future<String> getAccountNameByAddress(String address) async {
     final request = pylons.QueryGetUsernameByAddressRequest.create()
-        ..address=address;
+      ..address = address;
     final response = await _queryClient.usernameByAddress(request);
-    if(!response.hasUsername()){
+    if (!response.hasUsername()) {
       return "";
     }
 
@@ -368,15 +404,14 @@ class WalletsStoreImp implements WalletsStore {
     Map data = {
       "address": wallets.value.last.publicAddress,
     };
-    if(denom != null){
+    if (denom != null) {
       data["coins"] = [denom];
     }
-    final helper = QueryHelper( httpClient: _httpClient);
+    final helper = QueryHelper(httpClient: _httpClient);
     final result = await helper.queryPost(this.baseEnv.baseFaucetUrl, data);
-    if(!result.isSuccessful){
+    if (!result.isSuccessful) {
       return false;
     }
     return true;
   }
-
 }

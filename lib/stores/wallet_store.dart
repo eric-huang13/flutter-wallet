@@ -1,4 +1,3 @@
-
 import 'package:fixnum/fixnum.dart';
 import 'package:mobx/mobx.dart';
 import 'package:pylons_wallet/entities/balance.dart';
@@ -11,7 +10,6 @@ import 'package:transaction_signing_gateway/model/wallet_public_info.dart';
 import 'package:transaction_signing_gateway/transaction_signing_gateway.dart';
 
 abstract class WalletsStore {
-
   /// This method loads the user stored wallets.
   Future<void> loadWallets();
 
@@ -27,7 +25,10 @@ abstract class WalletsStore {
   /// Input: [AlanPrivateWalletCredentials] credential of the newly created wallet
   /// [creatorAddress] The address of the new wallet
   /// [userName] The name that the user entered
-  Future<void> broadcastWalletCreationMessageOnBlockchain(AlanPrivateWalletCredentials creds, String creatorAddress, String userName);
+  Future<void> broadcastWalletCreationMessageOnBlockchain(
+      AlanPrivateWalletCredentials creds,
+      String creatorAddress,
+      String userName);
 
   /// This method creates the custom signing Gateway for the user
   /// Output : [TransactionSigningGateway] custom signing Gateway with custom logic
@@ -120,14 +121,10 @@ abstract class WalletsStore {
 
   Future<String> getAccountAddressByName(String username);
 
-
-  Future <bool> getFaucetCoin({String denom=""});
-
+  Future<bool> getFaucetCoin({String denom = ""});
 
   Observable<List<WalletPublicInfo>> getWallets();
 
-
   Observable<bool> getAreWalletsLoading();
   Observable<CredentialsStorageFailure?> getLoadWalletsFailure();
-
 }

@@ -13,9 +13,12 @@ import 'package:pylons_wallet/modules/cosmos.authz.v1beta1/module/export.dart';
 
 import 'mock_constants.dart';
 
-class MockWalletStore implements WalletsStore{
+class MockWalletStore implements WalletsStore {
   @override
-  Future<void> broadcastWalletCreationMessageOnBlockchain(AlanPrivateWalletCredentials creds, String creatorAddress, String userName) {
+  Future<void> broadcastWalletCreationMessageOnBlockchain(
+      AlanPrivateWalletCredentials creds,
+      String creatorAddress,
+      String userName) {
     // TODO: implement broadcastWalletCreationMessageOnBlockchain
     throw UnimplementedError();
   }
@@ -62,8 +65,8 @@ class MockWalletStore implements WalletsStore{
   }
 
   @override
-  Future<void> sendCosmosMoney(WalletPublicInfo info, Balance balance, String toAddress
-      ) {
+  Future<void> sendCosmosMoney(
+      WalletPublicInfo info, Balance balance, String toAddress) {
     // TODO: implement sendCosmosMoney
     throw UnimplementedError();
   }
@@ -157,6 +160,4 @@ class MockWalletStore implements WalletsStore{
     // TODO: implement getFaucetCoin
     throw UnimplementedError();
   }
-
-
 }
