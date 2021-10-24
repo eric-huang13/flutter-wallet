@@ -25,7 +25,7 @@ class FollowCardWidget extends StatelessWidget {
                   alignment: Alignment.topCenter,
                   child: CircleAvatar(
                     child: FlutterLogo(size: 20.0),
-                  )),
+                  ),),
               const Text('JIN'),
               SizedBox(
                 height: 25,

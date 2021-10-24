@@ -1,21 +1,26 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:pylons_wallet/ipc/models/sdk_ipc_message.dart';
+
 Future<void> main() async {
-  const createCookbook = true;
-  const createRecipe = false;
+  const createCookbook = false;
+  const createRecipe = true;
 
   if (createCookbook) {
     final file = await getProjectFile("cookbook.json");
     final jsonContent = await file.readAsString();
-    final msg = encodeMessage(["pylo1np6w3qwugamt8yzqyns5wr5e500239sf7gw6l5", "txCreateCookbook", jsonContent]);
+    final sdkipcMessage  = SDKIPCMessage('txCreateCookbook', jsonContent, 'example');
+
+    final msg = sdkipcMessage.createMessage();
     execute(msg);
   }
   if (createRecipe) {
-    final file = File("json/recipe.json");
+    final file = await getProjectFile("recipe.json");
     final jsonContent = await file.readAsString();
-    final msg = encodeMessage(["pylo1np6w3qwugamt8yzqyns5wr5e500239sf7gw6l5", "txCreateRecipe", jsonContent]);
-    execute(msg);
+
+    final sdkipcMessage  = SDKIPCMessage('txCreateRecipe', jsonContent, 'example');
+    execute(sdkipcMessage.createMessage());
   }
 }
 Future<void> execute(msg) async {
@@ -32,10 +37,6 @@ Future<void> execute(msg) async {
     'pylons://wallet/$msg']);
 }
 
-String encodeMessage(List<String> msg) {
-  final encodedMessageWithComma = msg.map((e) => base64Url.encode(utf8.encode(e))).join(',');
-  return base64Url.encode(utf8.encode(encodedMessageWithComma));
-}
 
 
 

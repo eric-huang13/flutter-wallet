@@ -1,5 +1,7 @@
 import 'package:cosmos_utils/cosmos_utils.dart';
 import 'package:dartz/dartz.dart';
+import 'package:pylons_wallet/stores/models/transaction_response.dart';
+import 'package:pylons_wallet/utils/custom_transaction_broadcaster/custom_transaction_broadcaster.dart';
 import 'package:transaction_signing_gateway/alan/alan_wallet_derivator.dart';
 import 'package:transaction_signing_gateway/key_info_storage.dart';
 import 'package:transaction_signing_gateway/mobile/no_op_transaction_summary_ui.dart';
@@ -21,14 +23,14 @@ import 'package:transaction_signing_gateway/wallet_derivator.dart';
 
 class CustomTransactionSigningGateway {
   final List<TransactionSigner> _signers;
-  final List<TransactionBroadcaster> _broadcasters;
+  final List<CustomTransactionBroadcaster> _broadcasters;
   final List<WalletDerivator> _derivators;
   final KeyInfoStorage _infoStorage;
   final TransactionSummaryUI _transactionSummaryUI;
 
   CustomTransactionSigningGateway({
     List<TransactionSigner>? signers,
-    List<TransactionBroadcaster>? broadcasters,
+    List<CustomTransactionBroadcaster>? broadcasters,
     KeyInfoStorage? infoStorage,
     TransactionSummaryUI? transactionSummaryUI,
     List<WalletDerivator>? derivators,
@@ -76,7 +78,7 @@ class CustomTransactionSigningGateway {
         ),
       );
 
-  Future<Either<TransactionBroadcastingFailure, TransactionHash>> broadcastTransaction({
+  Future<Either<TransactionBroadcastingFailure, TransactionResponse>> broadcastTransaction({
     required WalletLookupKey walletLookupKey,
     required SignedTransaction transaction,
   }) async =>
@@ -106,9 +108,9 @@ class CustomTransactionSigningGateway {
     orElse: () => NotFoundTransactionSigner(),
   );
 
-  TransactionBroadcaster _findCapableBroadcaster(SignedTransaction transaction) => _broadcasters.firstWhere(
+  CustomTransactionBroadcaster _findCapableBroadcaster(SignedTransaction transaction) => _broadcasters.firstWhere(
         (element) => element.canBroadcast(transaction),
-    orElse: () => NotFoundBroadcaster(),
+    orElse: () => CustomNotFoundBroadcaster(),
   );
 
   WalletDerivator _findCapableDerivator(WalletDerivationInfo walletDerivationInfo) => _derivators.firstWhere(

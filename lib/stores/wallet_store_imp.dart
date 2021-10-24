@@ -4,7 +4,9 @@ import 'package:cosmos_utils/future_either.dart';
 import 'package:mobx/mobx.dart';
 import 'package:pylons_wallet/entities/balance.dart';
 import 'package:pylons_wallet/ipc/handler/handler_factory.dart';
+import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart' as pylons;
+import 'package:pylons_wallet/stores/models/transaction_response.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/base_env.dart';
 import 'package:pylons_wallet/utils/custom_transaction_signer/custom_transaction_signer.dart';
@@ -135,42 +137,44 @@ class WalletsStoreImp implements WalletsStore {
   /// Input : [Map] containing the info related to the creation of cookbook
   /// Output : [TransactionHash] hash of the transaction
   @override
-  Future<String> createCookBook(Map json) async {
+  Future<SDKIPCResponse> createCookBook(Map json) async {
     final msgObj = pylons.MsgCreateCookbook.create()..mergeFromProto3Json(json);
 
     final unsignedTransaction = UnsignedAlanTransaction(messages: [msgObj]);
 
-
-    final walletsResultEither = await _transactionSigningGateway.getWalletsList();
+    final walletsResultEither = await _customTransactionSigningGateway.getWalletsList();
 
     if (walletsResultEither.isLeft()) {
-      return HandlerFactory.ERR_SOMETHING_WENT_WRONG;
+      return SDKIPCResponse.failure(sender: '', error: 'Something went wrong while fetching wallets', errorCode: HandlerFactory.ERR_SOMETHING_WENT_WRONG, transaction: '');
     }
 
     final accountsList = walletsResultEither.getOrElse(() => []);
     if (accountsList.isEmpty) {
-      return HandlerFactory.ERR_PROFILE_DOES_NOT_EXIST;
+      return SDKIPCResponse.failure(sender: '', error: 'No profile found in wallet', errorCode: HandlerFactory.ERR_PROFILE_DOES_NOT_EXIST, transaction: '');
     }
 
     final info = accountsList.last;
-
-
 
     final walletLookupKey = createWalletLookUp(info);
 
     msgObj.creator = info.publicAddress;
 
-    final result = await _transactionSigningGateway.signTransaction(transaction: unsignedTransaction, walletLookupKey: walletLookupKey).mapError<dynamic>((error) {
-      print(error);
-      throw error;
-    }).flatMap(
-      (signed) => _transactionSigningGateway.broadcastTransaction(
-        walletLookupKey: walletLookupKey,
-        transaction: signed,
-      ),
+    final signedTransaction = await _transactionSigningGateway.signTransaction(transaction: unsignedTransaction, walletLookupKey: walletLookupKey);
+
+    if (signedTransaction.isLeft()) {
+      return SDKIPCResponse.failure(sender: '', error: 'Something went wrong while signing transaction', errorCode: HandlerFactory.ERR_SOMETHING_WENT_WRONG, transaction: '');
+    }
+
+    final response = await _customTransactionSigningGateway.broadcastTransaction(
+      walletLookupKey: walletLookupKey,
+      transaction: signedTransaction.toOption().toNullable()!,
     );
 
-    return result.getOrElse(() => TransactionHash(txHash: '')).txHash;
+    if (response.isLeft()) {
+      return SDKIPCResponse.failure(sender: '', error: response.swap().toOption().toNullable().toString(), errorCode: HandlerFactory.ERR_SOMETHING_WENT_WRONG, transaction: '');
+    }
+
+    return SDKIPCResponse.success(sender: '', data: response.getOrElse(() => TransactionResponse.initial()).hash, transaction: '');
   }
 
   @override
@@ -189,25 +193,20 @@ class WalletsStoreImp implements WalletsStore {
   }
 
   @override
-  Future<String> createRecipe(Map<dynamic, dynamic> json) async {
+  Future<SDKIPCResponse> createRecipe(Map<dynamic, dynamic> json) async {
     final msgObj = pylons.MsgCreateRecipe.create()..mergeFromProto3Json(json);
 
     final unsignedTransaction = UnsignedAlanTransaction(messages: [msgObj]);
 
-    final walletsResultEither = await _transactionSigningGateway.getWalletsList();
+    final walletsResultEither = await _customTransactionSigningGateway.getWalletsList();
 
     if (walletsResultEither.isLeft()) {
-      return HandlerFactory.ERR_SOMETHING_WENT_WRONG;
+      return SDKIPCResponse.failure(sender: '', error: 'Something went wrong while fetching wallets', errorCode: HandlerFactory.ERR_SOMETHING_WENT_WRONG, transaction: '');
     }
-
-    walletsResultEither.fold(
-      (fail) => loadWalletsFailureObservable.value = fail,
-      (newWallets) => wallets.value = newWallets,
-    );
 
     final accountsList = walletsResultEither.getOrElse(() => []);
     if (accountsList.isEmpty) {
-      return HandlerFactory.ERR_PROFILE_DOES_NOT_EXIST;
+      return SDKIPCResponse.failure(sender: '', error: 'No profile found in wallet', errorCode: HandlerFactory.ERR_PROFILE_DOES_NOT_EXIST, transaction: '');
     }
 
     final info = accountsList.last;
@@ -216,17 +215,24 @@ class WalletsStoreImp implements WalletsStore {
 
     msgObj.creator = info.publicAddress;
 
-    final result = await _transactionSigningGateway.signTransaction(transaction: unsignedTransaction, walletLookupKey: walletLookupKey).mapError<dynamic>((error) {
-      print(error);
-      throw error;
-    }).flatMap(
-      (signed) => _transactionSigningGateway.broadcastTransaction(
-        walletLookupKey: walletLookupKey,
-        transaction: signed,
-      ),
+
+    final signedTransaction = await _transactionSigningGateway.signTransaction(transaction: unsignedTransaction, walletLookupKey: walletLookupKey);
+
+
+    if (signedTransaction.isLeft()) {
+      return SDKIPCResponse.failure(sender: '', error: 'Something went wrong while signing transaction', errorCode: HandlerFactory.ERR_SOMETHING_WENT_WRONG, transaction: '');
+    }
+
+    final response = await _customTransactionSigningGateway.broadcastTransaction(
+      walletLookupKey: walletLookupKey,
+      transaction: signedTransaction.toOption().toNullable()!,
     );
 
-    return result.getOrElse(() => TransactionHash(txHash: '')).txHash;
+    if (response.isLeft()) {
+      return SDKIPCResponse.failure(sender: '', error: response.swap().toOption().toNullable().toString(), errorCode: HandlerFactory.ERR_SOMETHING_WENT_WRONG, transaction: '');
+    }
+
+    return SDKIPCResponse.success(sender: '', data: response.getOrElse(() => TransactionResponse.initial()).hash, transaction: '');
   }
 
   WalletLookupKey createWalletLookUp(WalletPublicInfo info) {

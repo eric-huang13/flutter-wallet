@@ -5,9 +5,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/ipc/handler/handler_factory.dart';
+import 'package:pylons_wallet/ipc/models/sdk_ipc_message.dart';
 import 'package:pylons_wallet/pylons_app.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'models/sdk_ipc_response.dart';
 
 /// Terminology
 /// Signal : Incoming request from a 3rd party app
@@ -72,28 +75,44 @@ class IPCEngine {
 
   /// This method handles the link that the wallet received from the 3rd Party apps
   /// Input : [link] contains the link that is received from the 3rd party apps.
-  /// Output : [List] contains the decoded message
-  Future<List> handleLink(String link) async {
+  /// Output : [void] contains the decoded message
+  Future<void> handleLink(String link) async {
     log(link, name: '[IPCEngine : handleLink]');
 
-    final getMessage = decodeMessage(link.split('/').last);
+    final getMessage = link.split('/').last;
 
-    if (systemHandlingASignal) {
-      disconnectThisSignal(sender: getMessage.first, key: getMessage[1]);
-      return [];
+
+    SDKIPCMessage sdkIPCMessage;
+
+    try{
+      sdkIPCMessage = SDKIPCMessage.fromIPCMessage(getMessage);
+    } catch(e){
+      print('Something went wrong in parsing');
+      return;
     }
 
+
+
+
+
+
+
+
+    //
+    // if (systemHandlingASignal) {
+    //   disconnectThisSignal(sender: getMessage.first, key: getMessage[1]);
+    //   return [];
+    // }
+
     print(getMessage);
-
-    systemHandlingASignal = true;
-
+    //
+    // systemHandlingASignal = true;
+    //
     await showApprovalDialog(
-      key: getMessage[1],
-      sender: getMessage.first,
-      wholeMessage: getMessage,
+        sdkIPCMessage: sdkIPCMessage
     );
-    systemHandlingASignal = false;
-    return getMessage;
+    // systemHandlingASignal = false;
+    // return getMessage;
   }
 
   /// This method sends the unilink to the wallet app
@@ -110,8 +129,9 @@ class IPCEngine {
   /// This is a temporary dialog for the proof of concept.
   /// Input : [sender] The sender of the signal
   /// Output : [key] The signal kind against which the signal is sent
-  Future showApprovalDialog({required String sender, required String key, required List<String> wholeMessage}) {
+  Future showApprovalDialog({required SDKIPCMessage sdkIPCMessage}) {
     return showDialog(
+      barrierDismissible: false,
         context: navigatorKey.currentState!.overlay!.context,
         builder: (_) => AlertDialog(
               content: const Text('Allow this transaction'),
@@ -120,11 +140,20 @@ class IPCEngine {
                   onPressed: () async {
                     Navigator.of(_).pop();
 
-                    final handlerMessage = await GetIt.I.get<HandlerFactory>().getHandler(wholeMessage).handle();
+                    final handlerMessage = await GetIt.I.get<HandlerFactory>().getHandler(sdkIPCMessage).handle();
                     print(handlerMessage);
-                    await dispatchUniLink(handlerMessage);
+                    await dispatchUniLink(handlerMessage.createMessageLink());
                   },
                   child: const Text('Approval'),
+                ),
+                RaisedButton(
+                  onPressed: () async {
+                    Navigator.of(_).pop();
+
+                    final cancelledResponse = SDKIPCResponse.failure(sender: sdkIPCMessage.sender, error: '', errorCode: HandlerFactory.ERR_SOMETHING_WENT_WRONG, transaction: sdkIPCMessage.action);
+                    await dispatchUniLink(cancelledResponse.createMessageLink());
+                  },
+                  child: const Text('Disapprove'),
                 )
               ],
             ));

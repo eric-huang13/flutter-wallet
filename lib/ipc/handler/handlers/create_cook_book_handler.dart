@@ -1,39 +1,33 @@
-
 import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/ipc/handler/base_handler.dart';
+import 'package:pylons_wallet/ipc/models/sdk_ipc_message.dart';
+import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
 import 'package:pylons_wallet/pylons_app.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 
-
-
 /// This handler handles the create cook book transaction request from 3 party apps
 class CreateCookBookHandler implements BaseHandler {
-  List<String> wholeMessage;
+  SDKIPCMessage sdkipcMessage;
 
-  CreateCookBookHandler(this.wholeMessage);
+  CreateCookBookHandler(this.sdkipcMessage);
 
   @override
-  Future<String> handle() async {
-    var response = '';
+  Future<SDKIPCResponse> handle() async {
+    final jsonMap = jsonDecode(sdkipcMessage.json) as Map;
 
-    try {
-      final jsonMap = jsonDecode(
-        wholeMessage[2],
-      ) as Map;
+    jsonMap.remove('nodeVersion');
 
-      jsonMap.remove('nodeVersion');
+    final walletsStore = GetIt.I.get<WalletsStore>();
 
-      final walletsStore = GetIt.I.get<WalletsStore>();
+    final response = await walletsStore.createCookBook(jsonMap);
+    response.sender = sdkipcMessage.sender;
+    response.action = sdkipcMessage.action;
 
-
-      response = await walletsStore.createCookBook(jsonMap);
-    } catch (e, stacktrace) {
-      log('$e', name: 'Create Cook book Handler', stackTrace: stacktrace);
-    }
+    print('Response $response');
 
     return SynchronousFuture(response);
   }
