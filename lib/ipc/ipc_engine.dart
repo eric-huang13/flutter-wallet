@@ -4,9 +4,13 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/ipc/handler/handler_factory.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_message.dart';
+import 'package:pylons_wallet/pages/new_screens/purchase_item_screen.dart';
 import 'package:pylons_wallet/pylons_app.dart';
+import 'package:pylons_wallet/transactions/get_recipe.dart';
+import 'package:pylons_wallet/utils/base_env.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -37,7 +41,11 @@ class IPCEngine {
         return;
       }
 
-      handleLink(link);
+      if(_isEaselUniLink(link)) {
+        _handleEaselLink(link);
+      }else {
+        handleLink(link);
+      }
 
       // Link contains the data that the wallet need
     }, onError: (err) {});
@@ -54,7 +62,11 @@ class IPCEngine {
     if (initialLink == null) {
       return;
     }
-    handleLink(initialLink);
+    if(_isEaselUniLink(initialLink)) {
+      _handleEaselLink(initialLink);
+    }else {
+      handleLink(initialLink);
+    }
   }
 
   /// This method encodes the message that we need to send to wallet
@@ -115,6 +127,48 @@ class IPCEngine {
     // return getMessage;
   }
 
+
+  Future<void> _handleEaselLink(String link) async{
+    final queryParameters = Uri.parse(link).queryParameters;
+    final recipeId = queryParameters['recipe_id'];
+    final cookbookId = queryParameters['cookbook_id'];
+
+    showDialog(context: navigatorKey.currentState!.overlay!.context,
+      barrierDismissible: false,
+      builder: (ctx) => AlertDialog(
+        content: Wrap(
+        children:  [
+          Row(
+            children: [
+              const SizedBox(
+                width: 30,
+                height: 30,
+                child: CircularProgressIndicator(),
+              ),
+              const HorizontalSpace(10),
+              Text("Loading...", style: Theme.of(ctx).textTheme.subtitle2!.copyWith(
+                  fontSize: 12
+              ),),
+            ],
+          )
+        ],
+      ),),
+    );
+
+    final jsonRecipe = await GetRecipe(GetIt.I.get<BaseEnv>()).getRecipe(cookbookId!, recipeId!);
+
+    navigatorKey.currentState!.pop();
+
+    if(jsonRecipe != null){
+      navigatorKey.currentState!.push(MaterialPageRoute(builder: (_) => PurchaseItemScreen(recipe: jsonRecipe)));
+      return;
+    }else{
+      ScaffoldMessenger.of(navigatorKey.currentState!.overlay!.context)
+          .showSnackBar(const SnackBar(content: Text("Unable to fetch NFT Item"),));
+    }
+  }
+
+
   /// This method sends the unilink to the wallet app
   /// Input : [String] is the unilink with data for the wallet app
   Future<bool> dispatchUniLink(String uniLink) async {
@@ -170,5 +224,12 @@ class IPCEngine {
   Future<void> disconnectThisSignal({required String sender, required String key}) async {
     final encodedMessage = encodeMessage([key, 'Wallet Busy: A transaction is already is already in progress']);
     await dispatchUniLink('pylons://$sender/$encodedMessage');
+  }
+
+  ///This method checks if the incoming link is generated from Easel
+  bool _isEaselUniLink(String link){
+    final queryParam = Uri.parse(link).queryParameters;
+    return queryParam.containsKey("action") && queryParam.containsKey("recipe_id")
+        && queryParam.containsKey("nft_amount") && queryParam.containsKey("cookbook_id");
   }
 }

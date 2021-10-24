@@ -10,6 +10,7 @@ import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/forms/import_from_google_form.dart';
 import 'package:pylons_wallet/forms/new_user_form.dart';
 import 'package:pylons_wallet/pages/dashboard/dashboard_main.dart';
+import 'package:pylons_wallet/pages/new_screens/new_home.dart';
 import 'package:pylons_wallet/pylons_app.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
@@ -60,7 +61,7 @@ class PresentingOnboardPage extends StatelessWidget {
                       topRight: Radius.circular(30.0),
                     ),
                   ),
-                  builder: (context) => Wrap(children: const [ImportFromGoogleForm()]));
+                  builder: (context) => Wrap(children: const [ImportFromGoogleForm()]),);
             },
             text: "import_an_account".tr(),
           ),
@@ -94,7 +95,7 @@ class PresentingOnboardPage extends StatelessWidget {
 
     PylonsApp.currentWallet = await walletsStore.importAlanWallet(_mnemonic, _username);
     // print("Wallet add: ${value.publicAddress} ${value.name} ${value.chainId}");
-    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => Dashboard()), (route) => true);
+    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => NewHomeScreen()), (route) => true);
   }
 
   void onCreateAccountPressed(BuildContext context) {
