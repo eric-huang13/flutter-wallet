@@ -5,7 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:pylons_wallet/pylons_app.dart';
-import 'package:pylons_wallet/stores/wallets_store_imp.dart';
+import 'package:pylons_wallet/stores/wallet_store_imp.dart';
 import 'package:pylons_wallet/utils/base_env.dart';
 import 'package:pylons_wallet/utils/dependency_injection/dependency_injection.dart' as di;
 import 'package:transaction_signing_gateway/alan/alan_credentials_serializer.dart';
@@ -21,7 +21,6 @@ Future<void> main() async {
   await EasyLocalization.ensureInitialized();
   // Read the values from .env file
   await dotenv.load();
-  _buildDependencies();
   await di.init();
 
   runApp(
@@ -29,9 +28,7 @@ Future<void> main() async {
   );
 }
 
-void _buildDependencies() {
 
-}
 
 class MyHttpOverrides extends HttpOverrides {
   @override

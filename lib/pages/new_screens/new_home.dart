@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/pages/new_screens/collection_screen.dart';
+import 'package:pylons_wallet/pages/new_screens/currency_screen.dart';
 
 class NewHomeScreen extends StatefulWidget {
   NewHomeScreen({Key? key}) : super(key: key);
@@ -10,15 +11,15 @@ class NewHomeScreen extends StatefulWidget {
   State<NewHomeScreen> createState() => _NewHomeScreenState();
 }
 
-class _NewHomeScreenState extends State<NewHomeScreen> with SingleTickerProviderStateMixin {
-
+class _NewHomeScreenState extends State<NewHomeScreen>
+    with SingleTickerProviderStateMixin {
   int tabIndex = 0;
   late TabController _tabController;
 
   final List<Widget> myTabs = <Widget>[
     Padding(
       padding: const EdgeInsets.all(4.0),
-      child: Text('Moneys'),
+      child: Text('Currency'),
     ),
     Padding(
       padding: const EdgeInsets.all(4.0),
@@ -26,8 +27,7 @@ class _NewHomeScreenState extends State<NewHomeScreen> with SingleTickerProvider
     ),
   ];
 
-  List<Widget> _pages = <Widget>[Text("Moneys"), CollectionScreen()];
-
+  List<Widget> _pages = <Widget>[CurrencyScreen(), CollectionScreen()];
 
   @override
   void initState() {
@@ -44,39 +44,6 @@ class _NewHomeScreenState extends State<NewHomeScreen> with SingleTickerProvider
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    // return Container(
-    //   color: Colors.white,
-    //   child: SafeArea(
-    //     child: Scaffold(
-    //       body: Column(
-    //         children: [
-    //           const VerticalSpace(20),
-    //           Container(
-    //             decoration: const BoxDecoration(
-    //               border: Border(bottom: BorderSide(color: Colors.grey))
-    //             ),
-    //             child: TabBar(
-    //               controller: _tabController,
-    //               labelColor: Colors.black,
-    //               unselectedLabelColor: Colors.grey[700],
-    //               indicatorSize: TabBarIndicatorSize.tab,
-    //               indicatorColor: kPeachDark,
-    //               labelStyle: const TextStyle(fontSize: 16),
-    //               tabs: myTabs,
-    //               labelPadding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-    //             ),
-    //           ),
-    //           Padding(
-    //             padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
-    //           child: _pages[tabIndex],
-    //           )
-    //         ],
-    //       )
-    //     ),
-    //   ),
-    // );
-
     return Container(
       color: Colors.white,
       child: SafeArea(
@@ -91,6 +58,7 @@ class _NewHomeScreenState extends State<NewHomeScreen> with SingleTickerProvider
               indicatorColor: kPeachDark,
               labelStyle: const TextStyle(fontSize: 16),
               tabs: myTabs,
+              padding: const EdgeInsets.only(top: 20),
             ),
             body: TabBarView(
               // physics: NeverScrollableScrollPhysics(),

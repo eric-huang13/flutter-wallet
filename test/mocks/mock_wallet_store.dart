@@ -3,6 +3,8 @@ import 'package:mobx/src/core.dart';
 import 'package:pylons_wallet/entities/balance.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart';
 import 'package:pylons_wallet/modules/cosmos.authz.v1beta1/module/client/cosmos/base/abci/v1beta1/abci.pb.dart';
+import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
+import 'package:pylons_wallet/stores/models/transaction_response.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:transaction_signing_gateway/alan/alan_private_wallet_credentials.dart';
 import 'package:transaction_signing_gateway/gateway/transaction_signing_gateway.dart';
@@ -20,17 +22,6 @@ class MockWalletStore implements WalletsStore {
       String creatorAddress,
       String userName) {
     // TODO: implement broadcastWalletCreationMessageOnBlockchain
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<TransactionHash> createCookBook(Map<dynamic, dynamic> json) async {
-    return MOCK_TRANSACTION;
-  }
-
-  @override
-  TransactionSigningGateway createCustomSigningGateway() {
-    // TODO: implement createCustomSigningGateway
     throw UnimplementedError();
   }
 
@@ -78,13 +69,31 @@ class MockWalletStore implements WalletsStore {
   }
 
   @override
+  Future<SDKIPCResponse> createCookBookIPC(Map<dynamic, dynamic> json) {
+    // TODO: implement createCookBook
+    throw UnimplementedError();
+  }
+
+  @override
   Future<TransactionHash> createTrade(Map json) {
     // TODO: implement createTrade
     throw UnimplementedError();
   }
 
   @override
+  Future<SDKIPCResponse> createRecipeIPC(Map<dynamic, dynamic> json) {
+    // TODO: implement createRecipe
+    throw UnimplementedError();
+  }
+
+  @override
   Future<TransactionHash> executeRecipe(Map json) {
+    // TODO: implement executeRecipe
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<SDKIPCResponse> executeRecipeIPC(Map<dynamic, dynamic> json) {
     // TODO: implement executeRecipe
     throw UnimplementedError();
   }
@@ -174,8 +183,15 @@ class MockWalletStore implements WalletsStore {
   }
 
   @override
-  Future<List<Execution>> getRecipeEexecutions(String cookbookID, String recipeID) {
+  Future<List<Execution>> getRecipeEexecutions(
+      String cookbookID, String recipeID) {
     // TODO: implement getRecipeEexecutions
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<TransactionHash> createCookBook(Map json) {
+    // TODO: implement createCookBook
     throw UnimplementedError();
   }
 }

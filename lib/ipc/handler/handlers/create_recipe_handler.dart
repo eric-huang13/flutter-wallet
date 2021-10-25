@@ -1,38 +1,27 @@
-
 import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/ipc/handler/base_handler.dart';
-import 'package:pylons_wallet/pylons_app.dart';
+import 'package:pylons_wallet/ipc/models/sdk_ipc_message.dart';
+import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 
 class CreateRecipeHandler implements BaseHandler {
+  SDKIPCMessage sdkipcMessage;
 
-  List<String> wholeMessage;
-
-  CreateRecipeHandler(this.wholeMessage);
+  CreateRecipeHandler(this.sdkipcMessage);
 
   @override
-  Future<String> handle() async {
+  Future<SDKIPCResponse> handle() async {
+    final jsonMap = jsonDecode(sdkipcMessage.json) as Map;
 
-    var response = '';
+    jsonMap.remove('nodeVersion');
 
-    try {
+    final walletsStore = GetIt.I.get<WalletsStore>();
 
-      final jsonMap = jsonDecode(wholeMessage[2],) as Map;
-
-      jsonMap.remove('nodeVersion');
-
-      var walletsStore = GetIt.I.get<WalletsStore>();
-
-      response = (await walletsStore.createRecipe(jsonMap)).txHash;
-
-    } catch (e, stacktrace) {
-      log('$e', name: 'Create Cook book Handler', stackTrace: stacktrace);
-    }
-
+    final response = await walletsStore.createRecipeIPC(jsonMap);
+    response.sender = sdkipcMessage.sender;
+    response.action = sdkipcMessage.action;
     return SynchronousFuture(response);
   }
 }

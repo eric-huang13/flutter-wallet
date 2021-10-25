@@ -3,6 +3,8 @@ import 'package:mobx/mobx.dart';
 import 'package:pylons_wallet/entities/balance.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart';
 import 'package:pylons_wallet/modules/cosmos.authz.v1beta1/module/export.dart';
+import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
+import 'package:pylons_wallet/stores/models/transaction_response.dart';
 import 'package:transaction_signing_gateway/gateway/transaction_signing_gateway.dart';
 import 'package:transaction_signing_gateway/model/credentials_storage_failure.dart';
 import 'package:transaction_signing_gateway/model/transaction_hash.dart';
@@ -30,10 +32,6 @@ abstract class WalletsStore {
       String creatorAddress,
       String userName);
 
-  /// This method creates the custom signing Gateway for the user
-  /// Output : [TransactionSigningGateway] custom signing Gateway with custom logic
-  TransactionSigningGateway createCustomSigningGateway();
-
   /// This method sends the money from one address to another
   /// Input : [WalletPublicInfo] contains the info regarding the current network
   /// [balance] the amount that we want to send
@@ -46,9 +44,24 @@ abstract class WalletsStore {
 
   /// This method creates the cookbook
   /// Input : [Map] containing the info related to the creation of cookbook
-  /// Output : [TransactionHash] hash of the transaction
-  Future<TransactionHash> createCookBook(Map json);
+  /// Output : [SDKIPCResponse] response
+  Future<SDKIPCResponse> createCookBookIPC(Map<dynamic, dynamic> json);
 
+  /// This method creates the recipe in the block chain
+  /// Input : [Map] containing the info related to the creation of recipe
+  /// Output : [SDKIPCResponse] response
+  Future<SDKIPCResponse> createRecipeIPC(Map<dynamic, dynamic> json);
+
+  /// This method creates the recipe in the block chain
+  /// Input : [Map] containing the info related to the execution of recipe
+  /// Output : [SDKIPCResponse] response
+  Future<SDKIPCResponse> executeRecipeIPC(Map<dynamic, dynamic> json);
+
+
+  /// This method creates the cookbook
+  /// Input : [Map] containing the info related to the creation of cookbook
+  /// Output : [String] response
+  Future<TransactionHash> createCookBook(Map json);
   /// This method is for create recipe
   /// MsgCreateRecipe proto
   /// request fields: { String creator, String cookbookID, String ID, String name, String description, String version, List<CoinInput> coinInputs, List<ItemInput> itemInput, List<EntriesList> entries, List<WeightedOutputs> outputs, Int64 blockInterval}
@@ -135,7 +148,8 @@ abstract class WalletsStore {
   /// Output : [List<Execution>] return wallet address from account name
   Future<List<Execution>> getItemExecutions(String cookbookID, String itemID);
 
-  Future<List<Execution>> getRecipeEexecutions(String cookbookID, String recipeID);
+  Future<List<Execution>> getRecipeEexecutions(
+      String cookbookID, String recipeID);
 
   Future<bool> getFaucetCoin({String denom = ""});
 

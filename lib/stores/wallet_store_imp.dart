@@ -9,12 +9,15 @@ import 'package:grpc/grpc.dart';
 import 'package:mobx/mobx.dart';
 import 'package:protobuf/protobuf.dart';
 import 'package:pylons_wallet/entities/balance.dart';
+import 'package:pylons_wallet/ipc/handler/handler_factory.dart';
+import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart'
-    as pylons;
+as pylons;
 import 'package:pylons_wallet/modules/cosmos.authz.v1beta1/module/client/cosmos/base/abci/v1beta1/abci.pb.dart';
 import 'package:pylons_wallet/pylons_app.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/transactions/pylons_balance.dart';
+import 'package:pylons_wallet/utils/custom_transaction_signing_gateaway/custom_transaction_signing_gateway.dart';
 import 'package:pylons_wallet/utils/query_helper.dart';
 import 'package:pylons_wallet/utils/base_env.dart';
 import 'package:pylons_wallet/utils/custom_transaction_signer/custom_transaction_signer.dart';
@@ -29,12 +32,16 @@ import 'package:transaction_signing_gateway/model/wallet_public_info.dart';
 import 'package:transaction_signing_gateway/transaction_signing_gateway.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart';
 
+import 'models/transaction_response.dart';
+
 class WalletsStoreImp implements WalletsStore {
   final TransactionSigningGateway _transactionSigningGateway;
+  final CustomTransactionSigningGateway _customTransactionSigningGateway;
+
   final BaseEnv baseEnv;
 
 
-  WalletsStoreImp(this._transactionSigningGateway, this.baseEnv);
+  WalletsStoreImp(this._transactionSigningGateway, this.baseEnv, this._customTransactionSigningGateway);
   late pylons.QueryClient _queryClient;
   final http.Client _httpClient = http.Client();
 
@@ -46,7 +53,7 @@ class WalletsStoreImp implements WalletsStore {
   final Observable<List<Balance>> balancesList = Observable([]);
 
   final Observable<CredentialsStorageFailure?> loadWalletsFailureObservable =
-      Observable(null);
+  Observable(null);
 
   Observable<List<WalletPublicInfo>> wallets = Observable([]);
 
@@ -57,10 +64,10 @@ class WalletsStoreImp implements WalletsStore {
   Future<void> loadWallets() async {
     areWalletsLoadingObservable.value = true;
     final walletsResultEither =
-        await _transactionSigningGateway.getWalletsList();
+    await _transactionSigningGateway.getWalletsList();
     walletsResultEither.fold(
-      (fail) => loadWalletsFailureObservable.value = fail,
-      (newWallets) => wallets.value = newWallets,
+          (fail) => loadWalletsFailureObservable.value = fail,
+          (newWallets) => wallets.value = newWallets,
     );
     areWalletsLoadingObservable.value = false;
     _queryClient = pylons.QueryClient(this.baseEnv.networkInfo.gRPCChannel);
@@ -71,9 +78,9 @@ class WalletsStoreImp implements WalletsStore {
   /// Output: [WalletPublicInfo] contains the address of the wallet
   @override
   Future<WalletPublicInfo> importAlanWallet(
-    String mnemonic,
-    String userName,
-  ) async {
+      String mnemonic,
+      String userName,
+      ) async {
     final wallet = alan.Wallet.derive(mnemonic.split(" "), baseEnv.networkInfo);
     final creds = AlanPrivateWalletCredentials(
       publicInfo: WalletPublicInfo(
@@ -120,15 +127,14 @@ class WalletsStoreImp implements WalletsStore {
 
     final unsignedTransaction = UnsignedAlanTransaction(messages: [msgObj]);
 
-    final customSigningGateway = createCustomSigningGateway();
 
-    final result = await customSigningGateway
+    final result = await _customTransactionSigningGateway
         .signTransaction(
-            transaction: unsignedTransaction, walletLookupKey: walletLookupKey)
+        transaction: unsignedTransaction, walletLookupKey: walletLookupKey)
         .mapError<dynamic>((error) {
       throw error;
     }).flatMap(
-      (signed) => customSigningGateway.broadcastTransaction(
+          (signed) => _customTransactionSigningGateway.broadcastTransaction(
         walletLookupKey: walletLookupKey,
         transaction: signed,
       ),
@@ -143,34 +149,16 @@ class WalletsStoreImp implements WalletsStore {
     return _queryClient;
   }
 
-  /// This method creates the custom signing Gateway for the user
-  /// Output : [TransactionSigningGateway] custom signing Gateway with custom logic
-  @override
-  TransactionSigningGateway createCustomSigningGateway() {
-    return TransactionSigningGateway(
-      transactionSummaryUI: NoOpTransactionSummaryUI(),
-      signers: [
-        CustomTransactionSigner(baseEnv.networkInfo),
-      ],
-      broadcasters: [
-        AlanTransactionBroadcaster(baseEnv.networkInfo),
-      ],
-      infoStorage: MobileKeyInfoStorage(
-        serializers: [AlanCredentialsSerializer()],
-      ),
-    );
-  }
-
   /// This method sends the money from one address to another
   /// Input : [WalletPublicInfo] contains the info regarding the current network
   /// [balance] the amount that we want to send
   /// [toAddress] the address to which we want to send
   @override
   Future<void> sendCosmosMoney(
-    WalletPublicInfo info,
-    Balance balance,
-    String toAddress,
-  ) async {
+      WalletPublicInfo info,
+      Balance balance,
+      String toAddress,
+      ) async {
     isSendMoneyLoading.value = true;
     isSendMoneyError.value = false;
     try {
@@ -196,14 +184,15 @@ class WalletsStoreImp implements WalletsStore {
       password: '',
     );
 
+
     final result = await _transactionSigningGateway
         .signTransaction(
-            transaction: unsignedTransaction, walletLookupKey: walletLookupKey)
+        transaction: unsignedTransaction, walletLookupKey: walletLookupKey)
         .mapError<dynamic>((error) {
       print(error);
       throw error;
     }).flatMap(
-      (signed) => _transactionSigningGateway.broadcastTransaction(
+          (signed) => _transactionSigningGateway.broadcastTransaction(
         walletLookupKey: walletLookupKey,
         transaction: signed,
       ),
@@ -214,6 +203,149 @@ class WalletsStoreImp implements WalletsStore {
       print(await getTxs(transactionHash.txHash));
     }
     return transactionHash;
+  }
+
+
+  /// This method creates the cookbook
+  /// Input : [Map] containing the info related to the creation of cookbook
+  /// Output : [TransactionHash] hash of the transaction
+  @override
+  Future<SDKIPCResponse> createCookBookIPC(Map json) async {
+    final msgObj = pylons.MsgCreateCookbook.create()..mergeFromProto3Json(json);
+
+    final unsignedTransaction = UnsignedAlanTransaction(messages: [msgObj]);
+
+    final walletsResultEither = await _customTransactionSigningGateway.getWalletsList();
+
+    if (walletsResultEither.isLeft()) {
+      return SDKIPCResponse.failure(sender: '', error: 'Something went wrong while fetching wallets', errorCode: HandlerFactory.ERR_SOMETHING_WENT_WRONG, transaction: '');
+    }
+
+    final accountsList = walletsResultEither.getOrElse(() => []);
+    if (accountsList.isEmpty) {
+      return SDKIPCResponse.failure(sender: '', error: 'No profile found in wallet', errorCode: HandlerFactory.ERR_PROFILE_DOES_NOT_EXIST, transaction: '');
+    }
+
+    final info = accountsList.last;
+
+    final walletLookupKey = createWalletLookUp(info);
+
+    msgObj.creator = info.publicAddress;
+
+    final signedTransaction = await _transactionSigningGateway.signTransaction(transaction: unsignedTransaction, walletLookupKey: walletLookupKey);
+
+    if (signedTransaction.isLeft()) {
+      return SDKIPCResponse.failure(sender: '', error: 'Something went wrong while signing transaction', errorCode: HandlerFactory.ERR_SOMETHING_WENT_WRONG, transaction: '');
+    }
+
+    final response = await _customTransactionSigningGateway.broadcastTransaction(
+      walletLookupKey: walletLookupKey,
+      transaction: signedTransaction.toOption().toNullable()!,
+    );
+
+    if (response.isLeft()) {
+      return SDKIPCResponse.failure(sender: '', error: response.swap().toOption().toNullable().toString(), errorCode: HandlerFactory.ERR_SOMETHING_WENT_WRONG, transaction: '');
+    }
+
+    return SDKIPCResponse.success(sender: '', data: response.getOrElse(() => TransactionResponse.initial()).hash, transaction: '');
+  }
+
+
+  @override
+  Future<SDKIPCResponse> createRecipeIPC(Map<dynamic, dynamic> json) async {
+    final msgObj = pylons.MsgCreateRecipe.create()..mergeFromProto3Json(json);
+
+    final unsignedTransaction = UnsignedAlanTransaction(messages: [msgObj]);
+
+    final walletsResultEither = await _customTransactionSigningGateway.getWalletsList();
+
+    if (walletsResultEither.isLeft()) {
+      return SDKIPCResponse.failure(sender: '', error: 'Something went wrong while fetching wallets', errorCode: HandlerFactory.ERR_SOMETHING_WENT_WRONG, transaction: '');
+    }
+
+    final accountsList = walletsResultEither.getOrElse(() => []);
+    if (accountsList.isEmpty) {
+      return SDKIPCResponse.failure(sender: '', error: 'No profile found in wallet', errorCode: HandlerFactory.ERR_PROFILE_DOES_NOT_EXIST, transaction: '');
+    }
+
+    final info = accountsList.last;
+
+    final walletLookupKey = createWalletLookUp(info);
+
+    msgObj.creator = info.publicAddress;
+
+
+    final signedTransaction = await _transactionSigningGateway.signTransaction(transaction: unsignedTransaction, walletLookupKey: walletLookupKey);
+
+
+    if (signedTransaction.isLeft()) {
+      return SDKIPCResponse.failure(sender: '', error: 'Something went wrong while signing transaction', errorCode: HandlerFactory.ERR_SOMETHING_WENT_WRONG, transaction: '');
+    }
+
+    final response = await _customTransactionSigningGateway.broadcastTransaction(
+      walletLookupKey: walletLookupKey,
+      transaction: signedTransaction.toOption().toNullable()!,
+    );
+
+    if (response.isLeft()) {
+      return SDKIPCResponse.failure(sender: '', error: response.swap().toOption().toNullable().toString(), errorCode: HandlerFactory.ERR_SOMETHING_WENT_WRONG, transaction: '');
+    }
+
+    return SDKIPCResponse.success(sender: '', data: response.getOrElse(() => TransactionResponse.initial()).hash, transaction: '');
+  }
+
+  WalletLookupKey createWalletLookUp(WalletPublicInfo info) {
+    final walletLookupKey = WalletLookupKey(
+      walletId: info.walletId,
+      chainId: info.chainId,
+      password: '',
+    );
+    return walletLookupKey;
+  }
+
+  @override
+  Future<SDKIPCResponse> executeRecipeIPC(Map json) async{
+    // print(json);
+    final msgObj = pylons.MsgExecuteRecipe.create()..mergeFromProto3Json(json);
+
+    final unsignedTransaction = UnsignedAlanTransaction(messages: [msgObj]);
+
+    final walletsResultEither = await _customTransactionSigningGateway.getWalletsList();
+
+    if (walletsResultEither.isLeft()) {
+      return SDKIPCResponse.failure(sender: '', error: 'Something went wrong while fetching wallets', errorCode: HandlerFactory.ERR_SOMETHING_WENT_WRONG, transaction: '');
+    }
+
+    final accountsList = walletsResultEither.getOrElse(() => []);
+    if (accountsList.isEmpty) {
+      return SDKIPCResponse.failure(sender: '', error: 'No profile found in wallet', errorCode: HandlerFactory.ERR_PROFILE_DOES_NOT_EXIST, transaction: '');
+    }
+
+    final info = accountsList.last;
+
+    final walletLookupKey = createWalletLookUp(info);
+
+    msgObj.creator = info.publicAddress;
+
+    print(msgObj.toProto3Json());
+
+    final signedTransaction = await _transactionSigningGateway.signTransaction(transaction: unsignedTransaction, walletLookupKey: walletLookupKey);
+
+
+    if (signedTransaction.isLeft()) {
+      return SDKIPCResponse.failure(sender: '', error: 'Something went wrong while signing transaction', errorCode: HandlerFactory.ERR_SOMETHING_WENT_WRONG, transaction: '');
+    }
+
+    final response = await _customTransactionSigningGateway.broadcastTransaction(
+      walletLookupKey: walletLookupKey,
+      transaction: signedTransaction.toOption().toNullable()!,
+    );
+
+    if (response.isLeft()) {
+      return SDKIPCResponse.failure(sender: '', error: response.swap().toOption().toNullable().toString(), errorCode: HandlerFactory.ERR_SOMETHING_WENT_WRONG, transaction: '');
+    }
+
+    return SDKIPCResponse.success(sender: '', data: response.getOrElse(() => TransactionResponse.initial()).hash, transaction: '');
   }
 
   /// This method creates the cookbook
@@ -423,8 +555,8 @@ class WalletsStoreImp implements WalletsStore {
   @override
   Future<List<Execution>> getRecipeEexecutions(String cookbookID, String recipeID) async {
     final request = pylons.QueryListExecutionsByRecipeRequest.create()
-        ..cookbookID=cookbookID
-        ..recipeID=recipeID;
+      ..cookbookID=cookbookID
+      ..recipeID=recipeID;
     final response = await _queryClient.listExecutionsByRecipe(request);
     return response.completedExecutions;
   }

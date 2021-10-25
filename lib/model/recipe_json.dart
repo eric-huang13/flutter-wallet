@@ -3,8 +3,7 @@
 class RecipeJson {
   late Recipe recipe;
 
-  RecipeJson({
-    required this.recipe});
+  RecipeJson({required this.recipe});
 
   RecipeJson.fromJson(Map<String, dynamic> json) {
     recipe = Recipe.fromJson(json['Recipe'] as Map<String, dynamic>);
@@ -15,7 +14,6 @@ class RecipeJson {
     map['Recipe'] = recipe.toJson();
     return map;
   }
-
 }
 
 /// cookbookID : "Easel_autocookbook_pylo149haucpqld30pksrzqyff67prswul9vmmle27v"
@@ -60,7 +58,8 @@ class Recipe {
     required this.outputs,
     required this.blockInterval,
     required this.enabled,
-    required this.extraInfo,});
+    required this.extraInfo,
+  });
 
   Recipe.fromJson(Map<String, dynamic> json) {
     cookbookID = json['cookbookID'] as String;
@@ -110,7 +109,6 @@ class Recipe {
     map['extraInfo'] = extraInfo;
     return map;
   }
-
 }
 
 /// entryIDs : ["title_title"]
@@ -120,9 +118,7 @@ class Outputs {
   late List<String> entryIDs;
   late String weight;
 
-  Outputs({
-    required this.entryIDs,
-    required this.weight});
+  Outputs({required this.entryIDs, required this.weight});
 
   Outputs.fromJson(dynamic json) {
     entryIDs = (json['entryIDs'] as List).cast<String>();
@@ -135,7 +131,6 @@ class Outputs {
     map['weight'] = weight;
     return map;
   }
-
 }
 
 /// coinOutputs : []
@@ -150,7 +145,8 @@ class Entries {
   Entries({
     required this.coinOutputs,
     required this.itemOutputs,
-    required this.itemModifyOutputs,});
+    required this.itemModifyOutputs,
+  });
 
   Entries.fromJson(dynamic json) {
     if (json['coinOutputs'] != null) {
@@ -177,10 +173,10 @@ class Entries {
     var map = <String, dynamic>{};
     map['coinOutputs'] = coinOutputs.map((v) => v.toJson()).toList();
     map['itemOutputs'] = itemOutputs.map((v) => v.toJson()).toList();
-    map['itemModifyOutputs'] = itemModifyOutputs.map((v) => v.toJson()).toList();
+    map['itemModifyOutputs'] =
+        itemModifyOutputs.map((v) => v.toJson()).toList();
     return map;
   }
-
 }
 
 /// ID : "title_title"
@@ -216,7 +212,8 @@ class ItemOutputs {
     required this.tradePercentage,
     required this.quantity,
     required this.amountMinted,
-    required this.tradeable,});
+    required this.tradeable,
+  });
 
   ItemOutputs.fromJson(dynamic json) {
     id = json['ID'] as String;
@@ -270,7 +267,6 @@ class ItemOutputs {
     map['tradeable'] = tradeable;
     return map;
   }
-
 }
 
 /// key : "Name"
@@ -288,7 +284,8 @@ class Strings {
     required this.key,
     required this.rate,
     required this.value,
-    required this.program,});
+    required this.program,
+  });
 
   Strings.fromJson(dynamic json) {
     key = json['key'] as String;
@@ -305,7 +302,6 @@ class Strings {
     map['program'] = program;
     return map;
   }
-
 }
 
 /// key : "Quantity"
@@ -323,7 +319,8 @@ class Longs {
     required this.key,
     required this.rate,
     required this.weightRanges,
-    required this.program,});
+    required this.program,
+  });
 
   Longs.fromJson(dynamic json) {
     key = json['key'] as String;
@@ -345,7 +342,6 @@ class Longs {
     map['program'] = program;
     return map;
   }
-
 }
 
 /// lower : "23"
@@ -360,7 +356,8 @@ class WeightRanges {
   WeightRanges({
     required this.lower,
     required this.upper,
-    required this.weight,});
+    required this.weight,
+  });
 
   WeightRanges.fromJson(dynamic json) {
     lower = json['lower'] as String;
@@ -375,7 +372,6 @@ class WeightRanges {
     map['weight'] = weight;
     return map;
   }
-
 }
 
 /// key : "Residual"
@@ -393,7 +389,8 @@ class Doubles {
     required this.key,
     required this.rate,
     required this.weightRanges,
-    required this.program,});
+    required this.program,
+  });
 
   Doubles.fromJson(dynamic json) {
     key = json['key'] as String;
@@ -415,9 +412,7 @@ class Doubles {
     map['program'] = program;
     return map;
   }
-
 }
-
 
 /// coins : [{"denom":"pylon","amount":"12"}]
 
@@ -425,7 +420,8 @@ class CoinInputs {
   late List<Coins> coins;
 
   CoinInputs({
-    required this.coins,});
+    required this.coins,
+  });
 
   CoinInputs.fromJson(dynamic json) {
     if (json['coins'] != null) {
@@ -441,7 +437,6 @@ class CoinInputs {
     map['coins'] = coins.map((v) => v.toJson()).toList();
     return map;
   }
-
 }
 
 /// denom : "pylon"
@@ -451,9 +446,7 @@ class Coins {
   late String denom;
   late String amount;
 
-  Coins({
-    required this.denom,
-    required this.amount});
+  Coins({required this.denom, required this.amount});
 
   Coins.fromJson(dynamic json) {
     denom = json['denom'] as String;
@@ -466,23 +459,43 @@ class Coins {
     map['amount'] = amount;
     return map;
   }
-
 }
 
-
 extension RecipeValues on RecipeJson {
-  String get name => recipe.entries.itemOutputs.first.strings.firstWhere((e) => e.key == "Name", orElse: ()=> Strings(key: "", value: "", program: "", rate: "")).value;
+  String get name => recipe.entries.itemOutputs.first.strings
+      .firstWhere((e) => e.key == "Name",
+          orElse: () => Strings(key: "", value: "", program: "", rate: ""))
+      .value;
 
-  String get nftUrl => recipe.entries.itemOutputs.first.strings.firstWhere((e) => e.key == "NFT_URL", orElse: ()=> Strings(key: "", value: "", program: "", rate: "")).value;
+  String get nftUrl => recipe.entries.itemOutputs.first.strings
+      .firstWhere((e) => e.key == "NFT_URL",
+          orElse: () => Strings(key: "", value: "", program: "", rate: ""))
+      .value;
 
-  String get description => recipe.entries.itemOutputs.first.strings.firstWhere((e) => e.key == "Description", orElse: ()=> Strings(key: "", value: "", program: "", rate: "")).value;
+  String get description => recipe.entries.itemOutputs.first.strings
+      .firstWhere((e) => e.key == "Description",
+          orElse: () => Strings(key: "", value: "", program: "", rate: ""))
+      .value;
 
-  String get currency => recipe.entries.itemOutputs.first.strings.firstWhere((e) => e.key == "Currency", orElse: ()=> Strings(key: "", value: "", program: "", rate: "")).value;
+  String get currency => recipe.entries.itemOutputs.first.strings
+      .firstWhere((e) => e.key == "Currency",
+          orElse: () => Strings(key: "", value: "", program: "", rate: ""))
+      .value;
 
-  String get price => recipe.entries.itemOutputs.first.strings.firstWhere((e) => e.key == "Price", orElse: ()=> Strings(key: "", value: "", program: "", rate: "")).value;
+  String get price => recipe.entries.itemOutputs.first.strings
+      .firstWhere((e) => e.key == "Price",
+          orElse: () => Strings(key: "", value: "", program: "", rate: ""))
+      .value;
 
-  String get width => recipe.entries.itemOutputs.first.longs.firstWhere((e) => e.key == "Width").weightRanges.first.upper;
+  String get width => recipe.entries.itemOutputs.first.longs
+      .firstWhere((e) => e.key == "Width")
+      .weightRanges
+      .first
+      .upper;
 
-  String get height => recipe.entries.itemOutputs.first.longs.firstWhere((e) => e.key == "Height").weightRanges.first.upper;
-
+  String get height => recipe.entries.itemOutputs.first.longs
+      .firstWhere((e) => e.key == "Height")
+      .weightRanges
+      .first
+      .upper;
 }

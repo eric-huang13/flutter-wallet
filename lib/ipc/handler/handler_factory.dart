@@ -1,6 +1,7 @@
 import 'package:pylons_wallet/ipc/handler/base_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/create_cook_book_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/create_recipe_handler.dart';
+import 'package:pylons_wallet/ipc/models/sdk_ipc_message.dart';
 
 class HandlerFactory {
   static const String GET_COOKBOOKS = 'getCookbooks';
@@ -32,20 +33,17 @@ class HandlerFactory {
   static const String ERR_ITEM_DOES_NOT_EXIST = 'itemDoesNotExist';
   static const String ERR_ITEM_NOT_OWNED = 'itemNotOwned';
   static const String ERR_MISSING_ITEM_INPUTS = 'missingItemInputs';
+  static const String ERR_SOMETHING_WENT_WRONG = 'somethingWentWrong';
 
-  BaseHandler getHandler(List<String> message) {
-    final key = message[1];
+  BaseHandler getHandler(SDKIPCMessage sdkipcMessage) {
 
-    print(message);
-
-
-    if (key == TX_CREATE_COOKBOOK) {
-      return CreateCookBookHandler(message);
+    if (sdkipcMessage.action == TX_CREATE_COOKBOOK) {
+      return CreateCookBookHandler(sdkipcMessage);
     }
-    if (key == TX_CREATE_RECIPE) {
-      return CreateRecipeHandler(message);
+    if (sdkipcMessage.action == TX_CREATE_RECIPE) {
+      return CreateRecipeHandler(sdkipcMessage);
     }
 
-    return CreateCookBookHandler([]);
+    return CreateCookBookHandler(sdkipcMessage);
   }
 }

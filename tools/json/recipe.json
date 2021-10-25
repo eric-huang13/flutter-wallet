@@ -2,8 +2,8 @@
   "cookbookID": "cookbook_for_test",
   "ID": "cookbook_for_test_2021_10_22_09_13_58",
   "nodeVersion": "",
-  "name": "How do you do turn this on",
-  "description": "I am aa a a fsd fsdfasd as sadkfjsd jfsd fsdf sd fsd fsd ",
+  "name": "A simple recipe test",
+  "description": "A simple test recipe to be executed",
   "version": "v1.0.0",
   "coinInputs": [
     {

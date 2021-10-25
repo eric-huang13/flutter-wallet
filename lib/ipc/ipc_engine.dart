@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/ipc/handler/handler_factory.dart';
 import 'package:pylons_wallet/pages/detail/detail_screen.dart';
 import 'package:pylons_wallet/pylons_app.dart';
@@ -11,11 +12,18 @@ import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'package:pylons_wallet/ipc/models/sdk_ipc_message.dart';
+import 'package:pylons_wallet/pages/new_screens/purchase_item_screen.dart';
+import 'package:pylons_wallet/transactions/get_recipe.dart';
+import 'package:pylons_wallet/utils/base_env.dart';
+
+import 'models/sdk_ipc_response.dart';
+
 //unilink key format constants
-const KEY_PURCHASE_NFT  = "purchase_nft";
-const KEY_COOKBOOK_ID   = "cookbook_id";
-const KEY_RECIPE_ID     = "recipe_id";
-const KEY_NFT_AMOUNT    = "nft_amount";
+const KEY_PURCHASE_NFT = "purchase_nft";
+const KEY_COOKBOOK_ID = "cookbook_id";
+const KEY_RECIPE_ID = "recipe_id";
+const KEY_NFT_AMOUNT = "nft_amount";
 
 /// Terminology
 /// Signal : Incoming request from a 3rd party app
@@ -26,7 +34,6 @@ class IPCEngine {
   late StreamSubscription _sub;
 
   bool systemHandlingASignal = false;
-
 
   /// This method initiate the IPC Engine
   Future<bool> init(BuildContext context) async {
@@ -45,9 +52,9 @@ class IPCEngine {
         return;
       }
 
-      if(_isEaselUniLink(link)) {
+      if (_isEaselUniLink(link)) {
         _handleEaselLink(link);
-      }else {
+      } else {
         handleLink(link);
       }
 
@@ -66,15 +73,19 @@ class IPCEngine {
     if (initialLink == null) {
       return;
     }
-    handleLink(initialLink);
+    if (_isEaselUniLink(initialLink)) {
+      _handleEaselLink(initialLink);
+    } else {
+      handleLink(initialLink);
+    }
   }
-
 
   /// This method encodes the message that we need to send to wallet
   /// Input]  [msg] is the string received from the wallet
   /// Output : [List] contains the decoded response
   String encodeMessage(List<String> msg) {
-    final encodedMessageWithComma = msg.map((e) => base64Url.encode(utf8.encode(e))).join(',');
+    final encodedMessageWithComma =
+        msg.map((e) => base64Url.encode(utf8.encode(e))).join(',');
     return base64Url.encode(utf8.encode(encodedMessageWithComma));
   }
 
@@ -83,36 +94,47 @@ class IPCEngine {
   /// Output : [List] contains the decoded response
   List<String> decodeMessage(String msg) {
     final decoded = utf8.decode(base64Url.decode(msg));
-    return decoded.split(',').map((e) => utf8.decode(base64Url.decode(e))).toList();
+    return decoded
+        .split(',')
+        .map((e) => utf8.decode(base64Url.decode(e)))
+        .toList();
   }
 
   /// This method handles the link that the wallet received from the 3rd Party apps
   /// Input : [link] contains the link that is received from the 3rd party apps.
-  /// Output : [List] contains the decoded message
-  Future<List> handleLink(String link) async {
+  /// Output : [void] contains the decoded message
+  Future<void> handleLink(String link) async {
     log(link, name: '[IPCEngine : handleLink]');
 
-    final getMessage = decodeMessage(link.split('/').last);
+    final getMessage = link.split('/').last;
 
-    if (systemHandlingASignal) {
-      disconnectThisSignal(sender: getMessage.first, key: getMessage[1]);
-      return [];
+    SDKIPCMessage sdkIPCMessage;
+
+    try {
+      sdkIPCMessage = SDKIPCMessage.fromIPCMessage(getMessage);
+    } catch (e) {
+      print('Something went wrong in parsing');
+      return;
     }
-
 
     print(getMessage);
 
-    systemHandlingASignal = true;
+    //
+    // if (systemHandlingASignal) {
+    //   disconnectThisSignal(sender: getMessage.first, key: getMessage[1]);
+    //   return [];
+    // }
 
-    await showApprovalDialog(
-      key: getMessage[1],
-      sender: getMessage.first,
-      wholeMessage: getMessage,
-    );
-    systemHandlingASignal = false;
-    return getMessage;
+    print(getMessage);
+    //
+    // systemHandlingASignal = true;
+    //
+    await showApprovalDialog(sdkIPCMessage: sdkIPCMessage);
+    // systemHandlingASignal = false;
+    // return getMessage;
   }
 
+/*
   Future<void> _handleEaselLink(String link) async{
     final queryParameters = Uri.parse(link).queryParameters;
     final action = queryParameters['action']?? "";
@@ -123,77 +145,37 @@ class IPCEngine {
     final tradeID = queryParameters['trade_id']?? "";
 
     debugPrint("amount: $amount, cookbook_id: $cookbookID, recipe_id: $recipeID");
-
+    navigatorKey.currentState!.pop();
     //move to purchase Item Screen
     navigatorKey.currentState!.push(MaterialPageRoute(builder: (_) => DetailScreenWidget (
       cookbookID: cookbookID,
       recipeID: recipeID, pageType: DetailPageType.typeRecipe,
     )));
+  }
+*/
 
-    /**
-    final walletsStore = GetIt.I.get<WalletsStore>();
+  Future<void> _handleEaselLink(String link) async {
+    final queryParameters = Uri.parse(link).queryParameters;
+    final recipeId = queryParameters['recipe_id'];
+    final cookbookId = queryParameters['cookbook_id'];
 
-    // var jsonString ='''{
-    //     "cookbookID": "cookbookLOUD",
-    //     "ID": "LOUDEasel",
-    //     "name": "Easel Recipe",
-    //     "description": "Tests recipe",
-    //     "version": "v0.0.1",
-    //     "coinInputs": [
-    //     {
-    //     "coins": [
-    //       {
-    //         "denom": "upylon",
-    //         "amount": "10000"
-    //       }
-    //     ]
-    //   }
-    //     ],
-    //     "itemInputs": [],
-    //     "entries": {
-    //       "coinOutputs": [],
-    //       "itemOutputs": [
-    //         {
-    //           "ID": "item output",
-    //           "strings": [
-    //             {
-    //               "key": "NFT_URL",
-    //               "value": "https://image_here"
-    //             }
-    //           ],
-    //           "mutableStrings": [],
-    //           "transferFee": [],
-    //           "tradePercentage": "0.2",
-    //           "tradeable": true
-    //         }
-    //       ],
-    //       "itemModifyOutputs": []
-    //     },
-    //     "outputs": [
-    //       {
-    //         "entryIDs": [
-    //           "basic_character_lv1"
-    //         ],
-    //         "weight": 1
-    //       }
-    //     ],
-    //     "enabled": true,
-    //     "extraInfo": "extraInfo"
-    //   }''';
+    _showLoading();
 
-    var jsonExecuteRecipe = '''{
-        "creator": "",
-        "cookbookID": "cookbookLOUD",
-        "recipeID": "LOUDEasel",
-        "coinInputsIndex": 0,
-        "itemIDs": ["item output"]
-        }''';
+    final jsonRecipe = await GetRecipe(GetIt.I.get<BaseEnv>())
+        .getRecipe(cookbookId!, recipeId!);
 
-    final jsonMap = jsonDecode(jsonExecuteRecipe) as Map;
-    var response = (await walletsStore.executeRecipe(jsonMap)).txHash;
+    navigatorKey.currentState!.pop();
 
-    print(response);
-    */
+    if (jsonRecipe != null) {
+      navigatorKey.currentState!.push(MaterialPageRoute(
+          builder: (_) => PurchaseItemScreen(recipe: jsonRecipe)));
+      return;
+    } else {
+      ScaffoldMessenger.of(navigatorKey.currentState!.overlay!.context)
+          .showSnackBar(const SnackBar(
+        content: Text("Unable to fetch NFT Item"),
+      ));
+    }
   }
 
   /// This method sends the unilink to the wallet app
@@ -210,8 +192,9 @@ class IPCEngine {
   /// This is a temporary dialog for the proof of concept.
   /// Input : [sender] The sender of the signal
   /// Output : [key] The signal kind against which the signal is sent
-  Future showApprovalDialog({required String sender, required String key, required List<String> wholeMessage}) {
+  Future showApprovalDialog({required SDKIPCMessage sdkIPCMessage}) {
     return showDialog(
+        barrierDismissible: false,
         context: navigatorKey.currentState!.overlay!.context,
         builder: (_) => AlertDialog(
               content: const Text('Allow this transaction'),
@@ -220,11 +203,28 @@ class IPCEngine {
                   onPressed: () async {
                     Navigator.of(_).pop();
 
-                    final handlerMessage = await GetIt.I.get<HandlerFactory>().getHandler(wholeMessage).handle();
+                    final handlerMessage = await GetIt.I
+                        .get<HandlerFactory>()
+                        .getHandler(sdkIPCMessage)
+                        .handle();
                     print(handlerMessage);
-                    await dispatchUniLink(handlerMessage);
+                    await dispatchUniLink(handlerMessage.createMessageLink());
                   },
                   child: const Text('Approval'),
+                ),
+                RaisedButton(
+                  onPressed: () async {
+                    Navigator.of(_).pop();
+
+                    final cancelledResponse = SDKIPCResponse.failure(
+                        sender: sdkIPCMessage.sender,
+                        error: '',
+                        errorCode: HandlerFactory.ERR_SOMETHING_WENT_WRONG,
+                        transaction: sdkIPCMessage.action);
+                    await dispatchUniLink(
+                        cancelledResponse.createMessageLink());
+                  },
+                  child: const Text('Disapprove'),
                 )
               ],
             ));
@@ -238,16 +238,47 @@ class IPCEngine {
   /// This method disconnect any new signal. If another signal is already in process
   /// Input : [sender] The sender of the signal
   /// Output : [key] The signal kind against which the signal is sent
-  Future<void> disconnectThisSignal({required String sender, required String key}) async {
-    final encodedMessage = encodeMessage([key, 'Wallet Busy: A transaction is already is already in progress']);
+  Future<void> disconnectThisSignal(
+      {required String sender, required String key}) async {
+    final encodedMessage = encodeMessage(
+        [key, 'Wallet Busy: A transaction is already is already in progress']);
     await dispatchUniLink('pylons://$sender/$encodedMessage');
   }
 
-  //https://wallet.pylons.tech/?action=purchase_nft&cookbook_id=aaa&recipe_id=bbb&nft_amount=1
-  //adb shell am start -W -a android.intent.action.VIEW -c android.intent.category.BROWSABLE -d "pylons://wallet/?action=purchase_nft&cookbook_id=aaa&recipe_id=bbb&nft_amount=1"
-  bool _isEaselUniLink(String link){
-    print(link);
+  ///This method checks if the incoming link is generated from Easel
+  bool _isEaselUniLink(String link) {
     final queryParam = Uri.parse(link).queryParameters;
-    return queryParam.containsKey("action") && queryParam.containsKey("recipe_id") && queryParam.containsKey("cookbook_id") && queryParam.containsKey("nft_amount");
+    return queryParam.containsKey("action") &&
+        queryParam.containsKey("recipe_id") &&
+        queryParam.containsKey("nft_amount") &&
+        queryParam.containsKey("cookbook_id");
+  }
+
+  void _showLoading() {
+    showDialog(
+      context: navigatorKey.currentState!.overlay!.context,
+      barrierDismissible: false,
+      builder: (ctx) => AlertDialog(
+        content: Wrap(
+          children: [
+            Row(
+              children: [
+                const SizedBox(
+                  width: 30,
+                  height: 30,
+                  child: CircularProgressIndicator(),
+                ),
+                const HorizontalSpace(10),
+                Text(
+                  "Loading...",
+                  style:
+                      Theme.of(ctx).textTheme.subtitle2!.copyWith(fontSize: 12),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
