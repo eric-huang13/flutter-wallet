@@ -168,13 +168,13 @@ class MockWalletStore implements WalletsStore {
   }
 
   @override
-  Future<void> getItemExecutions(String cookbookID, String itemID) {
+  Future<List<Execution>> getItemExecutions(String cookbookID, String itemID) {
     // TODO: implement getItemExecutions
     throw UnimplementedError();
   }
 
   @override
-  Future<void> getRecipeEexecutions(String cookbookID, String recipeID) {
+  Future<List<Execution>> getRecipeEexecutions(String cookbookID, String recipeID) {
     // TODO: implement getRecipeEexecutions
     throw UnimplementedError();
   }

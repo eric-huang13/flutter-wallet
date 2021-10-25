@@ -61,7 +61,6 @@ class NFT extends Equatable {
       denom: recipe?.coinInputs.first.coins.first.denom.toString(),
       creator: cookbook?.creator,
 
-
     );
   }
 
