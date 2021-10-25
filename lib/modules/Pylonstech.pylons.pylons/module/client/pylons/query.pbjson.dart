@@ -8,6 +8,111 @@
 import 'dart:core' as $core;
 import 'dart:convert' as $convert;
 import 'dart:typed_data' as $typed_data;
+@$core.Deprecated('Use queryListTradesByCreatorRequestDescriptor instead')
+const QueryListTradesByCreatorRequest$json = const {
+  '1': 'QueryListTradesByCreatorRequest',
+  '2': const [
+    const {'1': 'creator', '3': 1, '4': 1, '5': 9, '10': 'creator'},
+    const {'1': 'pagination', '3': 2, '4': 1, '5': 11, '6': '.cosmos.base.query.v1beta1.PageRequest', '10': 'pagination'},
+  ],
+};
+
+/// Descriptor for `QueryListTradesByCreatorRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List queryListTradesByCreatorRequestDescriptor = $convert.base64Decode('Ch9RdWVyeUxpc3RUcmFkZXNCeUNyZWF0b3JSZXF1ZXN0EhgKB2NyZWF0b3IYASABKAlSB2NyZWF0b3ISRgoKcGFnaW5hdGlvbhgCIAEoCzImLmNvc21vcy5iYXNlLnF1ZXJ5LnYxYmV0YTEuUGFnZVJlcXVlc3RSCnBhZ2luYXRpb24=');
+@$core.Deprecated('Use queryListTradesByCreatorResponseDescriptor instead')
+const QueryListTradesByCreatorResponse$json = const {
+  '1': 'QueryListTradesByCreatorResponse',
+  '2': const [
+    const {'1': 'Trades', '3': 1, '4': 3, '5': 11, '6': '.Pylonstech.pylons.pylons.Trade', '8': const {}, '10': 'Trades'},
+    const {'1': 'pagination', '3': 2, '4': 1, '5': 11, '6': '.cosmos.base.query.v1beta1.PageResponse', '10': 'pagination'},
+  ],
+  '7': const {},
+};
+
+/// Descriptor for `QueryListTradesByCreatorResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List queryListTradesByCreatorResponseDescriptor = $convert.base64Decode('CiBRdWVyeUxpc3RUcmFkZXNCeUNyZWF0b3JSZXNwb25zZRI9CgZUcmFkZXMYASADKAsyHy5QeWxvbnN0ZWNoLnB5bG9ucy5weWxvbnMuVHJhZGVCBMjeHwBSBlRyYWRlcxJHCgpwYWdpbmF0aW9uGAIgASgLMicuY29zbW9zLmJhc2UucXVlcnkudjFiZXRhMS5QYWdlUmVzcG9uc2VSCnBhZ2luYXRpb246COigHwCIoB8A');
+@$core.Deprecated('Use queryGetRedeemInfoRequestDescriptor instead')
+const QueryGetRedeemInfoRequest$json = const {
+  '1': 'QueryGetRedeemInfoRequest',
+  '2': const [
+    const {'1': 'ID', '3': 1, '4': 1, '5': 9, '10': 'ID'},
+  ],
+};
+
+/// Descriptor for `QueryGetRedeemInfoRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List queryGetRedeemInfoRequestDescriptor = $convert.base64Decode('ChlRdWVyeUdldFJlZGVlbUluZm9SZXF1ZXN0Eg4KAklEGAEgASgJUgJJRA==');
+@$core.Deprecated('Use queryGetRedeemInfoResponseDescriptor instead')
+const QueryGetRedeemInfoResponse$json = const {
+  '1': 'QueryGetRedeemInfoResponse',
+  '2': const [
+    const {'1': 'RedeemInfo', '3': 1, '4': 1, '5': 11, '6': '.Pylonstech.pylons.pylons.RedeemInfo', '8': const {}, '10': 'RedeemInfo'},
+  ],
+};
+
+/// Descriptor for `QueryGetRedeemInfoResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List queryGetRedeemInfoResponseDescriptor = $convert.base64Decode('ChpRdWVyeUdldFJlZGVlbUluZm9SZXNwb25zZRJKCgpSZWRlZW1JbmZvGAEgASgLMiQuUHlsb25zdGVjaC5weWxvbnMucHlsb25zLlJlZGVlbUluZm9CBMjeHwBSClJlZGVlbUluZm8=');
+@$core.Deprecated('Use queryAllRedeemInfoRequestDescriptor instead')
+const QueryAllRedeemInfoRequest$json = const {
+  '1': 'QueryAllRedeemInfoRequest',
+  '2': const [
+    const {'1': 'pagination', '3': 1, '4': 1, '5': 11, '6': '.cosmos.base.query.v1beta1.PageRequest', '10': 'pagination'},
+  ],
+};
+
+/// Descriptor for `QueryAllRedeemInfoRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List queryAllRedeemInfoRequestDescriptor = $convert.base64Decode('ChlRdWVyeUFsbFJlZGVlbUluZm9SZXF1ZXN0EkYKCnBhZ2luYXRpb24YASABKAsyJi5jb3Ntb3MuYmFzZS5xdWVyeS52MWJldGExLlBhZ2VSZXF1ZXN0UgpwYWdpbmF0aW9u');
+@$core.Deprecated('Use queryAllRedeemInfoResponseDescriptor instead')
+const QueryAllRedeemInfoResponse$json = const {
+  '1': 'QueryAllRedeemInfoResponse',
+  '2': const [
+    const {'1': 'RedeemInfo', '3': 1, '4': 3, '5': 11, '6': '.Pylonstech.pylons.pylons.RedeemInfo', '8': const {}, '10': 'RedeemInfo'},
+    const {'1': 'pagination', '3': 2, '4': 1, '5': 11, '6': '.cosmos.base.query.v1beta1.PageResponse', '10': 'pagination'},
+  ],
+};
+
+/// Descriptor for `QueryAllRedeemInfoResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List queryAllRedeemInfoResponseDescriptor = $convert.base64Decode('ChpRdWVyeUFsbFJlZGVlbUluZm9SZXNwb25zZRJKCgpSZWRlZW1JbmZvGAEgAygLMiQuUHlsb25zdGVjaC5weWxvbnMucHlsb25zLlJlZGVlbUluZm9CBMjeHwBSClJlZGVlbUluZm8SRwoKcGFnaW5hdGlvbhgCIAEoCzInLmNvc21vcy5iYXNlLnF1ZXJ5LnYxYmV0YTEuUGFnZVJlc3BvbnNlUgpwYWdpbmF0aW9u');
+@$core.Deprecated('Use queryGetPaymentInfoRequestDescriptor instead')
+const QueryGetPaymentInfoRequest$json = const {
+  '1': 'QueryGetPaymentInfoRequest',
+  '2': const [
+    const {'1': 'purchaseID', '3': 1, '4': 1, '5': 9, '10': 'purchaseID'},
+  ],
+};
+
+/// Descriptor for `QueryGetPaymentInfoRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List queryGetPaymentInfoRequestDescriptor = $convert.base64Decode('ChpRdWVyeUdldFBheW1lbnRJbmZvUmVxdWVzdBIeCgpwdXJjaGFzZUlEGAEgASgJUgpwdXJjaGFzZUlE');
+@$core.Deprecated('Use queryGetPaymentInfoResponseDescriptor instead')
+const QueryGetPaymentInfoResponse$json = const {
+  '1': 'QueryGetPaymentInfoResponse',
+  '2': const [
+    const {'1': 'PaymentInfo', '3': 1, '4': 1, '5': 11, '6': '.Pylonstech.pylons.pylons.PaymentInfo', '8': const {}, '10': 'PaymentInfo'},
+  ],
+};
+
+/// Descriptor for `QueryGetPaymentInfoResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List queryGetPaymentInfoResponseDescriptor = $convert.base64Decode('ChtRdWVyeUdldFBheW1lbnRJbmZvUmVzcG9uc2USTQoLUGF5bWVudEluZm8YASABKAsyJS5QeWxvbnN0ZWNoLnB5bG9ucy5weWxvbnMuUGF5bWVudEluZm9CBMjeHwBSC1BheW1lbnRJbmZv');
+@$core.Deprecated('Use queryAllPaymentInfoRequestDescriptor instead')
+const QueryAllPaymentInfoRequest$json = const {
+  '1': 'QueryAllPaymentInfoRequest',
+  '2': const [
+    const {'1': 'pagination', '3': 1, '4': 1, '5': 11, '6': '.cosmos.base.query.v1beta1.PageRequest', '10': 'pagination'},
+  ],
+};
+
+/// Descriptor for `QueryAllPaymentInfoRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List queryAllPaymentInfoRequestDescriptor = $convert.base64Decode('ChpRdWVyeUFsbFBheW1lbnRJbmZvUmVxdWVzdBJGCgpwYWdpbmF0aW9uGAEgASgLMiYuY29zbW9zLmJhc2UucXVlcnkudjFiZXRhMS5QYWdlUmVxdWVzdFIKcGFnaW5hdGlvbg==');
+@$core.Deprecated('Use queryAllPaymentInfoResponseDescriptor instead')
+const QueryAllPaymentInfoResponse$json = const {
+  '1': 'QueryAllPaymentInfoResponse',
+  '2': const [
+    const {'1': 'PaymentInfo', '3': 1, '4': 3, '5': 11, '6': '.Pylonstech.pylons.pylons.PaymentInfo', '8': const {}, '10': 'PaymentInfo'},
+    const {'1': 'pagination', '3': 2, '4': 1, '5': 11, '6': '.cosmos.base.query.v1beta1.PageResponse', '10': 'pagination'},
+  ],
+};
+
+/// Descriptor for `QueryAllPaymentInfoResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List queryAllPaymentInfoResponseDescriptor = $convert.base64Decode('ChtRdWVyeUFsbFBheW1lbnRJbmZvUmVzcG9uc2USTQoLUGF5bWVudEluZm8YASADKAsyJS5QeWxvbnN0ZWNoLnB5bG9ucy5weWxvbnMuUGF5bWVudEluZm9CBMjeHwBSC1BheW1lbnRJbmZvEkcKCnBhZ2luYXRpb24YAiABKAsyJy5jb3Ntb3MuYmFzZS5xdWVyeS52MWJldGExLlBhZ2VSZXNwb25zZVIKcGFnaW5hdGlvbg==');
 @$core.Deprecated('Use queryGetUsernameByAddressRequestDescriptor instead')
 const QueryGetUsernameByAddressRequest$json = const {
   '1': 'QueryGetUsernameByAddressRequest',

@@ -10,9 +10,103 @@ import 'dart:core' as $core;
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'trade.pb.dart' as $6;
+import 'redeem_info.pb.dart' as $5;
+import 'trade.pb.dart' as $8;
+import 'payment_info.pb.dart' as $7;
 import 'recipe.pb.dart' as $4;
 import '../cosmos/base/v1beta1/coin.pb.dart' as $2;
+
+class MsgBurnDebtToken extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'MsgBurnDebtToken', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Pylonstech.pylons.pylons'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'creator')
+    ..aOM<$5.RedeemInfo>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'redeemInfo', protoName: 'redeemInfo', subBuilder: $5.RedeemInfo.create)
+    ..hasRequiredFields = false
+  ;
+
+  MsgBurnDebtToken._() : super();
+  factory MsgBurnDebtToken({
+    $core.String? creator,
+    $5.RedeemInfo? redeemInfo,
+  }) {
+    final _result = create();
+    if (creator != null) {
+      _result.creator = creator;
+    }
+    if (redeemInfo != null) {
+      _result.redeemInfo = redeemInfo;
+    }
+    return _result;
+  }
+  factory MsgBurnDebtToken.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory MsgBurnDebtToken.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  MsgBurnDebtToken clone() => MsgBurnDebtToken()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  MsgBurnDebtToken copyWith(void Function(MsgBurnDebtToken) updates) => super.copyWith((message) => updates(message as MsgBurnDebtToken)) as MsgBurnDebtToken; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static MsgBurnDebtToken create() => MsgBurnDebtToken._();
+  MsgBurnDebtToken createEmptyInstance() => create();
+  static $pb.PbList<MsgBurnDebtToken> createRepeated() => $pb.PbList<MsgBurnDebtToken>();
+  @$core.pragma('dart2js:noInline')
+  static MsgBurnDebtToken getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MsgBurnDebtToken>(create);
+  static MsgBurnDebtToken? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get creator => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set creator($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasCreator() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearCreator() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $5.RedeemInfo get redeemInfo => $_getN(1);
+  @$pb.TagNumber(2)
+  set redeemInfo($5.RedeemInfo v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasRedeemInfo() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearRedeemInfo() => clearField(2);
+  @$pb.TagNumber(2)
+  $5.RedeemInfo ensureRedeemInfo() => $_ensure(1);
+}
+
+class MsgBurnDebtTokenResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'MsgBurnDebtTokenResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Pylonstech.pylons.pylons'), createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  MsgBurnDebtTokenResponse._() : super();
+  factory MsgBurnDebtTokenResponse() => create();
+  factory MsgBurnDebtTokenResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory MsgBurnDebtTokenResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  MsgBurnDebtTokenResponse clone() => MsgBurnDebtTokenResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  MsgBurnDebtTokenResponse copyWith(void Function(MsgBurnDebtTokenResponse) updates) => super.copyWith((message) => updates(message as MsgBurnDebtTokenResponse)) as MsgBurnDebtTokenResponse; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static MsgBurnDebtTokenResponse create() => MsgBurnDebtTokenResponse._();
+  MsgBurnDebtTokenResponse createEmptyInstance() => create();
+  static $pb.PbList<MsgBurnDebtTokenResponse> createRepeated() => $pb.PbList<MsgBurnDebtTokenResponse>();
+  @$core.pragma('dart2js:noInline')
+  static MsgBurnDebtTokenResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MsgBurnDebtTokenResponse>(create);
+  static MsgBurnDebtTokenResponse? _defaultInstance;
+}
 
 class MsgUpdateAccount extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'MsgUpdateAccount', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Pylonstech.pylons.pylons'), createEmptyInstance: create)
@@ -199,7 +293,8 @@ class MsgFulfillTrade extends $pb.GeneratedMessage {
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'creator')
     ..a<$fixnum.Int64>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ID', $pb.PbFieldType.OU6, protoName: 'ID', defaultOrMaker: $fixnum.Int64.ZERO)
     ..a<$fixnum.Int64>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'coinInputsIndex', $pb.PbFieldType.OU6, protoName: 'coinInputsIndex', defaultOrMaker: $fixnum.Int64.ZERO)
-    ..pc<$6.ItemRef>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'items', $pb.PbFieldType.PM, subBuilder: $6.ItemRef.create)
+    ..pc<$8.ItemRef>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'items', $pb.PbFieldType.PM, subBuilder: $8.ItemRef.create)
+    ..pc<$7.PaymentInfo>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'paymentInfos', $pb.PbFieldType.PM, protoName: 'paymentInfos', subBuilder: $7.PaymentInfo.create)
     ..hasRequiredFields = false
   ;
 
@@ -208,7 +303,8 @@ class MsgFulfillTrade extends $pb.GeneratedMessage {
     $core.String? creator,
     $fixnum.Int64? iD,
     $fixnum.Int64? coinInputsIndex,
-    $core.Iterable<$6.ItemRef>? items,
+    $core.Iterable<$8.ItemRef>? items,
+    $core.Iterable<$7.PaymentInfo>? paymentInfos,
   }) {
     final _result = create();
     if (creator != null) {
@@ -222,6 +318,9 @@ class MsgFulfillTrade extends $pb.GeneratedMessage {
     }
     if (items != null) {
       _result.items.addAll(items);
+    }
+    if (paymentInfos != null) {
+      _result.paymentInfos.addAll(paymentInfos);
     }
     return _result;
   }
@@ -274,7 +373,10 @@ class MsgFulfillTrade extends $pb.GeneratedMessage {
   void clearCoinInputsIndex() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.List<$6.ItemRef> get items => $_getList(3);
+  $core.List<$8.ItemRef> get items => $_getList(3);
+
+  @$pb.TagNumber(5)
+  $core.List<$7.PaymentInfo> get paymentInfos => $_getList(4);
 }
 
 class MsgFulfillTradeResponse extends $pb.GeneratedMessage {
@@ -312,7 +414,7 @@ class MsgCreateTrade extends $pb.GeneratedMessage {
     ..pc<$4.CoinInput>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'coinInputs', $pb.PbFieldType.PM, protoName: 'coinInputs', subBuilder: $4.CoinInput.create)
     ..pc<$4.ItemInput>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'itemInputs', $pb.PbFieldType.PM, protoName: 'itemInputs', subBuilder: $4.ItemInput.create)
     ..pc<$2.Coin>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'coinOutputs', $pb.PbFieldType.PM, protoName: 'coinOutputs', subBuilder: $2.Coin.create)
-    ..pc<$6.ItemRef>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'itemOutputs', $pb.PbFieldType.PM, protoName: 'itemOutputs', subBuilder: $6.ItemRef.create)
+    ..pc<$8.ItemRef>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'itemOutputs', $pb.PbFieldType.PM, protoName: 'itemOutputs', subBuilder: $8.ItemRef.create)
     ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'extraInfo', protoName: 'extraInfo')
     ..hasRequiredFields = false
   ;
@@ -323,7 +425,7 @@ class MsgCreateTrade extends $pb.GeneratedMessage {
     $core.Iterable<$4.CoinInput>? coinInputs,
     $core.Iterable<$4.ItemInput>? itemInputs,
     $core.Iterable<$2.Coin>? coinOutputs,
-    $core.Iterable<$6.ItemRef>? itemOutputs,
+    $core.Iterable<$8.ItemRef>? itemOutputs,
     $core.String? extraInfo,
   }) {
     final _result = create();
@@ -387,7 +489,7 @@ class MsgCreateTrade extends $pb.GeneratedMessage {
   $core.List<$2.Coin> get coinOutputs => $_getList(3);
 
   @$pb.TagNumber(5)
-  $core.List<$6.ItemRef> get itemOutputs => $_getList(4);
+  $core.List<$8.ItemRef> get itemOutputs => $_getList(4);
 
   @$pb.TagNumber(6)
   $core.String get extraInfo => $_getSZ(5);
@@ -884,7 +986,7 @@ class MsgSendItems extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'MsgSendItems', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Pylonstech.pylons.pylons'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'creator')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'receiver')
-    ..pc<$6.ItemRef>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'items', $pb.PbFieldType.PM, subBuilder: $6.ItemRef.create)
+    ..pc<$8.ItemRef>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'items', $pb.PbFieldType.PM, subBuilder: $8.ItemRef.create)
     ..hasRequiredFields = false
   ;
 
@@ -892,7 +994,7 @@ class MsgSendItems extends $pb.GeneratedMessage {
   factory MsgSendItems({
     $core.String? creator,
     $core.String? receiver,
-    $core.Iterable<$6.ItemRef>? items,
+    $core.Iterable<$8.ItemRef>? items,
   }) {
     final _result = create();
     if (creator != null) {
@@ -946,7 +1048,7 @@ class MsgSendItems extends $pb.GeneratedMessage {
   void clearReceiver() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.List<$6.ItemRef> get items => $_getList(2);
+  $core.List<$8.ItemRef> get items => $_getList(2);
 }
 
 class MsgSendItemsResponse extends $pb.GeneratedMessage {
@@ -985,6 +1087,7 @@ class MsgExecuteRecipe extends $pb.GeneratedMessage {
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'recipeID', protoName: 'recipeID')
     ..a<$fixnum.Int64>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'coinInputsIndex', $pb.PbFieldType.OU6, protoName: 'coinInputsIndex', defaultOrMaker: $fixnum.Int64.ZERO)
     ..pPS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'itemIDs', protoName: 'itemIDs')
+    ..pc<$7.PaymentInfo>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'paymentInfos', $pb.PbFieldType.PM, protoName: 'paymentInfos', subBuilder: $7.PaymentInfo.create)
     ..hasRequiredFields = false
   ;
 
@@ -995,6 +1098,7 @@ class MsgExecuteRecipe extends $pb.GeneratedMessage {
     $core.String? recipeID,
     $fixnum.Int64? coinInputsIndex,
     $core.Iterable<$core.String>? itemIDs,
+    $core.Iterable<$7.PaymentInfo>? paymentInfos,
   }) {
     final _result = create();
     if (creator != null) {
@@ -1011,6 +1115,9 @@ class MsgExecuteRecipe extends $pb.GeneratedMessage {
     }
     if (itemIDs != null) {
       _result.itemIDs.addAll(itemIDs);
+    }
+    if (paymentInfos != null) {
+      _result.paymentInfos.addAll(paymentInfos);
     }
     return _result;
   }
@@ -1073,6 +1180,9 @@ class MsgExecuteRecipe extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(5)
   $core.List<$core.String> get itemIDs => $_getList(4);
+
+  @$pb.TagNumber(6)
+  $core.List<$7.PaymentInfo> get paymentInfos => $_getList(5);
 }
 
 class MsgExecuteRecipeResponse extends $pb.GeneratedMessage {

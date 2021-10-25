@@ -10,11 +10,62 @@ import 'dart:core' as $core;
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'cookbook.pb.dart' as $5;
+import 'redeem_info.pb.dart' as $5;
+import 'cookbook.pb.dart' as $6;
 import 'recipe.pb.dart' as $4;
+import 'payment_info.pb.dart' as $7;
 import '../cosmos/base/v1beta1/coin.pb.dart' as $2;
 import 'item.pb.dart' as $3;
-import 'trade.pb.dart' as $6;
+import 'trade.pb.dart' as $8;
+
+class EventBurnDebtToken extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'EventBurnDebtToken', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Pylonstech.pylons.pylons'), createEmptyInstance: create)
+    ..aOM<$5.RedeemInfo>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'redeemInfo', protoName: 'redeemInfo', subBuilder: $5.RedeemInfo.create)
+    ..hasRequiredFields = false
+  ;
+
+  EventBurnDebtToken._() : super();
+  factory EventBurnDebtToken({
+    $5.RedeemInfo? redeemInfo,
+  }) {
+    final _result = create();
+    if (redeemInfo != null) {
+      _result.redeemInfo = redeemInfo;
+    }
+    return _result;
+  }
+  factory EventBurnDebtToken.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory EventBurnDebtToken.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  EventBurnDebtToken clone() => EventBurnDebtToken()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  EventBurnDebtToken copyWith(void Function(EventBurnDebtToken) updates) => super.copyWith((message) => updates(message as EventBurnDebtToken)) as EventBurnDebtToken; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static EventBurnDebtToken create() => EventBurnDebtToken._();
+  EventBurnDebtToken createEmptyInstance() => create();
+  static $pb.PbList<EventBurnDebtToken> createRepeated() => $pb.PbList<EventBurnDebtToken>();
+  @$core.pragma('dart2js:noInline')
+  static EventBurnDebtToken getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<EventBurnDebtToken>(create);
+  static EventBurnDebtToken? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $5.RedeemInfo get redeemInfo => $_getN(0);
+  @$pb.TagNumber(1)
+  set redeemInfo($5.RedeemInfo v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasRedeemInfo() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearRedeemInfo() => clearField(1);
+  @$pb.TagNumber(1)
+  $5.RedeemInfo ensureRedeemInfo() => $_ensure(0);
+}
 
 class EventCreateAccount extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'EventCreateAccount', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Pylonstech.pylons.pylons'), createEmptyInstance: create)
@@ -201,13 +252,13 @@ class EventCreateCookbook extends $pb.GeneratedMessage {
 
 class EventUpdateCookbook extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'EventUpdateCookbook', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Pylonstech.pylons.pylons'), createEmptyInstance: create)
-    ..aOM<$5.Cookbook>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'originalCookbook', protoName: 'originalCookbook', subBuilder: $5.Cookbook.create)
+    ..aOM<$6.Cookbook>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'originalCookbook', protoName: 'originalCookbook', subBuilder: $6.Cookbook.create)
     ..hasRequiredFields = false
   ;
 
   EventUpdateCookbook._() : super();
   factory EventUpdateCookbook({
-    $5.Cookbook? originalCookbook,
+    $6.Cookbook? originalCookbook,
   }) {
     final _result = create();
     if (originalCookbook != null) {
@@ -237,15 +288,15 @@ class EventUpdateCookbook extends $pb.GeneratedMessage {
   static EventUpdateCookbook? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $5.Cookbook get originalCookbook => $_getN(0);
+  $6.Cookbook get originalCookbook => $_getN(0);
   @$pb.TagNumber(1)
-  set originalCookbook($5.Cookbook v) { setField(1, v); }
+  set originalCookbook($6.Cookbook v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasOriginalCookbook() => $_has(0);
   @$pb.TagNumber(1)
   void clearOriginalCookbook() => clearField(1);
   @$pb.TagNumber(1)
-  $5.Cookbook ensureOriginalCookbook() => $_ensure(0);
+  $6.Cookbook ensureOriginalCookbook() => $_ensure(0);
 }
 
 class EventTransferCookbook extends $pb.GeneratedMessage {
@@ -451,6 +502,7 @@ class EventCreateExecution extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'EventCreateExecution', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Pylonstech.pylons.pylons'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'creator')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ID', protoName: 'ID')
+    ..pc<$7.PaymentInfo>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'paymentInfos', $pb.PbFieldType.PM, protoName: 'paymentInfos', subBuilder: $7.PaymentInfo.create)
     ..hasRequiredFields = false
   ;
 
@@ -458,6 +510,7 @@ class EventCreateExecution extends $pb.GeneratedMessage {
   factory EventCreateExecution({
     $core.String? creator,
     $core.String? iD,
+    $core.Iterable<$7.PaymentInfo>? paymentInfos,
   }) {
     final _result = create();
     if (creator != null) {
@@ -465,6 +518,9 @@ class EventCreateExecution extends $pb.GeneratedMessage {
     }
     if (iD != null) {
       _result.iD = iD;
+    }
+    if (paymentInfos != null) {
+      _result.paymentInfos.addAll(paymentInfos);
     }
     return _result;
   }
@@ -506,6 +562,9 @@ class EventCreateExecution extends $pb.GeneratedMessage {
   $core.bool hasID() => $_has(1);
   @$pb.TagNumber(2)
   void clearID() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.List<$7.PaymentInfo> get paymentInfos => $_getList(2);
 }
 
 class EventCompleteExecution extends $pb.GeneratedMessage {
@@ -751,7 +810,7 @@ class EventSendItems extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'EventSendItems', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Pylonstech.pylons.pylons'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sender')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'receiver')
-    ..pc<$6.ItemRef>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'items', $pb.PbFieldType.PM, subBuilder: $6.ItemRef.create)
+    ..pc<$8.ItemRef>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'items', $pb.PbFieldType.PM, subBuilder: $8.ItemRef.create)
     ..hasRequiredFields = false
   ;
 
@@ -759,7 +818,7 @@ class EventSendItems extends $pb.GeneratedMessage {
   factory EventSendItems({
     $core.String? sender,
     $core.String? receiver,
-    $core.Iterable<$6.ItemRef>? items,
+    $core.Iterable<$8.ItemRef>? items,
   }) {
     final _result = create();
     if (sender != null) {
@@ -813,7 +872,7 @@ class EventSendItems extends $pb.GeneratedMessage {
   void clearReceiver() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.List<$6.ItemRef> get items => $_getList(2);
+  $core.List<$8.ItemRef> get items => $_getList(2);
 }
 
 class EventSetItemString extends $pb.GeneratedMessage {
@@ -1026,10 +1085,11 @@ class EventFulfillTrade extends $pb.GeneratedMessage {
     ..a<$fixnum.Int64>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ID', $pb.PbFieldType.OU6, protoName: 'ID', defaultOrMaker: $fixnum.Int64.ZERO)
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'creator')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fulfiller')
-    ..pc<$6.ItemRef>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'itemInputs', $pb.PbFieldType.PM, protoName: 'itemInputs', subBuilder: $6.ItemRef.create)
+    ..pc<$8.ItemRef>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'itemInputs', $pb.PbFieldType.PM, protoName: 'itemInputs', subBuilder: $8.ItemRef.create)
     ..pc<$2.Coin>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'coinInputs', $pb.PbFieldType.PM, protoName: 'coinInputs', subBuilder: $2.Coin.create)
-    ..pc<$6.ItemRef>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'itemOutputs', $pb.PbFieldType.PM, protoName: 'itemOutputs', subBuilder: $6.ItemRef.create)
+    ..pc<$8.ItemRef>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'itemOutputs', $pb.PbFieldType.PM, protoName: 'itemOutputs', subBuilder: $8.ItemRef.create)
     ..pc<$2.Coin>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'coinOutputs', $pb.PbFieldType.PM, protoName: 'coinOutputs', subBuilder: $2.Coin.create)
+    ..pc<$7.PaymentInfo>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'paymentInfos', $pb.PbFieldType.PM, protoName: 'paymentInfos', subBuilder: $7.PaymentInfo.create)
     ..hasRequiredFields = false
   ;
 
@@ -1038,10 +1098,11 @@ class EventFulfillTrade extends $pb.GeneratedMessage {
     $fixnum.Int64? iD,
     $core.String? creator,
     $core.String? fulfiller,
-    $core.Iterable<$6.ItemRef>? itemInputs,
+    $core.Iterable<$8.ItemRef>? itemInputs,
     $core.Iterable<$2.Coin>? coinInputs,
-    $core.Iterable<$6.ItemRef>? itemOutputs,
+    $core.Iterable<$8.ItemRef>? itemOutputs,
     $core.Iterable<$2.Coin>? coinOutputs,
+    $core.Iterable<$7.PaymentInfo>? paymentInfos,
   }) {
     final _result = create();
     if (iD != null) {
@@ -1064,6 +1125,9 @@ class EventFulfillTrade extends $pb.GeneratedMessage {
     }
     if (coinOutputs != null) {
       _result.coinOutputs.addAll(coinOutputs);
+    }
+    if (paymentInfos != null) {
+      _result.paymentInfos.addAll(paymentInfos);
     }
     return _result;
   }
@@ -1116,16 +1180,19 @@ class EventFulfillTrade extends $pb.GeneratedMessage {
   void clearFulfiller() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.List<$6.ItemRef> get itemInputs => $_getList(3);
+  $core.List<$8.ItemRef> get itemInputs => $_getList(3);
 
   @$pb.TagNumber(5)
   $core.List<$2.Coin> get coinInputs => $_getList(4);
 
   @$pb.TagNumber(6)
-  $core.List<$6.ItemRef> get itemOutputs => $_getList(5);
+  $core.List<$8.ItemRef> get itemOutputs => $_getList(5);
 
   @$pb.TagNumber(7)
   $core.List<$2.Coin> get coinOutputs => $_getList(6);
+
+  @$pb.TagNumber(8)
+  $core.List<$7.PaymentInfo> get paymentInfos => $_getList(7);
 }
 
 class EventGooglePurchase extends $pb.GeneratedMessage {
