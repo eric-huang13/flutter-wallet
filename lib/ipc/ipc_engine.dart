@@ -133,27 +133,7 @@ class IPCEngine {
     final recipeId = queryParameters['recipe_id'];
     final cookbookId = queryParameters['cookbook_id'];
 
-    showDialog(context: navigatorKey.currentState!.overlay!.context,
-      barrierDismissible: false,
-      builder: (ctx) => AlertDialog(
-        content: Wrap(
-        children:  [
-          Row(
-            children: [
-              const SizedBox(
-                width: 30,
-                height: 30,
-                child: CircularProgressIndicator(),
-              ),
-              const HorizontalSpace(10),
-              Text("Loading...", style: Theme.of(ctx).textTheme.subtitle2!.copyWith(
-                  fontSize: 12
-              ),),
-            ],
-          )
-        ],
-      ),),
-    );
+    _showLoading();
 
     final jsonRecipe = await GetRecipe(GetIt.I.get<BaseEnv>()).getRecipe(cookbookId!, recipeId!);
 
@@ -231,5 +211,29 @@ class IPCEngine {
     final queryParam = Uri.parse(link).queryParameters;
     return queryParam.containsKey("action") && queryParam.containsKey("recipe_id")
         && queryParam.containsKey("nft_amount") && queryParam.containsKey("cookbook_id");
+  }
+
+  void _showLoading(){
+    showDialog(context: navigatorKey.currentState!.overlay!.context,
+      barrierDismissible: false,
+      builder: (ctx) => AlertDialog(
+        content: Wrap(
+          children:  [
+            Row(
+              children: [
+                const SizedBox(
+                  width: 30,
+                  height: 30,
+                  child: CircularProgressIndicator(),
+                ),
+                const HorizontalSpace(10),
+                Text("Loading...", style: Theme.of(ctx).textTheme.subtitle2!.copyWith(
+                    fontSize: 12
+                ),),
+              ],
+            )
+          ],
+        ),),
+    );
   }
 }

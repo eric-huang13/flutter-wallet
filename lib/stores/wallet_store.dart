@@ -1,6 +1,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:pylons_wallet/entities/balance.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
+import 'package:pylons_wallet/stores/models/transaction_response.dart';
 import 'package:transaction_signing_gateway/gateway/transaction_signing_gateway.dart';
 import 'package:transaction_signing_gateway/model/credentials_storage_failure.dart';
 import 'package:transaction_signing_gateway/model/transaction_hash.dart';
@@ -56,6 +57,11 @@ abstract class WalletsStore {
   /// Output : [String] response
   Future<SDKIPCResponse> createRecipe(Map json);
 
+
+  /// This method creates the recipe in the block chain
+  /// Input : [Map] containing the info related to the execution of recipe
+  /// Output : [SDKIPCResponse] response
+  Future<SDKIPCResponse> executeRecipe(Map json);
 
 
 

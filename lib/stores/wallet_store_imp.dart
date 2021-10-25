@@ -243,4 +243,49 @@ class WalletsStoreImp implements WalletsStore {
     );
     return walletLookupKey;
   }
+
+  @override
+  Future<SDKIPCResponse> executeRecipe(Map json) async{
+    // print(json);
+    final msgObj = pylons.MsgExecuteRecipe.create()..mergeFromProto3Json(json);
+
+    final unsignedTransaction = UnsignedAlanTransaction(messages: [msgObj]);
+
+    final walletsResultEither = await _customTransactionSigningGateway.getWalletsList();
+
+    if (walletsResultEither.isLeft()) {
+      return SDKIPCResponse.failure(sender: '', error: 'Something went wrong while fetching wallets', errorCode: HandlerFactory.ERR_SOMETHING_WENT_WRONG, transaction: '');
+    }
+
+    final accountsList = walletsResultEither.getOrElse(() => []);
+    if (accountsList.isEmpty) {
+      return SDKIPCResponse.failure(sender: '', error: 'No profile found in wallet', errorCode: HandlerFactory.ERR_PROFILE_DOES_NOT_EXIST, transaction: '');
+    }
+
+    final info = accountsList.last;
+
+    final walletLookupKey = createWalletLookUp(info);
+
+    msgObj.creator = info.publicAddress;
+
+    print(msgObj.toProto3Json());
+
+    final signedTransaction = await _transactionSigningGateway.signTransaction(transaction: unsignedTransaction, walletLookupKey: walletLookupKey);
+
+
+    if (signedTransaction.isLeft()) {
+      return SDKIPCResponse.failure(sender: '', error: 'Something went wrong while signing transaction', errorCode: HandlerFactory.ERR_SOMETHING_WENT_WRONG, transaction: '');
+    }
+
+    final response = await _customTransactionSigningGateway.broadcastTransaction(
+      walletLookupKey: walletLookupKey,
+      transaction: signedTransaction.toOption().toNullable()!,
+    );
+
+    if (response.isLeft()) {
+      return SDKIPCResponse.failure(sender: '', error: response.swap().toOption().toNullable().toString(), errorCode: HandlerFactory.ERR_SOMETHING_WENT_WRONG, transaction: '');
+    }
+
+    return SDKIPCResponse.success(sender: '', data: response.getOrElse(() => TransactionResponse.initial()).hash, transaction: '');
+  }
 }

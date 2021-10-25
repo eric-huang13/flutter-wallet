@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/pages/new_screens/collection_screen.dart';
+import 'package:pylons_wallet/pages/new_screens/currency_screen.dart';
 
 class NewHomeScreen extends StatefulWidget {
   NewHomeScreen({Key? key}) : super(key: key);
@@ -18,7 +19,7 @@ class _NewHomeScreenState extends State<NewHomeScreen> with SingleTickerProvider
   final List<Widget> myTabs = <Widget>[
     Padding(
       padding: const EdgeInsets.all(4.0),
-      child: Text('Moneys'),
+      child: Text('Currency'),
     ),
     Padding(
       padding: const EdgeInsets.all(4.0),
@@ -26,7 +27,7 @@ class _NewHomeScreenState extends State<NewHomeScreen> with SingleTickerProvider
     ),
   ];
 
-  List<Widget> _pages = <Widget>[Text("Moneys"), CollectionScreen()];
+  List<Widget> _pages = <Widget>[CurrencyScreen(), CollectionScreen()];
 
 
   @override

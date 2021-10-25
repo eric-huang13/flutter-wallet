@@ -8,6 +8,7 @@ import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/components/user_image_widget.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/model/recipe_json.dart';
+import 'package:pylons_wallet/pylons_app.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
 
@@ -289,7 +290,7 @@ class _PayByCardWidget extends StatelessWidget {
                   icon: Image.asset('assets/icons/card.png', width: 30,),
                   label: Text("Pay by card", style: Theme.of(context).textTheme.button!.copyWith(
                     color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600
-                  ),), onPressed: _executeRecipe,),
+                  ),), onPressed: () => _executeRecipe(context),),
               ],
             ),
           ),
@@ -298,7 +299,7 @@ class _PayByCardWidget extends StatelessWidget {
     );
   }
 
-  Future<void> _executeRecipe()async{
+  Future<void> _executeRecipe(BuildContext context)async{
     final walletsStore = GetIt.I.get<WalletsStore>();
 
     var jsonExecuteRecipe = '''{
@@ -306,16 +307,48 @@ class _PayByCardWidget extends StatelessWidget {
         "cookbookID": "",
         "recipeID": "",
         "coinInputsIndex": 0,
-        "itemIDs": ["pppppppppp"]
+        "itemIDs": ["aaaaaaaaaa"]
         }''';
 
     final jsonMap = jsonDecode(jsonExecuteRecipe) as Map;
     jsonMap["cookbookID"] = recipe.recipe.cookbookID;
     jsonMap["recipeID"] = recipe.recipe.id;
 
-    print(jsonMap);
-    // var response = (await walletsStore.executeRecipe(jsonMap)).txHash;
+    _showLoading(context);
 
-    // print(response);
+    // print(jsonMap);
+    var response = await walletsStore.executeRecipe(jsonMap);
+
+    Navigator.pop(context);
+
+    print("${response.success ? response.data : response.error}");
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:
+    Text("${response.success ? response.data : response.error}")
+    ));
+
+  }
+
+  void _showLoading(BuildContext context){
+    showDialog(context: context,
+      barrierDismissible: true,
+      builder: (ctx) => AlertDialog(
+        content: Wrap(
+          children:  [
+            Row(
+              children: [
+                const SizedBox(
+                  width: 30,
+                  height: 30,
+                  child: CircularProgressIndicator(),
+                ),
+                const HorizontalSpace(10),
+                Text("Loading...", style: Theme.of(ctx).textTheme.subtitle2!.copyWith(
+                    fontSize: 12
+                ),),
+              ],
+            )
+          ],
+        ),),
+    );
   }
 }

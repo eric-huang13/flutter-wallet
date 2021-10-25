@@ -2,6 +2,7 @@ import 'package:alan/alan.dart';
 import 'package:mobx/src/core.dart';
 import 'package:pylons_wallet/entities/balance.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
+import 'package:pylons_wallet/stores/models/transaction_response.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:transaction_signing_gateway/alan/alan_private_wallet_credentials.dart';
 import 'package:transaction_signing_gateway/gateway/transaction_signing_gateway.dart';
@@ -67,6 +68,12 @@ class MockWalletStore implements WalletsStore{
   @override
   Future<SDKIPCResponse> createRecipe(Map<dynamic, dynamic> json) {
     // TODO: implement createRecipe
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<SDKIPCResponse> executeRecipe(Map<dynamic, dynamic> json) {
+    // TODO: implement executeRecipe
     throw UnimplementedError();
   }
 
