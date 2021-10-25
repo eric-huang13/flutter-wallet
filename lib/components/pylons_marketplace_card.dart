@@ -58,7 +58,6 @@ class PylonsMarketplaceCard extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const DetailScreenWidget(
-                                      isOwner: false,
                                     )));
                       }),
                   const Align(

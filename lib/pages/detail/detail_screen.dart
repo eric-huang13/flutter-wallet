@@ -1,21 +1,39 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/nft_view.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/forms/card_info_form.dart';
 import 'package:pylons_wallet/forms/create_trade_form.dart';
+import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/client/pylons/recipe.pb.dart';
 import 'package:pylons_wallet/pages/detail/detail_tab_history.dart';
 import 'package:pylons_wallet/pages/detail/detail_tab_info.dart';
 import 'package:pylons_wallet/pages/detail/detail_tab_work.dart';
 import 'package:pylons_wallet/pages/payment/payment_info_screen.dart';
+import 'package:pylons_wallet/stores/wallet_store.dart';
+
+enum DetailPageType {
+  typeRecipe,
+  typeItem
+}
 
 class DetailScreenWidget extends StatefulWidget {
-  final bool isOwner;
+  final String recipeID;
+  final String cookbookID;
+  final String itemID;
+  final int nft_amount;
+  final DetailPageType pageType;
+
+  //final bool isOwner;
   const DetailScreenWidget({
     Key? key,
-    required this.isOwner,
+    this.recipeID = "",
+    this.cookbookID = "",
+    this.itemID = "",
+    this.nft_amount=1,
+    this.pageType = DetailPageType.typeItem,
   }) : super(key: key);
 
   @override
@@ -23,9 +41,18 @@ class DetailScreenWidget extends StatefulWidget {
 }
 
 class _DetailScreenWidgetState extends State<DetailScreenWidget> with SingleTickerProviderStateMixin {
+  final walletsStore = GetIt.I.get<WalletsStore>();
+
+  bool isOwner = false;
   bool isInResellMode = false;
   bool isInTrade = false;
   int tabIndex = 0;
+  String itemName = "";
+  String itemDescription = "";
+  String itemUrl = "";
+  String itemPrice = "";
+  String itemCurrency = "";
+
   late TabController _tabController;
 
   final List<Widget> myTabs = <Widget>[
@@ -56,6 +83,57 @@ class _DetailScreenWidgetState extends State<DetailScreenWidget> with SingleTick
     _tabController.addListener(_tabSelect);
   }
 
+  Future loadData() async {
+    switch(widget.pageType){
+      
+      case DetailPageType.typeRecipe:
+      {
+        final recipe = await walletsStore.getRecipe(widget.cookbookID, widget.recipeID);
+        final itemOutput = recipe?.entries.itemOutputs[0] ?? ItemOutput.create();
+
+        final _itemPrice = recipe?.coinInputs[0].coins[0].amount;
+        final _itemCurrency = recipe?.coinInputs[0].coins[0].denom;
+        itemOutput.strings.forEach((element) {
+          switch(element.key){
+            case "Name":
+              break;
+            case "NFT_URL":
+              break;
+            case "Description":
+              break;
+          }
+        });
+        itemOutput.doubles.forEach((element) {
+          switch(element.key){
+            case "Residual":
+              break;
+          }
+        });
+
+        itemOutput.longs.forEach((element){
+          switch(element.key){
+            case "Quantity":
+              break;
+          }
+
+        });
+        setState((){
+        });
+        break;
+      }
+      case DetailPageType.typeItem:
+      {
+        await walletsStore.getItem(widget.cookbookID, widget.itemID);
+        break;
+      }
+    }
+
+    setState((){
+
+    });
+
+  }
+
   void _tabSelect() {
     setState(() {
       tabIndex = _tabController.index;
@@ -76,7 +154,7 @@ class _DetailScreenWidgetState extends State<DetailScreenWidget> with SingleTick
   }
 
   void onPressPurchase() {
-    if (!widget.isOwner) {
+    if (!isOwner) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => const PaymentInfoScreenWidget()));
     } else {
       if (!isInResellMode) {
@@ -202,7 +280,7 @@ class _DetailScreenWidgetState extends State<DetailScreenWidget> with SingleTick
                       onPressPurchase();
                     },
                     style: ElevatedButton.styleFrom(primary: const Color(0xFF1212C4), padding: const EdgeInsets.fromLTRB(50, 0, 50, 0)),
-                    child: Text(!widget.isOwner ? 'purchase'.tr() : 'resell_nft'.tr(), style: const TextStyle(color: Colors.white)))
+                    child: Text(!isOwner ? 'purchase'.tr() : 'resell_nft'.tr(), style: const TextStyle(color: Colors.white)))
               ]),
               /*
               Row(
@@ -225,5 +303,7 @@ class _DetailScreenWidgetState extends State<DetailScreenWidget> with SingleTick
             ],
           )),
     );
+
+
   }
 }

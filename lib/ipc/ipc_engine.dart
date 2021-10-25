@@ -5,23 +5,33 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/ipc/handler/handler_factory.dart';
+import 'package:pylons_wallet/pages/detail/detail_screen.dart';
 import 'package:pylons_wallet/pylons_app.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+//unilink key format constants
+const KEY_PURCHASE_NFT  = "purchase_nft";
+const KEY_COOKBOOK_ID   = "cookbook_id";
+const KEY_RECIPE_ID     = "recipe_id";
+const KEY_NFT_AMOUNT    = "nft_amount";
+
 /// Terminology
 /// Signal : Incoming request from a 3rd party app
 /// Key : The key is the process against which the 3rd part app has sent the signal
-
 class IPCEngine {
+  late BuildContext context;
+
   late StreamSubscription _sub;
 
   bool systemHandlingASignal = false;
 
+
   /// This method initiate the IPC Engine
-  Future<bool> init() async {
+  Future<bool> init(BuildContext context) async {
     log('init', name: '[IPCEngine : init]');
+    this.context = context;
 
     await handleInitialLink();
     setUpListener();
@@ -105,10 +115,22 @@ class IPCEngine {
 
   Future<void> _handleEaselLink(String link) async{
     final queryParameters = Uri.parse(link).queryParameters;
-    final amount = queryParameters['nft_amount']!;
-    final recipeId = queryParameters['recipe_id'];
-    debugPrint("amount: $amount, recipe_id: $recipeId");
+    final action = queryParameters['action']?? "";
+    final amount = queryParameters['nft_amount']?? "";
+    final cookbookID = queryParameters['cookbook_id']?? "";
+    final recipeID = queryParameters['recipe_id']?? "";
+    final itemID = queryParameters['item_id']?? "";
+    final tradeID = queryParameters['trade_id']?? "";
 
+    debugPrint("amount: $amount, cookbook_id: $cookbookID, recipe_id: $recipeID");
+
+    //move to purchase Item Screen
+    navigatorKey.currentState!.push(MaterialPageRoute(builder: (_) => DetailScreenWidget (
+      cookbookID: cookbookID,
+      recipeID: recipeID, pageType: DetailPageType.typeRecipe,
+    )));
+
+    /**
     final walletsStore = GetIt.I.get<WalletsStore>();
 
     // var jsonString ='''{
@@ -171,8 +193,7 @@ class IPCEngine {
     var response = (await walletsStore.executeRecipe(jsonMap)).txHash;
 
     print(response);
-
-
+    */
   }
 
   /// This method sends the unilink to the wallet app
@@ -222,8 +243,10 @@ class IPCEngine {
     await dispatchUniLink('pylons://$sender/$encodedMessage');
   }
 
+  //https://wallet.pylons.tech/?action=purchase_nft&cookbook_id=aaa&recipe_id=bbb&nft_amount=1
+  //adb shell am start -W -a android.intent.action.VIEW -c android.intent.category.BROWSABLE -d "pylons://wallet/?action=purchase_nft&cookbook_id=aaa&recipe_id=bbb&nft_amount=1"
   bool _isEaselUniLink(String link){
     final queryParam = Uri.parse(link).queryParameters;
-    return queryParam.containsKey("action") && queryParam.containsKey("recipe_id") && queryParam.containsKey("nft_amount");
+    return queryParam.containsKey("action") && queryParam.containsKey("recipe_id") && queryParam.containsKey("cookbook_id") && queryParam.containsKey("nft_amount");
   }
 }

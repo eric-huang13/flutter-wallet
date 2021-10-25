@@ -37,7 +37,7 @@ class PylonsHistoryCard extends StatelessWidget {
           ])),
           trailing: const Icon(Icons.arrow_forward_ios_sharp, size: 16, color: kUnselectedIcon),
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailScreenWidget(isOwner: true)));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailScreenWidget()));
           },
         ),
         Card(

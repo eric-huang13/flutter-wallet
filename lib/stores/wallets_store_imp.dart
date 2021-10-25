@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:fixnum/fixnum.dart';
 import 'package:alan/alan.dart' as alan;
 import 'package:http/http.dart' as http;
@@ -31,8 +33,8 @@ class WalletsStoreImp implements WalletsStore {
   final TransactionSigningGateway _transactionSigningGateway;
   final BaseEnv baseEnv;
 
-  WalletsStoreImp(this._transactionSigningGateway, this.baseEnv);
 
+  WalletsStoreImp(this._transactionSigningGateway, this.baseEnv);
   late pylons.QueryClient _queryClient;
   final http.Client _httpClient = http.Client();
 
@@ -207,12 +209,6 @@ class WalletsStoreImp implements WalletsStore {
       ),
     );
 
-    print(result.getOrElse(() => TransactionHash(txHash: '')).txHash);
-
-    ClientChannel channel = baseEnv.networkInfo.gRPCChannel;
-    var response = await pylons.MsgClient(channel).createCookbook(msgObj);
-    print(response.toProto3Json());
-
     return result.getOrElse(() => TransactionHash(txHash: ''));
   }
 
@@ -224,43 +220,6 @@ class WalletsStoreImp implements WalletsStore {
     final msgObj = pylons.MsgCreateCookbook.create()..mergeFromProto3Json(json);
     msgObj.creator = wallets.value.last.publicAddress;
     return await _signAndBroadcast(msgObj);
-  }
-
-  @override
-  Future<TransactionHash> createRecipe(Map json) async {
-    final msgObj = pylons.MsgCreateRecipe.create()..mergeFromProto3Json(json);
-
-    final unsignedTransaction = UnsignedAlanTransaction(messages: [msgObj]);
-
-    final info = wallets.value.last;
-
-    final walletLookupKey = WalletLookupKey(
-      walletId: info.walletId,
-      chainId: info.chainId,
-      password: '',
-    );
-
-    msgObj.creator = info.publicAddress;
-
-    final result = await _transactionSigningGateway
-        .signTransaction(
-            transaction: unsignedTransaction, walletLookupKey: walletLookupKey)
-        .mapError<dynamic>((error) {
-      print(error);
-      throw error;
-    }).flatMap(
-      (signed) => _transactionSigningGateway.broadcastTransaction(
-        walletLookupKey: walletLookupKey,
-        transaction: signed,
-      ),
-    );
-    print(result.getOrElse(() => TransactionHash(txHash: '')).txHash);
-
-    ClientChannel channel = baseEnv.networkInfo.gRPCChannel;
-    var response = await pylons.MsgClient(channel).createRecipe(msgObj);
-    print(response.toProto3Json());
-
-    return result.getOrElse(() => TransactionHash(txHash: ''));
   }
 
   @override
@@ -370,10 +329,29 @@ class WalletsStoreImp implements WalletsStore {
     return response.trade;
   }
 
+  /**
+   * Please think around to retrieve TxResponse
+   */
   @override
-  Future<TxResponse> getTxs(String txHash) {
-    // TODO: implement getTradesByCreator
-    throw UnimplementedError();
+  Future<TxResponse> getTxs(String txHash) async {
+    final url = "${this.baseEnv.baseApiUrl}/txs/${txHash}";
+    final helper = QueryHelper(httpClient: _httpClient);
+    final result = await helper.queryGet(url);
+    if(!result.isSuccessful){
+      return TxResponse();
+    }
+    print(json.encode(result.value));
+    return TxResponse.create()
+      ..code= int.parse(result.value?["code"]?.toString() ?? "0")
+      ..codespace = result.value?["codespace"]?.toString() ?? ""
+      ..data=result.value?["data"]?.toString() ?? ""
+      ..gasUsed=Int64.parseInt(result.value?["gas_used"]?.toString() ?? "0")
+      ..gasWanted=Int64.parseInt(result.value?["gas_wanted"]?.toString() ?? "0")
+      ..height=Int64.parseInt(result.value?["height"]?.toString() ?? "0")
+      ..info=result.value?["info"]?.toString() ?? ""
+      ..rawLog=result.value?["raw_log"]?.toString() ?? ""
+      ..timestamp=result.value?["timestamp"]?.toString() ?? ""
+      ..txhash=result.value?["txhash"]?.toString() ?? "";
   }
 
   @override

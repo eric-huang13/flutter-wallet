@@ -1,11 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/pylons_dashboard_filter.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/pages/home/home_activity.dart';
 import 'package:pylons_wallet/pages/home/home_following.dart';
 import 'package:pylons_wallet/pages/home/home_recommendation.dart';
 import 'package:pylons_wallet/pages/home/notification.dart';
+import 'package:pylons_wallet/stores/wallet_store.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -89,6 +91,12 @@ class _HomeScreenState extends State<HomeScreen> {
 */
   @override
   Widget build(BuildContext context) {
+
+    final walletsStore = GetIt.I.get<WalletsStore>();
+    walletsStore.getTxs("334818512EBB428A9AA6667CF633A7EFF45F74A7C6C062725998592C39421292").then((value) =>
+      print(value)
+    );
+
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(

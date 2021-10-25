@@ -31,7 +31,7 @@ class _PylonsAppState extends State<PylonsApp> {
   void initState() {
     super.initState();
 
-    ipcEngine.init();
+    ipcEngine.init(context);
   }
 
   @override
