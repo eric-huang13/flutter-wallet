@@ -1,21 +1,47 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/buttons/favorite_button.dart';
 import 'package:pylons_wallet/components/buttons/more_button.dart';
 import 'package:pylons_wallet/components/buttons/share_button.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/components/user_image_widget.dart';
 import 'package:pylons_wallet/constants/constants.dart';
+import 'package:pylons_wallet/stores/wallet_store.dart';
 
-class DetailTabWorkWidget extends StatelessWidget {
-  const DetailTabWorkWidget({
+class DetailTabWorkWidget extends StatefulWidget {
+  final String cookbookID;
+  final String recipeID;
+  final String itemID;
+  final String itemName;
+  final String itemDescription;
+
+  DetailTabWorkWidget({
     Key? key,
+    this.cookbookID = "",
+    this.recipeID = "",
+    this.itemID = "",
+    this.itemName = "",
+    this.itemDescription = "",
   }) : super(key: key);
+
+  @override
+  State<DetailTabWorkWidget> createState() => _DetailTabWorkWidgetState();
+}
+
+class _DetailTabWorkWidgetState extends State<DetailTabWorkWidget> {
+  final walletsStore = GetIt.I.get<WalletsStore>();
 
   static List<String> tags = ['#3D', '#Photography', '#Sculpture'];
 
   static List<String> nfts = [...kImageList, kImage];
+
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +53,9 @@ class DetailTabWorkWidget extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Text('title_of_artwork'.tr(), style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 20, color: Color(0xFF080830))),
-                  const Spacer(),
+                  Flexible(
+                    child:Text(widget.itemName.tr(), style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 20, color: Color(0xFF080830))),
+                  ),
                   FavoriteButton(onTap: () {}),
                   ShareButton(onTap: () {})
                 ],
@@ -50,7 +77,7 @@ class DetailTabWorkWidget extends StatelessWidget {
               Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    'artwork_description'.tr(),
+                    widget.itemDescription.tr(),
                   )),
 
               ListView.separated(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/pylons_history_card.dart';
+import 'package:pylons_wallet/stores/wallet_store.dart';
 
 class HomeActivityWidget extends StatefulWidget {
   const HomeActivityWidget({Key? key}) : super(key: key);
@@ -11,6 +13,9 @@ class HomeActivityWidget extends StatefulWidget {
 class _HomeActivityWidgetState extends State<HomeActivityWidget> {
   @override
   Widget build(BuildContext context) {
+    final walletsStore = GetIt.I.get<WalletsStore>();
+
+
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int index) {

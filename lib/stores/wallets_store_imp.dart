@@ -209,7 +209,11 @@ class WalletsStoreImp implements WalletsStore {
       ),
     );
 
-    return result.getOrElse(() => TransactionHash(txHash: ''));
+    final transactionHash = result.getOrElse(() => TransactionHash(txHash: ''));
+    if(transactionHash.txHash != ''){
+      print(await getTxs(transactionHash.txHash));
+    }
+    return transactionHash;
   }
 
   /// This method creates the cookbook
@@ -240,24 +244,29 @@ class WalletsStoreImp implements WalletsStore {
   @override
   Future<TransactionHash> createRecipe(Map json) async {
     final msgObj = pylons.MsgCreateRecipe.create()..mergeFromProto3Json(json);
+    msgObj.creator = wallets.value.last.publicAddress;
     return await _signAndBroadcast(msgObj);
   }
 
   @override
   Future<TransactionHash> createTrade(Map json) async {
     final msgObj = pylons.MsgCreateTrade.create()..mergeFromProto3Json(json);
+    msgObj.creator = wallets.value.last.publicAddress;
     return await _signAndBroadcast(msgObj);
   }
 
   @override
   Future<TransactionHash> executeRecipe(Map json) async {
     final msgObj = pylons.MsgExecuteRecipe.create()..mergeFromProto3Json(json);
+    msgObj.creator = wallets.value.last.publicAddress;
+    print(msgObj.toProto3Json());
     return await _signAndBroadcast(msgObj);
   }
 
   @override
   Future<TransactionHash> fulfillTrade(Map json) async {
     final msgObj = pylons.MsgFulfillTrade.create()..mergeFromProto3Json(json);
+    msgObj.creator = wallets.value.last.publicAddress;
     return await _signAndBroadcast(msgObj);
   }
 
@@ -309,6 +318,14 @@ class WalletsStoreImp implements WalletsStore {
       return null;
     }
     return response.recipe;
+  }
+
+
+  @override
+  Future<List<pylons.Recipe>> getRecipes() async {
+    final request = pylons.QueryListRecipesByCookbookRequest.create();
+    final response = await _queryClient.listRecipesByCookbook(request);
+    return response.recipes;
   }
 
   @override
@@ -392,4 +409,24 @@ class WalletsStoreImp implements WalletsStore {
     }
     return true;
   }
+
+  @override
+  Future<List<Execution>> getItemExecutions(String cookbookID, String itemID) async {
+    final request = pylons.QueryListExecutionsByItemRequest.create()
+      ..cookbookID = cookbookID
+      ..itemID = itemID;
+    final response = await _queryClient.listExecutionsByItem(request);
+
+    return response.completedExecutions;
+  }
+
+  @override
+  Future<List<Execution>> getRecipeEexecutions(String cookbookID, String recipeID) async {
+    final request = pylons.QueryListExecutionsByRecipeRequest.create()
+        ..cookbookID=cookbookID
+        ..recipeID=recipeID;
+    final response = await _queryClient.listExecutionsByRecipe(request);
+    return response.completedExecutions;
+  }
+
 }

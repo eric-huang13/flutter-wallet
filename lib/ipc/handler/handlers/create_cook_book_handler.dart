@@ -29,7 +29,6 @@ class CreateCookBookHandler implements BaseHandler {
 
       final walletsStore = GetIt.I.get<WalletsStore>();
 
-
       response = (await walletsStore.createCookBook(jsonMap)).txHash;
       print(response);
     } catch (e, stacktrace) {

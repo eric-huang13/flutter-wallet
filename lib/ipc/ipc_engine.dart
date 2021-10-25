@@ -246,6 +246,7 @@ class IPCEngine {
   //https://wallet.pylons.tech/?action=purchase_nft&cookbook_id=aaa&recipe_id=bbb&nft_amount=1
   //adb shell am start -W -a android.intent.action.VIEW -c android.intent.category.BROWSABLE -d "pylons://wallet/?action=purchase_nft&cookbook_id=aaa&recipe_id=bbb&nft_amount=1"
   bool _isEaselUniLink(String link){
+    print(link);
     final queryParam = Uri.parse(link).queryParameters;
     return queryParam.containsKey("action") && queryParam.containsKey("recipe_id") && queryParam.containsKey("cookbook_id") && queryParam.containsKey("nft_amount");
   }

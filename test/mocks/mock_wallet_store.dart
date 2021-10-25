@@ -160,4 +160,22 @@ class MockWalletStore implements WalletsStore {
     // TODO: implement getFaucetCoin
     throw UnimplementedError();
   }
+
+  @override
+  Future<List<Recipe>> getRecipes() {
+    // TODO: implement getRecipes
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> getItemExecutions(String cookbookID, String itemID) {
+    // TODO: implement getItemExecutions
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> getRecipeEexecutions(String cookbookID, String recipeID) {
+    // TODO: implement getRecipeEexecutions
+    throw UnimplementedError();
+  }
 }

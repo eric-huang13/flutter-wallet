@@ -27,7 +27,7 @@ class CreateRecipeHandler implements BaseHandler {
 
       var walletsStore = GetIt.I.get<WalletsStore>();
 
-      response = (await walletsStore.createCookBook(jsonMap)).txHash;
+      response = (await walletsStore.createRecipe(jsonMap)).txHash;
 
     } catch (e, stacktrace) {
       log('$e', name: 'Create Cook book Handler', stackTrace: stacktrace);

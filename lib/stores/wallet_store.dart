@@ -107,6 +107,9 @@ abstract class WalletsStore {
   /// Output : [List<Recipe>] return List of Recipes of cookbookID
   Future<List<Recipe>> getRecipesByCookbookID(String cookbookID);
 
+  /// This method is for getting all Recipes in the chain
+  Future<List<Recipe>> getRecipes();
+
   /// This method is for get Item info of cookbookID, itemID
   /// Input : [cookbookID, itemID]
   /// Output : [Item?] return Item info, return null if not exists
@@ -117,9 +120,22 @@ abstract class WalletsStore {
   /// Output : [Item?] return list of Items owned by owner
   Future<List<Item>> getItemsByOwner(String owner);
 
+  /// This method is for get account name from wallet address
+  /// Input : [address] target wallet address
+  /// Output : [String] return account name of the wallet address
   Future<String> getAccountNameByAddress(String address);
 
+  /// This method is for get wallet address from account name
+  /// Input : [username] target account name
+  /// Output : [String] return wallet address from account name
   Future<String> getAccountAddressByName(String username);
+
+  /// This method is get list of itemID's executions
+  /// Input : [cookbookID, itemID] target cookbookID itemID
+  /// Output : [List<Execution>] return wallet address from account name
+  Future<List<Execution>> getItemExecutions(String cookbookID, String itemID);
+
+  Future<List<Execution>> getRecipeEexecutions(String cookbookID, String recipeID);
 
   Future<bool> getFaucetCoin({String denom = ""});
 

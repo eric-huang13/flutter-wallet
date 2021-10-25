@@ -92,11 +92,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final walletsStore = GetIt.I.get<WalletsStore>();
-    walletsStore.getTxs("334818512EBB428A9AA6667CF633A7EFF45F74A7C6C062725998592C39421292").then((value) =>
-      print(value)
-    );
-
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(

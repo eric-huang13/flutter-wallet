@@ -1,21 +1,138 @@
 {
-  "cookbookID": "ras12345",
-  "ID": "r1234aaa",
-  "nodeVersion": "v1.0.0",
-  "name": "A simple recipe test",
-  "description": "A simple test recipe to be executed",
+  "cookbookID": "cookbook_for_test",
+  "ID": "cookbook_for_test_2021_10_22_09_13_58",
+  "nodeVersion": "",
+  "name": "How do you do turn this on",
+  "description": "I am aa a a fsd fsdfasd as sadkfjsd jfsd fsdf sd fsd fsd ",
   "version": "v1.0.0",
   "coinInputs": [
     {
       "coins": [
         {
-          "denom": "uphoton",
-          "amount": "10"
+          "denom": "upylon",
+          "amount": "450"
         }
       ]
     }
   ],
-  "blockInterval": "4",
-  "enabled": true
-
+  "itemInputs": [
+  ],
+  "entries": {
+    "coinOutputs": [
+    ],
+    "itemOutputs": [
+      {
+        "ID": "How_do_you_do_turn_this_on",
+        "doubles": [
+          {
+            "key": "Residual",
+            "rate": "1000000000000000000",
+            "weightRanges": [
+              {
+                "lower": "2000000000000000000",
+                "upper": "2000000000000000000",
+                "weight": "1"
+              }
+            ],
+            "program": "1"
+          }
+        ],
+        "longs": [
+          {
+            "key": "Quantity",
+            "rate": "1000000000000000000",
+            "weightRanges": [
+              {
+                "lower": "34",
+                "upper": "34",
+                "weight": "1"
+              }
+            ],
+            "program": "1"
+          },
+          {
+            "key": "Width",
+            "rate": "1000000000000000000",
+            "weightRanges": [
+              {
+                "lower": "960",
+                "upper": "960",
+                "weight": "1"
+              }
+            ],
+            "program": ""
+          },
+          {
+            "key": "Height",
+            "rate": "1000000000000000000",
+            "weightRanges": [
+              {
+                "lower": "1280",
+                "upper": "1280",
+                "weight": "1"
+              }
+            ],
+            "program": "1"
+          }
+        ],
+        "strings": [
+          {
+            "key": "Name",
+            "rate": "1000000000000000000",
+            "value": "How do you do turn this on",
+            "program": ""
+          },
+          {
+            "key": "NFT_URL",
+            "rate": "1000000000000000000",
+            "value": "https://i.imgur.com/dpNqwvl.jpg",
+            "program": ""
+          },
+          {
+            "key": "Description",
+            "rate": "1000000000000000000",
+            "value": "I am aa a a fsd fsdfasd as sadkfjsd jfsd fsdf sd fsd fsd ",
+            "program": ""
+          },
+          {
+            "key": "Currency",
+            "rate": "1000000000000000000",
+            "value": "upylon",
+            "program": ""
+          },
+          {
+            "key": "Price",
+            "rate": "1000000000000000000",
+            "value": "450",
+            "program": "1"
+          }
+        ],
+        "mutableStrings": [
+        ],
+        "transferFee": [
+          {
+            "denom": "upylon",
+            "amount": "0"
+          }
+        ],
+        "tradePercentage": "100000000000000000",
+        "quantity": "30",
+        "amountMinted": "0",
+        "tradeable": true
+      }
+    ],
+    "itemModifyOutputs": [
+    ]
+  },
+  "outputs": [
+    {
+      "entryIDs": [
+        "How_do_you_do_turn_this_on"
+      ],
+      "weight": "1"
+    }
+  ],
+  "blockInterval": "1",
+  "enabled": true,
+  "extraInfo": "\"\""
 }
