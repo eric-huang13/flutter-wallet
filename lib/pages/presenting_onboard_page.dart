@@ -94,6 +94,10 @@ class PresentingOnboardPage extends StatelessWidget {
     final _username = userName;
 
     PylonsApp.currentWallet = await walletsStore.importAlanWallet(_mnemonic, _username);
+
+    //await walletsStore.broadcastWalletCreationMessageOnBlockchain(
+    //    walletsStore.getWallets().value.last, wallet.bech32Address, userName);
+
     // print("Wallet add: ${value.publicAddress} ${value.name} ${value.chainId}");
     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => NewHomeScreen()), (route) => true);
   }

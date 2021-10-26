@@ -9,7 +9,7 @@ Future<void> main(List<String> args) async {
   String arg = args.length > 0 ? args[0] : 'createCookbook';
 
   if (arg == 'createCookbook') {
-    final file = await getProjectFile("json/cookbook.json");
+    final file = await getProjectFile("cookbook.json");
     final jsonContent = await file.readAsString();
     final sdkipcMessage =
         SDKIPCMessage('txCreateCookbook', jsonContent, 'example');
@@ -18,7 +18,7 @@ Future<void> main(List<String> args) async {
     execute(msg);
   }
   if (arg == 'createRecipe') {
-    final file = await getProjectFile("json/recipe.json");
+    final file = await getProjectFile("recipe.json");
     final jsonContent = await file.readAsString();
     final sdkipcMessage =
         SDKIPCMessage('txCreateRecipe', jsonContent, 'example');
@@ -26,9 +26,9 @@ Future<void> main(List<String> args) async {
   }
 
   if (arg == 'purchase_nft') {
-    final cookbook_id = args.length > 3 ? args[1] : 'cookbook_for_test';
+    final cookbook_id = args.length > 3 ? args[1] : 'cookbook_for_test1';
     final recipe_id =
-        args.length > 3 ? args[2] : 'cookbook_for_test_2021_10_22_09_13_58';
+        args.length > 3 ? args[2] : 'cookbook_for_test_2021_10_22_09_13_587';
 
     final msg =
         "?action=purchase_nft&cookbook_id=${cookbook_id}&recipe_id=${recipe_id}&nft_amount=1";

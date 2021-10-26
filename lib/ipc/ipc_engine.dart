@@ -167,8 +167,13 @@ class IPCEngine {
     navigatorKey.currentState!.pop();
 
     if (jsonRecipe != null) {
-      navigatorKey.currentState!.push(MaterialPageRoute(
-          builder: (_) => PurchaseItemScreen(recipe: jsonRecipe)));
+      //navigatorKey.currentState!.push(MaterialPageRoute(
+      //    builder: (_) => PurchaseItemScreen(recipe: jsonRecipe)));
+      navigatorKey.currentState!.push(MaterialPageRoute(builder: (_) => DetailScreenWidget (
+        cookbookID: cookbookId,
+        recipeID: recipeId,
+        pageType: DetailPageType.typeRecipe,
+      )));
       return;
     } else {
       ScaffoldMessenger.of(navigatorKey.currentState!.overlay!.context)

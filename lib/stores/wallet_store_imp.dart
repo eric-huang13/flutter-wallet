@@ -8,9 +8,11 @@ import 'package:cosmos_utils/future_either.dart';
 import 'package:grpc/grpc.dart';
 import 'package:mobx/mobx.dart';
 import 'package:protobuf/protobuf.dart';
+import 'package:pylons_wallet/entities/activity.dart';
 import 'package:pylons_wallet/entities/balance.dart';
 import 'package:pylons_wallet/ipc/handler/handler_factory.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
+import 'package:pylons_wallet/localstorage/activity_database.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart'
 as pylons;
 import 'package:pylons_wallet/modules/cosmos.authz.v1beta1/module/client/cosmos/base/abci/v1beta1/abci.pb.dart';
@@ -290,6 +292,16 @@ class WalletsStoreImp implements WalletsStore {
     if (response.isLeft()) {
       return SDKIPCResponse.failure(sender: '', error: response.swap().toOption().toNullable().toString(), errorCode: HandlerFactory.ERR_SOMETHING_WENT_WRONG, transaction: '');
     }
+
+    ActivityDatabase.get().addActivity(Activity(
+      action: ActionType.actionCreateRecipe,
+      username: info.name,
+      cookbookID: msgObj.cookbookID,
+      recipeID: msgObj.iD,
+      itemName: msgObj.name,
+      itemDesc: msgObj.description,
+      itemUrl: msgObj.entries.itemOutputs.first.strings.firstWhere((element) =>element.key == "NFT_URL").value
+    ));
 
     return SDKIPCResponse.success(sender: '', data: response.getOrElse(() => TransactionResponse.initial()).hash, transaction: '');
   }

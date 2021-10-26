@@ -32,13 +32,15 @@ class ActivityDatabase {
   Future _init() async {
     // Get a location using path_provider
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, "pylon.db");
+    var databasePath = await getDatabasesPath();
+    //String path = join(documentsDirectory.path, "pylon.db");
+    String path = join(databasePath, "pylon.db");
     db = await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
           // When creating the db, create the table
           await db.execute(
               "CREATE TABLE $tableName ("
-                  "${Activity.db_id} STRING PRIMARY KEY,"
+                  "${Activity.db_id} INTEGER PRIMARY KEY AUTOINCREMENT,"
                   "${Activity.db_username} TEXT,"
                   "${Activity.db_action} TEXT,"
                   "${Activity.db_item_name} TEXT,"
@@ -75,6 +77,16 @@ class ActivityDatabase {
     return activities;
   }
 
+  Future<List<Activity>> getAllActivities() async {
+    var db = await _getDb();
+    var result = await db.rawQuery('SELECT * FROM $tableName ORDER BY ${Activity.db_id} DESC');
+    List<Activity> activities = [];
+    for(Map<String, dynamic> item in result) {
+      activities.add(new Activity.fromMap(item));
+    }
+    return activities;
+  }
+
 
   //TODO escape not allowed characters eg. ' " '
   /// Inserts or replaces the book.
@@ -82,11 +94,11 @@ class ActivityDatabase {
     var db = await _getDb();
     await db.rawInsert(
         'INSERT OR REPLACE INTO '
-            '$tableName(${Activity.db_id}, ${Activity.db_username}, ${Activity.db_item_name}, ${Activity.db_item_url}, ${Activity.db_item_desc}, ${Activity.db_item_cookbookid}, ${Activity.db_item_recipeid}, ${Activity.db_item_id}, ${Activity.db_timestamp})'
+            '$tableName(${Activity.db_id}, ${Activity.db_username}, ${Activity.db_action},  ${Activity.db_item_name}, ${Activity.db_item_url}, ${Activity.db_item_desc}, ${Activity.db_item_cookbookid}, ${Activity.db_item_recipeid}, ${Activity.db_item_id}, ${Activity.db_timestamp})'
             ' VALUES(?, ?, ?, ?, ?, ?, ?, ?)',
         [ activity.id,
           activity.username,
-          activity.action,
+          activity.actionString(),
           activity.itemName,
           activity.itemUrl,
           activity.itemDesc,
@@ -94,7 +106,24 @@ class ActivityDatabase {
           activity.recipeID,
           activity.itemID,
           activity.timestamp,]);
+  }
 
+  Future addActivity(Activity activity) async {
+    var db = await _getDb();
+    print(db);
+    await db.rawInsert(
+        'INSERT INTO '
+            '$tableName(${Activity.db_username}, ${Activity.db_action}, ${Activity.db_item_name}, ${Activity.db_item_url}, ${Activity.db_item_desc}, ${Activity.db_item_cookbookid}, ${Activity.db_item_recipeid}, ${Activity.db_item_id}, ${Activity.db_timestamp})'
+            ' VALUES(?, ?, ?,  ?, ?, ?, ?, ?, ?)',
+        [ activity.username,
+          activity.actionString(),
+          activity.itemName,
+          activity.itemUrl,
+          activity.itemDesc,
+          activity.cookbookID,
+          activity.recipeID,
+          activity.itemID,
+          activity.timestamp,]);
   }
 
   Future close() async {

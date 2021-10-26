@@ -1,7 +1,27 @@
-enum actionType {
+enum ActionType {
+  actionUnknonwn,
+  actionCreateRecipe,
   actionMint,
   actionPurchase,
   // further types
+}
+
+class ActionTypeFactory {
+  static final Map<String, ActionType> _stringMap = {
+    'unknown': ActionType.actionUnknonwn,
+    'created': ActionType.actionCreateRecipe,
+    'minted': ActionType.actionMint,
+    'purchased': ActionType.actionPurchase,
+  };
+
+  static ActionType fromString(String string) {
+    return _stringMap[string] ?? ActionType.actionUnknonwn;
+  }
+
+  static String itemToString(ActionType item) {
+    return _stringMap.keys
+        .firstWhere((key) => _stringMap[key] == item, orElse: () => 'unknown');
+  }
 }
 
 class Activity {
@@ -16,9 +36,16 @@ class Activity {
   static final db_item_id = "itemid";
   static final db_timestamp = "timestamp";
 
-  late String id, username, action, itemName, itemUrl, itemDesc, cookbookID,
-      recipeID, itemID, timestamp;
-
+  String username = "",
+      itemName = "",
+      itemUrl = "",
+      itemDesc = "",
+      cookbookID = "",
+      recipeID = "",
+      itemID = "",
+      timestamp = "";
+  ActionType action= ActionType.actionUnknonwn;
+  int id = 0;
   Activity({
     id,
     username,
@@ -32,10 +59,14 @@ class Activity {
     timestamp,
   });
 
+  String actionString(){
+    return ActionTypeFactory.itemToString(action);
+  }
+
   Activity.fromMap(Map<String, dynamic> map) : this(
       id: map[db_id],
       username: map[db_username],
-      action: map[db_action],
+      action: ActionTypeFactory.fromString(map[db_action].toString()),
       itemName: map[db_item_name],
       itemUrl: map[db_item_url],
       itemDesc: map[db_item_cookbookid],
