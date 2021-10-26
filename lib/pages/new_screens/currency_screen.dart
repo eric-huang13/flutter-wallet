@@ -44,7 +44,7 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
               margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               width: screenSize.width(),
-              height: screenSize.width(percent: 0.4),
+              height: screenSize.width(percent: 0.35),
               decoration: const BoxDecoration(
                 image: DecorationImage(image: AssetImage("assets/icons/purple_card.png",),
                 fit: BoxFit.fill),
@@ -55,13 +55,13 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
                       children: <Widget>[
                     Text("${_assets[index].denom}",
                         style: Theme.of(_).textTheme.subtitle1!.copyWith(
-                          color: Colors.white
+                          color: Colors.white, fontSize: 18
                         )),
                     Align(
                       alignment: Alignment.centerRight,
                       child: Text("${_assets[index].amount}",
                           style: Theme.of(_).textTheme.subtitle1!.copyWith(
-                              color: Colors.white
+                              color: Colors.white, fontSize: 24
                           )),
                     ),
                   ]),
