@@ -76,6 +76,7 @@ dev_dependencies:
   lint: ^1.5.3
   flutter_launcher_icons: ^0.9.1
   lints: ^1.0.1
+  mockito: 5.0.14
 
 flutter:
   uses-material-design: true
@@ -85,7 +86,7 @@ flutter:
     - assets/images/icon/
     - i18n/en.json
     - i18n/ru.json
-    - .env
+    - env/
 
   fonts:
     - family: Inter

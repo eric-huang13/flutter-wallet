@@ -1,5 +1,6 @@
 import 'package:alan/alan.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:grpc/grpc.dart';
 
 class BaseEnv {
@@ -20,22 +21,24 @@ class BaseEnv {
     String? faucetUrl,
     String? faucetPort,
   }) {
+    _networkInfo = NetworkInfo.fromSingleHost(
+      bech32Hrp: 'pylo',
+      host: '10.0.2.2',
+    );
     _networkInfo = NetworkInfo(
       bech32Hrp: 'pylo',
-      lcdInfo: LCDInfo(
-          host: lcdUrl,
-          port: int.parse(lcdPort)
-      ),
+      lcdInfo: LCDInfo(host: lcdUrl, port: int.parse(lcdPort)),
       grpcInfo: GRPCInfo(
           host: grpcUrl,
           port: int.parse(grpcPort),
-          credentials: ChannelCredentials.secure(
-            onBadCertificate: (cert, host) {
-                debugPrint("host: $host, cert: $cert");
-                return true;
-              },
-          )
-      ),
+          credentials: (dotenv.env['ENV']! == "local")
+              ? const ChannelCredentials.insecure()
+              : ChannelCredentials.secure(
+                  onBadCertificate: (cert, host) {
+                    debugPrint("host: $host, cert: $cert");
+                    return true;
+                  },
+                )),
     );
     _baseApiUrl = "$lcdUrl:$lcdPort";
     _baseEthUrl = ethUrl;

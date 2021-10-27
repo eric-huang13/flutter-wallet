@@ -1,0 +1,14 @@
+# Environment values for the flutter application
+
+####################################################
+# Local node configuration
+####################################################
+LCD_PORT=1317
+GRPC_PORT=9090
+LCD_URL=10.0.2.2
+GRPC_URL=10.0.2.2
+ETH_URL=http://10.0.2.2:7545
+WS_URL=ws://10.0.2.2
+FAUCET_PORT=4500
+TENDERMINT_PORT=26657
+ENV=local
