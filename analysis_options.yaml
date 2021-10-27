@@ -16,6 +16,7 @@ analyzer:
     import_of_legacy_library_into_null_safe: error
     avoid_single_cascade_in_expression_statements: ignore
     null_aware_in_logical_operator: error
+#    lowercase_with_underscores: ignore
     missing_required_param: error
     implicit_dynamic_map_literal: ignore
     prefer_single_quotes: ignore
@@ -39,6 +40,7 @@ analyzer:
     exhaustive_cases: error
 #    always_use_package_imports: error
     missing_enum_constant_in_switch: error
+    require_trailing_commas: ignore
 
 linter:
   rules:
@@ -105,3 +107,4 @@ linter:
     - use_function_type_syntax_for_parameters
     - valid_regexps
     - exhaustive_cases
+    - require_trailing_commas

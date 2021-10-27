@@ -8,7 +8,6 @@ import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/pages/account/account.dart';
 import 'package:pylons_wallet/pages/edit_profile/edit_profile_screen.dart';
 import 'package:pylons_wallet/pages/gallery/widget/collection_view_widget.dart';
-import 'package:pylons_wallet/pages/gallery/widget/custom_card_widget.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
 
 class EditCoverScreen extends StatefulWidget {

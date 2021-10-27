@@ -10,7 +10,6 @@ import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/components/user_image_widget.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/model/recipe_json.dart';
-import 'package:pylons_wallet/pylons_app.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
 
@@ -43,7 +42,7 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
       ),
       body: Stack(
         children: [
-          Positioned(
+          const Positioned(
             bottom: 0,
             right: 0,
             child: backgroundImage,),
@@ -283,7 +282,7 @@ class _PayByCardWidget extends StatelessWidget {
                 TextButton.icon(
                   style: TextButton.styleFrom(
                     backgroundColor: const Color(0xFFFFFFFF).withOpacity(0.35),
-                    side: BorderSide(color: Color(0xFFFFFFFF).withOpacity(0.4)),
+                    side: BorderSide(color: const Color(0xFFFFFFFF).withOpacity(0.4)),
                     padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
 
                   ),
@@ -302,13 +301,15 @@ class _PayByCardWidget extends StatelessWidget {
   Future<void> _executeRecipe(BuildContext context)async{
     final walletsStore = GetIt.I.get<WalletsStore>();
 
-    var jsonExecuteRecipe = '''{
+    const jsonExecuteRecipe = '''
+    {
         "creator": "",
         "cookbookID": "",
         "recipeID": "",
         "coinInputsIndex": 0,
         "itemIDs": ["aaaaaaaaaa"]
-        }''';
+        }
+        ''';
 
     final jsonMap = jsonDecode(jsonExecuteRecipe) as Map;
     jsonMap["cookbookID"] = recipe.recipe.cookbookID;
@@ -317,11 +318,11 @@ class _PayByCardWidget extends StatelessWidget {
     _showLoading(context);
 
     // print(jsonMap);
-    var response = await walletsStore.executeRecipe(jsonMap);
+    final response = await walletsStore.executeRecipe(jsonMap);
 
     Navigator.pop(context);
 
-    print("${response.success ? response.data : response.error}");
+    debugPrint("${response.success ? response.data : response.error}");
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:
     Text("${response.success ? response.data : response.error}")
     ));

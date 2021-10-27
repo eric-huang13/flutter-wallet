@@ -76,7 +76,6 @@ class _PylonsDashboardFilterBoxState extends State<PylonsDashboardFilterBox> {
           const VerticalSpace(10),
           Row(children: [
             Expanded(
-              flex: 1,
               child: SizedBox(
                 height: 44,
                 child: _PylonsGreyButton(

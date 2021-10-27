@@ -8,7 +8,7 @@ import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/ipc/handler/handler_factory.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_message.dart';
-import 'package:pylons_wallet/model/recipe_json.dart';
+import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
 import 'package:pylons_wallet/pages/new_screens/purchase_item_screen.dart';
 import 'package:pylons_wallet/pylons_app.dart';
 import 'package:pylons_wallet/transactions/get_recipe.dart';
@@ -16,7 +16,7 @@ import 'package:pylons_wallet/utils/base_env.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'models/sdk_ipc_response.dart';
+// import 'models/sdk_ipc_response.dart';
 
 /// Terminology
 /// Signal : Incoming request from a 3rd party app
@@ -104,7 +104,7 @@ class IPCEngine {
     try {
       sdkIPCMessage = SDKIPCMessage.fromIPCMessage(getMessage);
     } catch (e) {
-      print('Something went wrong in parsing');
+      debugPrint('Something went wrong in parsing');
       return;
     }
 
@@ -114,7 +114,7 @@ class IPCEngine {
     //   return [];
     // }
 
-    print(getMessage);
+    debugPrint(getMessage);
     //
     // systemHandlingASignal = true;
     //
@@ -170,7 +170,7 @@ class IPCEngine {
   }
 
   /// This is a temporary dialog for the proof of concept.
-  /// Input : [sender] The sender of the signal
+  /// Input : [sdkIPCMessage] The sender of the signal
   /// Output : [key] The signal kind against which the signal is sent
   Future showApprovalDialog({required SDKIPCMessage sdkIPCMessage}) {
     return showDialog(
@@ -187,7 +187,7 @@ class IPCEngine {
                         .get<HandlerFactory>()
                         .getHandler(sdkIPCMessage)
                         .handle();
-                    print(handlerMessage);
+                    debugPrint("$handlerMessage");
                     await dispatchUniLink(handlerMessage.createMessageLink());
                   },
                   child: const Text('Approval'),

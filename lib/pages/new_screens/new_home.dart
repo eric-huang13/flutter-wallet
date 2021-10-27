@@ -1,12 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/pages/new_screens/collection_screen.dart';
 import 'package:pylons_wallet/pages/new_screens/currency_screen.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class NewHomeScreen extends StatefulWidget {
-  NewHomeScreen({Key? key}) : super(key: key);
+  const NewHomeScreen({Key? key}) : super(key: key);
 
   @override
   State<NewHomeScreen> createState() => _NewHomeScreenState();
@@ -28,7 +27,7 @@ class _NewHomeScreenState extends State<NewHomeScreen> with SingleTickerProvider
     ),
   ];
 
-  List<Widget> _pages = <Widget>[CurrencyScreen(), CollectionScreen()];
+  final List<Widget> _pages = <Widget>[const CurrencyScreen(), const CollectionScreen()];
 
 
   @override

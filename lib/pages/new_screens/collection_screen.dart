@@ -5,12 +5,10 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/pages/new_screens/asset_detail_view.dart';
-import 'package:pylons_wallet/pages/new_screens/purchase_item_screen.dart';
-import 'package:pylons_wallet/pylons_app.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
 
 class CollectionScreen extends StatefulWidget {
-  CollectionScreen({Key? key}) : super(key: key);
+  const CollectionScreen({Key? key}) : super(key: key);
 
   @override
   State<CollectionScreen> createState() => _CollectionScreenState();
@@ -27,6 +25,7 @@ class _CollectionScreenState extends State<CollectionScreen>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Padding(
       padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
       child: Column(
@@ -72,7 +71,7 @@ class _CollectionScreenState extends State<CollectionScreen>
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: (){
-                      Navigator.of(context).push(MaterialPageRoute(builder: (_) => AssetDetailViewScreen()));
+                      Navigator.of(context).push(MaterialPageRoute(builder: (_) => const AssetDetailViewScreen()));
                     },
                     child: ClipRRect(
                       borderRadius: const BorderRadius.all(Radius.circular(5)),
@@ -125,7 +124,7 @@ class _CardWidget extends StatelessWidget {
             height: screenSize.width(percent: 0.3),
             padding: const EdgeInsets.all(30),
             decoration: BoxDecoration(
-              color: Color(0xFFC4C4C4).withOpacity(0.25),
+              color: const Color(0xFFC4C4C4).withOpacity(0.25),
             ),
             child: Image.asset("assets/icons/$icon.png",
             fit: BoxFit.contain,
@@ -142,4 +141,7 @@ class _CardWidget extends StatelessWidget {
     );
   }
 }
+
+
+
 

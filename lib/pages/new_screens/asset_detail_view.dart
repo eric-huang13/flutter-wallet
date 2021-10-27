@@ -1,16 +1,12 @@
-import 'dart:convert';
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/image_widgets.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/components/user_image_widget.dart';
 import 'package:pylons_wallet/constants/constants.dart';
-import 'package:pylons_wallet/model/recipe_json.dart';
-import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
 
 class AssetDetailViewScreen extends StatefulWidget {
@@ -253,7 +249,7 @@ class _PayByCardWidget extends StatelessWidget {
                         elevation: 16,
                         underline: const SizedBox(),
                         focusColor: const Color(0xFF1212C4),
-                        dropdownColor: Color(0xFF1212C4).withOpacity(0.4),
+                        dropdownColor: const Color(0xFF1212C4).withOpacity(0.4),
                         style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),
                         onChanged: (String? data) {
 
@@ -273,7 +269,7 @@ class _PayByCardWidget extends StatelessWidget {
                       ),
                       hintText: "Expecting Price",
                       hintStyle: Theme.of(context).textTheme.subtitle1!.copyWith(
-                          color: Color(0xFFC4C4C4), fontSize: 16
+                          color: const Color(0xFFC4C4C4), fontSize: 16
                       ),),
                 ),
 
@@ -282,7 +278,7 @@ class _PayByCardWidget extends StatelessWidget {
                 TextButton.icon(
                   style: TextButton.styleFrom(
                     backgroundColor: const Color(0xFFFFFFFF).withOpacity(0.35),
-                    side: BorderSide(color: Color(0xFFFFFFFF).withOpacity(0.4)),
+                    side: BorderSide(color: const Color(0xFFFFFFFF).withOpacity(0.4)),
                     padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
 
                   ),

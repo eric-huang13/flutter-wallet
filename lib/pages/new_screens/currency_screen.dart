@@ -33,6 +33,7 @@ class _CurrencyScreenState extends State<CurrencyScreen>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
