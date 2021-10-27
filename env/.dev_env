@@ -26,3 +26,4 @@ WS_URL=ws://devtestnet.pylons.tech
 FAUCET_URL=https://faucet.devtestnet.pylons.tech
 FAUCET_PORT=443
 TENDERMINT_PORT=443
+ENV=dev

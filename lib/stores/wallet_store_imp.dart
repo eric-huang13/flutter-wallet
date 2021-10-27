@@ -72,9 +72,12 @@ class WalletsStoreImp implements WalletsStore {
       mnemonic: mnemonic,
     );
 
-    wallets.value.add(creds.publicInfo);
 
     await broadcastWalletCreationMessageOnBlockchain(creds, wallet.bech32Address, userName);
+
+
+    wallets.value.add(creds.publicInfo);
+
 
     return creds.publicInfo;
   }
@@ -85,28 +88,36 @@ class WalletsStoreImp implements WalletsStore {
   /// [userName] The name that the user entered
   @override
   Future<void> broadcastWalletCreationMessageOnBlockchain(AlanPrivateWalletCredentials creds, String creatorAddress, String userName) async {
-    await _transactionSigningGateway.storeWalletCredentials(
-      credentials: creds,
-      password: '',
-    );
 
-    final info = wallets.value.last;
 
-    final msgObj = pylons.MsgCreateAccount.create()..mergeFromProto3Json({'creator': creatorAddress, 'username': userName});
+    try {
+      await _transactionSigningGateway.storeWalletCredentials(
+        credentials: creds,
+        password: '',
+      );
 
-    WalletLookupKey walletLookupKey = createWalletLookUp(info);
+      final info = creds.publicInfo;
 
-    final unsignedTransaction = UnsignedAlanTransaction(messages: [msgObj]);
+      final msgObj = pylons.MsgCreateAccount.create()
+        ..mergeFromProto3Json({'creator': creatorAddress, 'username': userName});
 
-    final result = await _customTransactionSigningGateway.signTransaction(transaction: unsignedTransaction, walletLookupKey: walletLookupKey).mapError<dynamic>((error) {
-      throw error;
-    }).flatMap(
-      (signed) => _customTransactionSigningGateway.broadcastTransaction(
-        walletLookupKey: walletLookupKey,
-        transaction: signed,
-      ),
-    );
-    print(result);
+      final walletLookupKey = createWalletLookUp(info);
+
+      final unsignedTransaction = UnsignedAlanTransaction(messages: [msgObj]);
+
+      final result = await _customTransactionSigningGateway.signTransaction(transaction: unsignedTransaction, walletLookupKey: walletLookupKey).mapError<dynamic>((error) {
+        throw error;
+      }).flatMap(
+            (signed) =>
+            _customTransactionSigningGateway.broadcastTransaction(
+              walletLookupKey: walletLookupKey,
+              transaction: signed,
+            ),
+      );
+      print(result);
+    } catch(e){
+      print(e);
+    }
   }
 
   /// This method sends the money from one address to another
