@@ -126,14 +126,16 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
                                 ),],
                             ),
                             body: TabBarView(
-                              children: [Column(
+                              children: [
+                                Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(widget.recipe.description),
                                   Text("Current Price: ${widget.recipe.price} ${widget.recipe.currency}"),
                                   Text("Size: ${widget.recipe.width} x ${widget.recipe.height}"),
                                 ],
-                              ), Text("Details")],
+                              ),
+                                Text("Details")],
                             ),
                           ),
                         ),
@@ -163,7 +165,7 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
                               side: BorderSide(color: const Color(0xFFED8864).withOpacity(0.4)),
                             ),
                             icon: const Icon(Icons.favorite_outlined, color: Color(0xFFED8864), size: 24,),
-                            label: Text("Save for later", style: Theme.of(context).textTheme.button!.copyWith(
+                            label: Text("save_for_later".tr(), style: Theme.of(context).textTheme.button!.copyWith(
                                 color: const Color(0xFFED8864), fontSize: 16, fontWeight: FontWeight.w600
                             ),), onPressed: (){},),
                         ],
@@ -307,13 +309,14 @@ class _PayByCardWidget extends StatelessWidget {
         "cookbookID": "",
         "recipeID": "",
         "coinInputsIndex": 0,
-        "itemIDs": ["aaaaaaaaaa"]
+        "itemIDs": []
         }
         ''';
 
     final jsonMap = jsonDecode(jsonExecuteRecipe) as Map;
     jsonMap["cookbookID"] = recipe.recipe.cookbookID;
     jsonMap["recipeID"] = recipe.recipe.id;
+    jsonMap["itemIDs"] = recipe.itemIDs;
 
     _showLoading(context);
 

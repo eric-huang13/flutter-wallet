@@ -485,4 +485,6 @@ extension RecipeValues on RecipeJson {
 
   String get height => recipe.entries.itemOutputs.first.longs.firstWhere((e) => e.key == "Height").weightRanges.first.upper;
 
+  List<String> get itemIDs => recipe.entries.itemOutputs.map((e) => e.id).toList();
+
 }
