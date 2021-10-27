@@ -3,6 +3,7 @@ import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/pages/new_screens/collection_screen.dart';
 import 'package:pylons_wallet/pages/new_screens/currency_screen.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class NewHomeScreen extends StatefulWidget {
   NewHomeScreen({Key? key}) : super(key: key);
@@ -19,11 +20,11 @@ class _NewHomeScreenState extends State<NewHomeScreen> with SingleTickerProvider
   final List<Widget> myTabs = <Widget>[
     Padding(
       padding: const EdgeInsets.all(4.0),
-      child: Text('Currency'),
+      child: Text('currency'.tr()),
     ),
     Padding(
       padding: const EdgeInsets.all(4.0),
-      child: Text('NFT Collection'),
+      child: Text('nft_collection'.tr()),
     ),
   ];
 
@@ -35,6 +36,12 @@ class _NewHomeScreenState extends State<NewHomeScreen> with SingleTickerProvider
     super.initState();
     _tabController = TabController(vsync: this, length: myTabs.length);
     _tabController.addListener(_tabSelect);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
   void _tabSelect() {

@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
@@ -8,35 +9,47 @@ import 'package:pylons_wallet/pages/new_screens/purchase_item_screen.dart';
 import 'package:pylons_wallet/pylons_app.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
 
-class CollectionScreen extends StatelessWidget {
+class CollectionScreen extends StatefulWidget {
   CollectionScreen({Key? key}) : super(key: key);
 
   @override
+  State<CollectionScreen> createState() => _CollectionScreenState();
+}
+
+class _CollectionScreenState extends State<CollectionScreen>
+    with AutomaticKeepAliveClientMixin<CollectionScreen>{
+
+  @override
+  void updateKeepAlive() => true;
+
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Padding(
       padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Default Cookbooks", style: Theme.of(context).textTheme.bodyText1!.copyWith(
+          Text("default_cookbooks".tr(), style: Theme.of(context).textTheme.bodyText1!.copyWith(
             color: const Color(0xffA9A6A6), fontWeight: FontWeight.w500,
           ),),
           const VerticalSpace(6),
           Row(
             children: [
-              _CardWidget(text: "Art", icon: "art", onTap: (){
+              _CardWidget(text: "art".tr(), icon: "art", onTap: (){
                 // navigatorKey.currentState!.push(MaterialPageRoute(builder: (_) => PurchaseItemScreen(recipe: null,)));
               },),
               const Spacer(),
-              _CardWidget(text: "Tickets", icon: "tickets", onTap: (){},),
+              _CardWidget(text: "tickets".tr(), icon: "tickets", onTap: (){},),
               const Spacer(),
-              _CardWidget(text: "Transfer", icon: "transfer", onTap: (){},),
+              _CardWidget(text: "transfer".tr(), icon: "transfer", onTap: (){},),
 
             ],
           ),
           const VerticalSpace(20),
-          Text("Your Pylons App",style: Theme.of(context).textTheme.bodyText1!.copyWith(
+          Text("your_pylons_app".tr(),style: Theme.of(context).textTheme.bodyText1!.copyWith(
             color: const Color(0xffA9A6A6), fontWeight: FontWeight.w500
           ),),
           const VerticalSpace(6),

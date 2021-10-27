@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:pylons_wallet/components/image_widgets.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/components/user_image_widget.dart';
 import 'package:pylons_wallet/constants/constants.dart';
@@ -44,10 +46,8 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
           Positioned(
             bottom: 0,
             right: 0,
-            child: Image.asset("assets/icons/background.png",
-            width: screenSize.width(percent: 0.5),
-            height: screenSize.height(percent: 0.65),),
-          ),
+            child: backgroundImage,),
+
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -80,7 +80,7 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
                       ),),
                       const VerticalSpace(4),
                       RichText(
-                        text: TextSpan(text: "Created by ",
+                        text: TextSpan(text: "${"created_by".tr()} ",
                         style: Theme.of(context).textTheme.bodyText2!.copyWith(
                           fontSize: 16,
                         ),
@@ -94,7 +94,7 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
                           UserImageWidget(imageUrl: kImage2, radius: 10,),
                           const HorizontalSpace(6),
                           RichText(
-                            text: TextSpan(text: "Owned by ",
+                            text: TextSpan(text: "${"owned_by".tr()} ",
                                 style: Theme.of(context).textTheme.subtitle2!.copyWith(
                                   fontSize: 14
                                 ),
@@ -116,14 +116,14 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
                               indicatorSize: TabBarIndicatorSize.tab,
                               indicatorColor: kBlue.withOpacity(0.41),
                               labelStyle: const TextStyle(fontSize: 16),
-                              tabs: const [
+                              tabs:  [
                                 Padding(
-                                padding:  EdgeInsets.all(4.0),
-                                child: Text('Description'),
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text('description'.tr()),
                               ),
                                 Padding(
-                                  padding: EdgeInsets.all(4.0),
-                                  child: Text('NFT Details'),
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Text('nft_details'.tr()),
                                 ),],
                             ),
                             body: TabBarView(
@@ -149,7 +149,7 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
 
                             ),
                             icon: Image.asset('assets/icons/card.png', width: 30,),
-                            label: Text("Buy Now", style: Theme.of(context).textTheme.button!.copyWith(
+                            label: Text("buy_now".tr(), style: Theme.of(context).textTheme.button!.copyWith(
                                 color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600
                             ),), onPressed: (){
                               setState(() {
@@ -161,11 +161,11 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
                             style: TextButton.styleFrom(
                               backgroundColor: const Color(0xFFFFFFFF),
                               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-                              side: BorderSide(color: Color(0xFFED8864).withOpacity(0.4)),
+                              side: BorderSide(color: const Color(0xFFED8864).withOpacity(0.4)),
                             ),
                             icon: const Icon(Icons.favorite_outlined, color: Color(0xFFED8864), size: 24,),
                             label: Text("Save for later", style: Theme.of(context).textTheme.button!.copyWith(
-                                color: Color(0xFFED8864), fontSize: 16, fontWeight: FontWeight.w600
+                                color: const Color(0xFFED8864), fontSize: 16, fontWeight: FontWeight.w600
                             ),), onPressed: (){},),
                         ],
                       ),
@@ -187,9 +187,9 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
 
 class _ImageWidget extends StatelessWidget {
   final String imageUrl;
-  _ImageWidget({
+  const _ImageWidget({
     Key? key,
-    required this.imageUrl
+    required this.imageUrl,
   }) : super(key: key);
 
 
