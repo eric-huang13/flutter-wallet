@@ -1,8 +1,8 @@
 {
-  "cookbookID": "cookbook_for_test1",
-  "ID": "cookbook_for_test_2021_10_22_09_13_587",
+  "cookbookID": "cookbook_for_test2",
+  "ID": "cookbook_for_test_2021_10_22_09_13_591",
   "name": "A simple recipe test",
-  "description": "A simple test recipe to be executed",
+  "description": " A simple test recipe to be executed",
   "version": "v1.0.0",
   "coinInputs": [
     {
@@ -14,11 +14,9 @@
       ]
     }
   ],
-  "itemInputs": [
-  ],
+  "itemInputs": [],
   "entries": {
-    "coinOutputs": [
-    ],
+    "coinOutputs": [],
     "itemOutputs": [
       {
         "ID": "How_do_you_do_turn_this_on",
@@ -29,7 +27,7 @@
               {
                 "lower": "2000000000000000000",
                 "upper": "2000000000000000000",
-                "weight": "1"
+                "weight": 1
               }
             ]
           }
@@ -39,9 +37,9 @@
             "key": "Quantity",
             "weightRanges": [
               {
-                "lower": "34",
-                "upper": "34",
-                "weight": "1"
+                "lower": 34,
+                "upper": 34,
+                "weight": 1
               }
             ]
           },
@@ -49,9 +47,9 @@
             "key": "Width",
             "weightRanges": [
               {
-                "lower": "960",
-                "upper": "960",
-                "weight": "1"
+                "lower": 960,
+                "upper": 960,
+                "weight": 1
               }
             ]
           },
@@ -59,9 +57,9 @@
             "key": "Height",
             "weightRanges": [
               {
-                "lower": "1280",
-                "upper": "1280",
-                "weight": "1"
+                "lower": 1280,
+                "upper": 1280,
+                "weight": 1
               }
             ]
           }
@@ -72,12 +70,12 @@
             "value": "How do you do turn this on"
           },
           {
-            "key": "NFT_URL",
-            "value": "https://i.imgur.com/dpNqwvl.jpg"
-          },
-          {
             "key": "Description",
             "value": "I am aa a a fsd fsdfasd as sadkfjsd jfsd fsdf sd fsd fsd "
+          },
+          {
+            "key": "NFT_URL",
+            "value": "https://i.imgur.com/dpNqwvl.jpg"
           },
           {
             "key": "Currency",
@@ -88,32 +86,23 @@
             "value": "450"
           }
         ],
-        "mutableStrings": [
-        ],
-        "transferFee": [
-          {
-            "denom": "upylon",
-            "amount": "0"
-          }
-        ],
+        "mutableStrings": [],
+        "transferFee": [],
         "tradePercentage": "100000000000000000",
-        "quantity": "30",
-        "amountMinted": "0",
+        "amountMinted": 1,
         "tradeable": true
       }
     ],
-    "itemModifyOutputs": [
-    ]
+    "itemModifyOutputs": []
   },
   "outputs": [
     {
       "entryIDs": [
         "How_do_you_do_turn_this_on"
       ],
-      "weight": "1"
+      "weight": 1
     }
   ],
-  "blockInterval": "1",
-  "enabled": true,
-  "extraInfo": "\"\""
+  "blockInterval": 1,
+  "enabled": true
 }

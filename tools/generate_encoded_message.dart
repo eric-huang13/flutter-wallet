@@ -26,9 +26,9 @@ Future<void> main(List<String> args) async {
   }
 
   if (arg == 'purchase_nft') {
-    final cookbook_id = args.length > 3 ? args[1] : 'cookbook_for_test1';
+    final cookbook_id = args.length > 3 ? args[1] : 'cookbook_for_test2';
     final recipe_id =
-        args.length > 3 ? args[2] : 'cookbook_for_test_2021_10_22_09_13_587';
+        args.length > 3 ? args[2] : 'cookbook_for_test_2021_10_22_09_13_591';
 
     final msg =
         "?action=purchase_nft&cookbook_id=${cookbook_id}&recipe_id=${recipe_id}&nft_amount=1";
