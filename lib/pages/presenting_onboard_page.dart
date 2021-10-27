@@ -9,12 +9,10 @@ import 'package:pylons_wallet/components/pylons_white_button.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/forms/import_from_google_form.dart';
 import 'package:pylons_wallet/forms/new_user_form.dart';
-import 'package:pylons_wallet/pages/dashboard/dashboard_main.dart';
 import 'package:pylons_wallet/pages/new_screens/new_home.dart';
 import 'package:pylons_wallet/pylons_app.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 PageController _controller = PageController();
@@ -99,7 +97,7 @@ class PresentingOnboardPage extends StatelessWidget {
     //    walletsStore.getWallets().value.last, wallet.bech32Address, userName);
 
     // print("Wallet add: ${value.publicAddress} ${value.name} ${value.chainId}");
-    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => NewHomeScreen()), (route) => true);
+    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => const NewHomeScreen()), (route) => true);
   }
 
   void onCreateAccountPressed(BuildContext context) {

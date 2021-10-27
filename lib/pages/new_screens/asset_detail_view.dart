@@ -1,14 +1,12 @@
-import 'dart:convert';
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
+import 'package:pylons_wallet/components/image_widgets.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/components/user_image_widget.dart';
 import 'package:pylons_wallet/constants/constants.dart';
-import 'package:pylons_wallet/model/recipe_json.dart';
-import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
 
 class AssetDetailViewScreen extends StatefulWidget {
@@ -39,12 +37,10 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
       ),
       body: Stack(
         children: [
-          Positioned(
+          const Positioned(
             bottom: 0,
             right: 0,
-            child: Image.asset("assets/icons/background.png",
-            width: screenSize.width(percent: 0.5),
-            height: screenSize.height(percent: 0.65),),
+            child: backgroundImage,
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,7 +74,7 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                       ),),
                       const VerticalSpace(4),
                       RichText(
-                        text: TextSpan(text: "Created by ",
+                        text: TextSpan(text: "${"created_by".tr()} ",
                         style: Theme.of(context).textTheme.bodyText2!.copyWith(
                           fontSize: 16,
                         ),
@@ -92,7 +88,7 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                           UserImageWidget(imageUrl: kImage2, radius: 10,),
                           const HorizontalSpace(6),
                           RichText(
-                            text: TextSpan(text: "Owned by ",
+                            text: TextSpan(text: "${"owned_by".tr()} ",
                                 style: Theme.of(context).textTheme.subtitle2!.copyWith(
                                   fontSize: 14
                                 ),
@@ -114,14 +110,14 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                               indicatorSize: TabBarIndicatorSize.tab,
                               indicatorColor: kBlue.withOpacity(0.41),
                               labelStyle: const TextStyle(fontSize: 16),
-                              tabs: const [
+                              tabs: [
                                 Padding(
-                                padding:  EdgeInsets.all(4.0),
-                                child: Text('Description'),
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text("description".tr()),
                               ),
                                 Padding(
-                                  padding: EdgeInsets.all(4.0),
-                                  child: Text('NFT Details'),
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Text("nft_details".tr()),
                                 ),],
                             ),
                             body: TabBarView(
@@ -171,7 +167,7 @@ class _ImageWidget extends StatelessWidget {
         borderRadius: const BorderRadius.only(topRight: Radius.circular(14), bottomRight: Radius.circular(14)),
         child: CachedNetworkImage(imageUrl: imageUrl,
         width: screenSize.width(),
-          errorWidget: (a, b, c) => Center(child: Text("Unable to display NFT", style: Theme.of(context).textTheme.bodyText1,)),
+          errorWidget: (a, b, c) => Center(child: Text("unable_to_fetch_nft_item".tr(), style: Theme.of(context).textTheme.bodyText1,)),
           height: screenSize.height(percent: 0.30),
           fit: BoxFit.fill,
         ),
@@ -253,7 +249,7 @@ class _PayByCardWidget extends StatelessWidget {
                         elevation: 16,
                         underline: const SizedBox(),
                         focusColor: const Color(0xFF1212C4),
-                        dropdownColor: Color(0xFF1212C4).withOpacity(0.4),
+                        dropdownColor: const Color(0xFF1212C4).withOpacity(0.4),
                         style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),
                         onChanged: (String? data) {
 
@@ -273,7 +269,7 @@ class _PayByCardWidget extends StatelessWidget {
                       ),
                       hintText: "Expecting Price",
                       hintStyle: Theme.of(context).textTheme.subtitle1!.copyWith(
-                          color: Color(0xFFC4C4C4), fontSize: 16
+                          color: const Color(0xFFC4C4C4), fontSize: 16
                       ),),
                 ),
 
@@ -282,7 +278,7 @@ class _PayByCardWidget extends StatelessWidget {
                 TextButton.icon(
                   style: TextButton.styleFrom(
                     backgroundColor: const Color(0xFFFFFFFF).withOpacity(0.35),
-                    side: BorderSide(color: Color(0xFFFFFFFF).withOpacity(0.4)),
+                    side: BorderSide(color: const Color(0xFFFFFFFF).withOpacity(0.4)),
                     padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
 
                   ),

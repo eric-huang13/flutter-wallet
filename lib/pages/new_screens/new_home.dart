@@ -1,11 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/pages/new_screens/collection_screen.dart';
 import 'package:pylons_wallet/pages/new_screens/currency_screen.dart';
 
 class NewHomeScreen extends StatefulWidget {
-  NewHomeScreen({Key? key}) : super(key: key);
+  const NewHomeScreen({Key? key}) : super(key: key);
 
   @override
   State<NewHomeScreen> createState() => _NewHomeScreenState();
@@ -19,21 +19,27 @@ class _NewHomeScreenState extends State<NewHomeScreen>
   final List<Widget> myTabs = <Widget>[
     Padding(
       padding: const EdgeInsets.all(4.0),
-      child: Text('Currency'),
+      child: Text('currency'.tr()),
     ),
     Padding(
       padding: const EdgeInsets.all(4.0),
-      child: Text('NFT Collection'),
+      child: Text('nft_collection'.tr()),
     ),
   ];
 
-  List<Widget> _pages = <Widget>[CurrencyScreen(), CollectionScreen()];
+  final List<Widget> _pages = <Widget>[const CurrencyScreen(), const CollectionScreen()];
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: myTabs.length);
     _tabController.addListener(_tabSelect);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
   void _tabSelect() {

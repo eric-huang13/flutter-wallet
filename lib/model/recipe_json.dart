@@ -10,7 +10,7 @@ class RecipeJson {
   }
 
   Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
+    final map = <String, dynamic>{};
     map['Recipe'] = recipe.toJson();
     return map;
   }
@@ -93,7 +93,7 @@ class Recipe {
   }
 
   Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
+    final map = <String, dynamic>{};
     map['cookbookID'] = cookbookID;
     map['ID'] = id;
     map['nodeVersion'] = nodeVersion;
@@ -126,7 +126,7 @@ class Outputs {
   }
 
   Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
+    final map = <String, dynamic>{};
     map['entryIDs'] = entryIDs;
     map['weight'] = weight;
     return map;
@@ -170,7 +170,7 @@ class Entries {
   }
 
   Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
+    final map = <String, dynamic>{};
     map['coinOutputs'] = coinOutputs.map((v) => v.toJson()).toList();
     map['itemOutputs'] = itemOutputs.map((v) => v.toJson()).toList();
     map['itemModifyOutputs'] =
@@ -254,7 +254,7 @@ class ItemOutputs {
   }
 
   Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
+    final map = <String, dynamic>{};
     map['ID'] = id;
     map['doubles'] = doubles.map((v) => v.toJson()).toList();
     map['longs'] = longs.map((v) => v.toJson()).toList();
@@ -295,7 +295,7 @@ class Strings {
   }
 
   Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
+    final map = <String, dynamic>{};
     map['key'] = key;
     map['rate'] = rate;
     map['value'] = value;
@@ -335,7 +335,7 @@ class Longs {
   }
 
   Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
+    final map = <String, dynamic>{};
     map['key'] = key;
     map['rate'] = rate;
     map['weightRanges'] = weightRanges.map((v) => v.toJson()).toList();
@@ -366,7 +366,7 @@ class WeightRanges {
   }
 
   Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
+    final map = <String, dynamic>{};
     map['lower'] = lower;
     map['upper'] = upper;
     map['weight'] = weight;
@@ -405,7 +405,7 @@ class Doubles {
   }
 
   Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
+    final map = <String, dynamic>{};
     map['key'] = key;
     map['rate'] = rate;
     map['weightRanges'] = weightRanges.map((v) => v.toJson()).toList();
@@ -433,7 +433,7 @@ class CoinInputs {
   }
 
   Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
+    final map = <String, dynamic>{};
     map['coins'] = coins.map((v) => v.toJson()).toList();
     return map;
   }
@@ -454,7 +454,7 @@ class Coins {
   }
 
   Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
+    final map = <String, dynamic>{};
     map['denom'] = denom;
     map['amount'] = amount;
     return map;
@@ -498,4 +498,7 @@ extension RecipeValues on RecipeJson {
       .weightRanges
       .first
       .upper;
+
+  List<String> get itemIDs =>
+      recipe.entries.itemOutputs.map((e) => e.id).toList();
 }

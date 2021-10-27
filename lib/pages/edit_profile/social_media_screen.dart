@@ -4,7 +4,7 @@ import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
 
 class SocialMediaScreen extends StatelessWidget {
-  SocialMediaScreen({Key? key}) : super(key: key);
+  const SocialMediaScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class SocialMediaScreen extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           crossAxisCount: 2,
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           crossAxisSpacing: 10,
           mainAxisSpacing: 1,
           childAspectRatio: 3.2 / 4,

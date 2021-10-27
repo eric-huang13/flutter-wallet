@@ -99,7 +99,7 @@ class EditProfileScreen extends StatelessWidget {
                   const VerticalSpace(20),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (_) => SocialMediaScreen()));
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => const SocialMediaScreen()));
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),

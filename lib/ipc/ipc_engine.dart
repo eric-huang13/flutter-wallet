@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
+
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
@@ -13,11 +14,12 @@ import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:pylons_wallet/ipc/models/sdk_ipc_message.dart';
+import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
 import 'package:pylons_wallet/pages/new_screens/purchase_item_screen.dart';
 import 'package:pylons_wallet/transactions/get_recipe.dart';
 import 'package:pylons_wallet/utils/base_env.dart';
 
-import 'models/sdk_ipc_response.dart';
+// import 'models/sdk_ipc_response.dart';
 
 //unilink key format constants
 const KEY_PURCHASE_NFT = "purchase_nft";
@@ -113,11 +115,9 @@ class IPCEngine {
     try {
       sdkIPCMessage = SDKIPCMessage.fromIPCMessage(getMessage);
     } catch (e) {
-      print('Something went wrong in parsing');
+      debugPrint('Something went wrong in parsing');
       return;
     }
-
-    print(getMessage);
 
     //
     // if (systemHandlingASignal) {
@@ -125,7 +125,7 @@ class IPCEngine {
     //   return [];
     // }
 
-    print(getMessage);
+    debugPrint(getMessage);
     //
     // systemHandlingASignal = true;
     //
@@ -134,8 +134,14 @@ class IPCEngine {
     // return getMessage;
   }
 
-/*
-  Future<void> _handleEaselLink(String link) async{
+  /// This method handles the link that the wallet received on click of the easel generated link
+  /// Input : [link] contains the link that is received when you click the easel generated link.
+  /// the [link] must follow a particular structure containing action, cookbook_id and recipe_id
+  /// in its query parameters e.g http://wallet.pylons.tech/?action=purchase_nft
+  /// &cookbook_id=Easel_autocookbook_pylo149haucpqld30pksrzqyff67prswul9vmmle27v
+  /// &recipe_id=pylo149haucpqld30pksrzqyff67prswul9vmmle27v_2021_10_18_12_11_55&nft_amount=1
+  /// Output : [void] contains the decoded message
+  Future<void> _handleEaselLink(String link) async {
     final queryParameters = Uri.parse(link).queryParameters;
     final action = queryParameters['action']?? "";
     final amount = queryParameters['nft_amount']?? "";
@@ -161,26 +167,26 @@ class IPCEngine {
 
     _showLoading();
 
-    final jsonRecipe = await GetRecipe(GetIt.I.get<BaseEnv>())
+    //final jsonRecipe = await GetRecipe(GetIt.I.get<BaseEnv>())
+    final recipeResult = await GetRecipe(GetIt.I.get<BaseEnv>())
         .getRecipe(cookbookId!, recipeId!);
 
     navigatorKey.currentState!.pop();
 
-    if (jsonRecipe != null) {
-      //navigatorKey.currentState!.push(MaterialPageRoute(
-      //    builder: (_) => PurchaseItemScreen(recipe: jsonRecipe)));
-      navigatorKey.currentState!.push(MaterialPageRoute(builder: (_) => DetailScreenWidget (
-        cookbookID: cookbookId,
-        recipeID: recipeId,
-        pageType: DetailPageType.typeRecipe,
-      )));
-      return;
-    } else {
+    recipeResult.fold((exception){
+
       ScaffoldMessenger.of(navigatorKey.currentState!.overlay!.context)
-          .showSnackBar(const SnackBar(
-        content: Text("Unable to fetch NFT Item"),
-      ));
-    }
+          .showSnackBar(SnackBar(
+        content: Text("$exception"),
+      ),);
+
+    }, (recipeJson){
+      navigatorKey.currentState!.push(MaterialPageRoute(
+        builder: (_) => PurchaseItemScreen(
+          recipe: recipeJson,),),);
+      return;
+    });
+
   }
 
   /// This method sends the unilink to the wallet app
@@ -195,7 +201,7 @@ class IPCEngine {
   }
 
   /// This is a temporary dialog for the proof of concept.
-  /// Input : [sender] The sender of the signal
+  /// Input : [sdkIPCMessage] The sender of the signal
   /// Output : [key] The signal kind against which the signal is sent
   Future showApprovalDialog({required SDKIPCMessage sdkIPCMessage}) {
     return showDialog(
@@ -212,7 +218,7 @@ class IPCEngine {
                         .get<HandlerFactory>()
                         .getHandler(sdkIPCMessage)
                         .handle();
-                    print(handlerMessage);
+                    debugPrint("$handlerMessage");
                     await dispatchUniLink(handlerMessage.createMessageLink());
                   },
                   child: const Text('Approval'),

@@ -91,5 +91,18 @@
   "easy_for_everyone": "Easy to use for everyone",
   "it_stores_in_blockchain": "STORED ON THE BLOCKCHAIN",
   "edit_cover": "Edit cover",
-  "all_collection": "All Collection"
+  "all_collection": "All Collection",
+  "unable_to_fetch_nft_item": "Unable to fetch NFT Item",
+  "created_by": "Created by",
+  "owned_by": "Owned by",
+  "nft_details": "NFT Details",
+  "default_cookbooks": "Default Cookbooks",
+  "tickets": "Tickets",
+  "transfer": "Transfer",
+  "your_pylons_app": "Your Pylons App",
+  "nft_collection": "NFT Collection",
+  "currency": "Currency",
+  "buy_now": "Buy Now",
+  "save_for_later": "Save for later"
+
 }

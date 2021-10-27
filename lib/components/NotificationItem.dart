@@ -1,6 +1,4 @@
-import 'package:cosmos_ui_components/cosmos_app_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:pylons_wallet/constants/constants.dart';
 
 class NotificationItem extends StatelessWidget {
 
@@ -19,7 +17,7 @@ class NotificationItem extends StatelessWidget {
                   children: [
                     Expanded(
                       child: ListTile(
-                        leading: CircleAvatar(
+                        leading: const CircleAvatar(
                           child: FlutterLogo(size: 20.0),
                         ),
                         title: RichText(
