@@ -154,7 +154,7 @@ class _DetailScreenWidgetState extends State<DetailScreenWidget> with SingleTick
         builder: (context) => Wrap(children: const [CardInfoForm()]));
   }
 
-  void onPressPurchase() {
+  void onPressPurchase(BuildContext context) {
     if (!isOwner) {
       //Navigator.push(context, MaterialPageRoute(builder: (context) => const PaymentInfoScreenWidget()));
       switch(widget.pageType){
@@ -253,7 +253,7 @@ class _DetailScreenWidgetState extends State<DetailScreenWidget> with SingleTick
                   fit: BoxFit.cover,
                 ),
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (_) => const NFTViewWidget()));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (_) => NFTViewWidget(imageUrl: itemUrl,)));
                 }),
             const VerticalSpace(10),
             //tab bar
@@ -271,7 +271,7 @@ class _DetailScreenWidgetState extends State<DetailScreenWidget> with SingleTick
                   tabs: myTabs,
                   labelPadding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
                 )),
-            Container(child: _pages[tabIndex])
+            Container(child: _pages.length > 0 ? _pages[tabIndex] : null)
           ],
         ),
       ),
@@ -289,7 +289,7 @@ class _DetailScreenWidgetState extends State<DetailScreenWidget> with SingleTick
                 const Spacer(),
                 ElevatedButton(
                     onPressed: () {
-                      onPressPurchase();
+                      onPressPurchase(context);
                     },
                     style: ElevatedButton.styleFrom(primary: const Color(0xFF1212C4), padding: const EdgeInsets.fromLTRB(50, 0, 50, 0)),
                     child: Text(!isOwner ? 'purchase'.tr() : 'resell_nft'.tr(), style: const TextStyle(color: Colors.white)))
@@ -317,5 +317,39 @@ class _DetailScreenWidgetState extends State<DetailScreenWidget> with SingleTick
     );
 
 
+  }
+
+
+  void _showLoading(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (ctx) =>
+          AlertDialog(
+            content: Wrap(
+              children: [
+                Row(
+                  children: [
+                    const SizedBox(
+                      width: 30,
+                      height: 30,
+                      child: CircularProgressIndicator(),
+                    ),
+                    const HorizontalSpace(10),
+                    Text(
+                      "Loading...",
+                      style:
+                      Theme
+                          .of(ctx)
+                          .textTheme
+                          .subtitle2!
+                          .copyWith(fontSize: 12),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+    );
   }
 }

@@ -68,7 +68,7 @@ class PylonsAppDrawerState extends State<PylonsAppDrawer> {
                 child: FlutterLogo(size: 42.0),
               )
             ),
-            ListTile(
+            /*ListTile(
               title: const Text('qwerqwerqwer'),
               leading: const Icon(Icons.favorite),
               onTap: () {
@@ -81,6 +81,7 @@ class PylonsAppDrawerState extends State<PylonsAppDrawer> {
                 onTap: () {
                   //Navigator.pop(context);
                 }),
+             */
             ListTile(
                 title: const Text('Balances'),
                 leading: const Icon(Icons.account_balance_wallet),

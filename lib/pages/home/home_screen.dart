@@ -17,11 +17,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String dropdownValue = 'my_activity'.tr();
+  String dropdownValue = 'recommended'.tr();
 
   List<String> spinnerItems = [
-    'my_activity'.tr(),
     'recommended'.tr(),
+    'my_activity'.tr(),
     'following'.tr(),
   ];
 

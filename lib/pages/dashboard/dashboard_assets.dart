@@ -96,18 +96,24 @@ class _DashboardAssetsState extends State<DashboardAssets> {
     for (final balance in balances) {
       final denom = balance.denom.toString();
       final amount = balance.amount.toString();
-      assetsList.add(Row(children: <Widget>[
+      assetsList.add(
+          SizedBox(
+              height: 100,
+              child:
+          Row(children: <Widget>[
 
-        Text("$denom: ", style: const TextStyle(color: Colors.indigo, fontSize: 26)),
-        Text(amount, style: const TextStyle(color: Colors.black, fontSize: 26)),
-        Spacer(),
-        IconButton(
-          icon: Image.asset("assets/icons/receive.png"),
-          onPressed: (){
-            _getFaucet();
-          }
+          Text("$denom: ", style: const TextStyle(color: Colors.indigo, fontSize: 26)),
+              Text(amount, style: const TextStyle(color: Colors.black, fontSize: 26)),
+              Spacer(),
+              IconButton(
+                  icon: Image.asset("assets/icons/receive.png"),
+                  onPressed: (){
+                    _getFaucet();
+                  }
+              )
+          ]
         )
-      ]));
+      ));
     }
     setState(() {
       _assetsList = assetsList;

@@ -133,7 +133,7 @@ class IPCEngine {
     // systemHandlingASignal = false;
     // return getMessage;
   }
-
+/*
   /// This method handles the link that the wallet received on click of the easel generated link
   /// Input : [link] contains the link that is received when you click the easel generated link.
   /// the [link] must follow a particular structure containing action, cookbook_id and recipe_id
@@ -151,14 +151,14 @@ class IPCEngine {
     final tradeID = queryParameters['trade_id']?? "";
 
     debugPrint("amount: $amount, cookbook_id: $cookbookID, recipe_id: $recipeID");
-    navigatorKey.currentState!.pop();
+    //navigatorKey.currentState!.pop();
     //move to purchase Item Screen
     navigatorKey.currentState!.push(MaterialPageRoute(builder: (_) => DetailScreenWidget (
       cookbookID: cookbookID,
       recipeID: recipeID, pageType: DetailPageType.typeRecipe,
     )));
   }
-*/
+  */
 
   Future<void> _handleEaselLink(String link) async {
     final queryParameters = Uri.parse(link).queryParameters;

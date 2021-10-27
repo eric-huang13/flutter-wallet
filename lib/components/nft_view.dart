@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 
 class NFTViewWidget extends StatefulWidget {
+  final String imageUrl;
   const NFTViewWidget({
-    Key? key,
-  }) : super(key: key);
+    required this.imageUrl,
+  }) : super();
 
   @override
   State<NFTViewWidget> createState() => _NFTViewWidgetState();
@@ -30,9 +31,9 @@ class _NFTViewWidgetState extends State<NFTViewWidget> with SingleTickerProvider
                 Navigator.pop(context);
               },
             )),
-        body: const Align(
+        body: Align(
             child: Image(
-          image: CachedNetworkImageProvider(kImage),
+          image: CachedNetworkImageProvider(widget.imageUrl),
           width: double.infinity,
           fit: BoxFit.cover,
         )));

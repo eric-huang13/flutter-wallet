@@ -407,7 +407,7 @@ class _PayByCardWidget extends StatelessWidget {
     _showLoading(context);
 
     // print(jsonMap);
-    final response = await walletsStore.executeRecipe(jsonMap);
+    final response = await walletsStore.executeRecipeIPC(jsonMap);
 
     Navigator.pop(context);
 
