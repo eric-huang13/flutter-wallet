@@ -1,4 +1,4 @@
-# pylons_wallet
+# Pylons Wallet
 
 Pylons Wallet
 
@@ -6,11 +6,11 @@ Pylons Wallet
 
 This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+1) If you want to connect to our dev testnet use **main.dart**
+2) If you want to connect with your local net use **main_local.dart**
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+In order to change the end points of the GRPC and apis. Go over to env/ folder where you can see two files.
+1) **.dev_env** for dev test net endpoints
+2) **.local_env** for local endpoints
