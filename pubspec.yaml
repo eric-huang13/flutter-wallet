@@ -83,7 +83,7 @@ flutter:
     - assets/images/icon/
     - i18n/en.json
     - i18n/ru.json
-    - .env
+    - env/
 
   fonts:
     - family: Inter

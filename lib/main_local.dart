@@ -20,7 +20,7 @@ Future<void> main() async {
   HttpOverrides.global = MyHttpOverrides();
   await EasyLocalization.ensureInitialized();
   // Read the values from .env file
-  await dotenv.load(fileName: "env/.dev_env");
+  await dotenv.load(fileName: "env/.local_env");
   await di.init();
 
   runApp(
