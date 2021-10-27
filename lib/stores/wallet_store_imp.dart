@@ -555,6 +555,19 @@ class WalletsStoreImp implements WalletsStore {
   }
 
   @override
+  Future<bool> isAccountExists(String username) async {
+    final helper = QueryHelper(httpClient: _httpClient);
+    final result = await helper.queryGet("${this.baseEnv.baseApiUrl}/pylons/account/username/${username}");
+    if(!result.isSuccessful){
+      return false;
+    }
+    if(result.value!.containsKey("address")){
+      return true;
+    }
+    return false;
+  }
+
+  @override
   Future<List<Execution>> getItemExecutions(String cookbookID, String itemID) async {
     final request = pylons.QueryListExecutionsByItemRequest.create()
       ..cookbookID = cookbookID

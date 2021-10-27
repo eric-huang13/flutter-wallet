@@ -153,6 +153,11 @@ abstract class WalletsStore {
 
   Future<bool> getFaucetCoin({String denom = ""});
 
+  /// check if account with username exists
+  /// Input:[String] username
+  /// Output" [bool] if exists true, else false
+  Future<bool> isAccountExists(String username);
+
   Observable<List<WalletPublicInfo>> getWallets();
 
   Observable<bool> getAreWalletsLoading();

@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/pylons_blue_button.dart';
 import 'package:pylons_wallet/components/pylons_text_input_widget.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
+import 'package:pylons_wallet/stores/wallet_store.dart';
 
 // Define a custom Form widget.
 class NewUserForm extends StatefulWidget {
@@ -57,6 +59,7 @@ class NewUserFormState extends State<NewUserForm> {
   }
 
   void onStartPylonsPressed() {
+    final username = usernameController.text;
     if (usernameController.text.isEmpty) {
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
@@ -66,6 +69,7 @@ class NewUserFormState extends State<NewUserForm> {
       Navigator.of(context).pop();
       return;
     }
+
 
     widget.onValidate(usernameController.value.text);
   }

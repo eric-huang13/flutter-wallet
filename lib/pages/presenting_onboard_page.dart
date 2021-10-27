@@ -14,6 +14,8 @@ import 'package:pylons_wallet/pylons_app.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:pylons_wallet/components/loading.dart';
+import 'package:pylons_wallet/components/alert.dart';
 
 PageController _controller = PageController();
 
@@ -91,12 +93,25 @@ class PresentingOnboardPage extends StatelessWidget {
     final _mnemonic = await generateMnemonic();
     final _username = userName;
 
+    final diag = Loading(context).showLoading();
+
+    final isAccountExists = await walletsStore.isAccountExists(_username);
+    if(isAccountExists){
+      diag.dismiss();
+      Alert.SnackbarAlert(context, "User name already exists!");
+      return;
+    }
+
+
+
     PylonsApp.currentWallet = await walletsStore.importAlanWallet(_mnemonic, _username);
 
     //await walletsStore.broadcastWalletCreationMessageOnBlockchain(
     //    walletsStore.getWallets().value.last, wallet.bech32Address, userName);
 
     // print("Wallet add: ${value.publicAddress} ${value.name} ${value.chainId}");
+    diag.dismiss();
+
     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => const NewHomeScreen()), (route) => true);
   }
 

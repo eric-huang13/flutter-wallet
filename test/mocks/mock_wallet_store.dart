@@ -194,4 +194,10 @@ class MockWalletStore implements WalletsStore {
     // TODO: implement createCookBook
     throw UnimplementedError();
   }
+
+  @override
+  Future<bool> isAccountExists(String username) {
+    // TODO: implement isAccountExists
+    throw UnimplementedError();
+  }
 }
