@@ -110,6 +110,8 @@ abstract class WalletsStore {
   /// Output : [Trade?] return Trade Info of the tradeID, reutrn null if not exists
   Future<Trade?> getTradeByID(Int64 ID);
 
+  Future<List<Trade>> getTrades(String creator);
+
   /// This method is for get Recipe Info
   /// Input : [cookbookID, recipeID]
   /// Output : [Recipe] return Recipe of cookbookID, recipeID, return null if not exists
@@ -151,7 +153,7 @@ abstract class WalletsStore {
   Future<List<Execution>> getRecipeEexecutions(
       String cookbookID, String recipeID);
 
-  Future<bool> getFaucetCoin({String denom = ""});
+  Future<int> getFaucetCoin({String denom = ""});
 
   /// check if account with username exists
   /// Input:[String] username

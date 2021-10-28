@@ -93,7 +93,7 @@ class PresentingOnboardPage extends StatelessWidget {
     final _mnemonic = await generateMnemonic();
     final _username = userName;
 
-    final diag = Loading(context).showLoading();
+    final diag = Loading().showLoading();
 
     final isAccountExists = await walletsStore.isAccountExists(_username);
     if(isAccountExists){
@@ -116,6 +116,7 @@ class PresentingOnboardPage extends StatelessWidget {
   }
 
   void onCreateAccountPressed(BuildContext context) {
+    FocusScope.of(context).requestFocus(FocusNode());
     showModalBottomSheet(
         context: context,
         isScrollControlled: true,

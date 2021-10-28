@@ -2,10 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/constants/constants.dart';
+import 'package:pylons_wallet/entities/nft.dart';
 import 'package:pylons_wallet/pages/new_screens/asset_detail_view.dart';
+import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
+
+import '../../pylons_app.dart';
 
 class CollectionScreen extends StatefulWidget {
   const CollectionScreen({Key? key}) : super(key: key);
@@ -14,17 +19,43 @@ class CollectionScreen extends StatefulWidget {
   State<CollectionScreen> createState() => _CollectionScreenState();
 }
 
-class _CollectionScreenState extends State<CollectionScreen>
-    with AutomaticKeepAliveClientMixin<CollectionScreen> {
-  @override
-  void updateKeepAlive() => true;
+const collectionType = [
+  "ownedNFT", //item List
+  "listNFT", //Trade list
+];
+
+class _CollectionScreenState extends State<CollectionScreen>{
+  final walletsStore = GetIt.I.get<WalletsStore>();
+  List<NFT> assets =[];
+
+  String colType = "ownedNFT";
+
 
   @override
-  bool get wantKeepAlive => true;
+  void initState() {
+    super.initState();
+    listOwnedNFTs();
+  }
+  Future listOwnedNFTs() async {
+    setState((){
+      colType = 'ownedNFT';
+    });
+    loadData(colType);
+
+  }
+
+  Future listNFTs() async {
+    setState(()=>{
+      colType = "listNFT"
+    });
+    loadData(colType);
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
+    //super.build(context);
     return Padding(
       padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
       child: Column(
@@ -43,7 +74,9 @@ class _CollectionScreenState extends State<CollectionScreen>
               _CardWidget(
                 text: "art".tr(),
                 icon: "art",
+                selected: colType == "ownedNFT",
                 onTap: () {
+                  listOwnedNFTs();
                   // navigatorKey.currentState!.push(MaterialPageRoute(builder: (_) => PurchaseItemScreen(recipe: null,)));
                 },
               ),
@@ -75,11 +108,20 @@ class _CollectionScreenState extends State<CollectionScreen>
                 icon: "pylons",
                 onTap: () {},
               ),
-              const HorizontalSpace(10),
+              const Spacer(),
               _CardWidget(
                 text: "Avatar",
                 icon: "pylons",
                 onTap: () {},
+              ),
+              const Spacer(),
+              _CardWidget(
+                text: "ListNFT",
+                icon: "pylons",
+                selected: colType == "listNFT",
+                onTap: () {
+                  listNFTs();
+                },
               ),
             ],
           ),
@@ -90,17 +132,19 @@ class _CollectionScreenState extends State<CollectionScreen>
                 shrinkWrap: true,
                 crossAxisSpacing: 8,
                 mainAxisSpacing: 8,
-                itemCount: 15,
+                itemCount: assets.length,
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (_) => const AssetDetailViewScreen()));
+                          builder: (_) =>  AssetDetailViewScreen(nftItem: assets[index])));
                     },
                     child: ClipRRect(
                       borderRadius: const BorderRadius.all(Radius.circular(5)),
                       child: CachedNetworkImage(
-                          imageUrl: _getImage(index), fit: BoxFit.cover),
+                          //imageUrl: _getImage(index),
+                          imageUrl: assets[index].url,
+                          fit: BoxFit.cover),
                     ),
                   );
                 },
@@ -114,19 +158,33 @@ class _CollectionScreenState extends State<CollectionScreen>
     );
   }
 
-  String _getImage(int index) {
-    switch (index % 4) {
-      case 1:
-        return kImage1;
+  Future loadData(String _colType) async {
+    assets.clear();
+    List<NFT> _assets = [];
+    if(_colType == "ownedNFT"){
+      walletsStore.getItemsByOwner(PylonsApp.currentWallet.publicAddress).then((items)
+      {
+        items.forEach((e) async {
+          final nft = await NFT.fromItem(e);
+          print(nft);
+          setState((){
+            assets.add(nft);
+          });
 
-      case 2:
-        return kImage2;
+        });
 
-      case 3:
-        return kImage3;
+      });
+    }else if(_colType == "listNFT"){
 
-      default:
-        return kImage;
+      walletsStore.getTrades(PylonsApp.currentWallet.publicAddress).then((trades){
+        trades.forEach((trade) async {
+            final nft = await NFT.fromTrade(trade);
+            setState((){
+              assets.add(nft);
+            });
+        });
+      });
+
     }
   }
 }
@@ -137,7 +195,9 @@ class _CardWidget extends StatelessWidget {
     required this.text,
     required this.icon,
     required this.onTap,
+    this.selected = false,
   }) : super(key: key);
+  final bool selected;
   final String text;
   final String icon;
   final VoidCallback onTap;
@@ -154,7 +214,7 @@ class _CardWidget extends StatelessWidget {
             height: screenSize.width(percent: 0.3),
             padding: const EdgeInsets.all(30),
             decoration: BoxDecoration(
-              color: const Color(0xFFC4C4C4).withOpacity(0.25),
+              color: const Color(0xFFC4C4C4).withOpacity(selected ? 0.5: 0.25),
             ),
             child: Image.asset(
               "assets/icons/$icon.png",

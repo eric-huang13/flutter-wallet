@@ -3,21 +3,63 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/image_widgets.dart';
+import 'package:pylons_wallet/components/loading.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/components/user_image_widget.dart';
 import 'package:pylons_wallet/constants/constants.dart';
+import 'package:pylons_wallet/entities/nft.dart';
+import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/client/cosmos/base/v1beta1/coin.pb.dart';
+import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/client/pylons/recipe.pb.dart';
+import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/client/pylons/trade.pb.dart';
+import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/client/pylons/tx.pb.dart';
+import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
 
+import '../../pylons_app.dart';
+
 class AssetDetailViewScreen extends StatefulWidget {
-  const AssetDetailViewScreen({Key? key,}) : super(key: key);
+  final NFT nftItem;
+  const AssetDetailViewScreen({
+    Key? key,
+    required this.nftItem,
+  }) : super(key: key);
 
   @override
   State<AssetDetailViewScreen> createState() => _AssetDetailViewScreenState();
 }
+typedef PayCallbackFunc = void Function(String, String);
 
 class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
   bool _showPay = true;
+  String owner = "";
+  @override
+  void initState() {
+    super.initState();
+    setState((){
+      _showPay = (widget.nftItem.type == nftType.type_item) ? true: false;
+      owner = widget.nftItem.owner == PylonsApp.currentWallet.name ? "you" : widget.nftItem.owner;
+    });
+  }
+
+  Future onCreateTrade(String amount, String denom) async {
+    final walletsStore = GetIt.I.get<WalletsStore>();
+    final loading = Loading().showLoading();
+    final json =  {"coinInputs":
+    [{
+      "coins": [{
+        "denom": denom, "amount": amount
+      }]}],
+      "itemOutputs": [{
+      "cookbookID": widget.nftItem.cookbookID,
+        "itemID": widget.nftItem.itemID}]};
+    final response = await walletsStore.createTrade(json);
+    loading.dismiss();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("${response.txHash != "" ? "Trade on this NFT successfully created." : "Error occured while creating Trade."}")));
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -52,11 +94,13 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                   children: [
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: _ImageWidget(imageUrl: kImage2),
+                      child: _ImageWidget(imageUrl: widget.nftItem.url),
                     ),
                     AnimatedSwitcher(
                       duration: const Duration(milliseconds: 300),
-                      child: _showPay ? _PayByCardWidget() : const SizedBox(),
+                      child: _showPay ? _PayByCardWidget(onPayCallback: (amount, denom){
+                        onCreateTrade(amount, denom);
+                      },) : const SizedBox(),
                     )
 
                   ],
@@ -69,7 +113,7 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Mona Lisa", style: Theme.of(context).textTheme.headline5!.copyWith(
+                      Text(widget.nftItem.name, style: Theme.of(context).textTheme.headline5!.copyWith(
                         color: Colors.black, fontWeight: FontWeight.w600,
                       ),),
                       const VerticalSpace(4),
@@ -78,8 +122,8 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                         style: Theme.of(context).textTheme.bodyText2!.copyWith(
                           fontSize: 16,
                         ),
-                        children: const [
-                          TextSpan(text: "Flowtys Studio", style: TextStyle(color: kBlue))
+                        children: [
+                          TextSpan(text: widget.nftItem.creator, style: TextStyle(color: kBlue))
                         ]),
                       ),
                       const VerticalSpace(20),
@@ -92,14 +136,14 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                                 style: Theme.of(context).textTheme.subtitle2!.copyWith(
                                   fontSize: 14
                                 ),
-                                children: const [
-                                  TextSpan(text: "you", style: TextStyle(color: kBlue))
+                                children: [
+                                  TextSpan(text: owner, style: TextStyle(color: kBlue))
                                 ]),
                           ),
                         ],
                       ),
                       const VerticalSpace(20),
-                      Expanded(
+                        Expanded(
                         child: DefaultTabController(
                           length: 2,
                           child: Scaffold(
@@ -112,9 +156,9 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                               labelStyle: const TextStyle(fontSize: 16),
                               tabs: [
                                 Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Text("description".tr()),
-                              ),
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Text("description".tr()),
+                                ),
                                 Padding(
                                   padding: const EdgeInsets.all(4.0),
                                   child: Text("nft_details".tr()),
@@ -124,9 +168,9 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                               children: [Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("Lorem ipsum"),
-                                  Text("Current Price: 10.87 Pylon"),
-                                  Text("Size: 1092x1082"),
+                                  Text(widget.nftItem.description),
+                                  Text("Current Price: ${widget.nftItem.price} ${widget.nftItem.denom}"),
+                                  Text("Size: ${widget.nftItem.width} x ${widget.nftItem.height}"),
                                 ],
                               ), Text("Details")],
                             ),
@@ -176,9 +220,30 @@ class _ImageWidget extends StatelessWidget {
   }
 }
 
-class _PayByCardWidget extends StatelessWidget {
+class _PayByCardWidget extends StatefulWidget {
   const _PayByCardWidget({
-    Key? key}) : super(key: key);
+    Key? key,
+    required this.onPayCallback
+  }) : super(key: key);
+
+  final PayCallbackFunc onPayCallback;
+
+  @override
+  State<StatefulWidget> createState() => _PayByCardWidgetState();
+
+}
+
+
+class _PayByCardWidgetState extends State<_PayByCardWidget> {
+  static const paymentDenoms = ["USD", "upylon"];
+  String selectedDenom = "USD";
+  final amountController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
 
 
   @override
@@ -228,9 +293,11 @@ class _PayByCardWidget extends StatelessWidget {
                 ),),
 
                 TextFormField(
+                  controller: amountController,
                   style: Theme.of(context).textTheme.subtitle1!.copyWith(
                     color: Colors.white, fontSize: 18,
                   ),
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       border: const UnderlineInputBorder(
                         borderRadius: BorderRadius.zero,
@@ -244,7 +311,7 @@ class _PayByCardWidget extends StatelessWidget {
                         //  when the TextFormField in focused
                       ),
                       suffix: DropdownButton<String>(
-                        value: "USD",
+                        value: selectedDenom,
                         icon: const Icon(Icons.keyboard_arrow_down, size: 16, color: Colors.white),
                         elevation: 16,
                         underline: const SizedBox(),
@@ -252,9 +319,11 @@ class _PayByCardWidget extends StatelessWidget {
                         dropdownColor: const Color(0xFF1212C4).withOpacity(0.4),
                         style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),
                         onChanged: (String? data) {
-
+                          setState((){
+                            selectedDenom = data ?? "";
+                          });
                         },
-                        items: ["USD", "Pylon"].map<DropdownMenuItem<String>>((String value) {
+                        items: paymentDenoms.map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
@@ -285,7 +354,26 @@ class _PayByCardWidget extends StatelessWidget {
                   icon: Image.asset('assets/icons/trade.png', width: 20,),
                   label: Text("List NFT", style: Theme.of(context).textTheme.button!.copyWith(
                     color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600
-                  ),), onPressed: (){},),
+                  ),),
+                    onPressed: (){
+                      //check validation
+                      FocusScope.of(context).requestFocus(FocusNode());
+                      if(amountController.text == ""){
+                        ScaffoldMessenger.of(context)
+                          ..hideCurrentSnackBar()
+                          ..showSnackBar(const SnackBar(
+                            content: Text('Price is Empty!'),
+                          ));
+                        return;
+                      }
+
+                      if(selectedDenom == "Currency is Empty!"){
+                        return;
+                      }
+
+                      widget.onPayCallback(amountController.text, selectedDenom);
+
+                }),
               ],
             ),
           ),

@@ -2,17 +2,26 @@
 import 'package:flutter/material.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
 
+import '../pylons_app.dart';
+class SnackbarToast {
+  static void show(String msg){
+    ScaffoldMessenger.of(navigatorKey.currentState!.overlay!.context)
+        .showSnackBar(SnackBar(
+      content: Text("$msg"),
+    ),);
+  }
+}
+
 class Loading {
-  final BuildContext context;
-  Loading(this.context);
+  Loading();
   var diagRet = null;
 
   void dismiss() {
-    Navigator.of(context).pop(diagRet);
+    navigatorKey.currentState!.pop();
   }
   Loading showLoading() {
     diagRet = showDialog(
-      context: context,
+      context: navigatorKey.currentState!.overlay!.context,
       barrierDismissible: true,
       builder: (ctx) =>
           AlertDialog(

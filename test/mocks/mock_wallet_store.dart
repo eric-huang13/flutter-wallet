@@ -165,7 +165,7 @@ class MockWalletStore implements WalletsStore {
   }
 
   @override
-  Future<bool> getFaucetCoin({String? denom}) {
+  Future<int> getFaucetCoin({String? denom}) {
     // TODO: implement getFaucetCoin
     throw UnimplementedError();
   }
@@ -198,6 +198,12 @@ class MockWalletStore implements WalletsStore {
   @override
   Future<bool> isAccountExists(String username) {
     // TODO: implement isAccountExists
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<Trade>> getTrades(String creator) {
+    // TODO: implement getTrades
     throw UnimplementedError();
   }
 }

@@ -10,7 +10,6 @@ import 'package:pylons_wallet/stores/wallet_store.dart';
 
 /// This handler handles the create cook book transaction request from 3 party apps
 class CreateCookBookHandler implements BaseHandler {
-  SDKIPCMessage sdkipcMessage;
 
   CreateCookBookHandler(this.sdkipcMessage);
 
@@ -38,4 +37,7 @@ class CreateCookBookHandler implements BaseHandler {
 
     return SynchronousFuture(response);
   }
+
+  @override
+  SDKIPCMessage sdkipcMessage;
 }

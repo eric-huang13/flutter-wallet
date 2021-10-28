@@ -164,6 +164,7 @@ class IPCEngine {
     final queryParameters = Uri.parse(link).queryParameters;
     final recipeId = queryParameters['recipe_id'];
     final cookbookId = queryParameters['cookbook_id'];
+    final walletsStore = GetIt.I.get<WalletsStore>();
 
     _showLoading();
 
@@ -204,24 +205,24 @@ class IPCEngine {
   /// Input : [sdkIPCMessage] The sender of the signal
   /// Output : [key] The signal kind against which the signal is sent
   Future showApprovalDialog({required SDKIPCMessage sdkIPCMessage}) {
+    final handler = GetIt.I
+        .get<HandlerFactory>()
+        .getHandler(sdkIPCMessage);
     return showDialog(
         barrierDismissible: false,
         context: navigatorKey.currentState!.overlay!.context,
         builder: (_) => AlertDialog(
-              content: const Text('Allow this transaction'),
+              content: Text('Will you sign this ${sdkIPCMessage.action}:\n "${handler.getName()}"?', style: TextStyle(fontSize:18)),
               actions: [
                 RaisedButton(
                   onPressed: () async {
                     Navigator.of(_).pop();
 
-                    final handlerMessage = await GetIt.I
-                        .get<HandlerFactory>()
-                        .getHandler(sdkIPCMessage)
-                        .handle();
+                    final handlerMessage = await handler.handle();
                     debugPrint("$handlerMessage");
                     await dispatchUniLink(handlerMessage.createMessageLink());
                   },
-                  child: const Text('Approval'),
+                  child: const Text('Approve'),
                 ),
                 RaisedButton(
                   onPressed: () async {
@@ -235,7 +236,7 @@ class IPCEngine {
                     await dispatchUniLink(
                         cancelledResponse.createMessageLink());
                   },
-                  child: const Text('Disapprove'),
+                  child: const Text('Cancel'),
                 )
               ],
             ));

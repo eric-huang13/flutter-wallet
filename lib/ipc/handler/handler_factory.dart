@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:pylons_wallet/ipc/handler/base_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/create_cook_book_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/create_recipe_handler.dart';
@@ -45,5 +47,15 @@ class HandlerFactory {
     }
 
     return CreateCookBookHandler(sdkipcMessage);
+  }
+}
+
+extension HandlerValues on BaseHandler {
+  String getName(){
+    final json = jsonDecode(this.sdkipcMessage.json) as Map;
+    if(json.keys.contains("name")){
+      return json["name"].toString();
+    }
+    return "";
   }
 }

@@ -1,6 +1,6 @@
 {
-  "cookbookID": "cookbook_for_test3",
-  "ID": "cookbook_for_test_2021_10_22_09_13_592",
+  "cookbookID": "cookbook_for_test5",
+  "ID": "cookbook_for_test_2021_10_22_09_13_590",
   "name": "A simple recipe test",
   "description": " A simple test recipe to be executed",
   "version": "v1.0.0",
@@ -84,12 +84,19 @@
           {
             "key": "Price",
             "value": "450"
+          },
+          {
+            "key": "Creator",
+            "value": "NFT Studio"
           }
         ],
         "mutableStrings": [],
-        "transferFee": [],
+        "transferFee": [{"denom": "upylon",
+          "amount": "10"
+        }],
         "tradePercentage": "100000000000000000",
-        "amountMinted": 1,
+        "amountMinted": 0,
+        "quantity": 30,
         "tradeable": true
       }
     ],

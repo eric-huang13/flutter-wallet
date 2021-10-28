@@ -123,6 +123,8 @@ class WalletsStoreImp implements WalletsStore {
         ..mergeFromProto3Json(
             {'creator': creatorAddress, 'username': userName});
 
+      print(msgObj);
+
       final walletLookupKey = createWalletLookUp(info);
 
       final unsignedTransaction = UnsignedAlanTransaction(messages: [msgObj]);
@@ -361,8 +363,6 @@ class WalletsStoreImp implements WalletsStore {
     // print(json);
     final msgObj = pylons.MsgExecuteRecipe.create()..mergeFromProto3Json(json);
 
-    final unsignedTransaction = UnsignedAlanTransaction(messages: [msgObj]);
-
     final walletsResultEither =
         await _customTransactionSigningGateway.getWalletsList();
 
@@ -387,7 +387,9 @@ class WalletsStoreImp implements WalletsStore {
 
     final walletLookupKey = createWalletLookUp(info);
 
-    msgObj.creator = info.publicAddress;
+    msgObj.creator = wallets.value.last.publicAddress;
+
+    final unsignedTransaction = UnsignedAlanTransaction(messages: [msgObj]);
 
     print(msgObj.toProto3Json());
 
@@ -551,6 +553,15 @@ class WalletsStoreImp implements WalletsStore {
     return response.trade;
   }
 
+  @override
+  Future<List<Trade>> getTrades(String creator) async {
+    final request= pylons.QueryListTradesByCreatorRequest.create() ..creator= creator;
+    final response = await _queryClient.listTradesByCreator(request);
+
+    return response.trades;
+  }
+
+
   /**
    * Please think around to retrieve TxResponse
    */
@@ -601,19 +612,20 @@ class WalletsStoreImp implements WalletsStore {
   }
 
   @override
-  Future<bool> getFaucetCoin({String? denom}) async {
+  Future<int> getFaucetCoin({String? denom}) async {
+    final amount = 5000;
     Map data = {
       "address": wallets.value.last.publicAddress,
     };
     if (denom != null) {
-      data["coins"] = [denom];
+      data["coins"] = ["${amount}${denom}"];
     }
     final helper = QueryHelper(httpClient: _httpClient);
     final result = await helper.queryPost(this.baseEnv.baseFaucetUrl, data);
     if (!result.isSuccessful) {
-      return false;
+      return 0;
     }
-    return true;
+    return amount;
   }
 
   @override
@@ -650,4 +662,6 @@ class WalletsStoreImp implements WalletsStore {
     final response = await _queryClient.listExecutionsByRecipe(request);
     return response.completedExecutions;
   }
+
+
 }

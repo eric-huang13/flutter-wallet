@@ -99,9 +99,9 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
                                 Theme.of(context).textTheme.bodyText2!.copyWith(
                                       fontSize: 16,
                                     ),
-                            children: const [
+                            children: [
                               TextSpan(
-                                  text: "Flowtys Studio",
+                                  text: widget.recipe.creator,
                                   style: TextStyle(color: kBlue))
                             ]),
                       ),
@@ -120,9 +120,9 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
                                     .textTheme
                                     .subtitle2!
                                     .copyWith(fontSize: 14),
-                                children: const [
+                                children: [
                                   TextSpan(
-                                      text: "Flowtys Studio",
+                                      text: widget.recipe.creator,
                                       style: TextStyle(color: kBlue))
                                 ]),
                           ),
@@ -394,15 +394,13 @@ class _PayByCardWidget extends StatelessWidget {
         "creator": "",
         "cookbookID": "",
         "recipeID": "",
-        "coinInputsIndex": 0,
-        "itemIDs": []
+        "coinInputsIndex": 0
         }
         ''';
 
     final jsonMap = jsonDecode(jsonExecuteRecipe) as Map;
     jsonMap["cookbookID"] = recipe.recipe.cookbookID;
     jsonMap["recipeID"] = recipe.recipe.id;
-    jsonMap["itemIDs"] = recipe.itemIDs;
 
     _showLoading(context);
 
@@ -413,7 +411,7 @@ class _PayByCardWidget extends StatelessWidget {
 
     debugPrint("${response.success ? response.data : response.error}");
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("${response.success ? response.data : response.error}")));
+        content: Text("${response.success ? "Successfully purchased this NFT." : response.error}")));
   }
 
   void _showLoading(BuildContext context) {

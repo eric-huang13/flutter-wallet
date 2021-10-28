@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/pages/new_screens/collection_screen.dart';
 import 'package:pylons_wallet/pages/new_screens/currency_screen.dart';
@@ -19,11 +20,11 @@ class _NewHomeScreenState extends State<NewHomeScreen>
   final List<Widget> myTabs = <Widget>[
     Padding(
       padding: const EdgeInsets.all(4.0),
-      child: Text('currency'.tr()),
+      child: Text('currency'.tr(), style: TextStyle(fontFamily: 'Inter', fontSize: 15, fontWeight: FontWeight.w500)),
     ),
     Padding(
       padding: const EdgeInsets.all(4.0),
-      child: Text('nft_collection'.tr()),
+      child: Text('nft_collection'.tr(), style: TextStyle(fontFamily: 'Inter', fontSize: 15, fontWeight: FontWeight.w500)),
     ),
   ];
 
@@ -32,6 +33,7 @@ class _NewHomeScreenState extends State<NewHomeScreen>
   @override
   void initState() {
     super.initState();
+
     _tabController = TabController(vsync: this, length: myTabs.length);
     _tabController.addListener(_tabSelect);
   }

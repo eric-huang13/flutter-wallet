@@ -4,8 +4,8 @@ class Alert {
   static void SnackbarAlert(BuildContext context, String msg){
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
-      ..showSnackBar(const SnackBar(
-        content: Text('User name is Empty'),
+      ..showSnackBar(SnackBar(
+        content: Text(msg),
       ));
     Navigator.of(context).pop();
   }
