@@ -7,6 +7,7 @@ import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 
 class ExecuteRecipeHandler implements BaseHandler {
+  @override
   SDKIPCMessage sdkipcMessage;
 
   ExecuteRecipeHandler(this.sdkipcMessage);
@@ -19,7 +20,7 @@ class ExecuteRecipeHandler implements BaseHandler {
 
     final walletsStore = GetIt.I.get<WalletsStore>();
 
-    final response = await walletsStore.executeRecipe(jsonMap);
+    final response = await walletsStore.executeRecipeIPC(jsonMap);
     response.sender = sdkipcMessage.sender;
     response.action = sdkipcMessage.action;
     return SynchronousFuture(response);
