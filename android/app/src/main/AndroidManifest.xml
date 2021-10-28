@@ -5,6 +5,15 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW"/>
+            <data
+                android:scheme="pylons"
+                android:host="*" />
+        </intent>
+    </queries>
+
    <application
         android:label="wallet"
         android:icon="@mipmap/ic_launcher">
