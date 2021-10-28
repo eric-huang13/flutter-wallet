@@ -21,10 +21,6 @@ class BaseEnv {
     String? faucetUrl,
     String? faucetPort,
   }) {
-    _networkInfo = NetworkInfo.fromSingleHost(
-      bech32Hrp: 'pylo',
-      host: '10.0.2.2',
-    );
     _networkInfo = NetworkInfo(
       bech32Hrp: 'pylo',
       lcdInfo: LCDInfo(host: lcdUrl, port: int.parse(lcdPort)),

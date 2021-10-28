@@ -1,6 +1,7 @@
 import 'package:pylons_wallet/ipc/handler/base_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/create_cook_book_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/create_recipe_handler.dart';
+import 'package:pylons_wallet/ipc/handler/handlers/execute_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_message.dart';
 
 class HandlerFactory {
@@ -36,12 +37,15 @@ class HandlerFactory {
   static const String ERR_SOMETHING_WENT_WRONG = 'somethingWentWrong';
 
   BaseHandler getHandler(SDKIPCMessage sdkipcMessage) {
-
     if (sdkipcMessage.action == TX_CREATE_COOKBOOK) {
       return CreateCookBookHandler(sdkipcMessage);
     }
     if (sdkipcMessage.action == TX_CREATE_RECIPE) {
       return CreateRecipeHandler(sdkipcMessage);
+    }
+
+    if (sdkipcMessage.action == TX_EXECUTE_RECIPE) {
+      return ExecuteRecipeHandler(sdkipcMessage);
     }
 
     return CreateCookBookHandler(sdkipcMessage);
