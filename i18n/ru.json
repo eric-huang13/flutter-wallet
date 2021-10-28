@@ -92,5 +92,17 @@
   "easy_for_everyone": "Простой в использовании",
   "it_stores_in_blockchain": "ХРАНИТСЯ В БЛОКЧЕЙНЕ",
   "edit_cover": "Редактировать обложку",
-  "all_collection": "Все коллекции"
+  "all_collection": "Все коллекции",
+  "unable_to_fetch_nft_item": "Невозможно получить элемент NFT",
+  "created_by": "Создан",
+  "owned_by": "Принадлежит",
+  "nft_details": "Детали NFT",
+  "default_cookbooks": "Поваренные книги по умолчанию",
+  "tickets": "Билеты",
+  "transfer": "передача",
+  "your_pylons_app": "Ваше приложение Pylons",
+  "nft_collection": "Коллекция NFT",
+  "currency": "Валюта",
+  "buy_now": "купить сейчас",
+  "save_for_later": "Сохранить на потом"
 }

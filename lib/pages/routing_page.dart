@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/pages/dashboard/dashboard_main.dart';
+import 'package:pylons_wallet/pages/new_screens/new_home.dart';
 import 'package:pylons_wallet/pages/presenting_onboard_page.dart';
 import 'package:pylons_wallet/pylons_app.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
@@ -36,7 +37,7 @@ class _RoutingPageState extends State<RoutingPage> {
     } else {
       // Assigning the latest wallet to the app.
       PylonsApp.currentWallet = walletsStore.getWallets().value.last;
-      Navigator.of(context).push(MaterialPageRoute(builder: (_) => Dashboard()));
+      Navigator.of(context).push(MaterialPageRoute(builder: (_) => NewHomeScreen()));
     }
 
 
