@@ -108,8 +108,8 @@ class NFT extends Equatable {
     final itemID = trade.itemOutputs.first.itemID;
     final item = await walletsStore.getItem(cookbookID, itemID) ?? Item.create();
     print('owner ${cookbookID} ${itemID} ${item.owner}');
-    final owner = await walletsStore.getAccountNameByAddress(item.owner);
-    print('owner ${cookbookID} ${itemID} ${item.owner} ${owner}');
+    final owner = ""; //await walletsStore.getAccountNameByAddress(item.owner);
+    //print('owner ${cookbookID} ${itemID} ${item.owner} ${owner}');
 
     return NFT(
       type: nftType.type_trade,

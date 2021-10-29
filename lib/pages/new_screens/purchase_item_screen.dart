@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/image_widgets.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
@@ -27,6 +28,21 @@ class PurchaseItemScreen extends StatefulWidget {
 class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
   bool _showPay = false;
 
+  final GlobalKey key = new GlobalKey();
+
+  //detect card's outside tap
+  void onTapUp(BuildContext context, TapUpDetails details) {
+    if(key.currentContext != null) {
+      final RenderBox containerBox = key.currentContext!.findRenderObject() as RenderBox;
+      final isHit = containerBox.hitTest(BoxHitTestResult(), position: details.localPosition);
+      if(_showPay == true && !isHit) {
+        setState((){
+          _showPay = false;
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenSize = ScreenSizeUtil(context);
@@ -47,7 +63,9 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
               )),
         ],
       ),
-      body: Stack(
+      body: GestureDetector(
+        onTapUp: (TapUpDetails details) => onTapUp(context, details),
+      child: Stack(
         children: [
           const Positioned(
             bottom: 0,
@@ -67,12 +85,26 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
                       child: _ImageWidget(imageUrl: widget.recipe.nftUrl),
                     ),
                     AnimatedSwitcher(
+                      transitionBuilder: (Widget child, Animation<double> animation) {
+                        final  offsetAnimation =
+                        Tween<Offset>(begin: Offset(1.0, 0.0), end: Offset(0.0, 0.0)).animate(animation);
+                        final  offsetHideAnimation =
+                        Tween<Offset>(begin: Offset(0.0, 0.0), end: Offset(1.0, 0.0)).animate(animation);
+                        return SlideTransition(
+                          position: offsetAnimation,
+                          child: child,
+                        );
+                        //return ScaleTransition(child: child, scale: animation);
+                      },
                       duration: const Duration(milliseconds: 300),
-                      child: _showPay
-                          ? _PayByCardWidget(
+                      child: _showPay? Container(
+                          key: key,
+                          width: screenSize.width(),
+                          height: screenSize.height() * .35,
+
+                          child: _PayByCardWidget(
                               recipe: widget.recipe,
-                            )
-                          : const SizedBox(),
+                            )) : SizedBox(),
                     )
                   ],
                 ),
@@ -237,6 +269,7 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
           ),
         ],
       ),
+      )
     );
   }
 }

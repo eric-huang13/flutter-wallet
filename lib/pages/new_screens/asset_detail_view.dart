@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/image_widgets.dart';
 import 'package:pylons_wallet/components/loading.dart';
@@ -32,13 +33,31 @@ class AssetDetailViewScreen extends StatefulWidget {
 typedef PayCallbackFunc = void Function(String, String);
 
 class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
-  bool _showPay = true;
+  bool _showPay = false;
   String owner = "";
+
+
+
+  final GlobalKey key = new GlobalKey();
+
+  //detect card's outside tap
+  void onTapUp(BuildContext context, TapUpDetails details) {
+    if(key.currentContext != null) {
+      final RenderBox containerBox = key.currentContext!.findRenderObject() as RenderBox;
+      final isHit = containerBox.hitTest(BoxHitTestResult(), position: details.localPosition);
+      if(_showPay == true && !isHit) {
+        setState((){
+          _showPay = false;
+        });
+      }
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     setState((){
-      _showPay = (widget.nftItem.type == nftType.type_item) ? true: false;
+      //_showPay = (widget.nftItem.type == nftType.type_item) ? true: false;
       owner = widget.nftItem.owner == PylonsApp.currentWallet.name ? "you" : widget.nftItem.owner;
     });
   }
@@ -77,118 +96,162 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
           IconButton(onPressed: (){}, icon: const Icon(Icons.more_vert, color: Colors.black,)),
         ],
       ),
-      body: Stack(
-        children: [
-          const Positioned(
-            bottom: 0,
-            right: 0,
-            child: backgroundImage,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: screenSize.height(percent: 0.35),
-                width: screenSize.width(),
-                child: Stack(
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: _ImageWidget(imageUrl: widget.nftItem.url),
-                    ),
-                    AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 300),
-                      child: _showPay ? _PayByCardWidget(onPayCallback: (amount, denom){
-                        onCreateTrade(amount, denom);
-                      },) : const SizedBox(),
-                    )
-
-                  ],
-                ),
-              ),
-              const VerticalSpace(10),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+      body: GestureDetector(
+        onTapUp: (TapUpDetails details) => onTapUp(context, details),
+        child:Stack(
+          children: [
+            const Positioned(
+              bottom: 0,
+              right: 0,
+              child: backgroundImage,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: screenSize.height(percent: 0.35),
+                  width: screenSize.width(),
+                  child: Stack(
                     children: [
-                      Text(widget.nftItem.name, style: Theme.of(context).textTheme.headline5!.copyWith(
-                        color: Colors.black, fontWeight: FontWeight.w600,
-                      ),),
-                      const VerticalSpace(4),
-                      RichText(
-                        text: TextSpan(text: "${"created_by".tr()} ",
-                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                          fontSize: 16,
-                        ),
-                        children: [
-                          TextSpan(text: widget.nftItem.creator, style: TextStyle(color: kBlue))
-                        ]),
-                      ),
-                      const VerticalSpace(20),
-                      Row(
-                        children: [
-                          UserImageWidget(imageUrl: kImage2, radius: 10,),
-                          const HorizontalSpace(6),
-                          RichText(
-                            text: TextSpan(text: "${"owned_by".tr()} ",
-                                style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                                  fontSize: 14
-                                ),
-                                children: [
-                                  TextSpan(text: owner, style: TextStyle(color: kBlue))
-                                ]),
-                          ),
-                        ],
-                      ),
-                      const VerticalSpace(20),
-                        Expanded(
-                        child: DefaultTabController(
-                          length: 2,
-                          child: Scaffold(
-                            backgroundColor: Colors.transparent,
-                            appBar: TabBar(
-                              labelColor: Colors.black,
-                              unselectedLabelColor: Colors.grey[700],
-                              indicatorSize: TabBarIndicatorSize.tab,
-                              indicatorColor: kBlue.withOpacity(0.41),
-                              labelStyle: const TextStyle(fontSize: 16),
-                              tabs: [
-                                Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: Text("description".tr()),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: Text("nft_details".tr()),
-                                ),],
-                            ),
-                            body: TabBarView(
-                              children: [Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(widget.nftItem.description),
-                                  Text("Current Price: ${widget.nftItem.price} ${widget.nftItem.denom}"),
-                                  Text("Size: ${widget.nftItem.width} x ${widget.nftItem.height}"),
-                                ],
-                              ), Text("Details")],
-                            ),
-                          ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Stack(
+                          children: [
+                            _ImageWidget(imageUrl: widget.nftItem.url),
+                            Positioned.fill(
+                              right: 0,
+                              child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: !_showPay ? ElevatedButton(
+                                    onPressed: () {
+                                      setState((){
+                                        _showPay = true;
+                                      });
+                                    },
+                                    child: Image.asset('assets/icons/ico_dollar.png'),
+                                    style: ElevatedButton.styleFrom(
+                                      shape: CircleBorder(),
+                                      padding: EdgeInsets.all(5),
+                                      primary: Color(0x801212C4), // <-- Button color
+                                      onPrimary: Color(0x801212C4), // <-- Splash color
+                                  )
+                                ): SizedBox(),
+                              )
+                            )
+                          ]
                         ),
                       ),
-                      const VerticalSpace(10),
+                      AnimatedSwitcher(
+                        transitionBuilder: (Widget child, Animation<double> animation) {
+                          final  offsetAnimation =
+                          Tween<Offset>(begin: Offset(1.0, 0.0), end: Offset(0.0, 0.0)).animate(animation);
+                          final  offsetHideAnimation =
+                          Tween<Offset>(begin: Offset(0.0, 0.0), end: Offset(1.0, 0.0)).animate(animation);
+                          return SlideTransition(
+                            position: offsetAnimation,
+                            child: child,
+                          );
+                          //return ScaleTransition(child: child, scale: animation);
+                        },
+                        duration: const Duration(milliseconds: 300),
+                        child: _showPay ? Container(
+                          key: key,
+                          width: screenSize.width(),
+                          height: screenSize.height() * .35,
+                          child:_PayByCardWidget(
+                            onPayCallback: (amount, denom){
+                              onCreateTrade(amount, denom);
+                            },)
+                          ) : const SizedBox(),
+                      )
 
                     ],
                   ),
                 ),
-              )
+                const VerticalSpace(10),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(widget.nftItem.name, style: Theme.of(context).textTheme.headline5!.copyWith(
+                          color: Colors.black, fontWeight: FontWeight.w600,
+                        ),),
+                        const VerticalSpace(4),
+                        RichText(
+                          text: TextSpan(text: "${"created_by".tr()} ",
+                          style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                            fontSize: 16,
+                          ),
+                          children: [
+                            TextSpan(text: widget.nftItem.creator, style: TextStyle(color: kBlue))
+                          ]),
+                        ),
+                        const VerticalSpace(20),
+                        Row(
+                          children: [
+                            UserImageWidget(imageUrl: kImage2, radius: 10,),
+                            const HorizontalSpace(6),
+                            RichText(
+                              text: TextSpan(text: "${"owned_by".tr()} ",
+                                  style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                                    fontSize: 14
+                                  ),
+                                  children: [
+                                    TextSpan(text: owner, style: TextStyle(color: kBlue))
+                                  ]),
+                            ),
+                          ],
+                        ),
+                        const VerticalSpace(20),
+                          Expanded(
+                          child: DefaultTabController(
+                            length: 2,
+                            child: Scaffold(
+                              backgroundColor: Colors.transparent,
+                              appBar: TabBar(
+                                labelColor: Colors.black,
+                                unselectedLabelColor: Colors.grey[700],
+                                indicatorSize: TabBarIndicatorSize.tab,
+                                indicatorColor: kBlue.withOpacity(0.41),
+                                labelStyle: const TextStyle(fontSize: 16),
+                                tabs: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Text("description".tr()),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Text("nft_details".tr()),
+                                  ),],
+                              ),
+                              body: TabBarView(
+                                children: [Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(widget.nftItem.description),
+                                    Text("Current Price: ${widget.nftItem.price} ${widget.nftItem.denom}"),
+                                    Text("Size: ${widget.nftItem.width} x ${widget.nftItem.height}"),
+                                  ],
+                                ), Text("Details")],
+                              ),
+                            ),
+                          ),
+                        ),
+                        const VerticalSpace(10),
+
+                      ],
+                    ),
+                  ),
+                )
 
 
-            ],
-          ),
-        ],
-      ),
+              ],
+            ),
+          ],
+        ),
+      )
     );
   }
 
