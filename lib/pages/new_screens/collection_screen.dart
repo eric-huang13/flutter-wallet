@@ -3,14 +3,30 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get_it/get_it.dart';
+import 'package:pylons_wallet/components/loading.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/entities/nft.dart';
+import 'package:pylons_wallet/model/recipe_json.dart';
 import 'package:pylons_wallet/pages/new_screens/asset_detail_view.dart';
+import 'package:pylons_wallet/pages/new_screens/purchase_item_screen.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
+import 'package:pylons_wallet/transactions/get_recipe.dart';
+import 'package:pylons_wallet/utils/base_env.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
 
 import '../../pylons_app.dart';
+
+class Collection {
+  final String icon;
+  final String title;
+  final String type; // cookbook | app
+  Collection({
+      required this.icon,
+      required this.title,
+      required this.type});
+
+}
 
 class CollectionScreen extends StatefulWidget {
   const CollectionScreen({Key? key}) : super(key: key);
@@ -19,39 +35,28 @@ class CollectionScreen extends StatefulWidget {
   State<CollectionScreen> createState() => _CollectionScreenState();
 }
 
-const collectionType = [
-  "ownedNFT", //item List
-  "listNFT", //Trade list
+List<Collection> collectionType = [
+  Collection(title: "art".tr(), icon: "art" ,type: 'cookbook', ),
+  Collection(title: "tickets".tr(), icon: "tickets" ,type: 'cookbook'),
+  Collection(title: "transfer".tr(), icon: "transfer" ,type: 'cookbook'),
+  Collection(title: "Easel", icon: "pylons", type: 'app'),
+  Collection(title: "Avatar", icon: "pylons", type: 'app'),
 ];
 
 class _CollectionScreenState extends State<CollectionScreen>{
   final walletsStore = GetIt.I.get<WalletsStore>();
   List<NFT> assets =[];
+  //big issue - should replace or unify into one
+  List<RecipeJson> recipes = [];
 
-  String colType = "ownedNFT";
+  String colType = collectionType[0].title;
 
 
   @override
   void initState() {
     super.initState();
-    listOwnedNFTs();
-  }
-  Future listOwnedNFTs() async {
-    setState((){
-      colType = 'ownedNFT';
-    });
     loadData(colType);
-
   }
-
-  Future listNFTs() async {
-    setState(()=>{
-      colType = "listNFT"
-    });
-    loadData(colType);
-
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -70,28 +75,22 @@ class _CollectionScreenState extends State<CollectionScreen>{
           ),
           const VerticalSpace(6),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _CardWidget(
-                text: "art".tr(),
-                icon: "art",
-                selected: colType == "ownedNFT",
-                onTap: () {
-                  listOwnedNFTs();
-                  // navigatorKey.currentState!.push(MaterialPageRoute(builder: (_) => PurchaseItemScreen(recipe: null,)));
-                },
-              ),
-              const Spacer(),
-              _CardWidget(
-                text: "tickets".tr(),
-                icon: "tickets",
-                onTap: () {},
-              ),
-              const Spacer(),
-              _CardWidget(
-                text: "transfer".tr(),
-                icon: "transfer",
-                onTap: () {},
-              ),
+                ...<Widget>[...collectionType.where((col) => col.type == 'cookbook').map((e) =>
+                    _CardWidget(
+                      text: e.title,
+                      icon: e.icon,
+                      selected: colType == e.title,
+                      onTap: () {
+                        setState((){
+                          colType = e.title;
+                        });
+                        loadData(colType);
+                        // navigatorKey.currentState!.push(MaterialPageRoute(builder: (_) => PurchaseItemScreen(recipe: null,)));
+                      },
+                    ),
+                  ).toList()],
             ],
           ),
           const VerticalSpace(20),
@@ -102,90 +101,141 @@ class _CollectionScreenState extends State<CollectionScreen>{
           ),
           const VerticalSpace(6),
           Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               _CardWidget(
                 text: "Easel",
+                selected: colType == 'Easel',
                 icon: "pylons",
-                onTap: () {},
+                onTap: () {
+                  setState((){
+                    colType = 'Easel';
+                  });
+                  loadData(colType);
+                },
               ),
-              const Spacer(),
+              const SizedBox(width: 10),
               _CardWidget(
                 text: "Avatar",
+                selected: colType == 'Avatar',
                 icon: "pylons",
-                onTap: () {},
-              ),
-              const Spacer(),
-              _CardWidget(
-                text: "ListNFT",
-                icon: "pylons",
-                selected: colType == "listNFT",
                 onTap: () {
-                  listNFTs();
+                  setState((){
+                    colType = 'Avatar';
+                  });
+                  loadData(colType);
                 },
               ),
             ],
           ),
           const VerticalSpace(20),
-          Expanded(
-            child: StaggeredGridView.countBuilder(
-                crossAxisCount: 3,
-                shrinkWrap: true,
-                crossAxisSpacing: 8,
-                mainAxisSpacing: 8,
-                itemCount: assets.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (_) =>  AssetDetailViewScreen(nftItem: assets[index])));
-                    },
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(5)),
-                      child: CachedNetworkImage(
+          if(assets.length > 0)
+            Expanded(
+              child: StaggeredGridView.countBuilder(
+                  crossAxisCount: 3,
+                  shrinkWrap: true,
+                  crossAxisSpacing: 8,
+                  mainAxisSpacing: 8,
+                  itemCount: assets.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (_) =>  AssetDetailViewScreen(nftItem: assets[index])));
+                      },
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.all(Radius.circular(5)),
+                        child: CachedNetworkImage(
+                            //imageUrl: _getImage(index),
+                            imageUrl: assets[index].url,
+                            fit: BoxFit.cover),
+                      ),
+                    );
+                  },
+                  staggeredTileBuilder: (index) {
+                    return StaggeredTile.count((index == 1 || index == 6) ? 2 : 1,
+                        (index == 1 || index == 6) ? 2 : 1);
+                  }),
+            ),
+          if(recipes.length > 0)
+            Expanded(
+              child: StaggeredGridView.countBuilder(
+                  crossAxisCount: 3,
+                  shrinkWrap: true,
+                  crossAxisSpacing: 8,
+                  mainAxisSpacing: 8,
+                  itemCount: recipes.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (_) =>  PurchaseItemScreen(
+                              recipe: recipes[index],)));
+                      },
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.all(Radius.circular(5)),
+                        child: CachedNetworkImage(
                           //imageUrl: _getImage(index),
-                          imageUrl: assets[index].url,
-                          fit: BoxFit.cover),
-                    ),
-                  );
-                },
-                staggeredTileBuilder: (index) {
-                  return StaggeredTile.count((index == 1 || index == 6) ? 2 : 1,
-                      (index == 1 || index == 6) ? 2 : 1);
-                }),
-          )
+                            imageUrl: recipes[index].nftUrl,
+                            fit: BoxFit.cover),
+                      ),
+                    );
+                  },
+                  staggeredTileBuilder: (index) {
+                    return StaggeredTile.count((index == 1 || index == 6) ? 2 : 1,
+                        (index == 1 || index == 6) ? 2 : 1);
+                  }),
+            )
         ],
       ),
     );
   }
 
   Future loadData(String _colType) async {
+    final loading = Loading().showLoading();
     assets.clear();
-    List<NFT> _assets = [];
-    if(_colType == "ownedNFT"){
-      walletsStore.getItemsByOwner(PylonsApp.currentWallet.publicAddress).then((items)
-      {
-        items.forEach((e) async {
-          final nft = await NFT.fromItem(e);
-          print(nft);
-          setState((){
-            assets.add(nft);
-          });
+    recipes.clear();
 
-        });
-
-      });
-    }else if(_colType == "listNFT"){
-
-      walletsStore.getTrades(PylonsApp.currentWallet.publicAddress).then((trades){
-        trades.forEach((trade) async {
-            final nft = await NFT.fromTrade(trade);
-            setState((){
-              assets.add(nft);
-            });
+    if(_colType == collectionType[0].title){ //Art
+      final items = await walletsStore.getItemsByOwner(PylonsApp.currentWallet.publicAddress);
+      items.forEach((e) async {
+        final nft = await NFT.fromItem(e);
+        setState((){
+          assets.add(nft);
         });
       });
 
+      final trades = await walletsStore.getTrades(PylonsApp.currentWallet.publicAddress);
+      trades.forEach((trade) async {
+        final nft = await NFT.fromTrade(trade);
+        setState((){
+          assets.add(nft);
+        });
+      });
+    }else if(_colType == collectionType[1].title) { //ticket
+    }else if(_colType == collectionType[2].title) { //transfer
+    }else if(_colType == collectionType[3].title){ // easel
+
+      final recipeResult = await GetRecipe(GetIt.I.get<BaseEnv>())
+          .getRecipes();
+      recipeResult.fold((exception){
+      }, (recipeJsons){
+        setState((){
+          recipes = recipeJsons.where((element) => element.appType.toLowerCase() == 'easel').toList();
+        });
+      });
+    }else if(_colType == collectionType[4].title){ // avatar
+
+    final recipeResult = await GetRecipe(GetIt.I.get<BaseEnv>())
+        .getRecipes();
+    recipeResult.fold((exception){
+    }, (recipeJsons){
+    setState((){
+    recipes = recipeJsons.where((element) => element.appType.toLowerCase() == 'avatar').toList();
+    });
+    });
     }
+    loading.dismiss();
   }
 }
 

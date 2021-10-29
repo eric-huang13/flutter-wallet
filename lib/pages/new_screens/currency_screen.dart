@@ -170,8 +170,8 @@ class _BalanceWidgetState extends State<_BalanceWidget> {
                     },
                     style: ElevatedButton.styleFrom(
                       primary: const Color(0xFFFFFFFF),
-                      maximumSize: Size(80,20),
-                      minimumSize: Size(80, 20),
+                      maximumSize: Size(100, 20),
+                      minimumSize: Size(100,20),
 
                     ),
                     child: Text("faucet", style: TextStyle(color: Color(0xFF1212C4), fontSize: 15)),

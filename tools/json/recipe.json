@@ -1,5 +1,5 @@
 {
-  "cookbookID": "cookbook_for_test5",
+  "cookbookID": "cookbook_for_test7",
   "ID": "cookbook_for_test_2021_10_22_09_13_590",
   "name": "A simple recipe test",
   "description": " A simple test recipe to be executed",
@@ -68,6 +68,10 @@
           {
             "key": "Name",
             "value": "How do you do turn this on"
+          },
+          {
+            "key": "App_Type",
+            "value": "Easel"
           },
           {
             "key": "Description",

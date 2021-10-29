@@ -26,7 +26,8 @@ class NFT extends Equatable {
    String creator = "";
    String owner = "";
    int amountMinted = 0;
-   String tradePercentage = "";
+   int quantity = 0;
+   String tradePercentage = "0";
    String cookbookID = "";
   String recipeID = "";
   String itemID = "";
@@ -49,27 +50,12 @@ class NFT extends Equatable {
     this.owner = "",
     this.width = "",
     this.height = "",
+    this.tradePercentage = "0",
+    this.amountMinted = 0,
+    this.quantity = 0,
   });
 
 
-  static Future<NFT> fromRecipe(String cookbookID, String recipeID) async {
-    final walletsStore = GetIt.I.get<WalletsStore>();
-    final cookbook = await walletsStore.getCookbookById(cookbookID);
-    final recipe = await walletsStore.getRecipe(cookbookID, recipeID);
-    return NFT(
-      type: nftType.type_recipe,
-      name: recipe?.entries.itemOutputs.first.strings.firstWhere((e) => e.key == "Name").value ?? "",
-      url: recipe?.entries.itemOutputs.first.strings.firstWhere((e) => e.key == "NFT_URL").value ?? "",
-      description: recipe?.entries.itemOutputs.first.strings.firstWhere((e) => e.key == "Description").value ?? "",
-      // why image dimension needed?
-      //imageWidth = recipe?.entries.itemOutputs.first.longs.firstWhere((e) => e.key == "Width").weightRanges.first.upper.toInt();
-      //imageHeight = recipe.entries.itemOutputs.first.longs.firstWhere((e) => e.key == "Height").weightRanges.first.upper.toInt();
-      price: recipe?.coinInputs.first.coins.first.amount.toString() ?? "",
-      denom: recipe?.coinInputs.first.coins.first.denom.toString() ?? "",
-      creator: cookbook?.creator ?? "",
-
-    );
-  }
 
   Future<String> getCreator() async {
     if(creator == ""){
@@ -119,11 +105,36 @@ class NFT extends Equatable {
       creator: item.strings.firstWhere((e) => e.key == "Creator", orElse:()=> StringKeyValue(key:"Creator", value: "")).value,
       width: item.longs.firstWhere((e) => e.key == "Width", orElse: ()=>LongKeyValue(key: "Width", value: Int64(0))).value.toString(),
       height: item.longs.firstWhere((e) => e.key == "Height", orElse: ()=>LongKeyValue(key: "Height", value: Int64(0))).value.toString(),
+      price: trade.coinInputs.first.coins.first.amount.toString(),
+      denom: trade.coinInputs.first.coins.first.denom.toString(),
       itemID: item.iD,
       cookbookID: item.cookbookID,
       owner: owner,
     );
   }
+
+
+   static Future<NFT> fromRecipe(String cookbookID, String recipeID) async {
+     final walletsStore = GetIt.I.get<WalletsStore>();
+     final cookbook = await walletsStore.getCookbookById(cookbookID);
+     final recipe = await walletsStore.getRecipe(cookbookID, recipeID);
+     return NFT(
+       type: nftType.type_recipe,
+       name: recipe?.entries.itemOutputs.first.strings.firstWhere((e) => e.key == "Name").value ?? "",
+       url: recipe?.entries.itemOutputs.first.strings.firstWhere((e) => e.key == "NFT_URL").value ?? "",
+       description: recipe?.entries.itemOutputs.first.strings.firstWhere((e) => e.key == "Description").value ?? "",
+       amountMinted:int.parse(recipe?.entries.itemOutputs.first.amountMinted.toString() ?? "0"),
+       quantity: int.parse(recipe?.entries.itemOutputs.first.quantity.toString() ?? "0"),
+       tradePercentage: recipe?.entries.itemOutputs.first.tradePercentage ?? "0",
+         // why image dimension needed?
+       //imageWidth = recipe?.entries.itemOutputs.first.longs.firstWhere((e) => e.key == "Width").weightRanges.first.upper.toInt();
+       //imageHeight = recipe.entries.itemOutputs.first.longs.firstWhere((e) => e.key == "Height").weightRanges.first.upper.toInt();
+       price: recipe?.coinInputs.first.coins.first.amount.toString() ?? "",
+       denom: recipe?.coinInputs.first.coins.first.denom.toString() ?? "",
+       creator: cookbook?.creator ?? "",
+
+     );
+   }
 
   static Future<NFT> fromItemID(String cookbookID, String itemID) async {
     final walletsStore = GetIt.I.get<WalletsStore>();

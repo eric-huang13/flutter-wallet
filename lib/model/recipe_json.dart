@@ -478,6 +478,10 @@ extension RecipeValues on RecipeJson {
       orElse: () => Strings(key: "", value: "", program: ""))
       .value;
 
+  String get appType => recipe.entries.itemOutputs.first.strings
+      .firstWhere((e) => e.key == "App_Type",
+      orElse: () => Strings(key: "", value: "", program: ""))
+      .value;
 
   String get width => recipe.entries.itemOutputs.first.longs
       .firstWhere((e) => e.key == "Width")
@@ -491,6 +495,12 @@ extension RecipeValues on RecipeJson {
       .first
       .upper;
 
+
+  String get quantity => recipe.entries.itemOutputs.first.quantity;
+
+  String get amountMinted => recipe.entries.itemOutputs.first.amountMinted;
+
+  String get tradePercentage => recipe.entries.itemOutputs.first.tradePercentage;
 
   List<String> get itemIDs =>
       recipe.entries.itemOutputs.map((e) => e.id).toList();

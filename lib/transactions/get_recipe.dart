@@ -30,6 +30,31 @@ class GetRecipe {
       debugPrint(e.toString());
       return Left(Exception(e.toString()));
     }
+  }
 
+
+  Future<Either<Exception, List<RecipeJson>>> getRecipes() async {
+
+    try {
+      final uri = Uri.parse(
+        "${baseEnv.baseApiUrl}/pylons/recipes/",);
+      debugPrint(uri.toString());
+      final response = await http.get(uri);
+      if (response.statusCode == 200) {
+        final list = jsonDecode(response.body);
+        final recipes = list["Recipes"] as List;
+        final recipeJsons = <RecipeJson>[];
+        recipes.forEach((element) {
+          recipeJsons.add(RecipeJson.fromJson({'Recipe':element} as Map<String, dynamic>));
+        });
+
+        return Right(recipeJsons);
+      }
+
+      return Left(Exception(response.reasonPhrase));
+    }catch(e){
+      debugPrint(e.toString());
+      return Left(Exception(e.toString()));
+    }
   }
 }

@@ -122,7 +122,7 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                               right: 0,
                               child: Align(
                                   alignment: Alignment.centerRight,
-                                  child: !_showPay ? ElevatedButton(
+                                  child: !_showPay && widget.nftItem.type != nftType.type_trade ? ElevatedButton(
                                     onPressed: () {
                                       setState((){
                                         _showPay = true;
@@ -227,14 +227,22 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                                   ),],
                               ),
                               body: TabBarView(
-                                children: [Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(widget.nftItem.description),
-                                    Text("Current Price: ${widget.nftItem.price} ${widget.nftItem.denom}"),
-                                    Text("Size: ${widget.nftItem.width} x ${widget.nftItem.height}"),
-                                  ],
-                                ), Text("Details")],
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(top: 20),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(widget.nftItem.description),
+
+                                        Text("Current Price: ${widget.nftItem.price} ${widget.nftItem.denom}"),
+                                        Text("Size: ${widget.nftItem.width} x ${widget.nftItem.height}"),
+                                        SizedBox(height: 20,),
+                                        if(widget.nftItem.type == nftType.type_trade)
+                                          Text("This Item is on Trade"),
+                                      ],
+                                    )
+                                  ), Text("Details")],
                               ),
                             ),
                           ),

@@ -185,15 +185,23 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
                             ),
                             body: TabBarView(
                               children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(widget.recipe.description),
-                                    Text(
-                                        "Current Price: ${widget.recipe.price} ${widget.recipe.currency}"),
-                                    Text(
-                                        "Size: ${widget.recipe.width} x ${widget.recipe.height}"),
-                                  ],
+                                Padding(
+                                  padding:EdgeInsets.only(top: 20),
+                                  child:Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(widget.recipe.description),
+                                      Text(
+                                          "Current Price: ${widget.recipe.price} ${widget.recipe.currency}"),
+                                      Text(
+                                          "Size: ${widget.recipe.width} x ${widget.recipe.height}"),
+                                      Text(
+                                          "Number of Editions: ${widget.recipe.amountMinted} / ${widget.recipe.quantity}"),
+                                      Text(
+                                          "Royalty: ${ (double.parse(widget.recipe.tradePercentage) * 100).toStringAsFixed(1) } %"
+                                      )
+                                    ],
+                                  ),
                                 ),
                                 Text("Details")
                               ],
