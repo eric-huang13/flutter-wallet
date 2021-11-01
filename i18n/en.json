@@ -81,8 +81,8 @@
   "create_new_wallet": "Create new Wallet",
   "proceed": "Proceed",
   "security_hint": "Follow best practices for security. Be sure to write your mnemonic pass phrase in a safe place. This phrase is the only way to recover your account if you forget your password. Without your password or recovery passphrase, account recovery is not possible. Even Emeris cannot help you.",
-  "import_account": "Import account",
-  "create_account": "Create Account",
+  "import_an_account": "Import an account",
+  "create_an_account": "Create an account",
   "terms_of_service": "Terms of service",
   "manage_your_nft": "MANAGE YOUR NFT",
   "pylons_infrastructure": "Pylons is a fast NFT infrastructure",
@@ -103,20 +103,6 @@
   "nft_collection": "NFT Collection",
   "currency": "Currency",
   "buy_now": "Buy Now",
-  "save_for_later": "Save for later",
-  "welcome_to_pylons": "Welcome to Pylons.",
-  "sign_up_title": "Sign up with your email and enjoy Pylons.",
-  "email_address": "Email address",
-  "email_hint": "Enter your email address",
-  "password": "Password",
-  "confirm_password": "Confirm password",
-  "password_hint": "6-20 characters password",
-  "next": "Next",
-  "verify_email": "Verify your email address.",
-  "verify_email_subtitle": "We sent a confirmation email to :",
-  "verify_email_subtitle2": "\nPlease verify your e-mail.",
-  "password_need_to": "Your password need to :",
-  "minimum_char": "8 character minimum",
-  "special_char": "1 allowed special characater ( ! @ # $ % ^ & )",
-  "uppercase_letter": "1 uppercase letter"
+  "save_for_later": "Save for later"
+
 }
