@@ -16,6 +16,7 @@ import 'package:pylons_wallet/utils/screen_size_utils.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:pylons_wallet/components/loading.dart';
 import 'package:pylons_wallet/components/alert.dart';
+import 'package:pylons_wallet/pages/account/create_account_main_screen.dart';
 
 PageController _controller = PageController();
 
@@ -63,14 +64,14 @@ class PresentingOnboardPage extends StatelessWidget {
                   ),
                   builder: (context) => Wrap(children: const [ImportFromGoogleForm()]),);
             },
-            text: "import_an_account".tr(),
+            text: "import_account".tr(),
           ),
           const VerticalSpace(10),
           PylonsBlueButton(
             onTap: () {
-              onCreateAccountPressed(context);
+              Navigator.of(context).push(MaterialPageRoute(builder: (_) => CreateAccountMainScreen()));
             },
-            text: "create_an_account".tr(),
+            text: "create_account".tr(),
           ),
           const VerticalSpace(10),
           GestureDetector(
