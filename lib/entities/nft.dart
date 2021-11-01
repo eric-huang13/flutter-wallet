@@ -33,6 +33,7 @@ class NFT extends Equatable {
   String itemID = "";
   String width = "";
   String height = "";
+  String appType = "";
 
   nftType type = nftType.type_item;
 
@@ -53,6 +54,7 @@ class NFT extends Equatable {
     this.tradePercentage = "0",
     this.amountMinted = 0,
     this.quantity = 0,
+    this.appType = "",
   });
 
 
@@ -77,6 +79,7 @@ class NFT extends Equatable {
       url: item.strings.firstWhere((e) => e.key == "NFT_URL").value,
       description: item.strings.firstWhere((e) => e.key == "Description").value,
       creator: item.strings.firstWhere((e) => e.key == "Creator", orElse:()=> StringKeyValue(key:"Creator", value: "")).value,
+      appType: item.strings.firstWhere((e) => e.key == "App_Type", orElse: ()=>StringKeyValue(key: "App_Type", value: "")).value,
       width: item.longs.firstWhere((e) => e.key == "Width", orElse: ()=>LongKeyValue(key: "Width", value: Int64(0))).value.toString(),
       height: item.longs.firstWhere((e) => e.key == "Height", orElse: ()=>LongKeyValue(key: "Height", value: Int64(0))).value.toString(),
       itemID: item.iD,
@@ -103,6 +106,7 @@ class NFT extends Equatable {
       url: item.strings.firstWhere((e) => e.key == "NFT_URL").value,
       description: item.strings.firstWhere((e) => e.key == "Description").value,
       creator: item.strings.firstWhere((e) => e.key == "Creator", orElse:()=> StringKeyValue(key:"Creator", value: "")).value,
+      appType: item.strings.firstWhere((e) => e.key == "App_Type", orElse: ()=>StringKeyValue(key: "App_Type", value: "")).value,
       width: item.longs.firstWhere((e) => e.key == "Width", orElse: ()=>LongKeyValue(key: "Width", value: Int64(0))).value.toString(),
       height: item.longs.firstWhere((e) => e.key == "Height", orElse: ()=>LongKeyValue(key: "Height", value: Int64(0))).value.toString(),
       price: trade.coinInputs.first.coins.first.amount.toString(),
@@ -114,70 +118,35 @@ class NFT extends Equatable {
   }
 
 
-   static Future<NFT> fromRecipe(String cookbookID, String recipeID) async {
-     final walletsStore = GetIt.I.get<WalletsStore>();
-     final cookbook = await walletsStore.getCookbookById(cookbookID);
-     final recipe = await walletsStore.getRecipe(cookbookID, recipeID);
+   static NFT fromRecipe(Recipe recipe) {
      return NFT(
        type: nftType.type_recipe,
-       name: recipe?.entries.itemOutputs.first.strings.firstWhere((e) => e.key == "Name").value ?? "",
-       url: recipe?.entries.itemOutputs.first.strings.firstWhere((e) => e.key == "NFT_URL").value ?? "",
-       description: recipe?.entries.itemOutputs.first.strings.firstWhere((e) => e.key == "Description").value ?? "",
-       amountMinted:int.parse(recipe?.entries.itemOutputs.first.amountMinted.toString() ?? "0"),
-       quantity: int.parse(recipe?.entries.itemOutputs.first.quantity.toString() ?? "0"),
-       tradePercentage: recipe?.entries.itemOutputs.first.tradePercentage ?? "0",
-         // why image dimension needed?
-       //imageWidth = recipe?.entries.itemOutputs.first.longs.firstWhere((e) => e.key == "Width").weightRanges.first.upper.toInt();
-       //imageHeight = recipe.entries.itemOutputs.first.longs.firstWhere((e) => e.key == "Height").weightRanges.first.upper.toInt();
-       price: recipe?.coinInputs.first.coins.first.amount.toString() ?? "",
-       denom: recipe?.coinInputs.first.coins.first.denom.toString() ?? "",
-       creator: cookbook?.creator ?? "",
-
+       recipeID: recipe.iD,
+       cookbookID: recipe.cookbookID,
+       name: recipe.entries.itemOutputs.first.strings.firstWhere((e) => e.key == "Name", orElse: ()=>StringParam()).value,
+       url: recipe.entries.itemOutputs.first.strings.firstWhere((e) => e.key == "NFT_URL", orElse: ()=>StringParam()).value,
+       description: recipe.entries.itemOutputs.first.strings.firstWhere((e) => e.key == "Description", orElse: ()=>StringParam()).value,
+       appType: recipe.entries.itemOutputs.first.strings.firstWhere((e) => e.key == "App_Type", orElse: ()=>StringParam()).value,
+       width: recipe.entries.itemOutputs.first.longs.firstWhere((e) => e.key == "Width").weightRanges.first.upper.toString(),
+       height: recipe.entries.itemOutputs.first.longs.firstWhere((e) => e.key == "Height").weightRanges.first.upper.toString(),
+       amountMinted:int.parse(recipe.entries.itemOutputs.first.amountMinted.toString()),
+       quantity: int.parse(recipe.entries.itemOutputs.first.quantity.toString()),
+       tradePercentage: recipe.entries.itemOutputs.first.tradePercentage,
+       price: recipe.coinInputs.first.coins.first.amount.toString(),
+       denom: recipe.coinInputs.first.coins.first.denom.toString(),
      );
    }
 
   static Future<NFT> fromItemID(String cookbookID, String itemID) async {
     final walletsStore = GetIt.I.get<WalletsStore>();
     final item = await walletsStore.getItem(cookbookID, itemID);
-    final cookbook = await walletsStore.getCookbookById(cookbookID);
-
-    return NFT(
-      type: nftType.type_item,
-      name: item?.strings.firstWhere((e) => e.key == "Name").value ?? "",
-      url: item?.strings.firstWhere((e) => e.key == "NFT_URL").value ?? "",
-      description: item?.strings.firstWhere((e) => e.key == "Description").value ?? "",
-      itemID: item?.iD ?? "",
-      owner: item?.owner ?? "",
-      creator: cookbook?.creator ?? "",
-    );
+    return await NFT.fromItem(item!);
   }
 
   static Future<NFT> fromTradeByID(Int64 tradeID) async {
     final walletsStore = GetIt.I.get<WalletsStore>();
     final trade = await walletsStore.getTradeByID(tradeID);
-    //sell trade
-    if(trade != null &&
-        trade.coinInputs.isNotEmpty &&
-        trade.itemOutputs.isNotEmpty
-    ){
-      final itemID = trade.itemOutputs.first.itemID;
-      final cookbookID = trade.itemOutputs.first.cookbookID;
-      final item = await walletsStore.getItem(cookbookID, itemID);
-      final cookbook = await walletsStore.getCookbookById(cookbookID);
-
-      return NFT(
-        type: nftType.type_trade,
-        denom: trade.coinInputs.first.coins.first.denom,
-        price: trade.coinInputs.first.coins.first.amount,
-        name: item?.strings.firstWhere((e) => e.key == "Name").value ?? "",
-        url: item?.strings.firstWhere((e) => e.key == "NFT_URL").value ?? "",
-        description: item?.strings.firstWhere((e) => e.key == "Description").value ?? "",
-        itemID: item?.iD ?? "",
-        owner: item?.owner ?? "",
-        creator: cookbook?.creator ?? ""
-      );
-    }
-    return NFT();
+    return await NFT.fromTrade(trade!);
   }
 
   @override

@@ -42,53 +42,38 @@ abstract class WalletsStore {
     String toAddress,
   );
 
-  /// This method creates the cookbook
-  /// Input : [Map] containing the info related to the creation of cookbook
-  /// Output : [SDKIPCResponse] response
-  Future<SDKIPCResponse> createCookBookIPC(Map<dynamic, dynamic> json);
-
-  /// This method creates the recipe in the block chain
-  /// Input : [Map] containing the info related to the creation of recipe
-  /// Output : [SDKIPCResponse] response
-  Future<SDKIPCResponse> createRecipeIPC(Map<dynamic, dynamic> json);
-
-  /// This method creates the recipe in the block chain
-  /// Input : [Map] containing the info related to the execution of recipe
-  /// Output : [SDKIPCResponse] response
-  Future<SDKIPCResponse> executeRecipeIPC(Map<dynamic, dynamic> json);
-
 
   /// This method creates the cookbook
   /// Input : [Map] containing the info related to the creation of cookbook
   /// Output : [String] response
-  Future<TransactionHash> createCookBook(Map json);
+  Future<SDKIPCResponse> createCookBook(Map json);
   /// This method is for create recipe
   /// MsgCreateRecipe proto
   /// request fields: { String creator, String cookbookID, String ID, String name, String description, String version, List<CoinInput> coinInputs, List<ItemInput> itemInput, List<EntriesList> entries, List<WeightedOutputs> outputs, Int64 blockInterval}
   /// Input : [Map] containing the info related to the creation of recipe
   /// Output : [TransactionHash] hash of the transaction
-  Future<TransactionHash> createRecipe(Map json);
+  Future<SDKIPCResponse> createRecipe(Map json);
 
   /// This method is for execute recipe
   /// MsgExecuteRecipe proto
   /// request fields: {String creator, String cookbookID, String recipeID, List<String> itemIDs}
   /// Input : [Map] containing the info related to the execution of recipe
   /// Output : [TransactionHash] hash of the transaction
-  Future<TransactionHash> executeRecipe(Map json);
+  Future<SDKIPCResponse> executeRecipe(Map json);
 
   /// This method is for create Trade
   /// MsgCreateTrade proto
   /// request fields: {String creator, list<CoinInput> coinInputs, List<ItemInputs> itemInputs, List<Coin> coinOutputs, List<ItemRef> itemOutputs, String extraInfo}
   /// Input : [Map] containing the info related to the creation of Trade
   /// Output : [TransactionHash] hash of the transaction
-  Future<TransactionHash> createTrade(Map json);
+  Future<SDKIPCResponse> createTrade(Map json);
 
   /// This method is for fulfillTrade
   /// MsgFulfillTrade proto
   /// request fields: {String creator, Int64 ID, List<ItemRef> items, Int64 coinInputIndex ???}
   /// Input : [Map] containing the info related to the fulfillTrade
   /// Output : [TransactionHash] hash of the transaction
-  Future<TransactionHash> fulfillTrade(Map json);
+  Future<SDKIPCResponse> fulfillTrade(Map json);
 
   /// This method is for get Transaction info
   /// Input : [txHash] txHash

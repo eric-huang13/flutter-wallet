@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/image_widgets.dart';
 import 'package:pylons_wallet/components/loading.dart';
@@ -62,6 +63,12 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
     });
   }
 
+  Future copyClipboard(String msg) async {
+      Clipboard.setData(new ClipboardData(text: msg)).then((_){
+        SnackbarToast.show("NFT address copied to clipboard");
+      });
+  }
+
   Future onCreateTrade(String amount, String denom) async {
     final walletsStore = GetIt.I.get<WalletsStore>();
     final loading = Loading().showLoading();
@@ -76,7 +83,7 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
     final response = await walletsStore.createTrade(json);
     loading.dismiss();
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("${response.txHash != "" ? "Trade on this NFT successfully created." : "Error occured while creating Trade."}")));
+        content: Text("${response.success != "" ? "Trade on this NFT successfully created." : "Error occured while creating Trade.\n${response.error}"}")));
   }
 
 
@@ -122,22 +129,54 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                               right: 0,
                               child: Align(
                                   alignment: Alignment.centerRight,
-                                  child: !_showPay && widget.nftItem.type != nftType.type_trade ? ElevatedButton(
-                                    onPressed: () {
-                                      setState((){
-                                        _showPay = true;
-                                      });
-                                    },
-                                    child: Image.asset('assets/icons/ico_dollar.png'),
-                                    style: ElevatedButton.styleFrom(
-                                      shape: CircleBorder(),
-                                      padding: EdgeInsets.all(5),
-                                      primary: Color(0x801212C4), // <-- Button color
-                                      onPrimary: Color(0x801212C4), // <-- Splash color
+                                  child: !_showPay && widget.nftItem.type != nftType.type_trade ?
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center ,
+                                    children: [
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          setState((){
+                                            _showPay = true;
+                                          });
+                                        },
+                                        child: Image.asset('assets/icons/ico_dollar.png', width: 16, height: 16),
+                                        style: ElevatedButton.styleFrom(
+                                          shape: CircleBorder(),
+                                          padding: EdgeInsets.all(3),
+                                          primary: Color(0x801212C4), // <-- Button color
+                                          onPrimary: Color(0x801212C4), // <-- Splash color
+                                        )
+                                      ),
+                                      ElevatedButton(
+                                          onPressed: () {
+                                          },
+                                          child: Image.asset('assets/icons/ico_share.png', width: 16, height: 16),
+                                          style: ElevatedButton.styleFrom(
+                                            shape: CircleBorder(),
+                                            padding: EdgeInsets.all(3),
+                                            primary: Color(0x801212C4), // <-- Button color
+                                            onPrimary: Color(0x801212C4), // <-- Splash color
+                                          )
+                                      ),
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            copyClipboard(widget.nftItem.itemID);
+                                          },
+                                          child: Image.asset('assets/icons/ico_clip.png',width: 16, height: 16),
+                                          style: ElevatedButton.styleFrom(
+                                            shape: CircleBorder(),
+                                            padding: EdgeInsets.all(3),
+                                            primary: Color(0x801212C4), // <-- Button color
+                                            onPrimary: Color(0x801212C4), // <-- Splash color
+                                          )
+                                      ),
+                                    ]
                                   )
-                                ): SizedBox(),
+                                      : SizedBox(),
                               )
-                            )
+                            ),
+
                           ]
                         ),
                       ),

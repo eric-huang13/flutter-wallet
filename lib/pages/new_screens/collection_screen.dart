@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -21,10 +23,13 @@ class Collection {
   final String icon;
   final String title;
   final String type; // cookbook | app
+  final String app_name;
   Collection({
-      required this.icon,
-      required this.title,
-      required this.type});
+    required this.icon,
+    required this.title,
+    required this.type,
+    this.app_name="",
+  });
 
 }
 
@@ -39,23 +44,28 @@ List<Collection> collectionType = [
   Collection(title: "art".tr(), icon: "art" ,type: 'cookbook', ),
   Collection(title: "tickets".tr(), icon: "tickets" ,type: 'cookbook'),
   Collection(title: "transfer".tr(), icon: "transfer" ,type: 'cookbook'),
-  Collection(title: "Easel", icon: "pylons", type: 'app'),
-  Collection(title: "Avatar", icon: "pylons", type: 'app'),
+  Collection(title: "Easel", icon: "pylons", type: 'app', app_name: "easel"),
+  Collection(title: "Avatar", icon: "pylons", type: 'app', app_name: "avatar"),
 ];
 
 class _CollectionScreenState extends State<CollectionScreen>{
   final walletsStore = GetIt.I.get<WalletsStore>();
   List<NFT> assets =[];
   //big issue - should replace or unify into one
-  List<RecipeJson> recipes = [];
+  List<NFT> recipes = [];
 
   String colType = collectionType[0].title;
+
 
 
   @override
   void initState() {
     super.initState();
-    loadData(colType);
+    Timer(
+        Duration(milliseconds: 100), (){
+      loadData(colType);
+    }
+    );
   }
 
   @override
@@ -176,7 +186,7 @@ class _CollectionScreenState extends State<CollectionScreen>{
                         borderRadius: const BorderRadius.all(Radius.circular(5)),
                         child: CachedNetworkImage(
                           //imageUrl: _getImage(index),
-                            imageUrl: recipes[index].nftUrl,
+                            imageUrl: recipes[index].url,
                             fit: BoxFit.cover),
                       ),
                     );
@@ -215,25 +225,25 @@ class _CollectionScreenState extends State<CollectionScreen>{
     }else if(_colType == collectionType[1].title) { //ticket
     }else if(_colType == collectionType[2].title) { //transfer
     }else if(_colType == collectionType[3].title){ // easel
-
-      final recipeResult = await GetRecipe(GetIt.I.get<BaseEnv>())
-          .getRecipes();
-      recipeResult.fold((exception){
-      }, (recipeJsons){
-        setState((){
-          recipes = recipeJsons.where((element) => element.appType.toLowerCase() == 'easel').toList();
-        });
+      final recipeList = await walletsStore.getRecipes();
+      recipeList.forEach((element) {
+        final nft = NFT.fromRecipe(element);
+        if(nft.appType.toLowerCase() == "easel"){
+          setState((){
+            recipes.add(nft);
+          });
+        }
       });
     }else if(_colType == collectionType[4].title){ // avatar
-
-    final recipeResult = await GetRecipe(GetIt.I.get<BaseEnv>())
-        .getRecipes();
-    recipeResult.fold((exception){
-    }, (recipeJsons){
-    setState((){
-    recipes = recipeJsons.where((element) => element.appType.toLowerCase() == 'avatar').toList();
-    });
-    });
+      final recipeList = await walletsStore.getRecipes();
+      recipeList.forEach((element) {
+        final nft = NFT.fromRecipe(element);
+        if(nft.appType.toLowerCase() == "avatar"){
+          setState((){
+            recipes.add(nft);
+          });
+        }
+      });
     }
     loading.dismiss();
   }

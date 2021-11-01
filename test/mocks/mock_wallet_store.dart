@@ -63,43 +63,25 @@ class MockWalletStore implements WalletsStore {
   }
 
   @override
-  Future<TransactionHash> createRecipe(Map json) {
+  Future<SDKIPCResponse> createRecipe(Map json) {
     // TODO: implement createRecipe
     throw UnimplementedError();
   }
 
   @override
-  Future<SDKIPCResponse> createCookBookIPC(Map<dynamic, dynamic> json) {
-    // TODO: implement createCookBook
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<TransactionHash> createTrade(Map json) {
+  Future<SDKIPCResponse> createTrade(Map json) {
     // TODO: implement createTrade
     throw UnimplementedError();
   }
 
   @override
-  Future<SDKIPCResponse> createRecipeIPC(Map<dynamic, dynamic> json) {
-    // TODO: implement createRecipe
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<TransactionHash> executeRecipe(Map json) {
+  Future<SDKIPCResponse> executeRecipe(Map json) {
     // TODO: implement executeRecipe
     throw UnimplementedError();
   }
 
   @override
-  Future<SDKIPCResponse> executeRecipeIPC(Map<dynamic, dynamic> json) {
-    // TODO: implement executeRecipe
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<TransactionHash> fulfillTrade(Map json) {
+  Future<SDKIPCResponse> fulfillTrade(Map json) {
     // TODO: implement fulfillTrade
     throw UnimplementedError();
   }
@@ -190,7 +172,7 @@ class MockWalletStore implements WalletsStore {
   }
 
   @override
-  Future<TransactionHash> createCookBook(Map json) {
+  Future<SDKIPCResponse> createCookBook(Map json) {
     // TODO: implement createCookBook
     throw UnimplementedError();
   }

@@ -20,7 +20,7 @@ class ExecuteRecipeHandler implements BaseHandler {
 
     final walletsStore = GetIt.I.get<WalletsStore>();
 
-    final response = await walletsStore.executeRecipeIPC(jsonMap);
+    final response = await walletsStore.executeRecipe(jsonMap);
     response.sender = sdkipcMessage.sender;
     response.action = sdkipcMessage.action;
     return SynchronousFuture(response);

@@ -22,7 +22,7 @@ class CreateCookBookHandler implements BaseHandler {
 
     final walletsStore = GetIt.I.get<WalletsStore>();
 
-    final response = await walletsStore.createCookBookIPC(jsonMap);
+    final response = await walletsStore.createCookBook(jsonMap);
     loading.dismiss();
     response.sender = sdkipcMessage.sender;
     response.action = sdkipcMessage.action;

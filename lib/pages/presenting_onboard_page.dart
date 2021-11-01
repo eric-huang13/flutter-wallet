@@ -139,6 +139,7 @@ class _OnboardingPageViewState extends State<OnboardingPageView> {
   // static const TextStyle textLooks = TextStyle(fontFamily: 'Inter');
 
   var _currentPage = 0;
+  Timer? timer = null;
 
   @override
   void initState() {
@@ -146,7 +147,7 @@ class _OnboardingPageViewState extends State<OnboardingPageView> {
 
     // TODO enable it later causing issue in testing
     const interval = Duration(seconds: 5);
-    var timer = Timer.periodic(interval, (Timer timer) {
+    timer = Timer.periodic(interval, (Timer timer) {
       if (_currentPage <= 2) {
         _currentPage++;
       } else {
@@ -164,6 +165,9 @@ class _OnboardingPageViewState extends State<OnboardingPageView> {
   void dispose() {
     _controller.dispose();
     super.dispose();
+    if(timer != null){
+      timer?.cancel();
+    }
   }
 
   @override

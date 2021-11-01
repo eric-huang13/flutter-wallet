@@ -21,7 +21,7 @@ class CreateRecipeHandler implements BaseHandler {
 
     final walletsStore = GetIt.I.get<WalletsStore>();
 
-    final response = await walletsStore.createRecipeIPC(jsonMap);
+    final response = await walletsStore.createRecipe(jsonMap);
     loading.dismiss();
     response.sender = sdkipcMessage.sender;
     response.action = sdkipcMessage.action;

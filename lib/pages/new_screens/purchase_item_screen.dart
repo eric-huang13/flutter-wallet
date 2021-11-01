@@ -10,12 +10,13 @@ import 'package:pylons_wallet/components/image_widgets.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/components/user_image_widget.dart';
 import 'package:pylons_wallet/constants/constants.dart';
+import 'package:pylons_wallet/entities/nft.dart';
 import 'package:pylons_wallet/model/recipe_json.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
 
 class PurchaseItemScreen extends StatefulWidget {
-  final RecipeJson recipe;
+  final NFT recipe;
   const PurchaseItemScreen({
     Key? key,
     required this.recipe,
@@ -82,7 +83,7 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
                   children: [
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: _ImageWidget(imageUrl: widget.recipe.nftUrl),
+                      child: _ImageWidget(imageUrl: widget.recipe.url),
                     ),
                     AnimatedSwitcher(
                       transitionBuilder: (Widget child, Animation<double> animation) {
@@ -192,7 +193,7 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
                                     children: [
                                       Text(widget.recipe.description),
                                       Text(
-                                          "Current Price: ${widget.recipe.price} ${widget.recipe.currency}"),
+                                          "Current Price: ${widget.recipe.price} ${widget.recipe.denom}"),
                                       Text(
                                           "Size: ${widget.recipe.width} x ${widget.recipe.height}"),
                                       Text(
@@ -314,9 +315,11 @@ class _ImageWidget extends StatelessWidget {
 }
 
 class _PayByCardWidget extends StatelessWidget {
-  const _PayByCardWidget({Key? key, required this.recipe}) : super(key: key);
+  const _PayByCardWidget({
+    Key? key,
+    required this.recipe}) : super(key: key);
 
-  final RecipeJson recipe;
+  final NFT recipe;
 
   @override
   Widget build(BuildContext context) {
@@ -367,7 +370,7 @@ class _PayByCardWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  recipe.recipe.name,
+                  recipe.name,
                   style: Theme.of(context).textTheme.headline5!.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.w500,
@@ -382,7 +385,7 @@ class _PayByCardWidget extends StatelessWidget {
                     ),
                     const HorizontalSpace(30),
                     Text(
-                      recipe.currency.toUpperCase(),
+                      recipe.denom.toUpperCase(),
                       style: Theme.of(context).textTheme.bodyText2!.copyWith(
                             fontSize: 20,
                             color: Colors.white,
@@ -440,13 +443,13 @@ class _PayByCardWidget extends StatelessWidget {
         ''';
 
     final jsonMap = jsonDecode(jsonExecuteRecipe) as Map;
-    jsonMap["cookbookID"] = recipe.recipe.cookbookID;
-    jsonMap["recipeID"] = recipe.recipe.id;
+    jsonMap["cookbookID"] = recipe.cookbookID;
+    jsonMap["recipeID"] = recipe.recipeID;
 
     _showLoading(context);
 
     // print(jsonMap);
-    final response = await walletsStore.executeRecipeIPC(jsonMap);
+    final response = await walletsStore.executeRecipe(jsonMap);
 
     Navigator.pop(context);
 

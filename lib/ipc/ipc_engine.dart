@@ -6,6 +6,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
+import 'package:pylons_wallet/entities/nft.dart';
 import 'package:pylons_wallet/ipc/handler/handler_factory.dart';
 import 'package:pylons_wallet/pages/detail/detail_screen.dart';
 import 'package:pylons_wallet/pylons_app.dart';
@@ -168,26 +169,20 @@ class IPCEngine {
 
     _showLoading();
 
-    //final jsonRecipe = await GetRecipe(GetIt.I.get<BaseEnv>())
-    final recipeResult = await GetRecipe(GetIt.I.get<BaseEnv>())
-        .getRecipe(cookbookId!, recipeId!);
+    final recipeResult = await walletsStore.getRecipe(cookbookId!, recipeId!);
 
     navigatorKey.currentState!.pop();
 
-    recipeResult.fold((exception){
-
+    if(recipeResult == null){
       ScaffoldMessenger.of(navigatorKey.currentState!.overlay!.context)
           .showSnackBar(SnackBar(
-        content: Text("$exception"),
+        content: Text("NFT not exists"),
       ),);
-
-    }, (recipeJson){
+    }else{
       navigatorKey.currentState!.push(MaterialPageRoute(
         builder: (_) => PurchaseItemScreen(
-          recipe: recipeJson,),),);
-      return;
-    });
-
+          recipe: NFT.fromRecipe(recipeResult),),),);
+    }
   }
 
   /// This method sends the unilink to the wallet app
