@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/image_widgets.dart';
+import 'package:pylons_wallet/components/nft_view.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/components/user_image_widget.dart';
 import 'package:pylons_wallet/constants/constants.dart';
@@ -186,23 +187,27 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
                             ),
                             body: TabBarView(
                               children: [
-                                Padding(
-                                  padding:EdgeInsets.only(top: 20),
-                                  child:Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(widget.recipe.description),
-                                      Text(
-                                          "Current Price: ${widget.recipe.price} ${widget.recipe.denom}"),
-                                      Text(
-                                          "Size: ${widget.recipe.width} x ${widget.recipe.height}"),
-                                      Text(
-                                          "Number of Editions: ${widget.recipe.amountMinted} / ${widget.recipe.quantity}"),
-                                      Text(
-                                          "Royalty: ${ (double.parse(widget.recipe.tradePercentage) * 100).toStringAsFixed(1) } %"
-                                      )
-                                    ],
-                                  ),
+                                SingleChildScrollView(
+                                  child:
+                                    Padding(
+                                      padding:EdgeInsets.only(top: 20),
+                                      child:Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(widget.recipe.description),
+                                          SizedBox(height: 20),
+                                          Text(
+                                              "Current Price: ${widget.recipe.price} ${widget.recipe.denom}"),
+                                          Text(
+                                              "Size: ${widget.recipe.width} x ${widget.recipe.height}"),
+                                          Text(
+                                              "Number of Editions: ${widget.recipe.amountMinted} / ${widget.recipe.quantity}"),
+                                          Text(
+                                              "Royalty: ${ (double.parse(widget.recipe.tradePercentage) * 100).toStringAsFixed(1) } %"
+                                          )
+                                        ],
+                                      ),
+                                    )
                                 ),
                                 Text("Details")
                               ],
@@ -298,17 +303,28 @@ class _ImageWidget extends StatelessWidget {
       child: ClipRRect(
         borderRadius: const BorderRadius.only(
             topRight: Radius.circular(14), bottomRight: Radius.circular(14)),
-        child: CachedNetworkImage(
-          imageUrl: imageUrl,
-          width: screenSize.width(),
-          errorWidget: (a, b, c) => Center(
-              child: Text(
-            "Unable to display NFT",
-            style: Theme.of(context).textTheme.bodyText1,
-          )),
-          height: screenSize.height(percent: 0.30),
-          fit: BoxFit.fill,
-        ),
+        child: Stack(
+            children: [CachedNetworkImage(imageUrl: imageUrl,
+              width: screenSize.width(),
+              errorWidget: (a, b, c) => Center(child: Text("unable_to_fetch_nft_item".tr(), style: Theme.of(context).textTheme.bodyText1,)),
+              height: screenSize.height(percent: 0.30),
+              fit: BoxFit.fill,
+            ),
+              Positioned.fill(
+                  right: 10,
+                  bottom: 10,
+                  child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: GestureDetector (
+                        onTap: (){
+                          Navigator.of(context).push(MaterialPageRoute(builder: (_) => NFTViewWidget(imageUrl: imageUrl,)));
+                        },
+                        child: Image.asset('assets/icons/zoom.png', width: 16, height: 16),
+                      )
+                  )
+              ),
+            ]
+        ) ,
       ),
     );
   }

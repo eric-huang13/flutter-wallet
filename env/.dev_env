@@ -17,13 +17,29 @@
 ####################################################
 # Pylons Testnet
 ####################################################
+#LCD_PORT=443
+#GRPC_PORT=443
+#LCD_URL=https://api.devtestnet.pylons.tech
+#GRPC_URL=https://grpc.devtestnet.pylons.tech
+#ETH_URL=http://127.0.0.1:7545
+#WS_URL=ws://devtestnet.pylons.tech
+#FAUCET_URL=https://faucet.devtestnet.pylons.tech
+#FAUCET_PORT=443
+#TENDERMINT_PORT=443
+#ENV=dev
+
+
+
+####################################################
+# Pylons Testnet
+####################################################
 LCD_PORT=443
-GRPC_PORT=443
-LCD_URL=https://api.devtestnet.pylons.tech
-GRPC_URL=https://grpc.devtestnet.pylons.tech
+GRPC_PORT=9090
+LCD_URL=https://api.pylons.smartnodes.co
+GRPC_URL=grpc.pylons.smartnodes.co
 ETH_URL=http://127.0.0.1:7545
-WS_URL=ws://devtestnet.pylons.tech
-FAUCET_URL=https://faucet.devtestnet.pylons.tech
+WS_URL=ws://pylons.smartnodes.co
+FAUCET_URL=https://faucet.pylons.smartnodes.co
 FAUCET_PORT=443
 TENDERMINT_PORT=443
 ENV=dev

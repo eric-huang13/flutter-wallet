@@ -17,7 +17,7 @@ import 'mock_constants.dart';
 
 class MockWalletStore implements WalletsStore {
   @override
-  Future<void> broadcastWalletCreationMessageOnBlockchain(
+  Future<SDKIPCResponse> broadcastWalletCreationMessageOnBlockchain(
       AlanPrivateWalletCredentials creds,
       String creatorAddress,
       String userName) {

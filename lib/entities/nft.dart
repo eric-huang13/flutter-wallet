@@ -1,4 +1,5 @@
 import 'package:fixnum/fixnum.dart';
+import 'package:collection/collection.dart';
 import 'dart:core';
 import 'package:alan/proto/cosmos/base/v1beta1/coin.pb.dart';
 import 'package:equatable/equatable.dart';
@@ -127,13 +128,13 @@ class NFT extends Equatable {
        url: recipe.entries.itemOutputs.first.strings.firstWhere((e) => e.key == "NFT_URL", orElse: ()=>StringParam()).value,
        description: recipe.entries.itemOutputs.first.strings.firstWhere((e) => e.key == "Description", orElse: ()=>StringParam()).value,
        appType: recipe.entries.itemOutputs.first.strings.firstWhere((e) => e.key == "App_Type", orElse: ()=>StringParam()).value,
-       width: recipe.entries.itemOutputs.first.longs.firstWhere((e) => e.key == "Width").weightRanges.first.upper.toString(),
-       height: recipe.entries.itemOutputs.first.longs.firstWhere((e) => e.key == "Height").weightRanges.first.upper.toString(),
+       width: recipe.entries.itemOutputs.first.longs.firstWhere((e) => e.key == "Width", orElse: ()=>LongParam()).weightRanges.firstOrNull?.upper.toString() ?? "0",
+       height: recipe.entries.itemOutputs.first.longs.firstWhere((e) => e.key == "Height", orElse: ()=>LongParam()).weightRanges.firstOrNull?.upper.toString() ?? "0",
        amountMinted:int.parse(recipe.entries.itemOutputs.first.amountMinted.toString()),
        quantity: int.parse(recipe.entries.itemOutputs.first.quantity.toString()),
-       tradePercentage: recipe.entries.itemOutputs.first.tradePercentage,
-       price: recipe.coinInputs.first.coins.first.amount.toString(),
-       denom: recipe.coinInputs.first.coins.first.denom.toString(),
+       tradePercentage: recipe.entries.itemOutputs.first.tradePercentage.toString().fromBigInt().toString(),
+       price: recipe.coinInputs.firstOrNull?.coins.firstOrNull?.amount.toString() ?? "0",
+       denom: recipe.coinInputs.firstOrNull?.coins.firstOrNull?.denom.toString() ?? "",
      );
    }
 
@@ -161,4 +162,22 @@ class NFT extends Equatable {
     itemID,
     owner,
   ];
+}
+
+extension NFTValue on NFT {
+  String getPriceFromRecipe(Recipe recipe) {
+    if(recipe.coinInputs.isEmpty)
+      return "0";
+    if(recipe.coinInputs.first.coins.isEmpty)
+      return "0";
+    return recipe.coinInputs.first.coins.first.amount.toString();
+  }
+}
+
+extension ValueContertor on String {
+  double fromBigInt() {
+    if(this == "")
+      return 0;
+    return BigInt.parse(this).toDouble() / 1000000000000000000;
+  }
 }

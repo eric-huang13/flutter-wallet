@@ -27,7 +27,7 @@ abstract class WalletsStore {
   /// Input: [AlanPrivateWalletCredentials] credential of the newly created wallet
   /// [creatorAddress] The address of the new wallet
   /// [userName] The name that the user entered
-  Future<void> broadcastWalletCreationMessageOnBlockchain(
+  Future<SDKIPCResponse> broadcastWalletCreationMessageOnBlockchain(
       AlanPrivateWalletCredentials creds,
       String creatorAddress,
       String userName);

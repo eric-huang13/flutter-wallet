@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/image_widgets.dart';
 import 'package:pylons_wallet/components/loading.dart';
+import 'package:pylons_wallet/components/nft_view.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/components/user_image_widget.dart';
 import 'package:pylons_wallet/constants/constants.dart';
@@ -81,7 +82,12 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
       "cookbookID": widget.nftItem.cookbookID,
         "itemID": widget.nftItem.itemID}]};
     final response = await walletsStore.createTrade(json);
+
     loading.dismiss();
+    setState((){
+      _showPay = false;
+    });
+
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text("${response.success != "" ? "Trade on this NFT successfully created." : "Error occured while creating Trade.\n${response.error}"}")));
   }
@@ -125,6 +131,7 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                         child: Stack(
                           children: [
                             _ImageWidget(imageUrl: widget.nftItem.url),
+
                             Positioned.fill(
                               right: 0,
                               child: Align(
@@ -267,21 +274,25 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                               ),
                               body: TabBarView(
                                 children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(top: 20),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(widget.nftItem.description),
+                                  SingleChildScrollView(
+                                    child: Padding(
+                                        padding: EdgeInsets.only(top: 20),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(widget.nftItem.description),
+                                            SizedBox(height: 20),
+                                            Text("Current Price: ${widget.nftItem.price} ${widget.nftItem.denom}"),
+                                            Text("Size: ${widget.nftItem.width} x ${widget.nftItem.height}"),
+                                            SizedBox(height: 20,),
+                                            if(widget.nftItem.type == nftType.type_trade)
+                                              Text("This Item is on Trade"),
+                                          ],
+                                        )
+                                    ),
 
-                                        Text("Current Price: ${widget.nftItem.price} ${widget.nftItem.denom}"),
-                                        Text("Size: ${widget.nftItem.width} x ${widget.nftItem.height}"),
-                                        SizedBox(height: 20,),
-                                        if(widget.nftItem.type == nftType.type_trade)
-                                          Text("This Item is on Trade"),
-                                      ],
-                                    )
-                                  ), Text("Details")],
+                                  )
+                                  , Text("Details")],
                               ),
                             ),
                           ),
@@ -319,12 +330,28 @@ class _ImageWidget extends StatelessWidget {
       padding: const EdgeInsets.only(right: 30),
       child: ClipRRect(
         borderRadius: const BorderRadius.only(topRight: Radius.circular(14), bottomRight: Radius.circular(14)),
-        child: CachedNetworkImage(imageUrl: imageUrl,
-        width: screenSize.width(),
-          errorWidget: (a, b, c) => Center(child: Text("unable_to_fetch_nft_item".tr(), style: Theme.of(context).textTheme.bodyText1,)),
-          height: screenSize.height(percent: 0.30),
-          fit: BoxFit.fill,
-        ),
+        child: Stack(
+          children: [CachedNetworkImage(imageUrl: imageUrl,
+            width: screenSize.width(),
+            errorWidget: (a, b, c) => Center(child: Text("unable_to_fetch_nft_item".tr(), style: Theme.of(context).textTheme.bodyText1,)),
+            height: screenSize.height(percent: 0.30),
+            fit: BoxFit.fill,
+          ),
+            Positioned.fill(
+                right: 10,
+                bottom: 10,
+                child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: GestureDetector (
+                      onTap: (){
+                        Navigator.of(context).push(MaterialPageRoute(builder: (_) => NFTViewWidget(imageUrl: imageUrl,)));
+                      },
+                      child: Image.asset('assets/icons/zoom.png', width: 16, height: 16),
+                    )
+                )
+            ),
+          ]
+        ) ,
       ),
     );
   }

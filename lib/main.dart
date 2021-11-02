@@ -9,7 +9,7 @@ import 'package:pylons_wallet/utils/dependency_injection/dependency_injection.da
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  HttpOverrides.global = MyHttpOverrides();
+  //HttpOverrides.global = MyHttpOverrides();
   await EasyLocalization.ensureInitialized();
   // Read the values from .env file
   await dotenv.load(fileName: "env/.dev_env");

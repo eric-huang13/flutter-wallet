@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
@@ -18,26 +20,33 @@ class CurrencyScreen extends StatefulWidget {
 }
 
 class _CurrencyScreenState extends State<CurrencyScreen>
-    with AutomaticKeepAliveClientMixin<CurrencyScreen>{
+//    with AutomaticKeepAliveClientMixin<CurrencyScreen>
+{
 
-  @override
-  void updateKeepAlive() => true;
+//  @override
+//  void updateKeepAlive() => true;
 
-  @override
-  bool get wantKeepAlive => true;
+//  @override
+//  bool get wantKeepAlive => true;
 
 
   @override
   void initState() {
     super.initState();
-    _buildAssetsList();
+    Timer(
+        Duration(milliseconds: 100), (){
+      _buildAssetsList();
+      //loadData(colType);
+    }
+    );
   }
 
-  var _assets = ValueNotifier(<Balance>[]);
+  //var _assets = ValueNotifier(<Balance>[]);
+  var assets = <Balance>[];
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
+    //super.build(context);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -54,7 +63,15 @@ class _CurrencyScreenState extends State<CurrencyScreen>
           )
         ],
       ),
-      body: ValueListenableBuilder(
+      body: ListView.builder(
+    itemCount: assets.length,
+      itemBuilder: (_, index) => _BalanceWidget(
+          balance: assets[index],
+          index:index,
+          onCallFaucet: (){ getFaucet(context, assets[index].denom.text);}
+      ),
+    ),
+      /*body: ValueListenableBuilder(
         valueListenable: _assets,
         builder: (_, List<Balance> assets, __) {
           return ListView.builder(
@@ -66,18 +83,23 @@ class _CurrencyScreenState extends State<CurrencyScreen>
             ),
           );
         }
-      ),
+      ),*/
     );
   }
 
   Future<void> _buildAssetsList() async {
+    assets.clear();
 
     //Query the balance and update it.
     final balanceObj = PylonsBalance(GetIt.I.get());
     final balances =
         await balanceObj.getBalance(PylonsApp.currentWallet.publicAddress);
-
-    _assets.value = balances;
+    setState((){
+      //_assets.value = balances;
+      balances.forEach((element) {
+        assets.add(element);
+      });
+    });
   }
 
 
@@ -87,9 +109,14 @@ class _CurrencyScreenState extends State<CurrencyScreen>
     final walletsStore = GetIt.I.get<WalletsStore>();
     final amount = await walletsStore.getFaucetCoin(denom:denom);
     SnackbarToast.show("faucet ${amount} ${denom} added.");
-    await _buildAssetsList();
+    Timer(
+        Duration(milliseconds: 3000), (){
+      _buildAssetsList();
+      //await _buildAssetsList();
+      diag.dismiss();
+      //loadData(colType);
+    });
 
-    diag.dismiss();
   }
 }
 
@@ -127,7 +154,6 @@ class _BalanceWidgetState extends State<_BalanceWidget> {
       "denom": widget.balance.denom.text,
       "short": widget.balance.denom.text
     };
-    print(coinMeta);
     return Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),

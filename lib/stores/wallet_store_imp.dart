@@ -107,7 +107,7 @@ class WalletsStoreImp implements WalletsStore {
   /// [creatorAddress] The address of the new wallet
   /// [userName] The name that the user entered
   @override
-  Future<void> broadcastWalletCreationMessageOnBlockchain(
+  Future<SDKIPCResponse> broadcastWalletCreationMessageOnBlockchain(
       AlanPrivateWalletCredentials creds,
       String creatorAddress,
       String userName) async {
@@ -141,10 +141,27 @@ class WalletsStoreImp implements WalletsStore {
           transaction: signed,
         ),
       );
+      if (result.isLeft()) {
+        return SDKIPCResponse.failure(
+            sender: '',
+            error: result.swap().toOption().toNullable().toString(),
+            errorCode: HandlerFactory.ERR_SOMETHING_WENT_WRONG,
+            transaction: '');
+      }
+
+      return SDKIPCResponse.success(
+          sender: '',
+          data: result.getOrElse(() => TransactionResponse.initial()).hash,
+          transaction: '');
       print(result);
     } catch (e) {
       print(e);
     }
+    return SDKIPCResponse.failure(
+        sender: '',
+        error: 'Something went wrong while fetching wallets',
+        errorCode: HandlerFactory.ERR_SOMETHING_WENT_WRONG,
+        transaction: '');
   }
 
   QueryClient? getQueryClient() {
@@ -334,6 +351,7 @@ class WalletsStoreImp implements WalletsStore {
 
   @override
   Future<List<Item>> getItemsByOwner(String owner) async {
+
     final request = pylons.QueryListItemByOwnerRequest.create()..owner = owner;
     final response = await _queryClient.listItemByOwner(request);
     return response.items;
