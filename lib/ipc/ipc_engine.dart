@@ -9,6 +9,7 @@ import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/entities/nft.dart';
 import 'package:pylons_wallet/ipc/handler/handler_factory.dart';
 import 'package:pylons_wallet/pages/detail/detail_screen.dart';
+import 'package:pylons_wallet/pages/new_screens/asset_detail_view.dart';
 import 'package:pylons_wallet/pylons_app.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:uni_links/uni_links.dart';
@@ -78,6 +79,9 @@ class IPCEngine {
     }
     if (_isEaselUniLink(initialLink)) {
       _handleEaselLink(initialLink);
+    }else if (_isNFTViewUniLink(initialLink)){
+      _handleNFTViewLink(initialLink);
+
     } else {
       handleLink(initialLink);
     }
@@ -185,6 +189,31 @@ class IPCEngine {
     }
   }
 
+  Future<void> _handleNFTViewLink(String link) async {
+    final queryParameters = Uri.parse(link).queryParameters;
+    final itemId = queryParameters['item_id'];
+    final cookbookId = queryParameters['cookbook_id'];
+    final walletsStore = GetIt.I.get<WalletsStore>();
+
+    _showLoading();
+
+    final recipeResult = await walletsStore.getItem(cookbookId!, itemId!);
+
+    navigatorKey.currentState!.pop();
+
+    if(recipeResult == null){
+      ScaffoldMessenger.of(navigatorKey.currentState!.overlay!.context)
+          .showSnackBar(SnackBar(
+        content: Text("NFT not exists"),
+      ),);
+    }else{
+      final item = await NFT.fromItem(recipeResult);
+      navigatorKey.currentState!.push(MaterialPageRoute(
+        builder: (_) => AssetDetailViewScreen(
+          nftItem: item),),);
+    }
+  }
+
   /// This method sends the unilink to the wallet app
   /// Input : [String] is the unilink with data for the wallet app
   Future<bool> dispatchUniLink(String uniLink) async {
@@ -259,6 +288,15 @@ class IPCEngine {
         queryParam.containsKey("recipe_id") &&
         queryParam.containsKey("nft_amount") &&
         queryParam.containsKey("cookbook_id");
+  }
+
+  bool _isNFTViewUniLink(String link) {
+    final queryParam = Uri.parse(link).queryParameters;
+    return queryParam.containsKey("action") &&
+        queryParam['action'] == 'nft_view' &&
+        queryParam.containsKey("item_id") &&
+        queryParam.containsKey("cookbook_id");
+
   }
 
   void _showLoading() {
