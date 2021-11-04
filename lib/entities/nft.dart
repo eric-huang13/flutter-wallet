@@ -128,6 +128,7 @@ class NFT extends Equatable {
        url: recipe.entries.itemOutputs.firstOrNull?.strings.firstWhere((e) => e.key == "NFT_URL", orElse: ()=>StringParam()).value ?? "",
        description: recipe.entries.itemOutputs.firstOrNull?.strings.firstWhere((e) => e.key == "Description", orElse: ()=>StringParam()).value ?? "",
        appType: recipe.entries.itemOutputs.firstOrNull?.strings.firstWhere((e) => e.key == "App_Type", orElse: ()=>StringParam()).value ?? "",
+       creator: recipe.entries.itemOutputs.firstOrNull?.strings.firstWhere((e) => e.key == "Creator", orElse: ()=>StringParam()).value ?? "",
        width: recipe.entries.itemOutputs.firstOrNull?.longs.firstWhere((e) => e.key == "Width", orElse: ()=>LongParam()).weightRanges.firstOrNull?.upper.toString() ?? "0",
        height: recipe.entries.itemOutputs.firstOrNull?.longs.firstWhere((e) => e.key == "Height", orElse: ()=>LongParam()).weightRanges.firstOrNull?.upper.toString() ?? "0",
        amountMinted:int.parse(recipe.entries.itemOutputs.firstOrNull?.amountMinted.toString() ?? "0") ,

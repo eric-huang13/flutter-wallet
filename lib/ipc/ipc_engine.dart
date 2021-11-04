@@ -58,6 +58,9 @@ class IPCEngine {
 
       if (_isEaselUniLink(link)) {
         _handleEaselLink(link);
+      }else if (_isNFTViewUniLink(link)){
+        _handleNFTViewLink(link);
+
       } else {
         handleLink(link);
       }
@@ -77,6 +80,8 @@ class IPCEngine {
     if (initialLink == null) {
       return;
     }
+    print(initialLink);
+
     if (_isEaselUniLink(initialLink)) {
       _handleEaselLink(initialLink);
     }else if (_isNFTViewUniLink(initialLink)){

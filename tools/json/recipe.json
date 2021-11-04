@@ -1,7 +1,7 @@
 {
   "cookbookID": "cookbook_for_test7",
-  "ID": "cookbook_for_test_2021_10_22_09_13_590",
-  "name": "A simple recipe test",
+  "ID": "cookbook_for_test_2021_10_22_09_13_594",
+  "name": "Test NFT v3",
   "description": " A simple test recipe to be executed",
   "version": "v1.0.0",
   "coinInputs": [
@@ -9,7 +9,7 @@
       "coins": [
         {
           "denom": "upylon",
-          "amount": "450"
+          "amount": "350"
         }
       ]
     }
@@ -71,7 +71,7 @@
           },
           {
             "key": "App_Type",
-            "value": "Easel"
+            "value": "Avatar"
           },
           {
             "key": "Description",
@@ -79,7 +79,7 @@
           },
           {
             "key": "NFT_URL",
-            "value": "https://i.imgur.com/dpNqwvl.jpg"
+            "value": "https://i.imgur.com/QechbvX.jpg"
           },
           {
             "key": "Currency",

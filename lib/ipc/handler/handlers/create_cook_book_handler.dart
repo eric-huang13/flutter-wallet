@@ -28,6 +28,9 @@ class CreateCookBookHandler implements BaseHandler {
     response.action = sdkipcMessage.action;
     if (response.error == ""){
       SnackbarToast.show("Coookbook ${jsonMap['name']} Created");
+    } else {
+      SnackbarToast.show("Recipe ${jsonMap['name']} error: ${response.error}");
+
     }
 
     debugPrint('Response $response');

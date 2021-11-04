@@ -65,7 +65,7 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
   }
 
   Future copyClipboard(String msg) async {
-      Clipboard.setData(new ClipboardData(text: "https://wallet.pylons.tech??action=resell_nft&cookbook_id=${widget.nftItem.cookbookID}&item_id=${widget.nftItem.itemID}")).then((_){
+      Clipboard.setData(new ClipboardData(text: "https://wallet.pylons.tech?action=nft_view&cookbook_id=${widget.nftItem.cookbookID}&item_id=${widget.nftItem.itemID}")).then((_){
         SnackbarToast.show("NFT address copied to clipboard");
       });
   }
