@@ -7,7 +7,7 @@ import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 
 class CreateRecipeHandler implements BaseHandler {
-  SDKIPCMessage sdkipcMessage;
+  final SDKIPCMessage sdkipcMessage;
 
   CreateRecipeHandler(this.sdkipcMessage);
 

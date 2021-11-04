@@ -65,6 +65,11 @@ abstract class WalletsStore {
 
 
 
+  /// This method creates the recipe in the block chain
+  /// Input : [Map] containing the info related to the updation of recipe
+  /// Output : [SDKIPCResponse] response
+  Future<SDKIPCResponse> updateRecipe(Map<dynamic, dynamic> jsonMap);
+
 
 
   Observable<List<WalletPublicInfo>> getWallets();
@@ -72,5 +77,7 @@ abstract class WalletsStore {
 
   Observable<bool> getAreWalletsLoading();
   Observable<CredentialsStorageFailure?> getLoadWalletsFailure();
+
+
 
 }

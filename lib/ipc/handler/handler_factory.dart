@@ -2,6 +2,7 @@ import 'package:pylons_wallet/ipc/handler/base_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/create_cook_book_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/create_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/execute_recipe_handler.dart';
+import 'package:pylons_wallet/ipc/handler/handlers/update_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_message.dart';
 
 class HandlerFactory {
@@ -47,6 +48,11 @@ class HandlerFactory {
     if (sdkipcMessage.action == TX_EXECUTE_RECIPE) {
       return ExecuteRecipeHandler(sdkipcMessage);
     }
+
+    if (sdkipcMessage.action == TX_UPDATE_RECIPE) {
+      return UpdateRecipeHandler(sdkipcMessage);
+    }
+
 
     return CreateCookBookHandler(sdkipcMessage);
   }
