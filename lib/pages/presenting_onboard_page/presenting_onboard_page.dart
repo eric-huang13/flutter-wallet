@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:cosmos_utils/mnemonic.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -10,12 +9,14 @@ import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/forms/import_from_google_form.dart';
 import 'package:pylons_wallet/forms/new_user_form.dart';
 import 'package:pylons_wallet/pages/new_screens/new_home.dart';
+import 'package:pylons_wallet/pages/presenting_onboard_page/components/create_account_bottom_sheet.dart';
 import 'package:pylons_wallet/pylons_app.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:pylons_wallet/components/loading.dart';
 import 'package:pylons_wallet/components/alert.dart';
+
 
 PageController _controller = PageController();
 
@@ -68,7 +69,10 @@ class PresentingOnboardPage extends StatelessWidget {
           const VerticalSpace(10),
           PylonsBlueButton(
             onTap: () {
-              onCreateAccountPressed(context);
+
+              final createAccountBottomSheet  = CreateAccountBottomSheet(context: context, walletsStore: walletsStore, );
+              createAccountBottomSheet.show();
+
             },
             text: "create_an_account".tr(),
           ),
@@ -88,10 +92,6 @@ class PresentingOnboardPage extends StatelessWidget {
     );
   }
 
-  /// Create the new wallet and associate the choosen username with it.
-  Future _registerNewUser(String userName, BuildContext context) async {
-    final _mnemonic = await generateMnemonic();
-    final _username = userName;
 
     final diag = Loading().showLoading();
 

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
-
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -58,9 +58,8 @@ class IPCEngine {
 
       if (_isEaselUniLink(link)) {
         _handleEaselLink(link);
-      }else if (_isNFTViewUniLink(link)){
+      } else if (_isNFTViewUniLink(link)) {
         _handleNFTViewLink(link);
-
       } else {
         handleLink(link);
       }
@@ -84,9 +83,8 @@ class IPCEngine {
 
     if (_isEaselUniLink(initialLink)) {
       _handleEaselLink(initialLink);
-    }else if (_isNFTViewUniLink(initialLink)){
+    } else if (_isNFTViewUniLink(initialLink)) {
       _handleNFTViewLink(initialLink);
-
     } else {
       handleLink(initialLink);
     }
@@ -182,15 +180,21 @@ class IPCEngine {
 
     navigatorKey.currentState!.pop();
 
-    if(recipeResult == null){
+    if (recipeResult == null) {
       ScaffoldMessenger.of(navigatorKey.currentState!.overlay!.context)
-          .showSnackBar(SnackBar(
-        content: Text("NFT not exists"),
-      ),);
-    }else{
-      navigatorKey.currentState!.push(MaterialPageRoute(
-        builder: (_) => PurchaseItemScreen(
-          recipe: NFT.fromRecipe(recipeResult),),),);
+          .showSnackBar(
+        SnackBar(
+          content: Text("NFT not exists"),
+        ),
+      );
+    } else {
+      navigatorKey.currentState!.push(
+        MaterialPageRoute(
+          builder: (_) => PurchaseItemScreen(
+            recipe: NFT.fromRecipe(recipeResult),
+          ),
+        ),
+      );
     }
   }
 
@@ -206,27 +210,41 @@ class IPCEngine {
 
     navigatorKey.currentState!.pop();
 
-    if(recipeResult == null){
+    if (recipeResult == null) {
       ScaffoldMessenger.of(navigatorKey.currentState!.overlay!.context)
-          .showSnackBar(SnackBar(
-        content: Text("NFT not exists"),
-      ),);
-    }else{
+          .showSnackBar(
+        SnackBar(
+          content: Text("NFT not exists"),
+        ),
+      );
+    } else {
       final item = await NFT.fromItem(recipeResult);
-      navigatorKey.currentState!.push(MaterialPageRoute(
-        builder: (_) => AssetDetailViewScreen(
-          nftItem: item),),);
+      navigatorKey.currentState!.push(
+        MaterialPageRoute(
+          builder: (_) => AssetDetailViewScreen(nftItem: item),
+        ),
+      );
     }
   }
 
   /// This method sends the unilink to the wallet app
   /// Input : [String] is the unilink with data for the wallet app
   Future<bool> dispatchUniLink(String uniLink) async {
-    if (await canLaunch(uniLink)) {
-      await launch(uniLink);
+    try {
+      if (Platform.isAndroid) {
+        if (await canLaunch(uniLink)) {
+          await launch(uniLink);
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        await launch(uniLink);
+        return true;
+      }
+    } catch (e) {
+      print("$e Something went wrong.");
       return true;
-    } else {
-      return false;
     }
   }
 
@@ -234,22 +252,26 @@ class IPCEngine {
   /// Input : [sdkIPCMessage] The sender of the signal
   /// Output : [key] The signal kind against which the signal is sent
   Future showApprovalDialog({required SDKIPCMessage sdkIPCMessage}) {
-    final handler = GetIt.I
-        .get<HandlerFactory>()
-        .getHandler(sdkIPCMessage);
+    final handler = GetIt.I.get<HandlerFactory>().getHandler(sdkIPCMessage);
     return showDialog(
         barrierDismissible: false,
         context: navigatorKey.currentState!.overlay!.context,
         builder: (_) => AlertDialog(
-              content: Text('Will you sign this ${sdkIPCMessage.action}:\n "${handler.getName()}"?', style: TextStyle(fontSize:18)),
+              content: Text(
+                  'Will you sign this ${sdkIPCMessage.action}:\n "${handler.getName()}"?',
+                  style: TextStyle(fontSize: 18)),
               actions: [
                 RaisedButton(
                   onPressed: () async {
                     Navigator.of(_).pop();
 
-                    final handlerMessage = await handler.handle();
+                    final handlerMessage = await GetIt.I
+                        .get<HandlerFactory>()
+                        .getHandler(sdkIPCMessage)
+                        .handle();
                     debugPrint("$handlerMessage");
-                    await dispatchUniLink(handlerMessage.createMessageLink());
+                    await dispatchUniLink(handlerMessage.createMessageLink(
+                        isAndroid: Platform.isAndroid));
                   },
                   child: const Text('Approve'),
                 ),
@@ -262,8 +284,8 @@ class IPCEngine {
                         error: '',
                         errorCode: HandlerFactory.ERR_SOMETHING_WENT_WRONG,
                         transaction: sdkIPCMessage.action);
-                    await dispatchUniLink(
-                        cancelledResponse.createMessageLink());
+                    await dispatchUniLink(cancelledResponse.createMessageLink(
+                        isAndroid: Platform.isAndroid));
                   },
                   child: const Text('Cancel'),
                 )
@@ -301,7 +323,6 @@ class IPCEngine {
         queryParam['action'] == 'nft_view' &&
         queryParam.containsKey("item_id") &&
         queryParam.containsKey("cookbook_id");
-
   }
 
   void _showLoading() {
