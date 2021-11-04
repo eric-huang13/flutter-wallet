@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cosmos_utils/mnemonic.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -91,7 +92,10 @@ class PresentingOnboardPage extends StatelessWidget {
       )),
     );
   }
-
+  /// Create the new wallet and associate the choosen username with it.
+  Future _registerNewUser(String userName, BuildContext context) async {
+    final _mnemonic = await generateMnemonic();
+    final _username = userName;
 
     final diag = Loading().showLoading();
 
@@ -114,7 +118,7 @@ class PresentingOnboardPage extends StatelessWidget {
 
     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => const NewHomeScreen()), (route) => true);
   }
-
+/*
   void onCreateAccountPressed(BuildContext context) {
     FocusScope.of(context).requestFocus(FocusNode());
     showModalBottomSheet(
@@ -128,6 +132,7 @@ class PresentingOnboardPage extends StatelessWidget {
         ),
         builder: (context) => Wrap(children: [NewUserForm(onValidate: (userName) => _registerNewUser(userName, context))]));
   }
+ */
 }
 
 class OnboardingPageView extends StatefulWidget {
