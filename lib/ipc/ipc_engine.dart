@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
-
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -75,8 +75,7 @@ class IPCEngine {
   /// Input]  [msg] is the string received from the wallet
   /// Output : [List] contains the decoded response
   String encodeMessage(List<String> msg) {
-    final encodedMessageWithComma =
-        msg.map((e) => base64Url.encode(utf8.encode(e))).join(',');
+    final encodedMessageWithComma = msg.map((e) => base64Url.encode(utf8.encode(e))).join(',');
     return base64Url.encode(utf8.encode(encodedMessageWithComma));
   }
 
@@ -85,10 +84,7 @@ class IPCEngine {
   /// Output : [List] contains the decoded response
   List<String> decodeMessage(String msg) {
     final decoded = utf8.decode(base64Url.decode(msg));
-    return decoded
-        .split(',')
-        .map((e) => utf8.decode(base64Url.decode(e)))
-        .toList();
+    return decoded.split(',').map((e) => utf8.decode(base64Url.decode(e))).toList();
   }
 
   /// This method handles the link that the wallet received from the 3rd Party apps
@@ -137,35 +133,46 @@ class IPCEngine {
 
     _showLoading();
 
-    final recipeResult = await GetRecipe(GetIt.I.get<BaseEnv>())
-        .getRecipe(cookbookId!, recipeId!);
+    final recipeResult = await GetRecipe(GetIt.I.get<BaseEnv>()).getRecipe(cookbookId!, recipeId!);
 
     navigatorKey.currentState!.pop();
 
-    recipeResult.fold((exception){
-
-      ScaffoldMessenger.of(navigatorKey.currentState!.overlay!.context)
-          .showSnackBar(SnackBar(
-        content: Text("$exception"),
-      ),);
-
-    }, (recipeJson){
-      navigatorKey.currentState!.push(MaterialPageRoute(
-        builder: (_) => PurchaseItemScreen(
-          recipe: recipeJson,),),);
+    recipeResult.fold((exception) {
+      ScaffoldMessenger.of(navigatorKey.currentState!.overlay!.context).showSnackBar(
+        SnackBar(
+          content: Text("$exception"),
+        ),
+      );
+    }, (recipeJson) {
+      navigatorKey.currentState!.push(
+        MaterialPageRoute(
+          builder: (_) => PurchaseItemScreen(
+            recipe: recipeJson,
+          ),
+        ),
+      );
       return;
     });
-
   }
 
   /// This method sends the unilink to the wallet app
   /// Input : [String] is the unilink with data for the wallet app
   Future<bool> dispatchUniLink(String uniLink) async {
-    if (await canLaunch(uniLink)) {
-      await launch(uniLink);
+    try {
+      if (Platform.isAndroid) {
+        if (await canLaunch(uniLink)) {
+          await launch(uniLink);
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        await launch(uniLink);
+        return true;
+      }
+    } catch (e) {
+      print("$e Something went wrong.");
       return true;
-    } else {
-      return false;
     }
   }
 
@@ -183,12 +190,9 @@ class IPCEngine {
                   onPressed: () async {
                     Navigator.of(_).pop();
 
-                    final handlerMessage = await GetIt.I
-                        .get<HandlerFactory>()
-                        .getHandler(sdkIPCMessage)
-                        .handle();
+                    final handlerMessage = await GetIt.I.get<HandlerFactory>().getHandler(sdkIPCMessage).handle();
                     debugPrint("$handlerMessage");
-                    await dispatchUniLink(handlerMessage.createMessageLink());
+                    await dispatchUniLink(handlerMessage.createMessageLink(isAndroid: Platform.isAndroid));
                   },
                   child: const Text('Approval'),
                 ),
@@ -196,13 +200,8 @@ class IPCEngine {
                   onPressed: () async {
                     Navigator.of(_).pop();
 
-                    final cancelledResponse = SDKIPCResponse.failure(
-                        sender: sdkIPCMessage.sender,
-                        error: '',
-                        errorCode: HandlerFactory.ERR_SOMETHING_WENT_WRONG,
-                        transaction: sdkIPCMessage.action);
-                    await dispatchUniLink(
-                        cancelledResponse.createMessageLink());
+                    final cancelledResponse = SDKIPCResponse.failure(sender: sdkIPCMessage.sender, error: '', errorCode: HandlerFactory.ERR_SOMETHING_WENT_WRONG, transaction: sdkIPCMessage.action);
+                    await dispatchUniLink(cancelledResponse.createMessageLink(isAndroid: Platform.isAndroid));
                   },
                   child: const Text('Disapprove'),
                 )
@@ -218,20 +217,15 @@ class IPCEngine {
   /// This method disconnect any new signal. If another signal is already in process
   /// Input : [sender] The sender of the signal
   /// Output : [key] The signal kind against which the signal is sent
-  Future<void> disconnectThisSignal(
-      {required String sender, required String key}) async {
-    final encodedMessage = encodeMessage(
-        [key, 'Wallet Busy: A transaction is already is already in progress']);
+  Future<void> disconnectThisSignal({required String sender, required String key}) async {
+    final encodedMessage = encodeMessage([key, 'Wallet Busy: A transaction is already is already in progress']);
     await dispatchUniLink('pylons://$sender/$encodedMessage');
   }
 
   ///This method checks if the incoming link is generated from Easel
   bool _isEaselUniLink(String link) {
     final queryParam = Uri.parse(link).queryParameters;
-    return queryParam.containsKey("action") &&
-        queryParam.containsKey("recipe_id") &&
-        queryParam.containsKey("nft_amount") &&
-        queryParam.containsKey("cookbook_id");
+    return queryParam.containsKey("action") && queryParam.containsKey("recipe_id") && queryParam.containsKey("nft_amount") && queryParam.containsKey("cookbook_id");
   }
 
   void _showLoading() {
@@ -251,8 +245,7 @@ class IPCEngine {
                 const HorizontalSpace(10),
                 Text(
                   "Loading...",
-                  style:
-                      Theme.of(ctx).textTheme.subtitle2!.copyWith(fontSize: 12),
+                  style: Theme.of(ctx).textTheme.subtitle2!.copyWith(fontSize: 12),
                 ),
               ],
             )

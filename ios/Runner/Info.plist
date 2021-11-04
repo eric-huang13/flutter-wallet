@@ -4,17 +4,17 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>CFBundleLocalizations</key>
-            <array>
-                <string>en</string>
-                <string>ru</string>
-            </array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>ru</string>
+	</array>
 	<key>CFBundleName</key>
 	<string>Pylons Wallet</string>
 	<key>CFBundlePackageType</key>
@@ -23,20 +23,33 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLName</key>
+            <string>example</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>pylons-wallet</string>
+            </array>
+        </dict>
+    </array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Pylons Wallet needs to use your camera to capture images for minting and user profile</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Pylons Wallet needs to use your microphone to record audios for minting purposes</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Pylons Wallet needs to access your photo library for minting and user profile</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
-	<key>NSCameraUsageDescription</key>
-    <string>Pylons Wallet needs to use your camera to capture images for minting and user profile</string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>Pylons Wallet needs to access your photo library for minting and user profile</string>
-	<key>NSMicrophoneUsageDescription</key>
-    <string>Pylons Wallet needs to use your microphone to record audios for minting purposes</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -52,5 +65,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>pylons-*</string>
+    </array>
 </dict>
 </plist>

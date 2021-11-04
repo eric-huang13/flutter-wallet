@@ -16,7 +16,9 @@ class PylonsAppTheme extends CosmosAppTheme {
         primarySwatch: Colors.blue,
         fontFamily: 'Inter',
         elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(primary: Colors.white),
+          style: ElevatedButton.styleFrom(
+            primary: const Color(0xFF1212C4),
+        ),
         ),
         inputDecorationTheme: const InputDecorationTheme(
           border: OutlineInputBorder(),
