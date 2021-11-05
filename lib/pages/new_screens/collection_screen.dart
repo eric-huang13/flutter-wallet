@@ -180,7 +180,7 @@ class _CollectionScreenState extends State<CollectionScreen>{
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (_) =>  PurchaseItemScreen(
-                              recipe: recipes[index],)));
+                              nft: recipes[index],)));
                       },
                       child: ClipRRect(
                         borderRadius: const BorderRadius.all(Radius.circular(5)),

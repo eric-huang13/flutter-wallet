@@ -65,7 +65,13 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
   }
 
   Future copyClipboard(String msg) async {
-      Clipboard.setData(new ClipboardData(text: "https://wallet.pylons.tech?action=nft_view&cookbook_id=${widget.nftItem.cookbookID}&item_id=${widget.nftItem.itemID}")).then((_){
+    var msg = "";
+    if(widget.nftItem.type == nftType.type_trade){
+      msg = "https://wallet.pylons.tech?action=purchase_trade&trade_id=${widget.nftItem.tradeID}";
+    }else if(widget.nftItem.type == nftType.type_item) {
+      msg = "https://wallet.pylons.tech?action=nft_view&cookbook_id=${widget.nftItem.cookbookID}&item_id=${widget.nftItem.itemID}";
+    }
+      Clipboard.setData(new ClipboardData(text: msg)).then((_){
         SnackbarToast.show("NFT address copied to clipboard");
       });
   }

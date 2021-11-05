@@ -92,6 +92,8 @@ class NewUserFormState extends State<NewUserForm> {
     final _mnemonic = await generateMnemonic();
     final _username = userName;
 
+    print("_mnemonic: ${_mnemonic}");
+
     PylonsApp.currentWallet =
         await widget.walletsStore.importAlanWallet(_mnemonic, _username);
     isLoadingNotifier.value = false;

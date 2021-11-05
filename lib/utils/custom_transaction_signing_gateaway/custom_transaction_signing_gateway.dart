@@ -97,7 +97,7 @@ class CustomTransactionSigningGateway {
   }) async =>
       _findCapableDerivator(walletDerivationInfo).derive(walletDerivationInfo: walletDerivationInfo);
 
-  Future<Either<CredentialsStorageFailure, List<WalletPublicInfo>>> getWalletsList() => _infoStorage.getWalletsList();
+  Future<Either<CredentialsStorageFailure, List<WalletPublicInfo>>> getWalletsList() => _infoStorage .getWalletsList();
 
   /// Verifies if passed lookupKey is pointing to a valid wallet stored within the secure storage.
   Future<Either<TransactionSigningFailure, bool>> verifyLookupKey(WalletLookupKey walletLookupKey) =>

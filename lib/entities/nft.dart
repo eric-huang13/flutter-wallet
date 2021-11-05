@@ -35,6 +35,7 @@ class NFT extends Equatable {
   String width = "";
   String height = "";
   String appType = "";
+  String tradeID = "";
 
   nftType type = nftType.type_item;
 
@@ -56,6 +57,7 @@ class NFT extends Equatable {
     this.amountMinted = 0,
     this.quantity = 0,
     this.appType = "",
+    this.tradeID = ""
   });
 
 
@@ -91,14 +93,13 @@ class NFT extends Equatable {
 
   static Future<NFT> fromTrade(Trade trade) async {
     final walletsStore = GetIt.I.get<WalletsStore>();
-    print(trade);
 
     //retrieve Item
     final cookbookID = trade.itemOutputs.first.cookbookID;
     final itemID = trade.itemOutputs.first.itemID;
     final item = await walletsStore.getItem(cookbookID, itemID) ?? Item.create();
-    print('owner ${cookbookID} ${itemID} ${item.owner}');
-    final owner = ""; //await walletsStore.getAccountNameByAddress(item.owner);
+    print('owner ${cookbookID} ${itemID} ${trade.creator}');
+    final owner = await walletsStore.getAccountNameByAddress(trade.creator);
     //print('owner ${cookbookID} ${itemID} ${item.owner} ${owner}');
 
     return NFT(
@@ -115,6 +116,7 @@ class NFT extends Equatable {
       itemID: item.iD,
       cookbookID: item.cookbookID,
       owner: owner,
+      tradeID: trade.iD.toString()
     );
   }
 

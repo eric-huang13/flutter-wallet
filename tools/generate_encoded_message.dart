@@ -34,6 +34,12 @@ Future<void> main(List<String> args) async {
         "?action=purchase_nft&cookbook_id=${cookbook_id}&recipe_id=${recipe_id}&nft_amount=1";
     execute(msg);
   }
+
+  if (arg == 'purchase_trade') {
+    final trade_id = args.length > 2 ? args[1] : '123456';
+    final msg = "?action=purchase_trade&trade_id=${trade_id}";
+    execute(msg);
+  }
 }
 
 Future<void> execute(msg) async {

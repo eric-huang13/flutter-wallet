@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:fixnum/fixnum.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
@@ -60,7 +61,9 @@ class IPCEngine {
         _handleEaselLink(link);
       } else if (_isNFTViewUniLink(link)) {
         _handleNFTViewLink(link);
-      } else {
+      } else if (_isNFTTradeUniLink(link)){
+        _handleNFTTradeLink(link);
+      }else {
         handleLink(link);
       }
 
@@ -85,7 +88,10 @@ class IPCEngine {
       _handleEaselLink(initialLink);
     } else if (_isNFTViewUniLink(initialLink)) {
       _handleNFTViewLink(initialLink);
-    } else {
+    } else if (_isNFTTradeUniLink(initialLink)){
+      _handleNFTTradeLink(initialLink);
+    }
+    else {
       handleLink(initialLink);
     }
   }
@@ -191,8 +197,36 @@ class IPCEngine {
       navigatorKey.currentState!.push(
         MaterialPageRoute(
           builder: (_) => PurchaseItemScreen(
-            recipe: NFT.fromRecipe(recipeResult),
+            nft: NFT.fromRecipe(recipeResult),
           ),
+        ),
+      );
+    }
+  }
+
+  Future<void> _handleNFTTradeLink(String link) async {
+    final queryParameters = Uri.parse(link).queryParameters;
+    final tradeId = queryParameters['trade_id'] ?? "0";
+    final walletsStore = GetIt.I.get<WalletsStore>();
+
+    _showLoading();
+
+    final recipeResult = await walletsStore.getTradeByID(Int64.parseInt(tradeId));
+
+    navigatorKey.currentState!.pop();
+
+    if (recipeResult == null) {
+      ScaffoldMessenger.of(navigatorKey.currentState!.overlay!.context)
+          .showSnackBar(
+        SnackBar(
+          content: Text("NFT not exists"),
+        ),
+      );
+    } else {
+      final item = await NFT.fromTrade(recipeResult);
+      navigatorKey.currentState!.push(
+        MaterialPageRoute(
+          builder: (_) => PurchaseItemScreen(nft: item),
         ),
       );
     }
@@ -324,6 +358,14 @@ class IPCEngine {
         queryParam.containsKey("item_id") &&
         queryParam.containsKey("cookbook_id");
   }
+
+  bool _isNFTTradeUniLink(String link) {
+    final queryParam = Uri.parse(link).queryParameters;
+    return queryParam.containsKey("action") &&
+        queryParam['action'] == 'purchase_trade' &&
+        queryParam.containsKey("trade_id");
+  }
+
 
   void _showLoading() {
     showDialog(

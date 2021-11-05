@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/constants/constants.dart';
@@ -54,6 +55,15 @@ class _CurrencyScreenState extends State<CurrencyScreen>
         actions: [
           IconButton(
             icon: const Icon(
+              Icons.content_copy_outlined,
+              color: kBlue,
+            ),
+            onPressed: () {
+              copyClipboard();
+            },
+          ),
+          IconButton(
+            icon: const Icon(
               Icons.cached_outlined,
               color: kBlue,
             ),
@@ -99,6 +109,12 @@ class _CurrencyScreenState extends State<CurrencyScreen>
       balances.forEach((element) {
         assets.add(element);
       });
+    });
+  }
+  Future copyClipboard() async {
+    var msg = "${PylonsApp.currentWallet.publicAddress}";
+    Clipboard.setData(new ClipboardData(text: msg)).then((_){
+      SnackbarToast.show("Your wallet address copied to clipboard");
     });
   }
 
@@ -233,5 +249,4 @@ class _BalanceWidgetState extends State<_BalanceWidget> {
       )
     );
   }
-
 }

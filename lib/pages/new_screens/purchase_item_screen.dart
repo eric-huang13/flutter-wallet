@@ -17,10 +17,10 @@ import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
 
 class PurchaseItemScreen extends StatefulWidget {
-  final NFT recipe;
+  final NFT nft;
   const PurchaseItemScreen({
     Key? key,
-    required this.recipe,
+    required this.nft,
   }) : super(key: key);
 
   @override
@@ -84,7 +84,7 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
                   children: [
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: _ImageWidget(imageUrl: widget.recipe.url),
+                      child: _ImageWidget(imageUrl: widget.nft.url),
                     ),
                     AnimatedSwitcher(
                       transitionBuilder: (Widget child, Animation<double> animation) {
@@ -105,7 +105,7 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
                           height: screenSize.height() * .35,
 
                           child: _PayByCardWidget(
-                              recipe: widget.recipe,
+                              recipe: widget.nft,
                             )) : SizedBox(),
                     )
                   ],
@@ -119,7 +119,7 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.recipe.name,
+                        widget.nft.name,
                         style: Theme.of(context).textTheme.headline5!.copyWith(
                               color: Colors.black,
                               fontWeight: FontWeight.w600,
@@ -135,7 +135,7 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
                                     ),
                             children: [
                               TextSpan(
-                                  text: widget.recipe.creator,
+                                  text: widget.nft.creator,
                                   style: TextStyle(color: kBlue))
                             ]),
                       ),
@@ -156,7 +156,7 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
                                     .copyWith(fontSize: 14),
                                 children: [
                                   TextSpan(
-                                      text: widget.recipe.creator,
+                                      text: widget.nft.owner == "" ? widget.nft.creator : widget.nft.owner,
                                       style: TextStyle(color: kBlue))
                                 ]),
                           ),
@@ -194,16 +194,18 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
                                       child:Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Text(widget.recipe.description),
+                                          Text(widget.nft.description),
                                           SizedBox(height: 20),
                                           Text(
-                                              "Current Price: ${widget.recipe.price} ${widget.recipe.denom}"),
+                                              "Current Price: ${widget.nft.price} ${widget.nft.denom}"),
                                           Text(
-                                              "Size: ${widget.recipe.width} x ${widget.recipe.height}"),
+                                              "Size: ${widget.nft.width} x ${widget.nft.height}"),
+                                          if(widget.nft.type == nftType.type_recipe)
                                           Text(
-                                              "Number of Editions: ${widget.recipe.amountMinted} / ${widget.recipe.quantity}"),
+                                              "Number of Editions: ${widget.nft.amountMinted} / ${widget.nft.quantity}"),
+                                          if(widget.nft.type == nftType.type_recipe)
                                           Text(
-                                              "Royalty: ${ (double.parse(widget.recipe.tradePercentage) * 100).toStringAsFixed(1) } %"
+                                              "Royalty: ${ (double.parse(widget.nft.tradePercentage) * 100).toStringAsFixed(1) } %"
                                           )
                                         ],
                                       ),
@@ -449,8 +451,9 @@ class _PayByCardWidget extends StatelessWidget {
   Future<void> _executeRecipe(BuildContext context) async {
     final walletsStore = GetIt.I.get<WalletsStore>();
 
-    const jsonExecuteRecipe = '''
-    {
+    if(recipe.type == nftType.type_recipe) {
+      const jsonExecuteRecipe = '''
+      {
         "creator": "",
         "cookbookID": "",
         "recipeID": "",
@@ -458,20 +461,38 @@ class _PayByCardWidget extends StatelessWidget {
         }
         ''';
 
-    final jsonMap = jsonDecode(jsonExecuteRecipe) as Map;
-    jsonMap["cookbookID"] = recipe.cookbookID;
-    jsonMap["recipeID"] = recipe.recipeID;
+      final jsonMap = jsonDecode(jsonExecuteRecipe) as Map;
+      jsonMap["cookbookID"] = recipe.cookbookID;
+      jsonMap["recipeID"] = recipe.recipeID;
 
-    _showLoading(context);
+      _showLoading(context);
 
-    // print(jsonMap);
-    final response = await walletsStore.executeRecipe(jsonMap);
+      // print(jsonMap);
+      final response = await walletsStore.executeRecipe(jsonMap);
 
-    Navigator.pop(context);
+      Navigator.pop(context);
 
-    debugPrint("${response.success ? response.data : response.error}");
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("${response.success ? "Successfully purchased this NFT." : response.error}")));
+      debugPrint("${response.success ? response.data : response.error}");
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("${response.success ? "Successfully purchased this NFT." : response.error}")));
+    }else if(recipe.type == nftType.type_trade) {
+        _showLoading(context);
+        const json = '''
+        {
+          "ID": 0
+        }
+        ''';
+        final jsonMap = jsonDecode(json) as Map;
+        jsonMap["ID"] = recipe.tradeID;
+        // print(jsonMap);
+        final response = await walletsStore.fulfillTrade(jsonMap);
+
+        Navigator.pop(context);
+
+        debugPrint("${response.success ? response.data : response.error}");
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text("${response.success ? "Successfully purchased this NFT." : response.error}")));
+    }
   }
 
   void _showLoading(BuildContext context) {

@@ -71,6 +71,7 @@ class WalletsStoreImp implements WalletsStore {
       (fail) => loadWalletsFailureObservable.value = fail,
       (newWallets) => wallets.value = newWallets,
     );
+
     areWalletsLoadingObservable.value = false;
     _queryClient = pylons.QueryClient(this.baseEnv.networkInfo.gRPCChannel);
   }
