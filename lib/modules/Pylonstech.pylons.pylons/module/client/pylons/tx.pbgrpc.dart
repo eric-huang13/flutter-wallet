@@ -14,6 +14,12 @@ import 'tx.pb.dart' as $1;
 export 'tx.pb.dart';
 
 class MsgClient extends $grpc.Client {
+  static final _$burnDebtToken =
+      $grpc.ClientMethod<$1.MsgBurnDebtToken, $1.MsgBurnDebtTokenResponse>(
+          '/Pylonstech.pylons.pylons.Msg/BurnDebtToken',
+          ($1.MsgBurnDebtToken value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $1.MsgBurnDebtTokenResponse.fromBuffer(value));
   static final _$updateAccount =
       $grpc.ClientMethod<$1.MsgUpdateAccount, $1.MsgUpdateAccountResponse>(
           '/Pylonstech.pylons.pylons.Msg/UpdateAccount',
@@ -110,6 +116,12 @@ class MsgClient extends $grpc.Client {
       {$grpc.CallOptions? options,
       $core.Iterable<$grpc.ClientInterceptor>? interceptors})
       : super(channel, options: options, interceptors: interceptors);
+
+  $grpc.ResponseFuture<$1.MsgBurnDebtTokenResponse> burnDebtToken(
+      $1.MsgBurnDebtToken request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$burnDebtToken, request, options: options);
+  }
 
   $grpc.ResponseFuture<$1.MsgUpdateAccountResponse> updateAccount(
       $1.MsgUpdateAccount request,
@@ -208,6 +220,15 @@ abstract class MsgServiceBase extends $grpc.Service {
   $core.String get $name => 'Pylonstech.pylons.pylons.Msg';
 
   MsgServiceBase() {
+    $addMethod(
+        $grpc.ServiceMethod<$1.MsgBurnDebtToken, $1.MsgBurnDebtTokenResponse>(
+            'BurnDebtToken',
+            burnDebtToken_Pre,
+            false,
+            false,
+            ($core.List<$core.int> value) =>
+                $1.MsgBurnDebtToken.fromBuffer(value),
+            ($1.MsgBurnDebtTokenResponse value) => value.writeToBuffer()));
     $addMethod(
         $grpc.ServiceMethod<$1.MsgUpdateAccount, $1.MsgUpdateAccountResponse>(
             'UpdateAccount',
@@ -344,6 +365,12 @@ abstract class MsgServiceBase extends $grpc.Service {
             ($1.MsgUpdateCookbookResponse value) => value.writeToBuffer()));
   }
 
+  $async.Future<$1.MsgBurnDebtTokenResponse> burnDebtToken_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$1.MsgBurnDebtToken> request) async {
+    return burnDebtToken(call, await request);
+  }
+
   $async.Future<$1.MsgUpdateAccountResponse> updateAccount_Pre(
       $grpc.ServiceCall call,
       $async.Future<$1.MsgUpdateAccount> request) async {
@@ -428,6 +455,8 @@ abstract class MsgServiceBase extends $grpc.Service {
     return updateCookbook(call, await request);
   }
 
+  $async.Future<$1.MsgBurnDebtTokenResponse> burnDebtToken(
+      $grpc.ServiceCall call, $1.MsgBurnDebtToken request);
   $async.Future<$1.MsgUpdateAccountResponse> updateAccount(
       $grpc.ServiceCall call, $1.MsgUpdateAccount request);
   $async.Future<$1.MsgFulfillTradeResponse> fulfillTrade(

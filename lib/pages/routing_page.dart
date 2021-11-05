@@ -38,6 +38,7 @@ class _RoutingPageState extends State<RoutingPage> {
 
       // Assigning the latest wallet to the app.
       PylonsApp.currentWallet = walletsStore.getWallets().value.last;
+      //Navigator.of(context).push(MaterialPageRoute(builder: (_) => Dashboard()));
       Navigator.of(context).push(MaterialPageRoute(builder: (_) => NewHomeScreen()));
     }
 

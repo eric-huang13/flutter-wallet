@@ -1,11 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/pylons_dashboard_filter.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/pages/home/home_activity.dart';
 import 'package:pylons_wallet/pages/home/home_following.dart';
 import 'package:pylons_wallet/pages/home/home_recommendation.dart';
 import 'package:pylons_wallet/pages/home/notification.dart';
+import 'package:pylons_wallet/stores/wallet_store.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -15,11 +17,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String dropdownValue = 'my_activity'.tr();
+  String dropdownValue = 'recommended'.tr();
 
   List<String> spinnerItems = [
-    'my_activity'.tr(),
     'recommended'.tr(),
+    'my_activity'.tr(),
     'following'.tr(),
   ];
 
@@ -89,6 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
 */
   @override
   Widget build(BuildContext context) {
+
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
@@ -98,7 +101,10 @@ class _HomeScreenState extends State<HomeScreen> {
           forceElevated: true,
           collapsedHeight: kAppBarSize,
           backgroundColor: Colors.white,
-          leading: IconButton(onPressed: () {}, icon: const ImageIcon(AssetImage('assets/icons/sort.png'), size: kIconSize, color: kSelectedIcon)),
+          leading: IconButton(onPressed: () {
+            Scaffold.of(context).openDrawer();
+
+          }, icon: const ImageIcon(AssetImage('assets/icons/sort.png'), size: kIconSize, color: kSelectedIcon)),
           actions: [
             IconButton(
                 icon: const ImageIcon(

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cosmos_utils/mnemonic.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -14,6 +15,8 @@ import 'package:pylons_wallet/pylons_app.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:pylons_wallet/components/loading.dart';
+import 'package:pylons_wallet/components/alert.dart';
 
 
 PageController _controller = PageController();
@@ -89,10 +92,47 @@ class PresentingOnboardPage extends StatelessWidget {
       )),
     );
   }
+  /// Create the new wallet and associate the choosen username with it.
+  Future _registerNewUser(String userName, BuildContext context) async {
+    final _mnemonic = await generateMnemonic();
+    final _username = userName;
+
+    final diag = Loading().showLoading();
+
+    final isAccountExists = await walletsStore.isAccountExists(_username);
+    if(isAccountExists){
+      diag.dismiss();
+      Alert.SnackbarAlert(context, "User name already exists!");
+      return;
+    }
 
 
 
+    PylonsApp.currentWallet = await walletsStore.importAlanWallet(_mnemonic, _username);
 
+    //await walletsStore.broadcastWalletCreationMessageOnBlockchain(
+    //    walletsStore.getWallets().value.last, wallet.bech32Address, userName);
+
+    // print("Wallet add: ${value.publicAddress} ${value.name} ${value.chainId}");
+    diag.dismiss();
+
+    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => const NewHomeScreen()), (route) => true);
+  }
+/*
+  void onCreateAccountPressed(BuildContext context) {
+    FocusScope.of(context).requestFocus(FocusNode());
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30.0),
+            topRight: Radius.circular(30.0),
+          ),
+        ),
+        builder: (context) => Wrap(children: [NewUserForm(onValidate: (userName) => _registerNewUser(userName, context))]));
+  }
+ */
 }
 
 class OnboardingPageView extends StatefulWidget {
@@ -104,6 +144,7 @@ class _OnboardingPageViewState extends State<OnboardingPageView> {
   // static const TextStyle textLooks = TextStyle(fontFamily: 'Inter');
 
   var _currentPage = 0;
+  Timer? timer = null;
 
   @override
   void initState() {
@@ -111,7 +152,7 @@ class _OnboardingPageViewState extends State<OnboardingPageView> {
 
     // TODO enable it later causing issue in testing
     const interval = Duration(seconds: 5);
-    final timer = Timer.periodic(interval, (Timer timer) {
+    timer = Timer.periodic(interval, (Timer timer) {
       if (_currentPage <= 2) {
         _currentPage++;
       } else {
@@ -129,6 +170,9 @@ class _OnboardingPageViewState extends State<OnboardingPageView> {
   void dispose() {
     _controller.dispose();
     super.dispose();
+    if(timer != null){
+      timer?.cancel();
+    }
   }
 
   @override

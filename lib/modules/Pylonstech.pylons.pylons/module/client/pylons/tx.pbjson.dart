@@ -8,6 +8,24 @@
 import 'dart:core' as $core;
 import 'dart:convert' as $convert;
 import 'dart:typed_data' as $typed_data;
+@$core.Deprecated('Use msgBurnDebtTokenDescriptor instead')
+const MsgBurnDebtToken$json = const {
+  '1': 'MsgBurnDebtToken',
+  '2': const [
+    const {'1': 'creator', '3': 1, '4': 1, '5': 9, '10': 'creator'},
+    const {'1': 'redeemInfo', '3': 2, '4': 1, '5': 11, '6': '.Pylonstech.pylons.pylons.RedeemInfo', '8': const {}, '10': 'redeemInfo'},
+  ],
+};
+
+/// Descriptor for `MsgBurnDebtToken`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List msgBurnDebtTokenDescriptor = $convert.base64Decode('ChBNc2dCdXJuRGVidFRva2VuEhgKB2NyZWF0b3IYASABKAlSB2NyZWF0b3ISSgoKcmVkZWVtSW5mbxgCIAEoCzIkLlB5bG9uc3RlY2gucHlsb25zLnB5bG9ucy5SZWRlZW1JbmZvQgTI3h8AUgpyZWRlZW1JbmZv');
+@$core.Deprecated('Use msgBurnDebtTokenResponseDescriptor instead')
+const MsgBurnDebtTokenResponse$json = const {
+  '1': 'MsgBurnDebtTokenResponse',
+};
+
+/// Descriptor for `MsgBurnDebtTokenResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List msgBurnDebtTokenResponseDescriptor = $convert.base64Decode('ChhNc2dCdXJuRGVidFRva2VuUmVzcG9uc2U=');
 @$core.Deprecated('Use msgUpdateAccountDescriptor instead')
 const MsgUpdateAccount$json = const {
   '1': 'MsgUpdateAccount',
@@ -52,11 +70,12 @@ const MsgFulfillTrade$json = const {
     const {'1': 'ID', '3': 2, '4': 1, '5': 4, '10': 'ID'},
     const {'1': 'coinInputsIndex', '3': 3, '4': 1, '5': 4, '10': 'coinInputsIndex'},
     const {'1': 'items', '3': 4, '4': 3, '5': 11, '6': '.Pylonstech.pylons.pylons.ItemRef', '8': const {}, '10': 'items'},
+    const {'1': 'paymentInfos', '3': 5, '4': 3, '5': 11, '6': '.Pylonstech.pylons.pylons.PaymentInfo', '8': const {}, '10': 'paymentInfos'},
   ],
 };
 
 /// Descriptor for `MsgFulfillTrade`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List msgFulfillTradeDescriptor = $convert.base64Decode('Cg9Nc2dGdWxmaWxsVHJhZGUSGAoHY3JlYXRvchgBIAEoCVIHY3JlYXRvchIOCgJJRBgCIAEoBFICSUQSKAoPY29pbklucHV0c0luZGV4GAMgASgEUg9jb2luSW5wdXRzSW5kZXgSPQoFaXRlbXMYBCADKAsyIS5QeWxvbnN0ZWNoLnB5bG9ucy5weWxvbnMuSXRlbVJlZkIEyN4fAFIFaXRlbXM=');
+final $typed_data.Uint8List msgFulfillTradeDescriptor = $convert.base64Decode('Cg9Nc2dGdWxmaWxsVHJhZGUSGAoHY3JlYXRvchgBIAEoCVIHY3JlYXRvchIOCgJJRBgCIAEoBFICSUQSKAoPY29pbklucHV0c0luZGV4GAMgASgEUg9jb2luSW5wdXRzSW5kZXgSPQoFaXRlbXMYBCADKAsyIS5QeWxvbnN0ZWNoLnB5bG9ucy5weWxvbnMuSXRlbVJlZkIEyN4fAFIFaXRlbXMSTwoMcGF5bWVudEluZm9zGAUgAygLMiUuUHlsb25zdGVjaC5weWxvbnMucHlsb25zLlBheW1lbnRJbmZvQgTI3h8AUgxwYXltZW50SW5mb3M=');
 @$core.Deprecated('Use msgFulfillTradeResponseDescriptor instead')
 const MsgFulfillTradeResponse$json = const {
   '1': 'MsgFulfillTradeResponse',
@@ -196,11 +215,12 @@ const MsgExecuteRecipe$json = const {
     const {'1': 'recipeID', '3': 3, '4': 1, '5': 9, '10': 'recipeID'},
     const {'1': 'coinInputsIndex', '3': 4, '4': 1, '5': 4, '10': 'coinInputsIndex'},
     const {'1': 'itemIDs', '3': 5, '4': 3, '5': 9, '8': const {}, '10': 'itemIDs'},
+    const {'1': 'paymentInfos', '3': 6, '4': 3, '5': 11, '6': '.Pylonstech.pylons.pylons.PaymentInfo', '8': const {}, '10': 'paymentInfos'},
   ],
 };
 
 /// Descriptor for `MsgExecuteRecipe`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List msgExecuteRecipeDescriptor = $convert.base64Decode('ChBNc2dFeGVjdXRlUmVjaXBlEhgKB2NyZWF0b3IYASABKAlSB2NyZWF0b3ISHgoKY29va2Jvb2tJRBgCIAEoCVIKY29va2Jvb2tJRBIaCghyZWNpcGVJRBgDIAEoCVIIcmVjaXBlSUQSKAoPY29pbklucHV0c0luZGV4GAQgASgEUg9jb2luSW5wdXRzSW5kZXgSHgoHaXRlbUlEcxgFIAMoCUIEyN4fAFIHaXRlbUlEcw==');
+final $typed_data.Uint8List msgExecuteRecipeDescriptor = $convert.base64Decode('ChBNc2dFeGVjdXRlUmVjaXBlEhgKB2NyZWF0b3IYASABKAlSB2NyZWF0b3ISHgoKY29va2Jvb2tJRBgCIAEoCVIKY29va2Jvb2tJRBIaCghyZWNpcGVJRBgDIAEoCVIIcmVjaXBlSUQSKAoPY29pbklucHV0c0luZGV4GAQgASgEUg9jb2luSW5wdXRzSW5kZXgSHgoHaXRlbUlEcxgFIAMoCUIEyN4fAFIHaXRlbUlEcxJPCgxwYXltZW50SW5mb3MYBiADKAsyJS5QeWxvbnN0ZWNoLnB5bG9ucy5weWxvbnMuUGF5bWVudEluZm9CBMjeHwBSDHBheW1lbnRJbmZvcw==');
 @$core.Deprecated('Use msgExecuteRecipeResponseDescriptor instead')
 const MsgExecuteRecipeResponse$json = const {
   '1': 'MsgExecuteRecipeResponse',

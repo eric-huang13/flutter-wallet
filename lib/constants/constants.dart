@@ -21,7 +21,21 @@ const String kImage2 = "https://images.unsplash.com/photo-1632765265861-55e0726b
 const String kImage3 = "https://images.unsplash.com/photo-1632687222219-93f0ecb7dab0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80";
 const List<String> kImageList = [kImage, kImage1, kImage2, kImage3];
 
+//image card
 
+class Constants {
+  static String kCardBG1 = "assets/icons/purple_card.png";
+  static String kCardBG2 = "assets/icons/orange_card.png";
+  static String kCardBG3 = "assets/icons/black_card.png";
+  static String kCardBG4 = "assets/icons/grey_card.png";
+  static List<String> kCardBGList = [kCardBG1, kCardBG2, kCardBG3, kCardBG4];
 
-
-
+  static Map<String, dynamic> kCoinDenom = {
+    'upylon': {
+      "name": "Pylon",
+      "denom": "upylon",
+      "short": "pylon",
+      "icon": "assets/icons/ico_pylon.png"
+    },
+  };
+}

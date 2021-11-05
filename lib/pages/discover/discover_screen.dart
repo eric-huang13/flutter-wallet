@@ -84,7 +84,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                         child: InkWell(
                           child: CachedNetworkImage(imageUrl: _getImage(index), fit: BoxFit.cover),
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailScreenWidget(isOwner: false)));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreenWidget()));
                           },
                         )));
               },

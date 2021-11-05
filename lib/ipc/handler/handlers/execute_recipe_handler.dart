@@ -7,7 +7,8 @@ import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 
 class ExecuteRecipeHandler implements BaseHandler {
-  final SDKIPCMessage sdkipcMessage;
+  @override
+  SDKIPCMessage sdkipcMessage;
 
   ExecuteRecipeHandler(this.sdkipcMessage);
 

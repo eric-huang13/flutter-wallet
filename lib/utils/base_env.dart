@@ -28,13 +28,15 @@ class BaseEnv {
           host: grpcUrl,
           port: int.parse(grpcPort),
           credentials: (dotenv.env['ENV']! == "local")
-              ? const ChannelCredentials.insecure()
-              : ChannelCredentials.secure(
-                  onBadCertificate: (cert, host) {
-                    debugPrint("host: $host, cert: $cert");
-                    return true;
-                  },
-                )),
+              ? const ChannelCredentials.insecure() :
+              const ChannelCredentials.insecure(),
+              //: ChannelCredentials.secure(
+              //    onBadCertificate: (cert, host) {
+              //      debugPrint("host: $host, cert: $cert");
+              //      return true;
+              //    },
+              //  )
+              ),
     );
     _baseApiUrl = "$lcdUrl:$lcdPort";
     _baseEthUrl = ethUrl;

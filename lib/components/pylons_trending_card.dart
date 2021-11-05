@@ -30,7 +30,7 @@ class PylonsTrendingCard extends StatelessWidget {
                 icon: const ImageIcon(AssetImage('assets/images/icon/add_friend.png')),
               ),
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailScreenWidget(isOwner: false)));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreenWidget()));
               },
             )),
           ]),
