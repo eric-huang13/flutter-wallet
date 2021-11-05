@@ -10,7 +10,6 @@ import 'package:pylons_wallet/stores/wallet_store.dart';
 
 /// This handler handles the create cook book transaction request from 3 party apps
 class CreateCookBookHandler implements BaseHandler {
-
   CreateCookBookHandler(this.sdkipcMessage);
 
   @override
@@ -26,11 +25,10 @@ class CreateCookBookHandler implements BaseHandler {
     loading.dismiss();
     response.sender = sdkipcMessage.sender;
     response.action = sdkipcMessage.action;
-    if (response.error == ""){
+    if (response.error == "") {
       SnackbarToast.show("Coookbook ${jsonMap['name']} Created");
     } else {
       SnackbarToast.show("Recipe ${jsonMap['name']} error: ${response.error}");
-
     }
 
     debugPrint('Response $response');

@@ -42,11 +42,11 @@ abstract class WalletsStore {
     String toAddress,
   );
 
-
   /// This method creates the cookbook
   /// Input : [Map] containing the info related to the creation of cookbook
   /// Output : [String] response
   Future<SDKIPCResponse> createCookBook(Map json);
+
   /// This method is for create recipe
   /// MsgCreateRecipe proto
   /// request fields: { String creator, String cookbookID, String ID, String name, String description, String version, List<CoinInput> coinInputs, List<ItemInput> itemInput, List<EntriesList> entries, List<WeightedOutputs> outputs, Int64 blockInterval}
@@ -144,6 +144,11 @@ abstract class WalletsStore {
   /// Input:[String] username
   /// Output" [bool] if exists true, else false
   Future<bool> isAccountExists(String username);
+
+  /// This method creates the recipe in the block chain
+  /// Input : [Map] containing the info related to the updation of recipe
+  /// Output : [SDKIPCResponse] response
+  Future<SDKIPCResponse> updateRecipe(Map<dynamic, dynamic> jsonMap);
 
   Observable<List<WalletPublicInfo>> getWallets();
 

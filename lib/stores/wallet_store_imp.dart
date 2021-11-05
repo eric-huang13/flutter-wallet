@@ -197,11 +197,10 @@ class WalletsStoreImp implements WalletsStore {
   }
 
   Future<SDKIPCResponse> _signAndBroadcast(GeneratedMessage message) async {
-
     final unsignedTransaction = UnsignedAlanTransaction(messages: [message]);
 
     final walletsResultEither =
-    await _customTransactionSigningGateway.getWalletsList();
+        await _customTransactionSigningGateway.getWalletsList();
 
     if (walletsResultEither.isLeft()) {
       return SDKIPCResponse.failure(
@@ -220,10 +219,7 @@ class WalletsStoreImp implements WalletsStore {
           transaction: '');
     }
 
-    final info = accountsList.last;
-
     final walletLookupKey = createWalletLookUp(info);
-
 
     final signedTransaction = await _transactionSigningGateway.signTransaction(
         transaction: unsignedTransaction, walletLookupKey: walletLookupKey);
@@ -237,7 +233,7 @@ class WalletsStoreImp implements WalletsStore {
     }
 
     final response =
-    await _customTransactionSigningGateway.broadcastTransaction(
+        await _customTransactionSigningGateway.broadcastTransaction(
       walletLookupKey: walletLookupKey,
       transaction: signedTransaction.toOption().toNullable()!,
     );
@@ -352,7 +348,6 @@ class WalletsStoreImp implements WalletsStore {
 
   @override
   Future<List<Item>> getItemsByOwner(String owner) async {
-
     final request = pylons.QueryListItemByOwnerRequest.create()..owner = owner;
     final response = await _queryClient.listItemByOwner(request);
     return response.items;
@@ -397,12 +392,12 @@ class WalletsStoreImp implements WalletsStore {
 
   @override
   Future<List<Trade>> getTrades(String creator) async {
-    final request= pylons.QueryListTradesByCreatorRequest.create() ..creator= creator;
+    final request = pylons.QueryListTradesByCreatorRequest.create()
+      ..creator = creator;
     final response = await _queryClient.listTradesByCreator(request);
 
     return response.trades;
   }
-
 
   /**
    * Please think around to retrieve TxResponse
@@ -504,6 +499,4 @@ class WalletsStoreImp implements WalletsStore {
     final response = await _queryClient.listExecutionsByRecipe(request);
     return response.completedExecutions;
   }
-
-
 }
