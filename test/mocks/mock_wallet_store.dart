@@ -188,4 +188,10 @@ class MockWalletStore implements WalletsStore {
     // TODO: implement getTrades
     throw UnimplementedError();
   }
+
+  @override
+  Future<SDKIPCResponse> updateRecipe(Map jsonMap) {
+    // TODO: implement updateRecipe
+    throw UnimplementedError();
+  }
 }

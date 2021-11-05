@@ -218,7 +218,7 @@ class WalletsStoreImp implements WalletsStore {
           errorCode: HandlerFactory.ERR_PROFILE_DOES_NOT_EXIST,
           transaction: '');
     }
-
+    final info = accountsList.last;
     final walletLookupKey = createWalletLookUp(info);
 
     final signedTransaction = await _transactionSigningGateway.signTransaction(
@@ -498,5 +498,12 @@ class WalletsStoreImp implements WalletsStore {
       ..recipeID = recipeID;
     final response = await _queryClient.listExecutionsByRecipe(request);
     return response.completedExecutions;
+  }
+
+  @override
+  Future<SDKIPCResponse> updateRecipe(Map jsonMap) async {
+    final msgObj = pylons.MsgExecuteRecipe.create()..mergeFromProto3Json(json);
+    msgObj.creator = wallets.value.last.publicAddress;
+    return await _signAndBroadcast(msgObj);
   }
 }
