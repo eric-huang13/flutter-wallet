@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:mobx/src/core.dart';
 import 'package:pylons_wallet/entities/balance.dart';
@@ -6,6 +7,7 @@ import 'package:pylons_wallet/modules/cosmos.authz.v1beta1/module/client/cosmos/
 import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
 import 'package:pylons_wallet/stores/models/transaction_response.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
+import 'package:pylons_wallet/utils/failure/failure.dart';
 import 'package:transaction_signing_gateway/alan/alan_private_wallet_credentials.dart';
 import 'package:transaction_signing_gateway/gateway/transaction_signing_gateway.dart';
 import 'package:transaction_signing_gateway/model/credentials_storage_failure.dart';
@@ -110,11 +112,6 @@ class MockWalletStore implements WalletsStore {
     throw UnimplementedError();
   }
 
-  @override
-  Future<Recipe> getRecipe(String cookbookID, String recipeID) {
-    // TODO: implement getRecipe
-    throw UnimplementedError();
-  }
 
   @override
   Future<List<Recipe>> getRecipesByCookbookID(String cookbookID) {
@@ -192,6 +189,18 @@ class MockWalletStore implements WalletsStore {
   @override
   Future<SDKIPCResponse> updateRecipe(Map jsonMap) {
     // TODO: implement updateRecipe
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<SDKIPCResponse> enableRecipe(Map<dynamic, dynamic> jsonMap) {
+    // TODO: implement enableRecipe
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Recipe>> getRecipe(String cookbookID, String recipeID) {
+    // TODO: implement getRecipe
     throw UnimplementedError();
   }
 }

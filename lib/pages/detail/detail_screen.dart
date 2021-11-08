@@ -101,8 +101,10 @@ class _DetailScreenWidgetState extends State<DetailScreenWidget> with SingleTick
       
       case DetailPageType.typeRecipe:
       {
-        final recipe = await walletsStore.getRecipe(widget.cookbookID, widget.recipeID);
-        if(recipe != null) {
+        final recipeResponse = await walletsStore.getRecipe(widget.cookbookID, widget.recipeID);
+        if(recipeResponse.isRight()) {
+
+          final recipe = recipeResponse.toOption().toNullable()!;
           setState((){
             itemName = recipe.entries.itemOutputs.first.strings.firstWhere((e) => e.key == "Name").value;
 

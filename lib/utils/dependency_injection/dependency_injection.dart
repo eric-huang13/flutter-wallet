@@ -1,7 +1,10 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:pylons_wallet/ipc/handler/handler_factory.dart';
 import 'package:pylons_wallet/pylons_app.dart';
+import 'package:pylons_wallet/services/repository/repository.dart';
+import 'package:pylons_wallet/services/third_party_services/network_info.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/stores/wallet_store_imp.dart';
 import 'package:pylons_wallet/utils/base_env.dart';
@@ -17,6 +20,7 @@ import 'package:transaction_signing_gateway/alan/alan_transaction_signer.dart';
 import 'package:transaction_signing_gateway/gateway/transaction_signing_gateway.dart';
 import 'package:transaction_signing_gateway/mobile/mobile_key_info_storage.dart';
 import 'package:transaction_signing_gateway/mobile/no_op_transaction_summary_ui.dart';
+import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart' as pylons;
 
 final sl = GetIt.instance;
 
@@ -58,24 +62,26 @@ Future<void> init() async {
         ),
       ));
 
-
-
   sl.registerLazySingleton(() => CustomTransactionSigningGateway(
-    transactionSummaryUI: NoOpTransactionSummaryUI(),
-    signers: [
-      CustomTransactionSigner(sl.get<BaseEnv>().networkInfo),
-    ],
-    broadcasters: [
-      CustomTransactionBroadcasterImp(sl.get<BaseEnv>().networkInfo),
-    ],
-    infoStorage: MobileKeyInfoStorage(
-      serializers: [AlanCredentialsSerializer()],
-    ),
-  ));
+        transactionSummaryUI: NoOpTransactionSummaryUI(),
+        signers: [
+          CustomTransactionSigner(sl.get<BaseEnv>().networkInfo),
+        ],
+        broadcasters: [
+          CustomTransactionBroadcasterImp(sl.get<BaseEnv>().networkInfo),
+        ],
+        infoStorage: MobileKeyInfoStorage(
+          serializers: [AlanCredentialsSerializer()],
+        ),
+      ));
 
+  sl.registerLazySingleton<WalletsStore>(() => WalletsStoreImp(sl(), sl(), sl(), repository: sl()));
 
+  /// Services
+  sl.registerLazySingleton<InternetConnectionChecker>(() => InternetConnectionChecker());
+  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
+  sl.registerLazySingleton<pylons.QueryClient>(() => pylons.QueryClient(sl.get<BaseEnv>().networkInfo.gRPCChannel));
 
-
-
-  sl.registerLazySingleton<WalletsStore>(() => WalletsStoreImp(sl(), sl(), sl()));
+  /// Repository
+  sl.registerLazySingleton<Repository>(() => RepositoryImp(networkInfo: sl(), queryClient: sl()));
 }

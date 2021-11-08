@@ -43,6 +43,16 @@ dependencies:
 
   url_launcher: ^6.0.12
 
+
+  dartz: ^0.10.0
+
+  equatable: ^2.0.3
+
+
+  internet_connection_checker: ^0.0.1+3
+
+
+
   # For dependency injection
   get_it: ^7.2.0
 

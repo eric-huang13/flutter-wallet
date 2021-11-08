@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:pylons_wallet/ipc/handler/base_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/create_cook_book_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/create_recipe_handler.dart';
+import 'package:pylons_wallet/ipc/handler/handlers/enable_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/execute_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/update_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_message.dart';
@@ -38,6 +39,9 @@ class HandlerFactory {
   static const String ERR_ITEM_NOT_OWNED = 'itemNotOwned';
   static const String ERR_MISSING_ITEM_INPUTS = 'missingItemInputs';
   static const String ERR_SOMETHING_WENT_WRONG = 'somethingWentWrong';
+  static const String ERR_FETCHING_WALLETS = 'walletsNotFetched';
+  static const String ERR_CANNOT_FETCH_RECIPE = 'recipeCannotBeFetched';
+  static const String ERR_SIG_TRANSACTION = 'errorSigningTransaction';
 
   BaseHandler getHandler(SDKIPCMessage sdkipcMessage) {
     if (sdkipcMessage.action == TX_CREATE_COOKBOOK) {
@@ -53,6 +57,11 @@ class HandlerFactory {
 
     if (sdkipcMessage.action == TX_UPDATE_RECIPE) {
       return UpdateRecipeHandler(sdkipcMessage);
+    }
+
+
+    if (sdkipcMessage.action == TX_ENABLE_RECIPE) {
+      return EnableRecipeHandler(sdkipcMessage);
     }
 
 

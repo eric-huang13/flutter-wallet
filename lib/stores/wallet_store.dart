@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:mobx/mobx.dart';
 import 'package:pylons_wallet/entities/balance.dart';
@@ -5,6 +6,7 @@ import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dar
 import 'package:pylons_wallet/modules/cosmos.authz.v1beta1/module/export.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
 import 'package:pylons_wallet/stores/models/transaction_response.dart';
+import 'package:pylons_wallet/utils/failure/failure.dart';
 import 'package:transaction_signing_gateway/gateway/transaction_signing_gateway.dart';
 import 'package:transaction_signing_gateway/model/credentials_storage_failure.dart';
 import 'package:transaction_signing_gateway/model/transaction_hash.dart';
@@ -99,8 +101,9 @@ abstract class WalletsStore {
 
   /// This method is for get Recipe Info
   /// Input : [cookbookID, recipeID]
-  /// Output : [Recipe] return Recipe of cookbookID, recipeID, return null if not exists
-  Future<Recipe?> getRecipe(String cookbookID, String recipeID);
+  /// Output : [Recipe] return Recipe of cookbookID, recipeID,
+  /// else throws error
+  Future<Either<Failure,  Recipe>> getRecipe(String cookbookID, String recipeID);
 
   /// This method is for get List of Recipe of cookbookID
   /// Input : [cookbookID]
@@ -154,4 +157,10 @@ abstract class WalletsStore {
 
   Observable<bool> getAreWalletsLoading();
   Observable<CredentialsStorageFailure?> getLoadWalletsFailure();
+
+
+  /// This method enables the recipe int the recipe in the blockchain
+  /// Input : [Map] containing the info related to the updation of recipe
+  /// Output : [SDKIPCResponse] response
+  Future<SDKIPCResponse> enableRecipe(Map<dynamic, dynamic> jsonMap);
 }

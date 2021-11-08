@@ -186,10 +186,10 @@ class IPCEngine {
 
     navigatorKey.currentState!.pop();
 
-    if (recipeResult == null) {
+    if (recipeResult.isLeft()) {
       ScaffoldMessenger.of(navigatorKey.currentState!.overlay!.context)
           .showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text("NFT not exists"),
         ),
       );
@@ -197,7 +197,7 @@ class IPCEngine {
       navigatorKey.currentState!.push(
         MaterialPageRoute(
           builder: (_) => PurchaseItemScreen(
-            nft: NFT.fromRecipe(recipeResult),
+            nft: NFT.fromRecipe(recipeResult.toOption().toNullable()!),
           ),
         ),
       );
@@ -218,7 +218,7 @@ class IPCEngine {
     if (recipeResult == null) {
       ScaffoldMessenger.of(navigatorKey.currentState!.overlay!.context)
           .showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text("NFT not exists"),
         ),
       );
@@ -247,7 +247,7 @@ class IPCEngine {
     if (recipeResult == null) {
       ScaffoldMessenger.of(navigatorKey.currentState!.overlay!.context)
           .showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text("NFT not exists"),
         ),
       );
@@ -286,13 +286,12 @@ class IPCEngine {
   /// Input : [sdkIPCMessage] The sender of the signal
   /// Output : [key] The signal kind against which the signal is sent
   Future showApprovalDialog({required SDKIPCMessage sdkIPCMessage}) {
-    final handler = GetIt.I.get<HandlerFactory>().getHandler(sdkIPCMessage);
     return showDialog(
         barrierDismissible: false,
         context: navigatorKey.currentState!.overlay!.context,
         builder: (_) => AlertDialog(
               content: Text(
-                  'Will you sign this ${sdkIPCMessage.action}:\n "${handler.getName()}"?',
+                  'Will you sign this ${sdkIPCMessage.action}:\n "?',
                   style: TextStyle(fontSize: 18)),
               actions: [
                 RaisedButton(
