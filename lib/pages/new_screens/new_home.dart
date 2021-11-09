@@ -20,15 +20,15 @@ class _NewHomeScreenState extends State<NewHomeScreen>
   final List<Widget> myTabs = <Widget>[
     Padding(
       padding: const EdgeInsets.all(4.0),
-      child: Text('currency'.tr(), style: TextStyle(fontFamily: 'Inter', fontSize: 15, fontWeight: FontWeight.w500)),
+      child: Text('nft_collection'.tr(), style: TextStyle(fontFamily: 'Inter', fontSize: 15, fontWeight: FontWeight.w500)),
     ),
     Padding(
       padding: const EdgeInsets.all(4.0),
-      child: Text('nft_collection'.tr(), style: TextStyle(fontFamily: 'Inter', fontSize: 15, fontWeight: FontWeight.w500)),
+      child: Text('currency'.tr(), style: TextStyle(fontFamily: 'Inter', fontSize: 15, fontWeight: FontWeight.w500)),
     ),
   ];
 
-  final List<Widget> _pages = <Widget>[const CurrencyScreen(), const CollectionScreen()];
+  final List<Widget> _pages = <Widget>[const CollectionScreen(), const CurrencyScreen()];
 
   @override
   void initState() {
@@ -55,25 +55,28 @@ class _NewHomeScreenState extends State<NewHomeScreen>
     return Container(
       color: Colors.white,
       child: SafeArea(
-        child: DefaultTabController(
-          length: 2,
-          initialIndex: tabIndex,
-          child: Scaffold(
-            appBar: TabBar(
-              labelColor: Colors.black,
-              unselectedLabelColor: Colors.grey[700],
-              indicatorSize: TabBarIndicatorSize.tab,
-              indicatorColor: kPeachDark,
-              labelStyle: const TextStyle(fontSize: 16),
-              tabs: myTabs,
-              padding: const EdgeInsets.only(top: 20),
-            ),
-            body: TabBarView(
-              // physics: NeverScrollableScrollPhysics(),
-              children: _pages,
+        child: WillPopScope(
+        onWillPop: () async => false,
+          child:DefaultTabController(
+            length: 2,
+            initialIndex: tabIndex,
+            child: Scaffold(
+              appBar: TabBar(
+                labelColor: Colors.black,
+                unselectedLabelColor: Colors.grey[700],
+                indicatorSize: TabBarIndicatorSize.tab,
+                indicatorColor: kPeachDark,
+                labelStyle: const TextStyle(fontSize: 16),
+                tabs: myTabs,
+                padding: const EdgeInsets.only(top: 20),
+              ),
+              body: TabBarView(
+                // physics: NeverScrollableScrollPhysics(),
+                children: _pages,
+              ),
             ),
           ),
-        ),
+        )
       ),
     );
   }

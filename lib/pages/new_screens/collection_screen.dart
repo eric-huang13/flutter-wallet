@@ -150,8 +150,14 @@ class _CollectionScreenState extends State<CollectionScreen>{
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (_) =>  AssetDetailViewScreen(nftItem: assets[index])));
+                        if(assets[index].type == nftType.type_recipe){
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (_) =>  PurchaseItemScreen(
+                                nft: recipes[index],)));
+                        }else{
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (_) =>  AssetDetailViewScreen(nftItem: assets[index])));
+                        }
                       },
                       child: ClipRRect(
                         borderRadius: const BorderRadius.all(Radius.circular(5)),
@@ -225,26 +231,73 @@ class _CollectionScreenState extends State<CollectionScreen>{
     }else if(_colType == collectionType[1].title) { //ticket
     }else if(_colType == collectionType[2].title) { //transfer
     }else if(_colType == collectionType[3].title){ // easel
+      final cookbooks = await walletsStore.getCookbooksByCreator(PylonsApp.currentWallet.publicAddress);
+
       final recipeList = await walletsStore.getRecipes();
       recipeList.forEach((element) {
         final nft = NFT.fromRecipe(element);
-        if(nft.appType.toLowerCase() == "easel"){
+
+        if(nft.appType.toLowerCase() == "easel" && cookbooks.any((e) => e.iD == nft.cookbookID)){
           setState((){
-            recipes.add(nft);
+            assets.add(nft);
           });
         }
       });
+      final items = await walletsStore.getItemsByOwner(PylonsApp.currentWallet.publicAddress);
+      items.forEach((e) async {
+        final nft = await NFT.fromItem(e);
+        if(nft.appType.toLowerCase() == "easel" && cookbooks.any((e) => e.iD == nft.cookbookID)) {
+          setState((){
+            assets.add(nft);
+          });
+        }
+      });
+
+      final trades = await walletsStore.getTrades(PylonsApp.currentWallet.publicAddress);
+      trades.forEach((trade) async {
+        final nft = await NFT.fromTrade(trade);
+        if(nft.appType.toLowerCase() == "easel" && cookbooks.any((e) => e.iD == nft.cookbookID)) {
+          setState(() {
+            assets.add(nft);
+          });
+        }
+      });
+
+
     }else if(_colType == collectionType[4].title){ // avatar
+      final cookbooks = await walletsStore.getCookbooksByCreator(PylonsApp.currentWallet.publicAddress);
+
       final recipeList = await walletsStore.getRecipes();
 
       recipeList.forEach((element) {
         final nft = NFT.fromRecipe(element);
-        if(nft.appType.toLowerCase() == "avatar"){
+        if(nft.appType.toLowerCase() == "avatar" && cookbooks.any((e) => e.iD == nft.cookbookID)){
           setState((){
-            recipes.add(nft);
+            assets.add(nft);
           });
         }
       });
+
+      final items = await walletsStore.getItemsByOwner(PylonsApp.currentWallet.publicAddress);
+      items.forEach((e) async {
+        final nft = await NFT.fromItem(e);
+        if(nft.appType.toLowerCase() == "avatar" && cookbooks.any((e) => e.iD == nft.cookbookID)) {
+          setState((){
+            assets.add(nft);
+          });
+        }
+      });
+
+      final trades = await walletsStore.getTrades(PylonsApp.currentWallet.publicAddress);
+      trades.forEach((trade) async {
+        final nft = await NFT.fromTrade(trade);
+        if(nft.appType.toLowerCase() == "avatar" && cookbooks.any((e) => e.iD == nft.cookbookID)) {
+          setState(() {
+            assets.add(nft);
+          });
+        }
+      });
+
     }
     loading.dismiss();
   }
