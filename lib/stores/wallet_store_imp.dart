@@ -1,40 +1,32 @@
 import 'dart:convert';
 
-import 'package:dartz/dartz.dart';
-import 'package:fixnum/fixnum.dart';
 import 'package:alan/alan.dart' as alan;
-import 'package:http/http.dart' as http;
 import 'package:cosmos_utils/extensions.dart';
 import 'package:cosmos_utils/future_either.dart';
-import 'package:grpc/grpc.dart';
+import 'package:dartz/dartz.dart';
+import 'package:fixnum/fixnum.dart';
+import 'package:http/http.dart' as http;
 import 'package:mobx/mobx.dart';
 import 'package:protobuf/protobuf.dart';
-import 'package:pylons_wallet/entities/activity.dart';
 import 'package:pylons_wallet/entities/balance.dart';
 import 'package:pylons_wallet/ipc/handler/handler_factory.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
-import 'package:pylons_wallet/localstorage/activity_database.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart' as pylons;
+import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart';
 import 'package:pylons_wallet/modules/cosmos.authz.v1beta1/module/client/cosmos/base/abci/v1beta1/abci.pb.dart';
-import 'package:pylons_wallet/pylons_app.dart';
 import 'package:pylons_wallet/services/repository/repository.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
-import 'package:pylons_wallet/transactions/pylons_balance.dart';
+import 'package:pylons_wallet/utils/base_env.dart';
 import 'package:pylons_wallet/utils/custom_transaction_signing_gateaway/custom_transaction_signing_gateway.dart';
 import 'package:pylons_wallet/utils/failure/failure.dart';
 import 'package:pylons_wallet/utils/query_helper.dart';
-import 'package:pylons_wallet/utils/base_env.dart';
-import 'package:pylons_wallet/utils/custom_transaction_signer/custom_transaction_signer.dart';
 import 'package:pylons_wallet/utils/token_sender.dart';
-import 'package:transaction_signing_gateway/alan/alan_transaction_broadcaster.dart';
 import 'package:transaction_signing_gateway/gateway/transaction_signing_gateway.dart';
-import 'package:transaction_signing_gateway/mobile/no_op_transaction_summary_ui.dart';
 import 'package:transaction_signing_gateway/model/credentials_storage_failure.dart';
 import 'package:transaction_signing_gateway/model/transaction_hash.dart';
 import 'package:transaction_signing_gateway/model/wallet_lookup_key.dart';
 import 'package:transaction_signing_gateway/model/wallet_public_info.dart';
 import 'package:transaction_signing_gateway/transaction_signing_gateway.dart';
-import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart';
 
 import 'models/transaction_response.dart';
 
@@ -351,7 +343,7 @@ class WalletsStoreImp implements WalletsStore {
    */
   @override
   Future<TxResponse> getTxs(String txHash) async {
-    final url = "${this.baseEnv.baseApiUrl}/txs/${txHash}";
+    final url = "${this.baseEnv.baseApiUrl}/txs/$txHash";
     final helper = QueryHelper(httpClient: _httpClient);
     final result = await helper.queryGet(url);
     if (!result.isSuccessful) {
@@ -412,7 +404,7 @@ class WalletsStoreImp implements WalletsStore {
   @override
   Future<bool> isAccountExists(String username) async {
     final helper = QueryHelper(httpClient: _httpClient);
-    final result = await helper.queryGet("${this.baseEnv.baseApiUrl}/pylons/account/username/${username}");
+    final result = await helper.queryGet("${this.baseEnv.baseApiUrl}/pylons/account/username/$username");
     if (!result.isSuccessful) {
       return false;
     }
@@ -462,12 +454,24 @@ class WalletsStoreImp implements WalletsStore {
     final recipe = response.toOption().toNullable()!;
     print(recipe);
 
-
     final msgObj = pylons.MsgUpdateRecipe.create()
       ..mergeFromProto3Json(recipe.toProto3Json())
       ..enabled = true
       ..version = version
-    ..creator = wallets.value.last.publicAddress;
+      ..creator = wallets.value.last.publicAddress;
     return _signAndBroadcast(msgObj);
+  }
+
+  @override
+  Future<SDKIPCResponse> getProfile() async {
+    final publicAddress = wallets.value.last.publicAddress;
+
+    final userNameEither = await repository.getUsername(address: publicAddress);
+
+    if (userNameEither.isLeft()) {
+      return SDKIPCResponse.failure(sender: '', error: userNameEither.swap().toOption().toNullable()!.message, errorCode: HandlerFactory.ERR_CANNOT_FETCH_USERNAME, transaction: '');
+    }
+
+    return SDKIPCResponse.success(data: {"username": userNameEither.getOrElse(() => '')}, sender: '', transaction: '');
   }
 }

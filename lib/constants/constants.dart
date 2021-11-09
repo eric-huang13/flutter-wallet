@@ -44,3 +44,4 @@ class Constants {
 
 const String NO_INTERNET = 'No internet';
 const String RECIPE_NOT_FOUND = 'Recipe not found';
+const String USERNAME_NOT_FOUND = 'Username not found';

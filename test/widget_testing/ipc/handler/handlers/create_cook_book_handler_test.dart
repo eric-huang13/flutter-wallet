@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/ipc/handler/handler_factory.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/create_cook_book_handler.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_message.dart';
+import 'package:pylons_wallet/pylons_app.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import '../../../../mocks/mock_constants.dart';
 import '../../../../mocks/mock_wallet_store.dart';
@@ -22,7 +24,15 @@ var MOCK_COOKBOOK = """
 }""";
 
 void main() {
-  test('test createCookBook handler', () async {
+  testWidgets('test createCookBook handler', (tester) async {
+
+
+
+
+    await tester.pumpWidget( MaterialApp(
+      navigatorKey: navigatorKey,
+      home: const Scaffold(),
+    ));
 
 
 
@@ -32,7 +42,7 @@ void main() {
 
 
 
-    final  sdkipcMessage = SDKIPCMessage(HandlerFactory.TX_CREATE_COOKBOOK, MOCK_COOKBOOK , 'Sending app');
+    final  sdkipcMessage = SDKIPCMessage(action: HandlerFactory.TX_CREATE_COOKBOOK, json: MOCK_COOKBOOK , sender: 'Sending app');
 
 
     final handler = CreateCookBookHandler(sdkipcMessage);

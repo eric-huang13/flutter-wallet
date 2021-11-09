@@ -8,6 +8,8 @@ import 'package:pylons_wallet/ipc/handler/handlers/execute_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/update_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_message.dart';
 
+import 'handlers/get_profile_handler.dart';
+
 class HandlerFactory {
   static const String GET_COOKBOOKS = 'getCookbooks';
   static const String GET_PROFILE = 'getProfile';
@@ -42,6 +44,7 @@ class HandlerFactory {
   static const String ERR_FETCHING_WALLETS = 'walletsNotFetched';
   static const String ERR_CANNOT_FETCH_RECIPE = 'recipeCannotBeFetched';
   static const String ERR_SIG_TRANSACTION = 'errorSigningTransaction';
+  static const String ERR_CANNOT_FETCH_USERNAME = 'cannotFetchUsername';
 
   BaseHandler getHandler(SDKIPCMessage sdkipcMessage) {
     if (sdkipcMessage.action == TX_CREATE_COOKBOOK) {
@@ -63,6 +66,12 @@ class HandlerFactory {
     if (sdkipcMessage.action == TX_ENABLE_RECIPE) {
       return EnableRecipeHandler(sdkipcMessage);
     }
+
+
+    if (sdkipcMessage.action == GET_PROFILE) {
+      return GetProfileHandler(sdkipcMessage);
+    }
+
 
 
     return CreateCookBookHandler(sdkipcMessage);

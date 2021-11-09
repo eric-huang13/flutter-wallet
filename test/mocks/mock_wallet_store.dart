@@ -2,27 +2,21 @@ import 'package:dartz/dartz.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:mobx/src/core.dart';
 import 'package:pylons_wallet/entities/balance.dart';
+import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart';
 import 'package:pylons_wallet/modules/cosmos.authz.v1beta1/module/client/cosmos/base/abci/v1beta1/abci.pb.dart';
-import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
-import 'package:pylons_wallet/stores/models/transaction_response.dart';
+import 'package:pylons_wallet/modules/cosmos.authz.v1beta1/module/export.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/failure/failure.dart';
 import 'package:transaction_signing_gateway/alan/alan_private_wallet_credentials.dart';
-import 'package:transaction_signing_gateway/gateway/transaction_signing_gateway.dart';
 import 'package:transaction_signing_gateway/model/credentials_storage_failure.dart';
-import 'package:transaction_signing_gateway/model/transaction_hash.dart';
 import 'package:transaction_signing_gateway/model/wallet_public_info.dart';
-import 'package:pylons_wallet/modules/cosmos.authz.v1beta1/module/export.dart';
 
 import 'mock_constants.dart';
 
 class MockWalletStore implements WalletsStore {
   @override
-  Future<SDKIPCResponse> broadcastWalletCreationMessageOnBlockchain(
-      AlanPrivateWalletCredentials creds,
-      String creatorAddress,
-      String userName) {
+  Future<SDKIPCResponse> broadcastWalletCreationMessageOnBlockchain(AlanPrivateWalletCredentials creds, String creatorAddress, String userName) {
     // TODO: implement broadcastWalletCreationMessageOnBlockchain
     throw UnimplementedError();
   }
@@ -58,16 +52,14 @@ class MockWalletStore implements WalletsStore {
   }
 
   @override
-  Future<void> sendCosmosMoney(
-      WalletPublicInfo info, Balance balance, String toAddress) {
+  Future<void> sendCosmosMoney(WalletPublicInfo info, Balance balance, String toAddress) {
     // TODO: implement sendCosmosMoney
     throw UnimplementedError();
   }
 
   @override
-  Future<SDKIPCResponse> createRecipe(Map json) {
-    // TODO: implement createRecipe
-    throw UnimplementedError();
+  Future<SDKIPCResponse> createRecipe(Map json) async {
+    return SDKIPCResponse.success(data: MOCK_TRANSACTION.txHash, sender: '', transaction: '');
   }
 
   @override
@@ -111,7 +103,6 @@ class MockWalletStore implements WalletsStore {
     // TODO: implement getItemsByOwner
     throw UnimplementedError();
   }
-
 
   @override
   Future<List<Recipe>> getRecipesByCookbookID(String cookbookID) {
@@ -162,16 +153,14 @@ class MockWalletStore implements WalletsStore {
   }
 
   @override
-  Future<List<Execution>> getRecipeEexecutions(
-      String cookbookID, String recipeID) {
+  Future<List<Execution>> getRecipeEexecutions(String cookbookID, String recipeID) {
     // TODO: implement getRecipeEexecutions
     throw UnimplementedError();
   }
 
   @override
-  Future<SDKIPCResponse> createCookBook(Map json) {
-    // TODO: implement createCookBook
-    throw UnimplementedError();
+  Future<SDKIPCResponse> createCookBook(Map json) async {
+    return SDKIPCResponse.success(data: MOCK_TRANSACTION.txHash, sender: '', transaction: '');
   }
 
   @override
@@ -202,5 +191,10 @@ class MockWalletStore implements WalletsStore {
   Future<Either<Failure, Recipe>> getRecipe(String cookbookID, String recipeID) {
     // TODO: implement getRecipe
     throw UnimplementedError();
+  }
+
+  @override
+  Future<SDKIPCResponse> getProfile() async {
+    return SDKIPCResponse.success(data: {"username": MOCK_USERNAME}, sender: '', transaction: '');
   }
 }

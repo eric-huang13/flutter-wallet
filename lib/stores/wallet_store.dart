@@ -163,4 +163,10 @@ abstract class WalletsStore {
   /// Input : [Map] containing the info related to the updation of recipe
   /// Output : [SDKIPCResponse] response
   Future<SDKIPCResponse> enableRecipe(Map<dynamic, dynamic> jsonMap);
+
+
+
+  /// This method returns the user profile
+  /// Output : [SDKIPCResponse] contains the info related to the profile.
+  Future<SDKIPCResponse> getProfile();
 }

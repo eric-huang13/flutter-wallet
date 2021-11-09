@@ -6,13 +6,13 @@ Future<void> main(List<String> args) async {
   //const createCookbook = false;
   //const createRecipe = true;
 
-  String arg = args.length > 0 ? args[0] : 'createCookbook';
+  String arg = args.isNotEmpty ? args[0] : 'createCookbook';
 
   if (arg == 'createCookbook') {
     final file = await getProjectFile("cookbook.json");
     final jsonContent = await file.readAsString();
     final sdkipcMessage =
-        SDKIPCMessage('txCreateCookbook', jsonContent, 'example');
+        SDKIPCMessage(action: 'txCreateCookbook', json: jsonContent, sender: 'example');
 
     final msg = sdkipcMessage.createMessage();
     execute(msg);
@@ -21,7 +21,7 @@ Future<void> main(List<String> args) async {
     final file = await getProjectFile("recipe.json");
     final jsonContent = await file.readAsString();
     final sdkipcMessage =
-        SDKIPCMessage('txCreateRecipe', jsonContent, 'example');
+        SDKIPCMessage(action: 'txCreateRecipe', json: jsonContent, sender: 'example');
     execute(sdkipcMessage.createMessage());
   }
 

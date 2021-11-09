@@ -5,14 +5,14 @@ class SDKIPCMessage {
   String json;
   String sender;
 
-  SDKIPCMessage(this.action, this.json, this.sender);
+  SDKIPCMessage({required this.action, required this.json, required this.sender});
 
   factory SDKIPCMessage.fromIPCMessage(String base64EncodedMessage){
 
     final json = utf8.decode(base64Url.decode(base64EncodedMessage));
     final jsonMap = jsonDecode(json);
 
-    return SDKIPCMessage(jsonMap['action'].toString(), jsonMap['json'].toString(), jsonMap['sender'].toString());
+    return SDKIPCMessage(action: jsonMap['action'].toString(), json: jsonMap['json'].toString(), sender: jsonMap['sender'].toString());
   }
 
 
