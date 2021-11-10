@@ -1,3 +1,4 @@
+import 'package:decimal/decimal.dart';
 import 'package:equatable/equatable.dart';
 import 'package:pylons_wallet/entities/amount.dart';
 import 'package:pylons_wallet/entities/denom.dart';
@@ -23,4 +24,11 @@ class Balance extends Equatable {
         denom,
         amount,
       ];
+}
+
+
+extension AmountValue on Amount {
+  Decimal toHumanReadable() {
+    return this.value / Decimal.fromInt(1000000);
+  }
 }

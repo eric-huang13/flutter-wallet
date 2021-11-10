@@ -1,7 +1,7 @@
 name: pylons_wallet
 description: Pylons Wallet
 publish_to: 'none'
-version: 1.0.1+5
+version: 1.0.1+6
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -80,6 +80,7 @@ dependencies:
   fixnum: ^1.0.0
   fluttertoast: ^8.0.8
   intl: ^0.17.0
+  flutter_stripe: ^2.0.2
 
 dev_dependencies:
   flutter_test:

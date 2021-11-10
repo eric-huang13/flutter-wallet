@@ -153,7 +153,7 @@ class _CollectionScreenState extends State<CollectionScreen>{
                         if(assets[index].type == nftType.type_recipe){
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (_) =>  PurchaseItemScreen(
-                                nft: recipes[index],)));
+                                nft: assets[index],)));
                         }else{
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (_) =>  AssetDetailViewScreen(nftItem: assets[index])));
@@ -237,7 +237,9 @@ class _CollectionScreenState extends State<CollectionScreen>{
       recipeList.forEach((element) {
         final nft = NFT.fromRecipe(element);
 
-        if(nft.appType.toLowerCase() == "easel" && cookbooks.any((e) => e.iD == nft.cookbookID)){
+        if(nft.appType.toLowerCase() == "easel"
+            && cookbooks.any((e) => e.iD == nft.cookbookID)
+        ){
           setState((){
             assets.add(nft);
           });
@@ -246,7 +248,9 @@ class _CollectionScreenState extends State<CollectionScreen>{
       final items = await walletsStore.getItemsByOwner(PylonsApp.currentWallet.publicAddress);
       items.forEach((e) async {
         final nft = await NFT.fromItem(e);
-        if(nft.appType.toLowerCase() == "easel" && cookbooks.any((e) => e.iD == nft.cookbookID)) {
+        if(nft.appType.toLowerCase() == "easel"
+            && cookbooks.any((e) => e.iD == nft.cookbookID)
+        ) {
           setState((){
             assets.add(nft);
           });
@@ -256,7 +260,9 @@ class _CollectionScreenState extends State<CollectionScreen>{
       final trades = await walletsStore.getTrades(PylonsApp.currentWallet.publicAddress);
       trades.forEach((trade) async {
         final nft = await NFT.fromTrade(trade);
-        if(nft.appType.toLowerCase() == "easel" && cookbooks.any((e) => e.iD == nft.cookbookID)) {
+        if(nft.appType.toLowerCase() == "easel"
+            && cookbooks.any((e) => e.iD == nft.cookbookID)
+        ) {
           setState(() {
             assets.add(nft);
           });

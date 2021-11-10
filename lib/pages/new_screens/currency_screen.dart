@@ -124,7 +124,7 @@ class _CurrencyScreenState extends State<CurrencyScreen>
     final diag = Loading().showLoading();
     final walletsStore = GetIt.I.get<WalletsStore>();
     final amount = await walletsStore.getFaucetCoin(denom:denom);
-    SnackbarToast.show("faucet ${amount} ${denom} added.");
+    SnackbarToast.show("faucet ${amount.toString().UvalToVal()} ${denom.UdenomToDenom()} added.");
     Timer(
         Duration(milliseconds: 3000), (){
       _buildAssetsList();
@@ -237,7 +237,7 @@ class _BalanceWidgetState extends State<_BalanceWidget> {
               Align(
                 alignment: Alignment.centerRight,
                 child: Text(
-                  "${widget.balance.amount}".trimZero() + " ${coinMeta["short"]}",
+                  "${widget.balance.amount.toHumanReadable() }".trimZero() + " ${coinMeta["short"]}",
                   style: Theme.of(context).textTheme.subtitle1!.copyWith(
                         color: Colors.white,
                         fontSize: 24,

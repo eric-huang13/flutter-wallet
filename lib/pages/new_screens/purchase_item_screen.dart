@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:ui';
-
+import 'package:pylons_wallet/utils/formatter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -197,7 +197,7 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
                                           Text(widget.nft.description),
                                           SizedBox(height: 20),
                                           Text(
-                                              "Current Price: ${widget.nft.price} ${widget.nft.denom}"),
+                                              "Current Price: ${widget.nft.price.UvalToVal()} ${widget.nft.denom.UdenomToDenom()}"),
                                           Text(
                                               "Size: ${widget.nft.width} x ${widget.nft.height}"),
                                           if(widget.nft.type == nftType.type_recipe)
@@ -403,7 +403,7 @@ class _PayByCardWidget extends StatelessWidget {
                     ),
                     const HorizontalSpace(30),
                     Text(
-                      recipe.denom.toUpperCase(),
+                      recipe.denom.UdenomToDenom().toUpperCase(),
                       style: Theme.of(context).textTheme.bodyText2!.copyWith(
                             fontSize: 20,
                             color: Colors.white,
@@ -411,7 +411,7 @@ class _PayByCardWidget extends StatelessWidget {
                     ),
                     const HorizontalSpace(30),
                     Text(
-                      recipe.price,
+                      recipe.price.UvalToVal(),
                       style: Theme.of(context)
                           .textTheme
                           .bodyText2!
@@ -432,7 +432,7 @@ class _PayByCardWidget extends StatelessWidget {
                     width: 30,
                   ),
                   label: Text(
-                    "Pay by card",
+                    "Pay",
                     style: Theme.of(context).textTheme.button!.copyWith(
                         color: Colors.white,
                         fontSize: 16,
