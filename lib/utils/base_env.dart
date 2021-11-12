@@ -9,6 +9,8 @@ class BaseEnv {
   late String _baseEthUrl;
   late String _baseFaucetUrl;
   late String _baseWsUrl;
+  late String _stripeUrl;
+  late String _stripePubKey;
 
   void setEnv({
     required String lcdUrl,
@@ -20,6 +22,9 @@ class BaseEnv {
     required String tendermintPort,
     String? faucetUrl,
     String? faucetPort,
+    String? stripeUrl,
+    String? stripePubKey
+
   }) {
     _networkInfo = NetworkInfo(
       bech32Hrp: 'pylo',
@@ -42,6 +47,8 @@ class BaseEnv {
     _baseEthUrl = ethUrl;
     _baseFaucetUrl = "$faucetUrl:$faucetPort";
     _baseWsUrl = "$wsUrl:$tendermintPort";
+    _stripeUrl = stripeUrl ?? "";
+    _stripePubKey = stripePubKey ?? "";
   }
 
   NetworkInfo get networkInfo => _networkInfo;
@@ -53,4 +60,8 @@ class BaseEnv {
   String get baseFaucetUrl => _baseFaucetUrl;
 
   String get baseWsUrl => _baseWsUrl;
+
+  String get baseStripeUrl => _stripeUrl;
+
+  String get baseStripPubKey => _stripePubKey;
 }

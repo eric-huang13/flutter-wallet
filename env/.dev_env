@@ -51,10 +51,13 @@
 LCD_PORT=1317
 GRPC_PORT=9090
 LCD_URL=http://api.testnet.pylons.tech
-GRPC_URL=http://grpc.testnet.pylons.tech
+GRPC_URL=http://grpc.pylons.smartnodes.co
+#grpc.testnet.pylons.tech
 ETH_URL=http://127.0.0.1:7545
 WS_URL=ws://pylons.smartnodes.co
 FAUCET_URL=http://faucet.testnet.pylons.tech
 FAUCET_PORT=4500
 TENDERMINT_PORT=26657
 ENV=dev
+STRIPE_SERVER=http://192.168.1.198:8080
+STRIP_PUB_KEY=
