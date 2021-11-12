@@ -141,6 +141,12 @@ abstract class WalletsStore {
   Future<List<Execution>> getRecipeEexecutions(
       String cookbookID, String recipeID);
 
+
+
+
+  /// This method is used for getting faucet token for the user
+  /// Input : [denom]
+  /// Output : [int] the amount that the user has in its wallet
   Future<int> getFaucetCoin({String denom = ""});
 
   /// check if account with username exists
