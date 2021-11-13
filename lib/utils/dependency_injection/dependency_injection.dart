@@ -4,6 +4,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:pylons_wallet/ipc/handler/handler_factory.dart';
 import 'package:pylons_wallet/pylons_app.dart';
 import 'package:pylons_wallet/services/repository/repository.dart';
+import 'package:pylons_wallet/services/stripe_services/stripe_services.dart';
 import 'package:pylons_wallet/services/third_party_services/network_info.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/stores/wallet_store_imp.dart';
@@ -81,6 +82,7 @@ Future<void> init() async {
   sl.registerLazySingleton<InternetConnectionChecker>(() => InternetConnectionChecker());
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
   sl.registerLazySingleton<pylons.QueryClient>(() => pylons.QueryClient(sl.get<BaseEnv>().networkInfo.gRPCChannel));
+  sl.registerLazySingleton<StripeServices>(()=>StripeServices(sl.get<BaseEnv>().baseStripeUrl, sl.get<BaseEnv>().baseStripPubKey));
 
   /// Repository
   sl.registerLazySingleton<Repository>(() => RepositoryImp(networkInfo: sl(), queryClient: sl()));
