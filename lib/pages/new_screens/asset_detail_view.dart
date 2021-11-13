@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +18,7 @@ import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/client/pyl
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/client/pylons/tx.pb.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
+import 'package:pylons_wallet/utils/formatter.dart';
 
 import '../../pylons_app.dart';
 
@@ -288,7 +288,7 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                                           children: [
                                             Text(widget.nftItem.description),
                                             SizedBox(height: 20),
-                                            Text("Current Price: ${widget.nftItem.price} ${widget.nftItem.denom}"),
+                                            Text("Current Price: ${widget.nftItem.price.toString().UvalToVal()} ${widget.nftItem.denom.UdenomToDenom()}"),
                                             Text("Size: ${widget.nftItem.width} x ${widget.nftItem.height}"),
                                             SizedBox(height: 20,),
                                             if(widget.nftItem.type == nftType.type_trade)
@@ -378,7 +378,7 @@ class _PayByCardWidget extends StatefulWidget {
 
 
 class _PayByCardWidgetState extends State<_PayByCardWidget> {
-  static const paymentDenoms = ["USD", "upylon"];
+  static const paymentDenoms = ["USD", "pylon"];
   String selectedDenom = "USD";
   final amountController = TextEditingController();
 
@@ -514,7 +514,7 @@ class _PayByCardWidgetState extends State<_PayByCardWidget> {
                         return;
                       }
 
-                      widget.onPayCallback(amountController.text, selectedDenom);
+                      widget.onPayCallback(amountController.text.ValToUval(), selectedDenom.DenomToUdenom());
 
                 }),
               ],

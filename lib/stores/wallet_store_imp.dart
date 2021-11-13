@@ -386,6 +386,17 @@ class WalletsStoreImp implements WalletsStore {
 
   @override
   Future<int> getFaucetCoin({String? denom}) async {
+    final faucetUrl = "http://34.132.229.23:8080/coins?address=${wallets.value.last.publicAddress}";
+    final helper = QueryHelper(httpClient: _httpClient);
+    final result = await helper.queryGet(faucetUrl);
+
+    const amount = 1000000;
+    if(result.isSuccessful){
+      //check faucet success
+      return amount;
+    }
+    return 0;
+    /**
     const amount = 5000;
     final Map data = {
       "address": wallets.value.last.publicAddress,
@@ -399,6 +410,7 @@ class WalletsStoreImp implements WalletsStore {
       return 0;
     }
     return amount;
+    */
   }
 
   @override
