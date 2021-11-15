@@ -126,7 +126,7 @@ class _CurrencyScreenState extends State<CurrencyScreen>
     final amount = await walletsStore.getFaucetCoin(denom:denom);
     SnackbarToast.show("faucet ${amount.toString().UvalToVal()} ${denom.UdenomToDenom()} added.");
     Timer(
-        Duration(milliseconds: 3000), (){
+        const Duration(milliseconds: 3000), (){
       _buildAssetsList();
       //await _buildAssetsList();
       diag.dismiss();
@@ -212,32 +212,20 @@ class _BalanceWidgetState extends State<_BalanceWidget> {
                     },
                     style: ElevatedButton.styleFrom(
                       primary: const Color(0xFFFFFFFF),
-                      maximumSize: Size(100, 20),
-                      minimumSize: Size(100,20),
+                      maximumSize: const Size(100, 20),
+                      minimumSize: const Size(100,20),
 
                     ),
-                    child: Text("faucet", style: TextStyle(color: Color(0xFF1212C4), fontSize: 15)),
+                    child: const Text("faucet", style: TextStyle(color: Color(0xFF1212C4), fontSize: 15)),
                   )
 
-                  /*
-                  if(balance.denom.text == Constants.kCoinDenom['upylon']['denom'])
-                      ElevatedButton(
-                      onPressed: (){},
-                      style: ElevatedButton.styleFrom(
-                      primary: const Color(0xFFFFFFFF),
-                      maximumSize: const Size(100, 20),
-                      minimumSize: const Size(100, 20),
 
-                      ),
-                      child: Text("default", style: TextStyle(color: Color(0xFF1212C4), fontSize: 15)),
-                      )
-                   */
                 ]
               ),
               Align(
                 alignment: Alignment.centerRight,
                 child: Text(
-                  "${widget.balance.amount.toHumanReadable() }".trimZero() + " ${coinMeta["short"]}",
+                  "${"${widget.balance.amount.toHumanReadable() }".trimZero()} ${coinMeta["short"]}",
                   style: Theme.of(context).textTheme.subtitle1!.copyWith(
                         color: Colors.white,
                         fontSize: 24,
