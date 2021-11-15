@@ -486,4 +486,11 @@ class WalletsStoreImp implements WalletsStore {
 
     return SDKIPCResponse.success(data: {"username": userNameEither.getOrElse(() => '')}, sender: '', transaction: '');
   }
+
+  @override
+  Future<SDKIPCResponse> updateCookBook(Map<dynamic, dynamic> jsonMap) async {
+    final msgObj = pylons.MsgUpdateCookbook.create()..mergeFromProto3Json(jsonMap);
+    msgObj.creator = wallets.value.last.publicAddress;
+    return  _signAndBroadcast(msgObj);
+  }
 }

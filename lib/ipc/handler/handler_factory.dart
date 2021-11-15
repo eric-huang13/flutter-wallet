@@ -5,6 +5,7 @@ import 'package:pylons_wallet/ipc/handler/handlers/create_cook_book_handler.dart
 import 'package:pylons_wallet/ipc/handler/handlers/create_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/enable_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/execute_recipe_handler.dart';
+import 'package:pylons_wallet/ipc/handler/handlers/update_cookbook_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/update_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_message.dart';
 
@@ -47,9 +48,15 @@ class HandlerFactory {
   static const String ERR_CANNOT_FETCH_USERNAME = 'cannotFetchUsername';
 
   BaseHandler getHandler(SDKIPCMessage sdkipcMessage) {
+
     if (sdkipcMessage.action == TX_CREATE_COOKBOOK) {
       return CreateCookBookHandler(sdkipcMessage);
     }
+
+    if (sdkipcMessage.action == TX_UPDATE_COOKBOOK) {
+      return UpdateCookBookHandler(sdkipcMessage);
+    }
+
     if (sdkipcMessage.action == TX_CREATE_RECIPE) {
       return CreateRecipeHandler(sdkipcMessage);
     }

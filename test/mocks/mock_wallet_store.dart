@@ -182,6 +182,12 @@ class MockWalletStore implements WalletsStore {
   }
 
   @override
+  Future<SDKIPCResponse> updateCookBook(Map<dynamic, dynamic> jsonMap) async {
+    return SDKIPCResponse.success(data: MOCK_TRANSACTION.txHash, sender: '', transaction: '');
+
+  }
+
+  @override
   Future<SDKIPCResponse> enableRecipe(Map<dynamic, dynamic> jsonMap) {
     // TODO: implement enableRecipe
     throw UnimplementedError();

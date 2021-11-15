@@ -148,7 +148,7 @@ abstract class WalletsStore {
   /// Output" [bool] if exists true, else false
   Future<bool> isAccountExists(String username);
 
-  /// This method creates the recipe in the block chain
+  /// This method updates the recipe in the block chain
   /// Input : [Map] containing the info related to the updation of recipe
   /// Output : [SDKIPCResponse] response
   Future<SDKIPCResponse> updateRecipe(Map<dynamic, dynamic> jsonMap);
@@ -156,6 +156,7 @@ abstract class WalletsStore {
   Observable<List<WalletPublicInfo>> getWallets();
 
   Observable<bool> getAreWalletsLoading();
+
   Observable<CredentialsStorageFailure?> getLoadWalletsFailure();
 
 
@@ -163,6 +164,13 @@ abstract class WalletsStore {
   /// Input : [Map] containing the info related to the updation of recipe
   /// Output : [SDKIPCResponse] response
   Future<SDKIPCResponse> enableRecipe(Map<dynamic, dynamic> jsonMap);
+
+
+  /// This method updates the cookbook in the block chain
+  /// Input : [Map] containing the info related to the updation of cookbook
+  /// Output : [SDKIPCResponse] response
+  Future<SDKIPCResponse> updateCookBook(Map<dynamic, dynamic> jsonMap);
+
 
 
 
