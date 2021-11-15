@@ -78,7 +78,7 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
 
   Future onCreateTrade(String amount, String denom) async {
     final walletsStore = GetIt.I.get<WalletsStore>();
-    final loading = Loading().showLoading();
+    final loading = Loading()..showLoading();
     final json =  {"coinInputs":
     [{
       "coins": [{

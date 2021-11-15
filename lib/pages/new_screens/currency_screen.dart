@@ -121,7 +121,7 @@ class _CurrencyScreenState extends State<CurrencyScreen>
 
 
   Future getFaucet(BuildContext context, String denom) async {
-    final diag = Loading().showLoading();
+    final diag = Loading()..showLoading();
     final walletsStore = GetIt.I.get<WalletsStore>();
     final amount = await walletsStore.getFaucetCoin(denom:denom);
     SnackbarToast.show("faucet ${amount.toString().UvalToVal()} ${denom.UdenomToDenom()} added.");

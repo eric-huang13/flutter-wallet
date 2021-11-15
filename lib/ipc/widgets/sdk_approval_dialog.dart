@@ -20,27 +20,30 @@ class SDKApprovalDialog {
     return showDialog(
         barrierDismissible: false,
         context: context,
-        builder: (_) => AlertDialog(
-          content: Text(
-              'Will you sign this ${sdkipcMessage.action}?',
-              style: const TextStyle(fontSize: 18)),
-          actions: [
-            ElevatedButton(
-              onPressed: () async {
-                Navigator.of(_).pop();
-                onApproved.call();
-              },
-              child: const Text('Approve'),
-            ),
-            ElevatedButton(
-              style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).errorColor)),
-              onPressed: () async {
-                Navigator.of(_).pop();
-                onCancel.call();
-              },
-              child: const Text('Cancel'),
-            )
-          ],
+        builder: (_) => WillPopScope(
+          onWillPop: () async => false,
+          child: AlertDialog(
+            content: Text(
+                'Will you sign this ${sdkipcMessage.action}?',
+                style: const TextStyle(fontSize: 18)),
+            actions: [
+              ElevatedButton(
+                onPressed: () async {
+                  Navigator.of(_).pop();
+                  onApproved.call();
+                },
+                child: const Text('Approve'),
+              ),
+              ElevatedButton(
+                style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).errorColor)),
+                onPressed: () async {
+                  Navigator.of(_).pop();
+                  onCancel.call();
+                },
+                child: const Text('Cancel'),
+              )
+            ],
+          ),
         ));
   }
 }

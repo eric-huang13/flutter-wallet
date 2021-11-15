@@ -208,7 +208,7 @@ class _CollectionScreenState extends State<CollectionScreen>{
   }
 
   Future loadData(String _colType) async {
-    final loading = Loading().showLoading();
+    final loading = Loading()..showLoading();
     assets.clear();
     recipes.clear();
 

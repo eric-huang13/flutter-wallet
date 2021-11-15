@@ -19,7 +19,7 @@ class EnableRecipeHandler implements BaseHandler {
     final jsonMap = jsonDecode(sdkipcMessage.json) as Map;
 
     jsonMap.remove('nodeVersion');
-    final loading = Loading().showLoading();
+    final loading = Loading()..showLoading();
 
     final walletsStore = GetIt.I.get<WalletsStore>();
 

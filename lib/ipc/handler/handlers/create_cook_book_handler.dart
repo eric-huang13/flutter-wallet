@@ -17,7 +17,7 @@ class CreateCookBookHandler implements BaseHandler {
     final jsonMap = jsonDecode(sdkipcMessage.json) as Map;
 
     jsonMap.remove('nodeVersion');
-    var loading = Loading().showLoading();
+    final loading = Loading()..showLoading();
 
     final walletsStore = GetIt.I.get<WalletsStore>();
 

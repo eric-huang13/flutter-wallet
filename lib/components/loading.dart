@@ -14,42 +14,47 @@ class SnackbarToast {
 
 class Loading {
   Loading();
-  var diagRet = null;
+
 
   void dismiss() {
     navigatorKey.currentState!.pop();
   }
-  Loading showLoading() {
-    diagRet = showDialog(
+
+
+
+  Future showLoading() {
+    return showDialog(
       context: navigatorKey.currentState!.overlay!.context,
       barrierDismissible: true,
       builder: (ctx) =>
-          AlertDialog(
-            content: Wrap(
-              children: [
-                Row(
-                  children: [
-                    const SizedBox(
-                      width: 30,
-                      height: 30,
-                      child: CircularProgressIndicator(),
-                    ),
-                    const HorizontalSpace(10),
-                    Text(
-                      "Loading...",
-                      style:
-                      Theme
-                          .of(ctx)
-                          .textTheme
-                          .subtitle2!
-                          .copyWith(fontSize: 12),
-                    ),
-                  ],
-                )
-              ],
+          WillPopScope(
+            onWillPop: () async => false,
+            child: AlertDialog(
+              content: Wrap(
+                children: [
+                  Row(
+                    children: [
+                      const SizedBox(
+                        width: 30,
+                        height: 30,
+                        child: CircularProgressIndicator(),
+                      ),
+                      const HorizontalSpace(10),
+                      Text(
+                        "Loading...",
+                        style:
+                        Theme
+                            .of(ctx)
+                            .textTheme
+                            .subtitle2!
+                            .copyWith(fontSize: 12),
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
     );
-    return this;
   }
 }

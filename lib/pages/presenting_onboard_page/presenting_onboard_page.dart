@@ -97,11 +97,11 @@ class PresentingOnboardPage extends StatelessWidget {
     final _mnemonic = await generateMnemonic();
     final _username = userName;
 
-    final diag = Loading().showLoading();
+    final diag = Loading()..showLoading();
 
     final isAccountExists = await walletsStore.isAccountExists(_username);
     if(isAccountExists){
-      diag.dismiss();
+      diag..dismiss();
       Alert.SnackbarAlert(context, "User name already exists!");
       return;
     }

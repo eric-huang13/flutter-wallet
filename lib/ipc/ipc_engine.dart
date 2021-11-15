@@ -6,12 +6,12 @@ import 'dart:io';
 import 'package:fixnum/fixnum.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:pylons_wallet/components/loading.dart';
 import 'package:pylons_wallet/entities/nft.dart';
 import 'package:pylons_wallet/ipc/handler/handler_factory.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_message.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
 import 'package:pylons_wallet/ipc/widgets/sdk_approval_dialog.dart';
-import 'package:pylons_wallet/ipc/widgets/show_loader.dart';
 import 'package:pylons_wallet/pages/new_screens/asset_detail_view.dart';
 import 'package:pylons_wallet/pages/new_screens/purchase_item_screen.dart';
 import 'package:pylons_wallet/pylons_app.dart';
@@ -123,19 +123,11 @@ class IPCEngine {
       return;
     }
 
-    //
-    // if (systemHandlingASignal) {
-    //   disconnectThisSignal(sender: getMessage.first, key: getMessage[1]);
-    //   return [];
-    // }
 
     debugPrint(getMessage);
-    //
-    // systemHandlingASignal = true;
-    //
+
     await showApprovalDialog(sdkIPCMessage: sdkIPCMessage);
-    // systemHandlingASignal = false;
-    // return getMessage;
+
   }
 
   Future<void> _handleEaselLink(String link) async {
@@ -144,11 +136,11 @@ class IPCEngine {
     final cookbookId = queryParameters['cookbook_id'];
     final walletsStore = GetIt.I.get<WalletsStore>();
 
-    final showLoader = ShowLoader(navigatorKey.currentState!.overlay!.context);
+    final showLoader = Loading()..showLoading();
 
     final recipeResult = await walletsStore.getRecipe(cookbookId!, recipeId!);
 
-    showLoader.hide();
+    showLoader.dismiss();
 
     if (recipeResult.isLeft()) {
       ScaffoldMessenger.of(navigatorKey.currentState!.overlay!.context).showSnackBar(
@@ -172,11 +164,11 @@ class IPCEngine {
     final tradeId = queryParameters['trade_id'] ?? "0";
     final walletsStore = GetIt.I.get<WalletsStore>();
 
-    final showLoader = ShowLoader(navigatorKey.currentState!.overlay!.context);
+    final showLoader = Loading()..showLoading();
 
     final recipeResult = await walletsStore.getTradeByID(Int64.parseInt(tradeId));
 
-    showLoader.hide();
+    showLoader.dismiss();
 
     if (recipeResult == null) {
       ScaffoldMessenger.of(navigatorKey.currentState!.overlay!.context).showSnackBar(
@@ -200,11 +192,11 @@ class IPCEngine {
     final cookbookId = queryParameters['cookbook_id'];
     final walletsStore = GetIt.I.get<WalletsStore>();
 
-    final showLoader = ShowLoader(navigatorKey.currentState!.overlay!.context);
+    final showLoader = Loading()..showLoading();
 
     final recipeResult = await walletsStore.getItem(cookbookId!, itemId!);
 
-    showLoader.hide();
+    showLoader.dismiss();
 
     if (recipeResult == null) {
       ScaffoldMessenger.of(navigatorKey.currentState!.overlay!.context).showSnackBar(
