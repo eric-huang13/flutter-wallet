@@ -222,6 +222,8 @@ class _CollectionScreenState extends State<CollectionScreen>{
       });
 
       final trades = await walletsStore.getTrades(PylonsApp.currentWallet.publicAddress);
+      print(trades);
+
       trades.forEach((trade) async {
         final nft = await NFT.fromTrade(trade);
         setState((){
@@ -238,7 +240,7 @@ class _CollectionScreenState extends State<CollectionScreen>{
         final nft = NFT.fromRecipe(element);
 
         if(nft.appType.toLowerCase() == "easel"
-            && cookbooks.any((e) => e.iD == nft.cookbookID)
+           // && cookbooks.any((e) => e.iD == nft.cookbookID)
         ){
           setState((){
             assets.add(nft);

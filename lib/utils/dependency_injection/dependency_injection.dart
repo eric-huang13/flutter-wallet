@@ -40,15 +40,18 @@ Future<void> init() async {
 
   sl.registerLazySingleton(() => BaseEnv()
     ..setEnv(
-        lcdUrl: dotenv.env['LCD_URL']!,
-        grpcUrl: dotenv.env['GRPC_URL']!,
-        lcdPort: dotenv.env['LCD_PORT']!,
-        grpcPort: dotenv.env['GRPC_PORT']!,
-        ethUrl: dotenv.env['ETH_URL']!,
-        tendermintPort: dotenv.env['TENDERMINT_PORT']!,
-        faucetUrl: dotenv.env['FAUCET_URL'],
-        faucetPort: dotenv.env['FAUCET_PORT'],
-        wsUrl: dotenv.env['WS_URL']!));
+      lcdUrl: dotenv.env['LCD_URL']!,
+      grpcUrl: dotenv.env['GRPC_URL']!,
+      lcdPort: dotenv.env['LCD_PORT']!,
+      grpcPort: dotenv.env['GRPC_PORT']!,
+      ethUrl: dotenv.env['ETH_URL']!,
+      tendermintPort: dotenv.env['TENDERMINT_PORT']!,
+      faucetUrl: dotenv.env['FAUCET_URL'],
+      faucetPort: dotenv.env['FAUCET_PORT'],
+      wsUrl: dotenv.env['WS_URL']!,
+      stripeUrl: dotenv.env['STRIPE_SERVER'],
+      stripePubKey: dotenv.env['STRIP_PUB_KEY']
+    ));
 
   sl.registerLazySingleton(() => TransactionSigningGateway(
         transactionSummaryUI: NoOpTransactionSummaryUI(),

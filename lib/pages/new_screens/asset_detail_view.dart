@@ -88,6 +88,7 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
       "cookbookID": widget.nftItem.cookbookID,
         "itemID": widget.nftItem.itemID}]};
     final response = await walletsStore.createTrade(json);
+    print(response);
 
     loading.dismiss();
     setState((){
@@ -95,7 +96,7 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
     });
 
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("${response.success != "" ? "Trade on this NFT successfully created." : "Error occured while creating Trade.\n${response.error}"}")));
+        content: Text("${response.success != false ? "Trade on this NFT successfully created." : "Error occured while creating Trade.\n${response.error}"}")));
   }
 
 

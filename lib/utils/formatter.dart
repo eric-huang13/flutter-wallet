@@ -15,9 +15,11 @@ extension TrimZeroString on String {
 
 extension AmountValue on String {
   String UvalToVal() {
-    return (num.parse(this)  / 1000000).toString();
+    var amount = this == "" ? "0" : this;
+    return (num.parse(amount) / 1000000).toString();
   }
   String ValToUval() {
+    var amount = this == "" ? "0" : this;
     return (Decimal.parse(this) * Decimal.fromInt(1000000)).toInt().toString();
   }
 }

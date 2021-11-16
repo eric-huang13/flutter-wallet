@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:ui';
+import 'package:pylons_wallet/services/stripe_services/stripe_services.dart';
 import 'package:pylons_wallet/utils/formatter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -15,6 +16,8 @@ import 'package:pylons_wallet/entities/nft.dart';
 import 'package:pylons_wallet/model/recipe_json.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:pylons_wallet/services/stripe_services/stripe_services.dart';
 
 class PurchaseItemScreen extends StatefulWidget {
   final NFT nft;
@@ -448,10 +451,36 @@ class _PayByCardWidget extends StatelessWidget {
     );
   }
 
+  Future<void> openPaymentSheet(NFT nft) async {
+    final walletsStore = GetIt.I.get<WalletsStore>();
+    final stripeServices = GetIt.I.get<StripeServices>();
+    final response = await stripeServices.CreatePaymentIntent(
+        StripeCreatePaymentIntentRequest(productID: "recipe/${nft.cookbookID}/${nft.recipeID}", coinInputIndex: 0, address: walletsStore.getWallets().value.last.publicAddress)
+    );
+    print('clientsecret ' + response.clientsecret);
+    if(response.clientsecret != ""){
+      Stripe.instance.initPaymentSheet(paymentSheetParameters: SetupPaymentSheetParameters(
+        applePay: true,
+        googlePay: true,
+        style: ThemeMode.system,
+        testEnv: true,
+        merchantCountryCode: 'US',
+        merchantDisplayName: 'Pylons',
+        paymentIntentClientSecret: response.clientsecret
+      ));
+      await Stripe.instance.presentPaymentSheet();
+
+    }
+  }
+
   Future<void> _executeRecipe(BuildContext context) async {
     final walletsStore = GetIt.I.get<WalletsStore>();
 
     if(recipe.type == nftType.type_recipe) {
+
+      openPaymentSheet(recipe);
+      return;
+
       const jsonExecuteRecipe = '''
       {
         "creator": "",
@@ -469,6 +498,7 @@ class _PayByCardWidget extends StatelessWidget {
 
       // print(jsonMap);
       final response = await walletsStore.executeRecipe(jsonMap);
+
 
       Navigator.pop(context);
 

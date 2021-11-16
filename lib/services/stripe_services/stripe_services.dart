@@ -32,7 +32,7 @@ class StripeCreatePaymentIntentResponse {
   factory StripeCreatePaymentIntentResponse.from(RequestResult<Map<String, dynamic>> ret) {
     if(ret.isSuccessful && ret.value!= null) {
       return StripeCreatePaymentIntentResponse(
-        clientsecret: ret.value?.entries.firstWhere((e) => e.key == 'clientsecret', orElse: ()=>MapEntry('clientsecret', '')).value as String,
+        clientsecret: ret.value?.entries.firstWhere((e) => e.key == 'clientSecret', orElse: ()=>MapEntry('clientSecret', '')).value as String,
         success: true
       );
     }
@@ -86,6 +86,20 @@ class StripeGeneratePaymentReceiptResponse {
 }
 
 class StripeGenerateRegistrationTokenResponse {
+  final String token;
+  StripeGenerateRegistrationTokenResponse({
+    this.token = ''
+  });
+
+  factory StripeGenerateRegistrationTokenResponse.from(RequestResult<Map<String, dynamic>> ret) {
+    if(ret.isSuccessful && ret.value != null){
+      return StripeGenerateRegistrationTokenResponse(
+        token: ret.value?.entries.firstWhere((e) => e.key == 'token', orElse: ()=>MapEntry('token', '')).value as String
+      );
+    }
+    return StripeGenerateRegistrationTokenResponse();
+  }
+
 
 }
 
@@ -195,10 +209,8 @@ class StripeServices{
     //{address:, productID:, coin_inputs_index:}
     final helper = QueryHelper(httpClient: _httpClient);
     final result = await helper.queryPost( "$stripeUrl/create-payment-intent", req.toJson());
-    if(result.isSuccessful) {
-      return StripeCreatePaymentIntentResponse.from(result);
-    }
-    return StripeCreatePaymentIntentResponse(clientsecret: '', success: false);
+    print(result.value);
+    return StripeCreatePaymentIntentResponse.from(result);
   }
 
   //request: {pament_intent_id:, client_secret}
@@ -215,15 +227,13 @@ class StripeServices{
     final result = await helper.queryPost( "$stripeUrl/generate-payment-receipt", req.toJson());
     return StripeGeneratePaymentReceiptResponse.from(result);
   }
-/*
-  Future<GenerateRegistrationTokenResponse> GenerateRegistrationToken(GenerateRegistrationTokenRequest req) async {
+  Future<StripeGenerateRegistrationTokenResponse> GenerateRegistrationToken(String address) async {
     final helper = QueryHelper(httpClient: _httpClient);
-    final result = await helper.queryPost( "$stripeUrl/generate-registration-token", req.toJson());
-    if(result.isSuccessful) {
-      return GenerateRegistrationTokenResponse.from(result.value);
-    }
-    return GenerateRegistrationTokenResponse();
+    final result = await helper.queryGet( "$stripeUrl/generate-registration-token?address=${address}");
+    return StripeGenerateRegistrationTokenResponse.from(result);
   }
+
+  /*
 
   Future<StripeRegisterAccountResponse> RegisterAccount(StripeRegisterAccountRequest req) async {
     final helper = QueryHelper(httpClient: _httpClient);
