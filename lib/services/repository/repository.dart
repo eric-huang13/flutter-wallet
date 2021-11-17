@@ -11,16 +11,17 @@ abstract class Repository {
   /// will return error in the form of failure
   Future<Either<Failure, pylons.Recipe>> getRecipe({required String cookBookId, required String recipeId});
 
-
-
   /// This method returns the user name associated with the id
   /// Input : [address] address of the user
   /// Output: if successful the output will be [String] username of the user
   /// will return error in the form of failure
   Future<Either<Failure, String>> getUsername({required String address});
 
-
-
+  /// This method returns the recipe list
+  /// Input : [cookBookId] id of the cookbook
+  /// Output: if successful the output will be the list of [pylons.Recipe]
+  /// will return error in the form of failure
+  Future<Either<Failure, List<pylons.Recipe>>> getRecipesBasedOnCookBookId({required String cookBookId});
 }
 
 class RepositoryImp implements Repository {
@@ -36,7 +37,6 @@ class RepositoryImp implements Repository {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
 
-
     try {
       final request = pylons.QueryGetRecipeRequest.create()
         ..cookbookID = cookBookId
@@ -49,10 +49,9 @@ class RepositoryImp implements Repository {
       }
 
       return Right(response.recipe);
-    } on Exception catch(_){
+    } on Exception catch (_) {
       return const Left(RecipeNotFoundFailure(RECIPE_NOT_FOUND));
     }
-
   }
 
   @override
@@ -61,10 +60,8 @@ class RepositoryImp implements Repository {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
 
-
     try {
-      final request = pylons.QueryGetUsernameByAddressRequest.create()
-      ..address = address;
+      final request = pylons.QueryGetUsernameByAddressRequest.create()..address = address;
 
       final response = await queryClient.usernameByAddress(request);
 
@@ -73,9 +70,25 @@ class RepositoryImp implements Repository {
       }
 
       return Right(response.username.value);
-    } on Exception catch(_){
+    } on Exception catch (_) {
       return const Left(RecipeNotFoundFailure(USERNAME_NOT_FOUND));
     }
+  }
 
+  @override
+  Future<Either<Failure, List<pylons.Recipe>>> getRecipesBasedOnCookBookId({required String cookBookId}) async {
+    if (!await networkInfo.isConnected) {
+      return const Left(NoInternetFailure(NO_INTERNET));
+    }
+
+    try {
+      final request = pylons.QueryListRecipesByCookbookRequest.create()..cookbookID = cookBookId;
+
+      final response = await queryClient.listRecipesByCookbook(request);
+
+      return Right(response.recipes);
+    } on Exception catch (_) {
+      return const Left(CookBookNotFoundFailure(COOK_BOOK_NOT_FOUND));
+    }
   }
 }

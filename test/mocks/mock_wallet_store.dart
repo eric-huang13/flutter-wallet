@@ -104,11 +104,6 @@ class MockWalletStore implements WalletsStore {
     throw UnimplementedError();
   }
 
-  @override
-  Future<List<Recipe>> getRecipesByCookbookID(String cookbookID) {
-    // TODO: implement getRecipesByCookbookID
-    throw UnimplementedError();
-  }
 
   @override
   Future<Trade?> getTradeByID(Int64 ID) {
@@ -202,5 +197,13 @@ class MockWalletStore implements WalletsStore {
   @override
   Future<SDKIPCResponse> getProfile() async {
     return SDKIPCResponse.success(data: {"username": MOCK_USERNAME}, sender: '', transaction: '');
+  }
+
+
+
+  @override
+  Future<SDKIPCResponse> getAllRecipesByCookBookId({required String cookbookId}) async {
+    return SDKIPCResponse.success(data: [], sender: '', transaction: '');
+
   }
 }

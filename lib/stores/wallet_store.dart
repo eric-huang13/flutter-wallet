@@ -105,10 +105,6 @@ abstract class WalletsStore {
   /// else throws error
   Future<Either<Failure,  Recipe>> getRecipe(String cookbookID, String recipeID);
 
-  /// This method is for get List of Recipe of cookbookID
-  /// Input : [cookbookID]
-  /// Output : [List<Recipe>] return List of Recipes of cookbookID
-  Future<List<Recipe>> getRecipesByCookbookID(String cookbookID);
 
   /// This method is for getting all Recipes in the chain
   Future<List<Recipe>> getRecipes();
@@ -183,4 +179,12 @@ abstract class WalletsStore {
   /// This method returns the user profile
   /// Output : [SDKIPCResponse] contains the info related to the profile.
   Future<SDKIPCResponse> getProfile();
+
+
+
+
+  /// This method returns the recipes based on cookbook
+  /// Input : [cookbookId] id of the cookbook
+  /// Output : [SDKIPCResponse] contains the info related to the profile.
+  Future<SDKIPCResponse> getAllRecipesByCookBookId({required String cookbookId});
 }

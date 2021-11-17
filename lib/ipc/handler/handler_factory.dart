@@ -5,6 +5,7 @@ import 'package:pylons_wallet/ipc/handler/handlers/create_cook_book_handler.dart
 import 'package:pylons_wallet/ipc/handler/handlers/create_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/enable_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/execute_recipe_handler.dart';
+import 'package:pylons_wallet/ipc/handler/handlers/get_recipes_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/update_cookbook_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/update_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_message.dart';
@@ -14,7 +15,7 @@ import 'handlers/get_profile_handler.dart';
 class HandlerFactory {
   static const String GET_COOKBOOKS = 'getCookbooks';
   static const String GET_PROFILE = 'getProfile';
-  static const String GET_RECIPE = 'getRecipes';
+  static const String GET_RECIPES = 'getRecipes';
   static const String GET_TRADES = 'getTrades';
   static const String TX_BUY_ITEMS = 'txBuyItem';
   static const String TX_BUY_PYLONS = 'txBuyPylons';
@@ -46,6 +47,7 @@ class HandlerFactory {
   static const String ERR_CANNOT_FETCH_RECIPE = 'recipeCannotBeFetched';
   static const String ERR_SIG_TRANSACTION = 'errorSigningTransaction';
   static const String ERR_CANNOT_FETCH_USERNAME = 'cannotFetchUsername';
+  static const String ERR_CANNOT_FETCH_RECIPES = 'cannotFetchRecipes';
 
   BaseHandler getHandler(SDKIPCMessage sdkipcMessage) {
 
@@ -77,6 +79,11 @@ class HandlerFactory {
 
     if (sdkipcMessage.action == GET_PROFILE) {
       return GetProfileHandler(sdkipcMessage);
+    }
+
+
+    if (sdkipcMessage.action == GET_RECIPES) {
+      return GetRecipesHandler(sdkipcMessage);
     }
 
 

@@ -313,12 +313,7 @@ class WalletsStoreImp implements WalletsStore {
     return response.recipes;
   }
 
-  @override
-  Future<List<Recipe>> getRecipesByCookbookID(String cookbookID) async {
-    final request = pylons.QueryListRecipesByCookbookRequest.create()..cookbookID = cookbookID;
-    final response = await _queryClient.listRecipesByCookbook(request);
-    return response.recipes;
-  }
+
 
   @override
   Future<Trade?> getTradeByID(Int64 ID) async {
@@ -391,7 +386,7 @@ class WalletsStoreImp implements WalletsStore {
     final result = await helper.queryGet(faucetUrl);
 
     const amount = 1000000;
-    if(result.isSuccessful){
+    if (result.isSuccessful) {
       //check faucet success
       return amount;
     }
@@ -485,6 +480,19 @@ class WalletsStoreImp implements WalletsStore {
     }
 
     return SDKIPCResponse.success(data: {"username": userNameEither.getOrElse(() => '')}, sender: '', transaction: '');
+  }
+
+
+
+  @override
+  Future<SDKIPCResponse> getAllRecipesByCookBookId({required String cookbookId}) async {
+    final recipesEither = await repository.getRecipesBasedOnCookBookId(cookBookId: cookbookId);
+
+    if (recipesEither.isLeft()) {
+      return SDKIPCResponse.failure(sender: '', error: recipesEither.swap().toOption().toNullable()!.message, errorCode: HandlerFactory.ERR_CANNOT_FETCH_RECIPES, transaction: '');
+    }
+
+    return SDKIPCResponse.success(data: recipesEither.getOrElse(() => []).map((recipe) => recipe.toProto3Json()).toList(), sender: '', transaction: '');
   }
 
   @override
