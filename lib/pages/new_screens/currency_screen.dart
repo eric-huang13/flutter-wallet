@@ -54,6 +54,12 @@ class _CurrencyScreenState extends State<CurrencyScreen>
         backgroundColor: Colors.white,
         actions: [
           IconButton(
+            icon: Image.asset('assets/icons/stripe_logo.png', width: 24, height: 24),
+            onPressed: () {
+
+            }
+          ),
+          IconButton(
             icon: const Icon(
               Icons.content_copy_outlined,
               color: kBlue,

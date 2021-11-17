@@ -14,6 +14,7 @@ class PylonsBalance {
 
   Future<List<Balance>> getBalance(String walletAddress) async {
     final uri = '${baseEnv.baseApiUrl}/cosmos/bank/v1beta1/balances/$walletAddress';
+    print(uri);
     final response = await http.get(Uri.parse(uri));
     print(uri);
     print(response.body);

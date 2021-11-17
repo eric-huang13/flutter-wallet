@@ -1,6 +1,9 @@
+import 'package:fixnum/fixnum.dart';
 import 'dart:convert';
 import 'dart:ui';
+import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart';
 import 'package:pylons_wallet/services/stripe_services/stripe_services.dart';
+import 'package:pylons_wallet/utils/base_env.dart';
 import 'package:pylons_wallet/utils/formatter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -451,37 +454,86 @@ class _PayByCardWidget extends StatelessWidget {
     );
   }
 
-  Future<void> openPaymentSheet(NFT nft) async {
+  Future<void> PaymentForTrade(BuildContext context, NFT nft) async {
+    final walletsStore = GetIt.I.get<WalletsStore>();
+
+    _showLoading(context);
+    const json = '''
+        {
+          "ID": 0
+        }
+        ''';
+    final jsonMap = jsonDecode(json) as Map;
+    jsonMap["ID"] = recipe.tradeID;
+    // print(jsonMap);
+    final response = await walletsStore.fulfillTrade(jsonMap);
+
+    Navigator.pop(context);
+
+    debugPrint("${response.success ? response.data : response.error}");
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("${response.success ? "Successfully purchased this NFT." : response.error}")));
+  }
+
+  Future<void> StripePaymentForTrade(BuildContext context, NFT nft) async {
     final walletsStore = GetIt.I.get<WalletsStore>();
     final stripeServices = GetIt.I.get<StripeServices>();
+    final baseEnv = GetIt.I.get<BaseEnv>();
+
     final response = await stripeServices.CreatePaymentIntent(
-        StripeCreatePaymentIntentRequest(productID: "recipe/${nft.cookbookID}/${nft.recipeID}", coinInputIndex: 0, address: walletsStore.getWallets().value.last.publicAddress)
+        StripeCreatePaymentIntentRequest(productID: "trade/${nft.tradeID}", coinInputIndex: 0, address: walletsStore.getWallets().value.last.publicAddress)
     );
     print('clientsecret ' + response.clientsecret);
     if(response.clientsecret != ""){
-      Stripe.instance.initPaymentSheet(paymentSheetParameters: SetupPaymentSheetParameters(
-        applePay: true,
-        googlePay: true,
-        style: ThemeMode.system,
-        testEnv: true,
-        merchantCountryCode: 'US',
-        merchantDisplayName: 'Pylons',
-        paymentIntentClientSecret: response.clientsecret
-      ));
-      await Stripe.instance.presentPaymentSheet();
+      try {
+        final pi = await Stripe.instance.retrievePaymentIntent(response.clientsecret);
 
+        await Stripe.instance.initPaymentSheet(paymentSheetParameters: SetupPaymentSheetParameters(
+            applePay: true,
+            googlePay: true,
+            style: ThemeMode.system,
+            testEnv: baseEnv.baseStripeTestEnv,
+            merchantCountryCode: 'US',
+            merchantDisplayName: 'Pylons',
+            paymentIntentClientSecret: response.clientsecret
+        ));
+        await Stripe.instance.presentPaymentSheet();
+
+        print('stripe payment done');
+
+        final receipt = await stripeServices.GeneratePaymentReceipt(StripeGeneratePaymentReceiptRequest(paymentIntentID: pi.id, clientSecret: pi.clientSecret));
+
+        _showLoading(context);
+        const json = '''
+        {
+          "ID": 0,
+          "coinInputsIndex": 0,
+          "paymentInfos": []
+        }
+        ''';
+        final jsonMap = jsonDecode(json) as Map;
+        jsonMap["ID"] = recipe.tradeID;
+        final paymentInfos = jsonMap["paymentInfos"] as List<dynamic>;
+        paymentInfos.add(receipt.toJson());
+        print(jsonMap);
+
+        final tradeResponse = await walletsStore.fulfillTrade(jsonMap);
+
+        Navigator.pop(context);
+
+        debugPrint("${tradeResponse.success ? tradeResponse.data : tradeResponse.error}");
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text("${tradeResponse.success ? "Successfully purchased this NFT." : tradeResponse.error}")));
+      }catch(e){
+        print(e);
+      }
     }
   }
 
-  Future<void> _executeRecipe(BuildContext context) async {
+  Future<void> PaymentForRecipe(BuildContext context, NFT nft) async {
     final walletsStore = GetIt.I.get<WalletsStore>();
 
-    if(recipe.type == nftType.type_recipe) {
-
-      openPaymentSheet(recipe);
-      return;
-
-      const jsonExecuteRecipe = '''
+    const jsonExecuteRecipe = '''
       {
         "creator": "",
         "cookbookID": "",
@@ -490,38 +542,100 @@ class _PayByCardWidget extends StatelessWidget {
         }
         ''';
 
-      final jsonMap = jsonDecode(jsonExecuteRecipe) as Map;
-      jsonMap["cookbookID"] = recipe.cookbookID;
-      jsonMap["recipeID"] = recipe.recipeID;
+    final jsonMap = jsonDecode(jsonExecuteRecipe) as Map;
+    jsonMap["cookbookID"] = recipe.cookbookID;
+    jsonMap["recipeID"] = recipe.recipeID;
 
-      _showLoading(context);
+    _showLoading(context);
 
-      // print(jsonMap);
-      final response = await walletsStore.executeRecipe(jsonMap);
+    // print(jsonMap);
+    final response = await walletsStore.executeRecipe(jsonMap);
 
 
-      Navigator.pop(context);
+    Navigator.pop(context);
 
-      debugPrint("${response.success ? response.data : response.error}");
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("${response.success ? "Successfully purchased this NFT." : response.error}")));
-    }else if(recipe.type == nftType.type_trade) {
-        _showLoading(context);
-        const json = '''
+    debugPrint("${response.success ? response.data : response.error}");
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("${response.success ? "Successfully purchased this NFT." : response.error}")));
+  }
+
+  Future<void> StripePaymentForRecipe(BuildContext context, NFT nft) async {
+    final walletsStore = GetIt.I.get<WalletsStore>();
+    final stripeServices = GetIt.I.get<StripeServices>();
+    final baseEnv = GetIt.I.get<BaseEnv>();
+    final response = await stripeServices.CreatePaymentIntent(
+        StripeCreatePaymentIntentRequest(productID: "recipe/${nft.cookbookID}/${nft.recipeID}", coinInputIndex: 0, address: walletsStore.getWallets().value.last.publicAddress)
+    );
+    print('clientsecret ' + response.clientsecret);
+    if(response.clientsecret != ""){
+      try {
+        final pi = await Stripe.instance.retrievePaymentIntent(response.clientsecret);
+
+        await Stripe.instance.initPaymentSheet(paymentSheetParameters: SetupPaymentSheetParameters(
+            applePay: true,
+            googlePay: true,
+            style: ThemeMode.system,
+            testEnv: baseEnv.baseStripeTestEnv,
+            merchantCountryCode: 'US',
+            merchantDisplayName: 'Pylons',
+            paymentIntentClientSecret: response.clientsecret
+        ));
+        await Stripe.instance.presentPaymentSheet();
+        
+        print('stripe payment done');
+        
+        final receipt = await stripeServices.GeneratePaymentReceipt(StripeGeneratePaymentReceiptRequest(paymentIntentID: pi.id, clientSecret: pi.clientSecret));
+
+        const jsonExecuteRecipe = '''
         {
-          "ID": 0
+          "creator": "",
+          "cookbookID": "",
+          "recipeID": "",
+          "coinInputsIndex": 0,
+          "paymentInfos": []
         }
         ''';
-        final jsonMap = jsonDecode(json) as Map;
-        jsonMap["ID"] = recipe.tradeID;
-        // print(jsonMap);
-        final response = await walletsStore.fulfillTrade(jsonMap);
+  
+        final jsonMap = jsonDecode(jsonExecuteRecipe) as Map;
+        jsonMap["cookbookID"] = recipe.cookbookID;
+        jsonMap["recipeID"] = recipe.recipeID;
+
+        final paymentInfos = jsonMap["paymentInfos"] as List<dynamic>;
+        paymentInfos.add(receipt.toJson());
+        print(jsonMap);
+
+        _showLoading(context);
+  
+        final execution = await walletsStore.executeRecipe(jsonMap);
+
 
         Navigator.pop(context);
 
-        debugPrint("${response.success ? response.data : response.error}");
+        debugPrint("${execution.success ? execution.data : execution.error}");
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text("${response.success ? "Successfully purchased this NFT." : response.error}")));
+            content: Text("${execution.success ? "Successfully purchased this NFT." : execution.error}")));
+      }catch(e){
+        print(e);
+      }
+    }
+  }
+
+  Future<void> _executeRecipe(BuildContext context) async {
+    final walletsStore = GetIt.I.get<WalletsStore>();
+
+    if(recipe.type == nftType.type_recipe) {
+
+      if(recipe.denom.UdenomToDenom().toLowerCase() == "usd") {
+        StripePaymentForRecipe(context, recipe);
+      }else {
+        PaymentForRecipe(context, recipe);
+      }
+    }else if(recipe.type == nftType.type_trade) {
+      if(recipe.denom.UdenomToDenom().toLowerCase() == "usd") {
+        StripePaymentForTrade(context, recipe);
+      }else{
+        PaymentForTrade(context, recipe);
+      }
     }
   }
 

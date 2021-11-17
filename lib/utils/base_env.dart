@@ -11,6 +11,7 @@ class BaseEnv {
   late String _baseWsUrl;
   late String _stripeUrl;
   late String _stripePubKey;
+  late bool _stripeTestEnv;
 
   void setEnv({
     required String lcdUrl,
@@ -23,7 +24,8 @@ class BaseEnv {
     String? faucetUrl,
     String? faucetPort,
     String? stripeUrl,
-    String? stripePubKey
+    String? stripePubKey,
+    bool? stripeTestEnv
 
   }) {
     _networkInfo = NetworkInfo(
@@ -49,6 +51,7 @@ class BaseEnv {
     _baseWsUrl = "$wsUrl:$tendermintPort";
     _stripeUrl = stripeUrl ?? "";
     _stripePubKey = stripePubKey ?? "";
+    _stripeTestEnv = stripeTestEnv ?? true;
   }
 
   NetworkInfo get networkInfo => _networkInfo;
@@ -64,4 +67,6 @@ class BaseEnv {
   String get baseStripeUrl => _stripeUrl;
 
   String get baseStripPubKey => _stripePubKey;
+
+  bool get baseStripeTestEnv => _stripeTestEnv;
 }

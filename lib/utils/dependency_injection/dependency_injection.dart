@@ -50,7 +50,8 @@ Future<void> init() async {
       faucetPort: dotenv.env['FAUCET_PORT'],
       wsUrl: dotenv.env['WS_URL']!,
       stripeUrl: dotenv.env['STRIPE_SERVER'],
-      stripePubKey: dotenv.env['STRIP_PUB_KEY']
+      stripePubKey: dotenv.env['STRIPE_PUB_KEY'],
+      stripeTestEnv: dotenv.env['STRIPE_TEST_ENV'] == 'true' ? true : false,
     ));
 
   sl.registerLazySingleton(() => TransactionSigningGateway(
