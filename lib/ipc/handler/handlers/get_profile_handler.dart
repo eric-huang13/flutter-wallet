@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/loading.dart';
@@ -17,7 +18,7 @@ class GetProfileHandler implements BaseHandler {
   Future<SDKIPCResponse> handle() async {
     final walletsStore = GetIt.I.get<WalletsStore>();
 
-    final loading = Loading()..showLoading();
+    final loading = Loading()..showLoading(message: "${'getting_profile'.tr()}...");
 
     final response = await walletsStore.getProfile();
     loading.dismiss();

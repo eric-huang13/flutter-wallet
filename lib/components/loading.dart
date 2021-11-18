@@ -22,7 +22,7 @@ class Loading {
 
 
 
-  Future showLoading() {
+  Future showLoading({String message = "Loading"}) {
     return showDialog(
       context: navigatorKey.currentState!.overlay!.context,
       barrierDismissible: true,
@@ -41,7 +41,7 @@ class Loading {
                       ),
                       const HorizontalSpace(10),
                       Text(
-                        "Loading...",
+                        message,
                         style:
                         Theme
                             .of(ctx)

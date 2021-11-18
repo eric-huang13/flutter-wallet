@@ -1,6 +1,7 @@
 import 'dart:convert';
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/loading.dart';
 import 'package:pylons_wallet/ipc/handler/base_handler.dart';
@@ -16,7 +17,7 @@ class CreateRecipeHandler implements BaseHandler {
     final jsonMap = jsonDecode(sdkipcMessage.json) as Map;
 
     jsonMap.remove('nodeVersion');
-    final loading = Loading()..showLoading();
+    final loading = Loading()..showLoading(message: "${'creating_recipe'.tr()}...");
 
     final walletsStore = GetIt.I.get<WalletsStore>();
 

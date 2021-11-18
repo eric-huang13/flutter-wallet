@@ -126,7 +126,7 @@ class IPCEngine {
 
     debugPrint(getMessage);
 
-    await showApprovalDialog(sdkIPCMessage: sdkIPCMessage);
+    await _handleIPCMessage(sdkIPCMessage: sdkIPCMessage);
 
   }
 
@@ -235,33 +235,17 @@ class IPCEngine {
     }
   }
 
-  /// This is a temporary dialog for the proof of concept.
+  /// This function sends the ipc message to the handler factory.
   /// Input : [sdkIPCMessage] The sender of the signal
   /// Output : [key] The signal kind against which the signal is sent
-  Future showApprovalDialog({required SDKIPCMessage sdkIPCMessage}) async {
-    final whiteListedTransactions = [HandlerFactory.GET_PROFILE, HandlerFactory.GET_COOKBOOK];
+  Future _handleIPCMessage({required SDKIPCMessage sdkIPCMessage}) async {
 
-    if (whiteListedTransactions.contains(sdkIPCMessage.action)) {
       final handlerMessage = await GetIt.I.get<HandlerFactory>().getHandler(sdkIPCMessage).handle();
       debugPrint("$handlerMessage");
       await dispatchUniLink(handlerMessage.createMessageLink(isAndroid: Platform.isAndroid));
-      return;
-    }
 
-    final sdkApprovalDialog = SDKApprovalDialog(
-        context: navigatorKey.currentState!.overlay!.context,
-        sdkipcMessage: sdkIPCMessage,
-        onApproved: () async {
-          final handlerMessage = await GetIt.I.get<HandlerFactory>().getHandler(sdkIPCMessage).handle();
-          debugPrint("$handlerMessage");
-          await dispatchUniLink(handlerMessage.createMessageLink(isAndroid: Platform.isAndroid));
-        },
-        onCancel: () async {
-          final cancelledResponse = SDKIPCResponse.failure(sender: sdkIPCMessage.sender, error: 'User Declined the request', errorCode: HandlerFactory.ERR_USER_DECLINED, transaction: sdkIPCMessage.action);
-          await dispatchUniLink(cancelledResponse.createMessageLink(isAndroid: Platform.isAndroid));
-        });
 
-    await sdkApprovalDialog.show();
+
   }
 
   /// This method disposes the
@@ -280,7 +264,7 @@ class IPCEngine {
   ///This method checks if the incoming link is generated from Easel
   bool _isEaselUniLink(String link) {
     final queryParam = Uri.parse(link).queryParameters;
-    return queryParam.containsKey("action") && queryParam.containsKey("recipe_id") && queryParam.containsKey("nft_amount") && queryParam.containsKey("cookbook_id");
+    return queryParam.containsKey("action") && queryParam['action'] == 'purchase_nft' && queryParam.containsKey("recipe_id") && queryParam.containsKey("nft_amount") && queryParam.containsKey("cookbook_id");
   }
 
   bool _isNFTViewUniLink(String link) {
