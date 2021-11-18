@@ -74,15 +74,24 @@ class StripeGeneratePaymentReceiptResponse {
       return StripeGeneratePaymentReceiptResponse(
         productID: ret.value?.entries.firstWhere((e) => e.key == 'productID', orElse: ()=>MapEntry('productID', '')).value as String,
         payerAddr: ret.value?.entries.firstWhere((e) => e.key == 'payerAddr', orElse: ()=>MapEntry('payerAddr', '')).value as String,
-        amount: ret.value?.entries.firstWhere((e) => e.key == 'payerAddr', orElse: ()=>MapEntry('payerAddr', '')).value as String,
+        amount: ret.value?.entries.firstWhere((e) => e.key == 'amount', orElse: ()=>MapEntry('amount', '')).value as String,
         signature: ret.value?.entries.firstWhere((e) => e.key == 'signature', orElse: ()=>MapEntry('signature', '')).value as String,
         purchaseID: ret.value?.entries.firstWhere((e) => e.key == 'purchaseID', orElse: ()=>MapEntry('purchaseID', '')).value as String,
         processorName: ret.value?.entries.firstWhere((e) => e.key == 'processorName', orElse: ()=>MapEntry('processorName', '')).value as String,
       );
     }
     return StripeGeneratePaymentReceiptResponse();
-
   }
+
+
+  Map<String, dynamic> toJson() => {
+    'purchaseID': purchaseID,
+    'processorName': processorName,
+    'payerAddr': payerAddr,
+    'amount': amount,
+    'productID': productID,
+    'signature': signature
+  };
 }
 
 class StripeGenerateRegistrationTokenResponse {
@@ -103,7 +112,33 @@ class StripeGenerateRegistrationTokenResponse {
 
 }
 
+class StripeRegisterAccountRequest {
+  final String Address;
+  final String Token;
+  final String Signature;
+
+  StripeRegisterAccountRequest({
+      required this.Address,
+      required this.Token,
+      required this.Signature});
+  Map<String, dynamic> toJson() => {'address': this.Address, 'token': this.Token, 'signature': this.Signature};
+}
+
 class StripeRegisterAccountResponse {
+final String accountlink;
+
+  StripeRegisterAccountResponse({
+    this.accountlink=''
+  });
+
+  factory StripeRegisterAccountResponse.from(RequestResult<Map<String, dynamic>> ret) {
+    if (ret.isSuccessful && ret.value != null) {
+      return StripeRegisterAccountResponse(
+        accountlink: ret.value?.entries.firstWhere((e) => e.key == 'accountlink', orElse: ()=>MapEntry('accountlink', '')).value as String
+      );
+    }
+    return StripeRegisterAccountResponse();
+  }
 
 }
 
@@ -233,17 +268,12 @@ class StripeServices{
     return StripeGenerateRegistrationTokenResponse.from(result);
   }
 
-  /*
 
   Future<StripeRegisterAccountResponse> RegisterAccount(StripeRegisterAccountRequest req) async {
     final helper = QueryHelper(httpClient: _httpClient);
     final result = await helper.queryPost( "$stripeUrl/register-account", req.toJson());
-    if(result.isSuccessful) {
-      return StripeRegisterAccountResponse.from(result.value);
-    }
-    return StripeRegisterAccountResponse();
+    return StripeRegisterAccountResponse.from(result);
   }
- */
 /*
   Future<GenerateUpdateTokenResponse> GenerateUpdateToken(GenerateUpdateTokenRequest req) async {
     final helper = QueryHelper(httpClient: _httpClient);

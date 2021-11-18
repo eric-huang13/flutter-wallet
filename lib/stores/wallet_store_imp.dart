@@ -167,6 +167,18 @@ class WalletsStoreImp implements WalletsStore {
     isSendMoneyLoading.value = false;
   }
 
+  Future<String> _sign(String message) async {
+    final walletsResultEither = await _customTransactionSigningGateway.getWalletsList();
+    final accountsList = walletsResultEither.getOrElse(() => []);
+
+    final info = accountsList.last;
+    final walletLookupKey = createWalletLookUp(info);
+
+    //final signedTransaction = await _transactionSigningGateway.signTransaction(transaction: message, walletLookupKey: walletLookupKey);
+    return "";
+
+  }
+
   Future<SDKIPCResponse> _signAndBroadcast(GeneratedMessage message) async {
     final unsignedTransaction = UnsignedAlanTransaction(messages: [message]);
 

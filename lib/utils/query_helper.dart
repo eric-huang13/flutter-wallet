@@ -55,6 +55,7 @@ class QueryHelper {
         error: 'Call to $url returned status code ${data.statusCode}',
       );
     }
+    print(utf8.decode(data.bodyBytes));
 
     return RequestResult(
       value: jsonDecode(utf8.decode(data.bodyBytes)) as Map<String, dynamic>,

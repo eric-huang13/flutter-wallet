@@ -6,12 +6,15 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/entities/balance.dart';
+import 'package:pylons_wallet/pages/new_screens/stripe_screen.dart';
 import 'package:pylons_wallet/pylons_app.dart';
+import 'package:pylons_wallet/services/stripe_services/stripe_services.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/transactions/pylons_balance.dart';
 import 'package:pylons_wallet/utils/formatter.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
 import 'package:pylons_wallet/components/loading.dart';
+import 'package:pylons_wallet/utils/third_party_services/local_storage_service.dart';
 
 class CurrencyScreen extends StatefulWidget {
   const CurrencyScreen({Key? key}) : super(key: key);
@@ -45,6 +48,44 @@ class _CurrencyScreenState extends State<CurrencyScreen>
   //var _assets = ValueNotifier(<Balance>[]);
   var assets = <Balance>[];
 
+  Future<void> handleStripe() async {
+    final dataSource = GetIt.I.get<LocalDataSource>();
+    final stripeServices = GetIt.I.get<StripeServices>();
+    final walletsStore = GetIt.I.get<WalletsStore>();
+
+    await dataSource.loadData();
+    var token = '';
+
+    if(dataSource.StripeToken != ""){
+      token = dataSource.StripeToken;
+
+    } else
+    {
+      final response = await stripeServices.GenerateRegistrationToken(walletsStore.getWallets().value.last.publicAddress);
+      print(response.token);
+      if(response.token != ""){
+        dataSource.StripeToken = response.token;
+        dataSource.saveData();
+        token = response.token;
+      }
+    }
+
+      final register_response = await stripeServices.RegisterAccount(StripeRegisterAccountRequest(
+          Token: token,
+          Signature: '',
+          Address: walletsStore.getWallets().value.last.publicAddress));
+
+      if(register_response.accountlink != ''){
+        print(register_response.accountlink);
+      }
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return StripeScreen(url: register_response.accountlink, token: dataSource.StripeToken,);
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     //super.build(context);
@@ -56,7 +97,7 @@ class _CurrencyScreenState extends State<CurrencyScreen>
           IconButton(
             icon: Image.asset('assets/icons/stripe_logo.png', width: 24, height: 24),
             onPressed: () {
-
+              handleStripe();
             }
           ),
           IconButton(
