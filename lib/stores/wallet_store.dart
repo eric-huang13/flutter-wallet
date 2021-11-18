@@ -185,6 +185,13 @@ abstract class WalletsStore {
 
   /// This method returns the recipes based on cookbook
   /// Input : [cookbookId] id of the cookbook
-  /// Output : [SDKIPCResponse] contains the info related to the profile.
+  /// Output : [SDKIPCResponse] returns the recipes
   Future<SDKIPCResponse> getAllRecipesByCookBookId({required String cookbookId});
+
+
+
+  /// This method returns the recipes based on cookbook
+  /// Input : [cookbookId] id of the cookbook
+  /// Output : [SDKIPCResponse] returns the cookbook
+  Future<SDKIPCResponse> getCookbookByIdForSDK({required String cookbookId});
 }

@@ -239,7 +239,7 @@ class IPCEngine {
   /// Input : [sdkIPCMessage] The sender of the signal
   /// Output : [key] The signal kind against which the signal is sent
   Future showApprovalDialog({required SDKIPCMessage sdkIPCMessage}) async {
-    final whiteListedTransactions = [HandlerFactory.GET_PROFILE];
+    final whiteListedTransactions = [HandlerFactory.GET_PROFILE, HandlerFactory.GET_COOKBOOK];
 
     if (whiteListedTransactions.contains(sdkIPCMessage.action)) {
       final handlerMessage = await GetIt.I.get<HandlerFactory>().getHandler(sdkIPCMessage).handle();
@@ -257,7 +257,7 @@ class IPCEngine {
           await dispatchUniLink(handlerMessage.createMessageLink(isAndroid: Platform.isAndroid));
         },
         onCancel: () async {
-          final cancelledResponse = SDKIPCResponse.failure(sender: sdkIPCMessage.sender, error: '', errorCode: HandlerFactory.ERR_SOMETHING_WENT_WRONG, transaction: sdkIPCMessage.action);
+          final cancelledResponse = SDKIPCResponse.failure(sender: sdkIPCMessage.sender, error: 'User Declined the request', errorCode: HandlerFactory.ERR_USER_DECLINED, transaction: sdkIPCMessage.action);
           await dispatchUniLink(cancelledResponse.createMessageLink(isAndroid: Platform.isAndroid));
         });
 

@@ -4,6 +4,7 @@ import 'package:pylons_wallet/ipc/handler/handlers/create_cook_book_handler.dart
 import 'package:pylons_wallet/ipc/handler/handlers/create_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/enable_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/execute_recipe_handler.dart';
+import 'package:pylons_wallet/ipc/handler/handlers/get_cookbook_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/get_recipes_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/update_cookbook_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/update_recipe_handler.dart';
@@ -50,9 +51,19 @@ void main(){
   });
 
 
-  test('should return UpdateCookBookHander on TX_UPDATE_COOKBOOK action', (){
+  test('should return UpdateCookBookHandler on TX_UPDATE_COOKBOOK action', (){
     final handler = HandlerFactory().getHandler(SDKIPCMessage(json: '', action: HandlerFactory.TX_UPDATE_COOKBOOK, sender: ''));
     expect(true, handler is UpdateCookBookHandler);
+  });
+
+
+
+
+
+
+  test('should return GetCookbookHandler on GetCookBook action', (){
+    final handler = HandlerFactory().getHandler(SDKIPCMessage(json: '', action: HandlerFactory.GET_COOKBOOK, sender: ''));
+    expect(true, handler is GetCookbookHandler);
   });
 
 

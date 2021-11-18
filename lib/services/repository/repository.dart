@@ -22,6 +22,14 @@ abstract class Repository {
   /// Output: if successful the output will be the list of [pylons.Recipe]
   /// will return error in the form of failure
   Future<Either<Failure, List<pylons.Recipe>>> getRecipesBasedOnCookBookId({required String cookBookId});
+
+
+
+  /// This method returns the cookbook
+  /// Input : [cookBookId] id of the cookbook
+  /// Output: if successful the output will be  [pylons.Cookbook]
+  /// will return error in the form of failure
+  Future<Either<Failure, pylons.Cookbook>> getCookbookBasedOnId({required String cookBookId});
 }
 
 class RepositoryImp implements Repository {
@@ -87,6 +95,27 @@ class RepositoryImp implements Repository {
       final response = await queryClient.listRecipesByCookbook(request);
 
       return Right(response.recipes);
+    } on Exception catch (_) {
+      return const Left(CookBookNotFoundFailure(COOK_BOOK_NOT_FOUND));
+    }
+  }
+
+  @override
+  Future<Either<Failure, pylons.Cookbook>> getCookbookBasedOnId({required String cookBookId}) async {
+    if (!await networkInfo.isConnected) {
+      return const Left(NoInternetFailure(NO_INTERNET));
+    }
+
+    try {
+      final request = pylons.QueryGetCookbookRequest.create()..iD = cookBookId;
+
+      final response = await queryClient.cookbook(request);
+      if (!response.hasCookbook()) {
+        return const Left(CookBookNotFoundFailure(COOK_BOOK_NOT_FOUND));
+      }
+
+      return Right(response.cookbook);
+
     } on Exception catch (_) {
       return const Left(CookBookNotFoundFailure(COOK_BOOK_NOT_FOUND));
     }
