@@ -15,11 +15,11 @@ Future<void> main() async {
   await dotenv.load(fileName: "env/.dev_env");
   await di.init();
 
+
   runApp(
     EasyLocalization(supportedLocales: const [Locale('en'), Locale('ru')], path: 'i18n', fallbackLocale: const Locale('en'), saveLocale: false, useOnlyLangCode: true, child: PylonsApp()),
   );
 }
-
 
 
 class MyHttpOverrides extends HttpOverrides {

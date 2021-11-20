@@ -126,33 +126,101 @@ class StripeRegisterAccountRequest {
 
 class StripeRegisterAccountResponse {
 final String accountlink;
+final String account;
 
   StripeRegisterAccountResponse({
-    this.accountlink=''
+    this.accountlink='',
+    this.account=''
   });
 
   factory StripeRegisterAccountResponse.from(RequestResult<Map<String, dynamic>> ret) {
     if (ret.isSuccessful && ret.value != null) {
       return StripeRegisterAccountResponse(
-        accountlink: ret.value?.entries.firstWhere((e) => e.key == 'accountlink', orElse: ()=>MapEntry('accountlink', '')).value as String
+        accountlink: ret.value?.entries.firstWhere((e) => e.key == 'accountlink', orElse: ()=>MapEntry('accountlink', '')).value as String,
+        account: ret.value?.entries.firstWhere((e) => e.key == 'account', orElse: ()=>MapEntry('account', '')).value as String
       );
     }
     return StripeRegisterAccountResponse();
   }
-
 }
 
 class StripeGenerateUpdateTokenResponse {
+  final String token;
+  StripeGenerateUpdateTokenResponse({
+    this.token = ''
+  });
 
+  factory StripeGenerateUpdateTokenResponse.from(RequestResult<Map<String, dynamic>> ret) {
+    if(ret.isSuccessful && ret.value != null){
+      return StripeGenerateUpdateTokenResponse(
+          token: ret.value?.entries.firstWhere((e) => e.key == 'token', orElse: ()=>MapEntry('token', '')).value as String
+      );
+    }
+    return StripeGenerateUpdateTokenResponse();
+  }
 }
 
 //reserve
 class StripeUpdateAccountRequest {
+  final String Address;
+  final String Token;
+  final String Signature;
 
+  StripeUpdateAccountRequest({
+    required this.Address,
+    required this.Token,
+    required this.Signature});
+  Map<String, dynamic> toJson() => {'address': this.Address, 'token': this.Token, 'signature': this.Signature};
 }
 //reserve
 class StripeUpdateAccountResponse {
+  final String accountlink;
+  final String account;
 
+  StripeUpdateAccountResponse({
+    this.accountlink='',
+    this.account=''
+  });
+
+  factory StripeUpdateAccountResponse.from(RequestResult<Map<String, dynamic>> ret) {
+    if (ret.isSuccessful && ret.value != null) {
+      return StripeUpdateAccountResponse(
+          accountlink: ret.value?.entries.firstWhere((e) => e.key == 'accountlink', orElse: ()=>MapEntry('accountlink', '')).value as String,
+          account: ret.value?.entries.firstWhere((e) => e.key == 'account', orElse: ()=>MapEntry('account', '')).value as String
+      );
+    }
+    return StripeUpdateAccountResponse();
+  }
+}
+
+class StripeAccountLinkRequest {
+  final String Account;
+  final String Signature;
+
+  StripeAccountLinkRequest({
+    required this.Account,
+    required this.Signature});
+  Map<String, dynamic> toJson() => {'account': this.Account, 'signature': this.Signature};
+}
+
+class StripeAccountLinkResponse {
+  final String accountlink;
+  final String account;
+
+  StripeAccountLinkResponse({
+    this.accountlink='',
+    this.account=''
+  });
+
+  factory StripeAccountLinkResponse.from(RequestResult<Map<String, dynamic>> ret) {
+    if (ret.isSuccessful && ret.value != null) {
+      return StripeAccountLinkResponse(
+          accountlink: ret.value?.entries.firstWhere((e) => e.key == 'accountlink', orElse: ()=>MapEntry('accountlink', '')).value as String,
+          account: ret.value?.entries.firstWhere((e) => e.key == 'account', orElse: ()=>MapEntry('account', '')).value as String
+      );
+    }
+    return StripeAccountLinkResponse();
+  }
 }
 
 //request: {address: String, amount: int}
@@ -274,26 +342,20 @@ class StripeServices{
     final result = await helper.queryPost( "$stripeUrl/register-account", req.toJson());
     return StripeRegisterAccountResponse.from(result);
   }
-/*
-  Future<GenerateUpdateTokenResponse> GenerateUpdateToken(GenerateUpdateTokenRequest req) async {
+
+  Future<StripeGenerateUpdateTokenResponse> GenerateUpdateToken(String address) async {
     final helper = QueryHelper(httpClient: _httpClient);
-    final result = await helper.queryPost( "$stripeUrl/generate-update-token", req.toJson());
-    if(result.isSuccessful) {
-      return GenerateUpdateTokenResponse.from(result.value);
-    }
-    return GenerateUpdateTokenResponse();
+    final result = await helper.queryGet( "$stripeUrl/generate-update-token?address=${address}");
+    return StripeGenerateUpdateTokenResponse.from(result);
   }
- */
 
   // request: {address:String, token: String, signature: String}
   // response: redirectURL
-  /*
   Future<StripeUpdateAccountResponse> UpdateAccount(StripeUpdateAccountRequest req) async {
     final helper = QueryHelper(httpClient: _httpClient);
     final result = await helper.queryPost( "$stripeUrl/update-account", req.toJson());
     return StripeUpdateAccountResponse.from(result);
   }
-   */
 
   //request: {address: String, amount: int}
   //response: {token: String, RedeemAmount: int64}
@@ -310,6 +372,13 @@ class StripeServices{
     final helper = QueryHelper(httpClient: _httpClient);
     final result = await helper.queryPost( "$stripeUrl/payout", req.toJson());
     return StripePayoutResponse.from(result);
+  }
+
+
+  Future<StripeAccountLinkResponse> GetAccountLink(StripeAccountLinkRequest req) async {
+    final helper = QueryHelper(httpClient: _httpClient);
+    final result = await helper.queryPost( "$stripeUrl/accountlink", req.toJson());
+    return StripeAccountLinkResponse.from(result);
   }
 /*
   Future<StripeWebhooksResponse> StripeWebhooks(StripeWebhooksRequest req) async {

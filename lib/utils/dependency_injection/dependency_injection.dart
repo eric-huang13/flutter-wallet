@@ -52,6 +52,7 @@ Future<void> init() async {
       stripeUrl: dotenv.env['STRIPE_SERVER'],
       stripePubKey: dotenv.env['STRIPE_PUB_KEY'],
       stripeTestEnv: dotenv.env['STRIPE_TEST_ENV'] == 'true' ? true : false,
+      stripeCallbackUrl: dotenv.env['STRIPE_CALLBACK_URL'] ?? ""
     ));
 
   sl.registerLazySingleton(() => TransactionSigningGateway(

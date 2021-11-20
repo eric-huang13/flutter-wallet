@@ -12,6 +12,7 @@ class BaseEnv {
   late String _stripeUrl;
   late String _stripePubKey;
   late bool _stripeTestEnv;
+  late String _stripeCallbackUrl;
 
   void setEnv({
     required String lcdUrl,
@@ -25,7 +26,8 @@ class BaseEnv {
     String? faucetPort,
     String? stripeUrl,
     String? stripePubKey,
-    bool? stripeTestEnv
+    bool? stripeTestEnv,
+    String? stripeCallbackUrl,
 
   }) {
     _networkInfo = NetworkInfo(
@@ -52,6 +54,7 @@ class BaseEnv {
     _stripeUrl = stripeUrl ?? "";
     _stripePubKey = stripePubKey ?? "";
     _stripeTestEnv = stripeTestEnv ?? true;
+    _stripeCallbackUrl = stripeCallbackUrl ?? "";
   }
 
   NetworkInfo get networkInfo => _networkInfo;
@@ -69,4 +72,6 @@ class BaseEnv {
   String get baseStripPubKey => _stripePubKey;
 
   bool get baseStripeTestEnv => _stripeTestEnv;
+
+  String get baseStripeCallbackUrl => _stripeCallbackUrl;
 }

@@ -55,34 +55,44 @@ class _CurrencyScreenState extends State<CurrencyScreen>
 
     await dataSource.loadData();
     var token = '';
+    var accountlink = "";
+    print(dataSource.StripeAccount);
+    if(dataSource.StripeAccount != ""){
 
-    if(dataSource.StripeToken != ""){
-      token = dataSource.StripeToken;
-
-    } else
-    {
+      //get accountlink only
+      final accountlink_response = await stripeServices.GetAccountLink(StripeAccountLinkRequest(
+          Signature: '',
+          Account: dataSource.StripeAccount
+      ));
+      //dataSource.StripeAccount = accountlink_response.account;
+      accountlink = accountlink_response.accountlink;
+    }
+    else {
       final response = await stripeServices.GenerateRegistrationToken(walletsStore.getWallets().value.last.publicAddress);
       print(response.token);
       if(response.token != ""){
         dataSource.StripeToken = response.token;
-        dataSource.saveData();
         token = response.token;
       }
-    }
-
       final register_response = await stripeServices.RegisterAccount(StripeRegisterAccountRequest(
           Token: token,
           Signature: '',
           Address: walletsStore.getWallets().value.last.publicAddress));
 
-      if(register_response.accountlink != ''){
-        print(register_response.accountlink);
-      }
+      dataSource.StripeAccount = register_response.account;
+      accountlink = register_response.accountlink;
+
+    }
+
+    dataSource.saveData();
+
 
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return StripeScreen(url: register_response.accountlink, token: dataSource.StripeToken,);
+          return StripeScreen(url: accountlink, token: dataSource.StripeToken, onBack: (){
+            navigatorKey.currentState!.pop();
+          } );
         });
   }
 

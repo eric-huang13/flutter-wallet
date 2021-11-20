@@ -1,13 +1,20 @@
 
+import 'dart:async';
+import 'dart:collection';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:pylons_wallet/utils/base_env.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class StripeScreen extends StatefulWidget {
   final String token;
   final String url;
-  const StripeScreen({Key? key, required this.token, required this.url}) : super(key: key);
+  final VoidCallback onBack;
+  const StripeScreen({Key? key, required this.token, required this.url, required this.onBack}) : super(key: key);
 
   @override
   State<StripeScreen> createState() => _StripeScreenState();
@@ -22,23 +29,43 @@ class _StripeScreenState extends State<StripeScreen>
     //if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
   }
 
+
   @override
   Widget build(BuildContext context) {
+    final baseEnv = GetIt.I.get<BaseEnv>();
+
 
     return WebView(
       initialUrl: widget.url,
-      navigationDelegate: (request) {
-        if (request.url.contains('mail.google.com')) {
-          print('Trying to open Gmail');
-          Navigator.pop(context); // Close current window
-          return NavigationDecision.prevent; // Prevent opening url
-        } else if (request.url.contains('youtube.com')) {
-          print('Trying to open Youtube');
-          return NavigationDecision.navigate; // Allow opening url
-        } else {
-          return NavigationDecision.navigate; // Default decision
-        }
-      },
+      javascriptMode: JavascriptMode.unrestricted,
+      debuggingEnabled: true,
+      //userAgent: 'Mozilla/5.0 (Linux; Android 5.1.1; Nexus 5 Build/LMY48B; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/43.0.2357.65 Mobile Safari/537.36',
+        onWebViewCreated: (WebViewController webViewController) {
+          _controller = webViewController;
+        },
+        javascriptChannels:  [
+          JavascriptChannel(
+              name: 'Print',
+              onMessageReceived: (JavascriptMessage message) {
+                print('Message: ${message.message}');
+              }),
+        ].toSet(),
+        navigationDelegate: (NavigationRequest request) {
+          print(request.url);
+          if(request.url.contains(baseEnv.baseStripeCallbackUrl)){
+            widget.onBack();
+            return NavigationDecision.prevent;
+          }
+          print('allowing navigation to $request');
+          return NavigationDecision.navigate;
+        },
+        onPageStarted: (String url) {
+          print('Page started loading: $url');
+        },
+        onPageFinished: (String url) {
+          print('Page finished loading: $url');
+        },
+        gestureNavigationEnabled: true,
     );
   }
 }
