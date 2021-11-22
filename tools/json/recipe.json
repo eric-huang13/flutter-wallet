@@ -1,15 +1,15 @@
 {
-  "cookbookID": "cookbook_for_test7",
-  "ID": "cookbook_for_test_2021_10_22_09_13_594",
-  "name": "Test NFT v3",
+  "cookbookID": "cookbook_for_test_stripe",
+  "ID": "cookbook_for_test_stripe_1",
+  "name": "Test NFT Stripe",
   "description": " A simple test recipe to be executed",
   "version": "v1.0.0",
   "coinInputs": [
     {
       "coins": [
         {
-          "denom": "upylon",
-          "amount": "350"
+          "denom": "ustripeusd",
+          "amount": "3500000"
         }
       ]
     }
@@ -71,7 +71,7 @@
           },
           {
             "key": "App_Type",
-            "value": "Avatar"
+            "value": "Easel"
           },
           {
             "key": "Description",
@@ -95,9 +95,12 @@
           }
         ],
         "mutableStrings": [],
-        "transferFee": [{"denom": "upylon",
-          "amount": "10"
-        }],
+        "transferFee": [
+          {
+            "denom": "ustripeusd",
+            "amount": "1000000"
+          }
+        ],
         "tradePercentage": "100000000000000000",
         "amountMinted": 0,
         "quantity": 30,

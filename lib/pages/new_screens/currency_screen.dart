@@ -56,27 +56,29 @@ class _CurrencyScreenState extends State<CurrencyScreen>
     await dataSource.loadData();
     var token = '';
     var accountlink = "";
-    print(dataSource.StripeAccount);
+    if(dataSource.StripeToken == ""){
+      final response = await stripeServices.GenerateRegistrationToken(walletsStore.getWallets().value.last.publicAddress);
+      if(response.token != ""){
+        dataSource.StripeToken = response.token;
+        token = response.token;
+      }
+    }
+
+
     if(dataSource.StripeAccount != ""){
 
       //get accountlink only
       final accountlink_response = await stripeServices.GetAccountLink(StripeAccountLinkRequest(
-          Signature: '',
+          Signature: await walletsStore.signPureMessage(dataSource.StripeToken),
           Account: dataSource.StripeAccount
       ));
       //dataSource.StripeAccount = accountlink_response.account;
       accountlink = accountlink_response.accountlink;
     }
     else {
-      final response = await stripeServices.GenerateRegistrationToken(walletsStore.getWallets().value.last.publicAddress);
-      print(response.token);
-      if(response.token != ""){
-        dataSource.StripeToken = response.token;
-        token = response.token;
-      }
       final register_response = await stripeServices.RegisterAccount(StripeRegisterAccountRequest(
           Token: token,
-          Signature: '',
+          Signature: await walletsStore.signPureMessage(dataSource.StripeToken),
           Address: walletsStore.getWallets().value.last.publicAddress));
 
       dataSource.StripeAccount = register_response.account;
@@ -85,6 +87,8 @@ class _CurrencyScreenState extends State<CurrencyScreen>
     }
 
     dataSource.saveData();
+
+    print(accountlink);
 
 
     showDialog(
@@ -263,6 +267,7 @@ class _BalanceWidgetState extends State<_BalanceWidget> {
                     .copyWith(color: Colors.white, fontSize: 18),
                   ),
                   Spacer(),
+                  if(widget.balance.denom.text != "ustripeusd")
                   ElevatedButton(
                     onPressed: (){
                       widget.onCallFaucet();

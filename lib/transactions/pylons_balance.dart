@@ -21,11 +21,11 @@ class PylonsBalance {
     final balancesResponse = jsonDecode(response.body) as Map<String, dynamic>;
     final balancesList = balancesResponse["balances"] as List;
     final balances = <Balance>[];
-    if (balancesList.isEmpty) {
-      balances.add(Balance(denom: const Denom("upylon"), amount: Amount(Decimal.zero)));
-    }
     for (final balance in balancesList) {
       balances.add(Balance(denom: Denom(balance["denom"] as String), amount: Amount(Decimal.parse(balance["amount"] as String))));
+    }
+    if(balances.indexWhere((balance)=>balance.denom.text == "upylon") == -1) {
+      balances.add(Balance(denom: const Denom("upylon"), amount: Amount(Decimal.zero)));
     }
     return balances;
   }

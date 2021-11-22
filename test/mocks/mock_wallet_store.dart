@@ -197,4 +197,10 @@ class MockWalletStore implements WalletsStore {
   Future<SDKIPCResponse> getProfile() async {
     return SDKIPCResponse.success(data: {"username": MOCK_USERNAME}, sender: '', transaction: '');
   }
+
+  @override
+  Future<String> signPureMessage(String message) {
+    // TODO: implement signPureMessage
+    throw UnimplementedError();
+  }
 }

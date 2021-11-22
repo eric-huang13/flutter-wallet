@@ -37,6 +37,12 @@ class Constants {
       "short": "pylon",
       "icon": "assets/icons/ico_pylon.png"
     },
+    'ustripeusd': {
+      'name': "USD",
+      "denom": "ustripeusd",
+      "short": "usd",
+      "icon": "assets/icons/ico_usd.png"
+    }
   };
 }
 

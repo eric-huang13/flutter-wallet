@@ -90,7 +90,6 @@ class WalletsStoreImp implements WalletsStore {
     await broadcastWalletCreationMessageOnBlockchain(creds, wallet.bech32Address, userName);
 
     wallets.value.add(creds.publicInfo);
-
     return creds.publicInfo;
   }
 
@@ -167,16 +166,14 @@ class WalletsStoreImp implements WalletsStore {
     isSendMoneyLoading.value = false;
   }
 
-  Future<String> _sign(String message) async {
+  @override
+  Future<String> signPureMessage(String message) async {
     final walletsResultEither = await _customTransactionSigningGateway.getWalletsList();
     final accountsList = walletsResultEither.getOrElse(() => []);
 
     final info = accountsList.last;
     final walletLookupKey = createWalletLookUp(info);
-
-    //final signedTransaction = await _transactionSigningGateway.signTransaction(transaction: message, walletLookupKey: walletLookupKey);
-    return "";
-
+    return _customTransactionSigningGateway.signPureMessage(networkInfo: baseEnv.networkInfo, walletLookupKey: walletLookupKey, msg: message);
   }
 
   Future<SDKIPCResponse> _signAndBroadcast(GeneratedMessage message) async {

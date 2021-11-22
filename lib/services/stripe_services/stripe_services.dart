@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:fixnum/fixnum.dart';
+import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
+import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/query_helper.dart';
 import 'package:pylons_wallet/pylons_app.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
@@ -338,6 +340,7 @@ class StripeServices{
 
 
   Future<StripeRegisterAccountResponse> RegisterAccount(StripeRegisterAccountRequest req) async {
+    print(req.Signature);
     final helper = QueryHelper(httpClient: _httpClient);
     final result = await helper.queryPost( "$stripeUrl/register-account", req.toJson());
     return StripeRegisterAccountResponse.from(result);
@@ -369,6 +372,7 @@ class StripeServices{
   //response {transfer_id:String}
 
   Future<StripePayoutResponse> Payout(StripePayoutRequest req) async {
+
     final helper = QueryHelper(httpClient: _httpClient);
     final result = await helper.queryPost( "$stripeUrl/payout", req.toJson());
     return StripePayoutResponse.from(result);

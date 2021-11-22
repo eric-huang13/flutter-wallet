@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
+import 'package:alan/wallet/network_info.dart';
 import 'package:cosmos_utils/cosmos_utils.dart';
 import 'package:dartz/dartz.dart';
 import 'package:pylons_wallet/stores/models/transaction_response.dart';
@@ -77,6 +81,27 @@ class CustomTransactionSigningGateway {
           transaction: transaction,
         ),
       );
+  
+  Future<String> signPureMessage({
+    required NetworkInfo networkInfo,
+    required WalletLookupKey walletLookupKey,
+    required String msg
+  }) async {
+    final retCreds = await _infoStorage
+        .getPrivateCredentials(walletLookupKey);
+    if(retCreds.isRight()){
+      final creds = retCreds.toOption().toNullable();
+      if(creds != null){
+        final wallet =(creds as AlanPrivateWalletCredentials).alanWallet(networkInfo);
+        List<int> list = utf8.encode(msg);
+        Uint8List bytes = Uint8List.fromList(list);
+        final signedMsg = wallet.sign(bytes);
+        print(msg);
+        return base64Encode(signedMsg);
+      }
+    }
+    return "";
+  }
 
   Future<Either<TransactionBroadcastingFailure, TransactionResponse>> broadcastTransaction({
     required WalletLookupKey walletLookupKey,

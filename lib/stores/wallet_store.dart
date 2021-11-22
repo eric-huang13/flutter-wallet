@@ -169,4 +169,7 @@ abstract class WalletsStore {
   /// This method returns the user profile
   /// Output : [SDKIPCResponse] contains the info related to the profile.
   Future<SDKIPCResponse> getProfile();
+
+  /// Sign msg and return base64 encoded string
+  Future<String> signPureMessage(String message);
 }
