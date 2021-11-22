@@ -7,14 +7,10 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/loading.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
-import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/entities/nft.dart';
-import 'package:pylons_wallet/model/recipe_json.dart';
 import 'package:pylons_wallet/pages/new_screens/asset_detail_view.dart';
 import 'package:pylons_wallet/pages/new_screens/purchase_item_screen.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
-import 'package:pylons_wallet/transactions/get_recipe.dart';
-import 'package:pylons_wallet/utils/base_env.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
 
 import '../../pylons_app.dart';

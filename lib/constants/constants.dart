@@ -9,6 +9,7 @@ const Color kTextBlackColor = Color(0xFF080830);
 const Color kBlue = Color(0xFF1212C4);
 const Color kPeach = Color(0xFFFFB094);
 const Color kPeachDark = Color(0xFFED8864);
+const Color kWhite = Color(0xFFFFFFFF);
 
 const double kIconSize = 24.0;
 const double kSmallIconSize = 18.0;

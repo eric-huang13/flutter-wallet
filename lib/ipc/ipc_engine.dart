@@ -126,7 +126,7 @@ class IPCEngine {
 
     debugPrint(getMessage);
 
-    await _handleIPCMessage(sdkIPCMessage: sdkIPCMessage);
+    await showApprovalDialog(sdkIPCMessage: sdkIPCMessage);
 
   }
 
@@ -235,17 +235,32 @@ class IPCEngine {
     }
   }
 
-  /// This function sends the ipc message to the handler factory.
+  /// This functions shows approval dialog to execute transactions as requested 3rd party apps.
   /// Input : [sdkIPCMessage] The sender of the signal
-  /// Output : [key] The signal kind against which the signal is sent
-  Future _handleIPCMessage({required SDKIPCMessage sdkIPCMessage}) async {
+  Future showApprovalDialog({required SDKIPCMessage sdkIPCMessage}) async {
+    final whiteListedTransactions = [HandlerFactory.GET_PROFILE, HandlerFactory.GET_COOKBOOK];
 
+    if (whiteListedTransactions.contains(sdkIPCMessage.action)) {
       final handlerMessage = await GetIt.I.get<HandlerFactory>().getHandler(sdkIPCMessage).handle();
       debugPrint("$handlerMessage");
       await dispatchUniLink(handlerMessage.createMessageLink(isAndroid: Platform.isAndroid));
+      return;
+    }
 
+    final sdkApprovalDialog = SDKApprovalDialog(
+        context: navigatorKey.currentState!.overlay!.context,
+        sdkipcMessage: sdkIPCMessage,
+        onApproved: () async {
+          final handlerMessage = await GetIt.I.get<HandlerFactory>().getHandler(sdkIPCMessage).handle();
+          debugPrint("$handlerMessage");
+          await dispatchUniLink(handlerMessage.createMessageLink(isAndroid: Platform.isAndroid));
+        },
+        onCancel: () async {
+          final cancelledResponse = SDKIPCResponse.failure(sender: sdkIPCMessage.sender, error: 'User Declined the request', errorCode: HandlerFactory.ERR_USER_DECLINED, transaction: sdkIPCMessage.action);
+          await dispatchUniLink(cancelledResponse.createMessageLink(isAndroid: Platform.isAndroid));
+        });
 
-
+    await sdkApprovalDialog.show();
   }
 
   /// This method disposes the

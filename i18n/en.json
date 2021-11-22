@@ -107,6 +107,9 @@
   "creating_cookbook": "Creating cookbook",
   "creating_recipe": "Creating recipe",
   "enabling_recipe": "Enabling recipe",
-  "getting_profile": "Getting profile"
+  "getting_profile": "Getting profile",
+  "would_like_to": "would like to",
+  "dont_allow": "Don't Allow",
+  "ok": "OK"
 
 }
