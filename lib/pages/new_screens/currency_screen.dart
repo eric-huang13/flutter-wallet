@@ -56,14 +56,6 @@ class _CurrencyScreenState extends State<CurrencyScreen>
     await dataSource.loadData();
     var token = '';
     var accountlink = "";
-    if(dataSource.StripeToken == ""){
-      final response = await stripeServices.GenerateRegistrationToken(walletsStore.getWallets().value.last.publicAddress);
-      if(response.token != ""){
-        dataSource.StripeToken = response.token;
-        token = response.token;
-      }
-    }
-
 
     if(dataSource.StripeAccount != ""){
 
@@ -72,10 +64,15 @@ class _CurrencyScreenState extends State<CurrencyScreen>
           Signature: await walletsStore.signPureMessage(dataSource.StripeToken),
           Account: dataSource.StripeAccount
       ));
-      //dataSource.StripeAccount = accountlink_response.account;
       accountlink = accountlink_response.accountlink;
     }
     else {
+      final response = await stripeServices.GenerateRegistrationToken(walletsStore.getWallets().value.last.publicAddress);
+      if(response.token != ""){
+        dataSource.StripeToken = response.token;
+        token = response.token;
+      }
+
       final register_response = await stripeServices.RegisterAccount(StripeRegisterAccountRequest(
           Token: token,
           Signature: await walletsStore.signPureMessage(dataSource.StripeToken),
