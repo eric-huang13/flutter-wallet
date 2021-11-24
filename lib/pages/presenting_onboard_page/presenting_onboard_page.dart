@@ -93,31 +93,31 @@ class PresentingOnboardPage extends StatelessWidget {
     );
   }
   /// Create the new wallet and associate the choosen username with it.
-  Future _registerNewUser(String userName, BuildContext context) async {
-    final _mnemonic = await generateMnemonic();
-    final _username = userName;
-
-    final diag = Loading()..showLoading();
-
-    final isAccountExists = await walletsStore.isAccountExists(_username);
-    if(isAccountExists){
-      diag..dismiss();
-      Alert.SnackbarAlert(context, "User name already exists!");
-      return;
-    }
-
-
-
-    PylonsApp.currentWallet = await walletsStore.importAlanWallet(_mnemonic, _username);
-
-    //await walletsStore.broadcastWalletCreationMessageOnBlockchain(
-    //    walletsStore.getWallets().value.last, wallet.bech32Address, userName);
-
-    // print("Wallet add: ${value.publicAddress} ${value.name} ${value.chainId}");
-    diag.dismiss();
-
-    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => const NewHomeScreen()), (route) => true);
-  }
+  // Future _registerNewUser(String userName, BuildContext context) async {
+  //   final _mnemonic = await generateMnemonic();
+  //   final _username = userName;
+  //
+  //   final diag = Loading()..showLoading();
+  //
+  //   final isAccountExists = await walletsStore.isAccountExists(_username);
+  //   if(isAccountExists){
+  //     diag..dismiss();
+  //     Alert.SnackbarAlert(context, "User name already exists!");
+  //     return;
+  //   }
+  //
+  //
+  //
+  //   PylonsApp.currentWallet = await walletsStore.importAlanWallet(_mnemonic, _username);
+  //
+  //   //await walletsStore.broadcastWalletCreationMessageOnBlockchain(
+  //   //    walletsStore.getWallets().value.last, wallet.bech32Address, userName);
+  //
+  //   // print("Wallet add: ${value.publicAddress} ${value.name} ${value.chainId}");
+  //   diag.dismiss();
+  //
+  //   Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => const NewHomeScreen()), (route) => true);
+  // }
 /*
   void onCreateAccountPressed(BuildContext context) {
     FocusScope.of(context).requestFocus(FocusNode());

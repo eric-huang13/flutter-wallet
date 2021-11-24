@@ -111,5 +111,6 @@
   "getting_profile": "Получение профиля",
   "would_like_to": "хотел бы",
   "dont_allow": "Не позволять",
-  "ok": "Ok"
+  "ok": "Ok",
+  "user_name_already_exists": "Имя пользователя уже занято"
 }

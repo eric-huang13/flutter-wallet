@@ -110,6 +110,7 @@
   "getting_profile": "Getting profile",
   "would_like_to": "would like to",
   "dont_allow": "Don't Allow",
-  "ok": "OK"
+  "ok": "OK",
+  "user_name_already_exists": "User name already exists"
 
 }
