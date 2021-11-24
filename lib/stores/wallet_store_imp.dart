@@ -275,13 +275,8 @@ class WalletsStoreImp implements WalletsStore {
 
   @override
   Future<Cookbook?> getCookbookById(String cookbookID) async {
-    final request = pylons.QueryGetCookbookRequest.create()..iD = cookbookID;
-
-    final response = await _queryClient.cookbook(request);
-    if (!response.hasCookbook()) {
-      return null;
-    }
-    return response.cookbook;
+    final recipesEither = await repository.getCookbookBasedOnId(cookBookId: cookbookID);
+    return recipesEither.toOption().toNullable();
   }
 
   @override
@@ -322,12 +317,7 @@ class WalletsStoreImp implements WalletsStore {
     return response.recipes;
   }
 
-  @override
-  Future<List<Recipe>> getRecipesByCookbookID(String cookbookID) async {
-    final request = pylons.QueryListRecipesByCookbookRequest.create()..cookbookID = cookbookID;
-    final response = await _queryClient.listRecipesByCookbook(request);
-    return response.recipes;
-  }
+
 
   @override
   Future<Trade?> getTradeByID(Int64 ID) async {
@@ -400,7 +390,7 @@ class WalletsStoreImp implements WalletsStore {
     final result = await helper.queryGet(faucetUrl);
 
     const amount = 1000000;
-    if(result.isSuccessful){
+    if (result.isSuccessful) {
       //check faucet success
       return amount;
     }
@@ -494,5 +484,36 @@ class WalletsStoreImp implements WalletsStore {
     }
 
     return SDKIPCResponse.success(data: {"username": userNameEither.getOrElse(() => '')}, sender: '', transaction: '');
+  }
+
+
+
+  @override
+  Future<SDKIPCResponse> getAllRecipesByCookBookId({required String cookbookId}) async {
+    final recipesEither = await repository.getRecipesBasedOnCookBookId(cookBookId: cookbookId);
+
+    if (recipesEither.isLeft()) {
+      return SDKIPCResponse.failure(sender: '', error: recipesEither.swap().toOption().toNullable()!.message, errorCode: HandlerFactory.ERR_CANNOT_FETCH_RECIPES, transaction: '');
+    }
+
+    return SDKIPCResponse.success(data: recipesEither.getOrElse(() => []).map((recipe) => recipe.toProto3Json()).toList(), sender: '', transaction: '');
+  }
+
+  @override
+  Future<SDKIPCResponse> updateCookBook(Map<dynamic, dynamic> jsonMap) async {
+    final msgObj = pylons.MsgUpdateCookbook.create()..mergeFromProto3Json(jsonMap);
+    msgObj.creator = wallets.value.last.publicAddress;
+    return  _signAndBroadcast(msgObj);
+  }
+
+  @override
+  Future<SDKIPCResponse> getCookbookByIdForSDK({required String cookbookId}) async {
+    final recipesEither = await repository.getCookbookBasedOnId(cookBookId: cookbookId);
+
+    if (recipesEither.isLeft()) {
+      return SDKIPCResponse.failure(sender: '', error: recipesEither.swap().toOption().toNullable()!.message, errorCode: HandlerFactory.ERR_CANNOT_FETCH_RECIPES, transaction: '');
+    }
+
+    return SDKIPCResponse.success(data: recipesEither.toOption().toNullable()!.toProto3Json(), sender: '', transaction: '');
   }
 }

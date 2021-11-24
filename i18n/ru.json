@@ -104,5 +104,12 @@
   "nft_collection": "Коллекция NFT",
   "currency": "Валюта",
   "buy_now": "купить сейчас",
-  "save_for_later": "Сохранить на потом"
+  "save_for_later": "Сохранить на потом",
+  "creating_cookbook": "Создание кулинарной книги",
+  "creating_recipe": "Создание рецепта",
+  "enabling_recipe": "Включение рецепта",
+  "getting_profile": "Получение профиля",
+  "would_like_to": "хотел бы",
+  "dont_allow": "Не позволять",
+  "ok": "Ok"
 }

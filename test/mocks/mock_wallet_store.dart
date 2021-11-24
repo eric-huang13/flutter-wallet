@@ -104,11 +104,6 @@ class MockWalletStore implements WalletsStore {
     throw UnimplementedError();
   }
 
-  @override
-  Future<List<Recipe>> getRecipesByCookbookID(String cookbookID) {
-    // TODO: implement getRecipesByCookbookID
-    throw UnimplementedError();
-  }
 
   @override
   Future<Trade?> getTradeByID(Int64 ID) {
@@ -182,6 +177,12 @@ class MockWalletStore implements WalletsStore {
   }
 
   @override
+  Future<SDKIPCResponse> updateCookBook(Map<dynamic, dynamic> jsonMap) async {
+    return SDKIPCResponse.success(data: MOCK_TRANSACTION.txHash, sender: '', transaction: '');
+
+  }
+
+  @override
   Future<SDKIPCResponse> enableRecipe(Map<dynamic, dynamic> jsonMap) {
     // TODO: implement enableRecipe
     throw UnimplementedError();
@@ -202,5 +203,17 @@ class MockWalletStore implements WalletsStore {
   Future<String> signPureMessage(String message) {
     // TODO: implement signPureMessage
     throw UnimplementedError();
+
+
+  @override
+  Future<SDKIPCResponse> getAllRecipesByCookBookId({required String cookbookId}) async {
+    return SDKIPCResponse.success(data: [], sender: '', transaction: '');
+
+  }
+
+  @override
+  Future<SDKIPCResponse> getCookbookByIdForSDK({required String cookbookId}) async {
+    return SDKIPCResponse.success(data: MOCK_COOKBOOK, sender: '', transaction: '');
+
   }
 }

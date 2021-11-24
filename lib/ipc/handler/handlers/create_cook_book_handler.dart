@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/loading.dart';
@@ -17,7 +18,7 @@ class CreateCookBookHandler implements BaseHandler {
     final jsonMap = jsonDecode(sdkipcMessage.json) as Map;
 
     jsonMap.remove('nodeVersion');
-    var loading = Loading().showLoading();
+    final loading = Loading()..showLoading(message: "${'creating_cookbook'.tr()}...");
 
     final walletsStore = GetIt.I.get<WalletsStore>();
 

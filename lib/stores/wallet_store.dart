@@ -103,12 +103,7 @@ abstract class WalletsStore {
   /// Input : [cookbookID, recipeID]
   /// Output : [Recipe] return Recipe of cookbookID, recipeID,
   /// else throws error
-  Future<Either<Failure,  Recipe>> getRecipe(String cookbookID, String recipeID);
-
-  /// This method is for get List of Recipe of cookbookID
-  /// Input : [cookbookID]
-  /// Output : [List<Recipe>] return List of Recipes of cookbookID
-  Future<List<Recipe>> getRecipesByCookbookID(String cookbookID);
+  Future<Either<Failure, Recipe>> getRecipe(String cookbookID, String recipeID);
 
   /// This method is for getting all Recipes in the chain
   Future<List<Recipe>> getRecipes();
@@ -141,6 +136,9 @@ abstract class WalletsStore {
   Future<List<Execution>> getRecipeEexecutions(
       String cookbookID, String recipeID);
 
+  /// This method is used for getting faucet token for the user
+  /// Input : [denom]
+  /// Output : [int] the amount that the user has in its wallet
   Future<int> getFaucetCoin({String denom = ""});
 
   /// check if account with username exists
@@ -148,7 +146,7 @@ abstract class WalletsStore {
   /// Output" [bool] if exists true, else false
   Future<bool> isAccountExists(String username);
 
-  /// This method creates the recipe in the block chain
+  /// This method updates the recipe in the block chain
   /// Input : [Map] containing the info related to the updation of recipe
   /// Output : [SDKIPCResponse] response
   Future<SDKIPCResponse> updateRecipe(Map<dynamic, dynamic> jsonMap);
@@ -156,20 +154,31 @@ abstract class WalletsStore {
   Observable<List<WalletPublicInfo>> getWallets();
 
   Observable<bool> getAreWalletsLoading();
-  Observable<CredentialsStorageFailure?> getLoadWalletsFailure();
 
+  Observable<CredentialsStorageFailure?> getLoadWalletsFailure();
 
   /// This method enables the recipe int the recipe in the blockchain
   /// Input : [Map] containing the info related to the updation of recipe
   /// Output : [SDKIPCResponse] response
   Future<SDKIPCResponse> enableRecipe(Map<dynamic, dynamic> jsonMap);
 
-
+  /// This method updates the cookbook in the block chain
+  /// Input : [Map] containing the info related to the updation of cookbook
+  /// Output : [SDKIPCResponse] response
+  Future<SDKIPCResponse> updateCookBook(Map<dynamic, dynamic> jsonMap);
 
   /// This method returns the user profile
   /// Output : [SDKIPCResponse] contains the info related to the profile.
   Future<SDKIPCResponse> getProfile();
 
-  /// Sign msg and return base64 encoded string
-  Future<String> signPureMessage(String message);
+  /// This method returns the recipes based on cookbook
+  /// Input : [cookbookId] id of the cookbook
+  /// Output : [SDKIPCResponse] returns the recipes
+  Future<SDKIPCResponse> getAllRecipesByCookBookId(
+      {required String cookbookId});
+
+  /// This method returns the recipes based on cookbook
+  /// Input : [cookbookId] id of the cookbook
+  /// Output : [SDKIPCResponse] returns the cookbook
+  Future<SDKIPCResponse> getCookbookByIdForSDK({required String cookbookId});
 }

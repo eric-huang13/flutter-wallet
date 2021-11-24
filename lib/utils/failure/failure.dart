@@ -13,6 +13,14 @@ class RecipeNotFoundFailure extends Failure{
 }
 
 
+
+class CookBookNotFoundFailure extends Failure{
+  const CookBookNotFoundFailure(String message) : super(message);
+  @override
+  List<Object?> get props => [message];
+}
+
+
 class NoInternetFailure extends Failure{
   const NoInternetFailure(String message) : super(message);
   @override

@@ -5,15 +5,18 @@ import 'package:pylons_wallet/ipc/handler/handlers/create_cook_book_handler.dart
 import 'package:pylons_wallet/ipc/handler/handlers/create_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/enable_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/execute_recipe_handler.dart';
+import 'package:pylons_wallet/ipc/handler/handlers/get_cookbook_handler.dart';
+import 'package:pylons_wallet/ipc/handler/handlers/get_recipes_handler.dart';
+import 'package:pylons_wallet/ipc/handler/handlers/update_cookbook_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/update_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_message.dart';
 
 import 'handlers/get_profile_handler.dart';
 
 class HandlerFactory {
-  static const String GET_COOKBOOKS = 'getCookbooks';
+  static const String GET_COOKBOOK = 'getCookbook';
   static const String GET_PROFILE = 'getProfile';
-  static const String GET_RECIPE = 'getRecipes';
+  static const String GET_RECIPES = 'getRecipes';
   static const String GET_TRADES = 'getTrades';
   static const String TX_BUY_ITEMS = 'txBuyItem';
   static const String TX_BUY_PYLONS = 'txBuyPylons';
@@ -41,15 +44,24 @@ class HandlerFactory {
   static const String ERR_ITEM_NOT_OWNED = 'itemNotOwned';
   static const String ERR_MISSING_ITEM_INPUTS = 'missingItemInputs';
   static const String ERR_SOMETHING_WENT_WRONG = 'somethingWentWrong';
+  static const String ERR_USER_DECLINED = 'userDeclined';
   static const String ERR_FETCHING_WALLETS = 'walletsNotFetched';
   static const String ERR_CANNOT_FETCH_RECIPE = 'recipeCannotBeFetched';
   static const String ERR_SIG_TRANSACTION = 'errorSigningTransaction';
   static const String ERR_CANNOT_FETCH_USERNAME = 'cannotFetchUsername';
+  static const String ERR_CANNOT_FETCH_RECIPES = 'cannotFetchRecipes';
+  static const String COOKBOOK_ID = 'cookbookId';
 
   BaseHandler getHandler(SDKIPCMessage sdkipcMessage) {
+
     if (sdkipcMessage.action == TX_CREATE_COOKBOOK) {
       return CreateCookBookHandler(sdkipcMessage);
     }
+
+    if (sdkipcMessage.action == TX_UPDATE_COOKBOOK) {
+      return UpdateCookBookHandler(sdkipcMessage);
+    }
+
     if (sdkipcMessage.action == TX_CREATE_RECIPE) {
       return CreateRecipeHandler(sdkipcMessage);
     }
@@ -73,6 +85,16 @@ class HandlerFactory {
     }
 
 
+    if (sdkipcMessage.action == GET_RECIPES) {
+      return GetRecipesHandler(sdkipcMessage);
+    }
+
+
+    if (sdkipcMessage.action == GET_COOKBOOK) {
+      return GetCookbookHandler(sdkipcMessage);
+    }
+
+
 
     return CreateCookBookHandler(sdkipcMessage);
   }
@@ -80,7 +102,7 @@ class HandlerFactory {
 
 extension HandlerValues on BaseHandler {
   String getName(){
-    final json = jsonDecode(this.sdkipcMessage.json) as Map;
+    final json = jsonDecode(sdkipcMessage.json) as Map;
     if(json.keys.contains("name")){
       return json["name"].toString();
     }
