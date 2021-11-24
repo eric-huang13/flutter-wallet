@@ -410,15 +410,7 @@ class WalletsStoreImp implements WalletsStore {
 
   @override
   Future<bool> isAccountExists(String username) async {
-    final helper = QueryHelper(httpClient: _httpClient);
-    final result = await helper.queryGet("${baseEnv.baseApiUrl}/pylons/account/username/$username");
-    if (!result.isSuccessful) {
-      return false;
-    }
-    if (result.value!.containsKey("address")) {
-      return true;
-    }
-    return false;
+    return repository.isAccountExists(username);
   }
 
   @override

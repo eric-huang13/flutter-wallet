@@ -83,5 +83,5 @@ Future<void> init() async {
   sl.registerLazySingleton<pylons.QueryClient>(() => pylons.QueryClient(sl.get<BaseEnv>().networkInfo.gRPCChannel));
 
   /// Repository
-  sl.registerLazySingleton<Repository>(() => RepositoryImp(networkInfo: sl(), queryClient: sl()));
+  sl.registerLazySingleton<Repository>(() => RepositoryImp(networkInfo: sl(), queryClient: sl(), baseEnv: sl()));
 }

@@ -2,7 +2,10 @@ import 'package:dartz/dartz.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart' as pylons;
 import 'package:pylons_wallet/services/third_party_services/network_info.dart';
+import 'package:pylons_wallet/utils/base_env.dart';
 import 'package:pylons_wallet/utils/failure/failure.dart';
+import 'package:pylons_wallet/utils/query_helper.dart';
+import 'package:http/http.dart' as http;
 
 abstract class Repository {
   /// This method returns the recipe based on cookbook id and recipe Id
@@ -30,6 +33,12 @@ abstract class Repository {
   /// Output: if successful the output will be  [pylons.Cookbook]
   /// will return error in the form of failure
   Future<Either<Failure, pylons.Cookbook>> getCookbookBasedOnId({required String cookBookId});
+
+
+  /// check if account with username exists
+  /// Input:[String] username
+  /// Output" [bool] if exists true, else false
+  Future<bool> isAccountExists(String username);
 }
 
 class RepositoryImp implements Repository {
@@ -37,7 +46,11 @@ class RepositoryImp implements Repository {
 
   final pylons.QueryClient queryClient;
 
-  RepositoryImp({required this.networkInfo, required this.queryClient});
+  final http.Client _httpClient = http.Client();
+
+  final BaseEnv baseEnv;
+
+  RepositoryImp({required this.networkInfo, required this.queryClient, required this.baseEnv});
 
   @override
   Future<Either<Failure, pylons.Recipe>> getRecipe({required String cookBookId, required String recipeId}) async {
@@ -119,5 +132,22 @@ class RepositoryImp implements Repository {
     } on Exception catch (_) {
       return const Left(CookBookNotFoundFailure(COOK_BOOK_NOT_FOUND));
     }
+  }
+
+  @override
+  Future<bool> isAccountExists(String username) async{
+    if (!await networkInfo.isConnected) {
+      return false;
+    }
+
+    final helper = QueryHelper(httpClient: _httpClient);
+    final result = await helper.queryGet("${baseEnv.baseApiUrl}/pylons/account/username/$username");
+    if (!result.isSuccessful) {
+      return false;
+    }
+    if (result.value!.containsKey("address")) {
+      return true;
+    }
+    return false;
   }
 }
