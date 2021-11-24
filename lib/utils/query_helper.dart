@@ -28,6 +28,7 @@ class QueryHelper {
   Future<RequestResult<Map<String, dynamic>>> queryGet(
       String url,
       ) async {
+    print(url);
     final data = await _httpClient.get(Uri.parse(url));
     if (data.statusCode != 200) {
       return RequestResult(

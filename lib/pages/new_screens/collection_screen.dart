@@ -214,6 +214,7 @@ class _CollectionScreenState extends State<CollectionScreen>{
 
     if(_colType == collectionType[0].title){ //Art
       final items = await walletsStore.getItemsByOwner(PylonsApp.currentWallet.publicAddress);
+
       items.forEach((e) async {
         final nft = await NFT.fromItem(e);
         setState((){
@@ -222,7 +223,7 @@ class _CollectionScreenState extends State<CollectionScreen>{
       });
 
       final trades = await walletsStore.getTrades(PylonsApp.currentWallet.publicAddress);
-      print(trades);
+
 
       trades.forEach((trade) async {
         final nft = await NFT.fromTrade(trade);

@@ -74,6 +74,7 @@ class NFT extends Equatable {
 
   static Future<NFT> fromItem(Item item) async  {
     final walletsStore = GetIt.I.get<WalletsStore>();
+    print(item.owner);
     final owner = await walletsStore.getAccountNameByAddress(item.owner);
 
     return NFT(

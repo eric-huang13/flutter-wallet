@@ -10,6 +10,7 @@ import 'package:pylons_wallet/pages/new_screens/stripe_screen.dart';
 import 'package:pylons_wallet/pylons_app.dart';
 import 'package:pylons_wallet/services/stripe_services/stripe_services.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
+import 'package:pylons_wallet/stripe/stripe_payout_widget.dart';
 import 'package:pylons_wallet/transactions/pylons_balance.dart';
 import 'package:pylons_wallet/utils/formatter.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
@@ -136,7 +137,8 @@ class _CurrencyScreenState extends State<CurrencyScreen>
       itemBuilder: (_, index) => _BalanceWidget(
           balance: assets[index],
           index:index,
-          onCallFaucet: (){ getFaucet(context, assets[index].denom.text);}
+          onCallFaucet: (){ getFaucet(context, assets[index].denom.text);},
+          onCallStripePayout: (){ getPayout(context, assets[index].amount.value.toString()); }
       ),
     ),
       /*body: ValueListenableBuilder(
@@ -190,7 +192,10 @@ class _CurrencyScreenState extends State<CurrencyScreen>
       diag.dismiss();
       //loadData(colType);
     });
+  }
 
+  Future getPayout(BuildContext context, String amount) async {
+    StripePayoutWidget(context:context, amount: amount ).show();
   }
 }
 
@@ -202,11 +207,13 @@ class _BalanceWidget extends  StatefulWidget {
     required this.balance,
     required this.index,
     required this.onCallFaucet,
+    required this.onCallStripePayout
   }) : super(key: key);
 
   final Balance balance;
   final int index;
   final Function onCallFaucet;
+  final Function onCallStripePayout;
 
   @override
   State<_BalanceWidget> createState() => _BalanceWidgetState();
@@ -264,7 +271,20 @@ class _BalanceWidgetState extends State<_BalanceWidget> {
                     .copyWith(color: Colors.white, fontSize: 18),
                   ),
                   Spacer(),
-                  if(widget.balance.denom.text != "ustripeusd")
+                  if(widget.balance.denom.text == "ustripeusd")
+                    ElevatedButton(
+                      onPressed: (){
+                        widget.onCallStripePayout();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: const Color(0xFFFFFFFF),
+                        maximumSize: Size(100, 20),
+                        minimumSize: Size(100,20),
+
+                      ),
+                      child: Text("payout", style: TextStyle(color: Color(0xFF1212C4), fontSize: 15)),
+                    )
+                  else
                   ElevatedButton(
                     onPressed: (){
                       widget.onCallFaucet();

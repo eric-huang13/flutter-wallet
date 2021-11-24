@@ -291,7 +291,7 @@ class IPCEngine {
         context: navigatorKey.currentState!.overlay!.context,
         builder: (_) => AlertDialog(
               content: Text(
-                  'Will you sign this ${sdkIPCMessage.action}:\n "?',
+                  'Will you sign this ${sdkIPCMessage.action}?',
                   style: TextStyle(fontSize: 18)),
               actions: [
                 RaisedButton(
