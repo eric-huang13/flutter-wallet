@@ -410,7 +410,9 @@ class WalletsStoreImp implements WalletsStore {
 
   @override
   Future<bool> isAccountExists(String username) async {
-    return repository.isAccountExists(username);
+    final accountExistResult = await repository.isAccountExists(username);
+
+    return accountExistResult.fold((failure){ return false;}, (value) {return value;});
   }
 
   @override

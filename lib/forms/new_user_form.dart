@@ -89,7 +89,9 @@ class NewUserFormState extends State<NewUserForm> {
   Future _registerNewUser(String userName) async {
     isLoadingNotifier.value = true;
 
+
     final isAccountExists = await widget.walletsStore.isAccountExists(userName);
+
     if(isAccountExists){
       isLoadingNotifier.value = false;
       Alert.SnackbarAlert(context, "${'user_name_already_exists'.tr()}!");

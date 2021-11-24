@@ -38,7 +38,8 @@ abstract class Repository {
   /// check if account with username exists
   /// Input:[String] username
   /// Output" [bool] if exists true, else false
-  Future<bool> isAccountExists(String username);
+  /// will return error in form of failure
+  Future<Either<Failure, bool>> isAccountExists(String username);
 }
 
 class RepositoryImp implements Repository {
@@ -46,14 +47,12 @@ class RepositoryImp implements Repository {
 
   final pylons.QueryClient queryClient;
 
-  final http.Client _httpClient = http.Client();
 
-  final BaseEnv baseEnv;
-
-  RepositoryImp({required this.networkInfo, required this.queryClient, required this.baseEnv});
+  RepositoryImp({required this.networkInfo, required this.queryClient});
 
   @override
-  Future<Either<Failure, pylons.Recipe>> getRecipe({required String cookBookId, required String recipeId}) async {
+  Future<Either<Failure, pylons.Recipe>> getRecipe(
+      {required String cookBookId, required String recipeId}) async {
     if (!await networkInfo.isConnected) {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
@@ -82,7 +81,8 @@ class RepositoryImp implements Repository {
     }
 
     try {
-      final request = pylons.QueryGetUsernameByAddressRequest.create()..address = address;
+      final request = pylons.QueryGetUsernameByAddressRequest.create()
+        ..address = address;
 
       final response = await queryClient.usernameByAddress(request);
 
@@ -97,13 +97,15 @@ class RepositoryImp implements Repository {
   }
 
   @override
-  Future<Either<Failure, List<pylons.Recipe>>> getRecipesBasedOnCookBookId({required String cookBookId}) async {
+  Future<Either<Failure, List<pylons.Recipe>>> getRecipesBasedOnCookBookId(
+      {required String cookBookId}) async {
     if (!await networkInfo.isConnected) {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
 
     try {
-      final request = pylons.QueryListRecipesByCookbookRequest.create()..cookbookID = cookBookId;
+      final request = pylons.QueryListRecipesByCookbookRequest.create()
+        ..cookbookID = cookBookId;
 
       final response = await queryClient.listRecipesByCookbook(request);
 
@@ -114,13 +116,15 @@ class RepositoryImp implements Repository {
   }
 
   @override
-  Future<Either<Failure, pylons.Cookbook>> getCookbookBasedOnId({required String cookBookId}) async {
+  Future<Either<Failure, pylons.Cookbook>> getCookbookBasedOnId(
+      {required String cookBookId}) async {
     if (!await networkInfo.isConnected) {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
 
     try {
-      final request = pylons.QueryGetCookbookRequest.create()..iD = cookBookId;
+      final request = pylons.QueryGetCookbookRequest.create()
+        ..iD = cookBookId;
 
       final response = await queryClient.cookbook(request);
       if (!response.hasCookbook()) {
@@ -128,26 +132,31 @@ class RepositoryImp implements Repository {
       }
 
       return Right(response.cookbook);
-
     } on Exception catch (_) {
       return const Left(CookBookNotFoundFailure(COOK_BOOK_NOT_FOUND));
     }
   }
 
   @override
-  Future<bool> isAccountExists(String username) async{
+  Future<Either<Failure, bool>> isAccountExists(String username) async {
     if (!await networkInfo.isConnected) {
-      return false;
+      return const Left(NoInternetFailure(NO_INTERNET));
     }
 
-    final helper = QueryHelper(httpClient: _httpClient);
-    final result = await helper.queryGet("${baseEnv.baseApiUrl}/pylons/account/username/$username");
-    if (!result.isSuccessful) {
-      return false;
+    try {
+      final request = pylons.QueryGetAddressByUsernameRequest.create()
+        ..username = username;
+
+      final response = await queryClient.addressByUsername(request);
+
+      if (!response.hasAddress()) {
+        return const Left(RecipeNotFoundFailure(USERNAME_NOT_FOUND));
+      }
+
+      return Right(response.hasAddress());
+    } on Exception catch (_) {
+      return const Left(RecipeNotFoundFailure(USERNAME_NOT_FOUND));
     }
-    if (result.value!.containsKey("address")) {
-      return true;
-    }
-    return false;
   }
+
 }
