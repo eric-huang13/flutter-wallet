@@ -88,17 +88,15 @@ class NewUserFormState extends State<NewUserForm> {
   /// Create the new wallet and associate the chosen username with it.
   Future _registerNewUser(String userName) async {
     isLoadingNotifier.value = true;
-    final _mnemonic = await generateMnemonic();
-    final _username = userName;
 
-
-    final isAccountExists = await widget.walletsStore.isAccountExists(_username);
+    final isAccountExists = await widget.walletsStore.isAccountExists(userName);
     if(isAccountExists){
       isLoadingNotifier.value = false;
       Alert.SnackbarAlert(context, "${'user_name_already_exists'.tr()}!");
       return;
     }
-    final result = await widget.walletsStore.importAlanWallet(_mnemonic, _username);
+    final _mnemonic = await generateMnemonic();
+    final result = await widget.walletsStore.importAlanWallet(_mnemonic, userName);
 
     isLoadingNotifier.value = false;
     result.fold((failure){
