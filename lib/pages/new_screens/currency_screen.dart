@@ -1,21 +1,19 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/entities/balance.dart';
 import 'package:pylons_wallet/pages/new_screens/stripe_screen.dart';
 import 'package:pylons_wallet/pylons_app.dart';
-import 'package:pylons_wallet/services/stripe_services/stripe_services.dart';
+import 'package:pylons_wallet/services/stripe_services/stripe_handler.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/stripe/stripe_payout_widget.dart';
 import 'package:pylons_wallet/transactions/pylons_balance.dart';
 import 'package:pylons_wallet/utils/formatter.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
 import 'package:pylons_wallet/components/loading.dart';
-import 'package:pylons_wallet/utils/third_party_services/local_storage_service.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CurrencyScreen extends StatefulWidget {
   const CurrencyScreen({Key? key}) : super(key: key);
@@ -49,53 +47,46 @@ class _CurrencyScreenState extends State<CurrencyScreen>
   //var _assets = ValueNotifier(<Balance>[]);
   var assets = <Balance>[];
 
-  Future<void> handleStripe() async {
-    final dataSource = GetIt.I.get<LocalDataSource>();
-    final stripeServices = GetIt.I.get<StripeServices>();
-    final walletsStore = GetIt.I.get<WalletsStore>();
+  Future<void> handleStripePayout(String amount) async {
 
-    await dataSource.loadData();
-    var token = '';
-    var accountlink = "";
+    navigatorKey.currentState!.pop();
 
-    if(dataSource.StripeAccount != ""){
+    final loading = Loading()..showLoading();
 
-      //get accountlink only
-      final accountlink_response = await stripeServices.GetAccountLink(StripeAccountLinkRequest(
-          Signature: await walletsStore.signPureMessage(dataSource.StripeToken),
-          Account: dataSource.StripeAccount
-      ));
-      accountlink = accountlink_response.accountlink;
-    }
-    else {
-      final response = await stripeServices.GenerateRegistrationToken(walletsStore.getWallets().value.last.publicAddress);
-      if(response.token != ""){
-        dataSource.StripeToken = response.token;
-        token = response.token;
-      }
+    final payout_response = await StripeHandler().handleStripePayout(amount);
+    loading.dismiss();
+    payout_response.fold(
+        (fail)=>{
+          SnackbarToast.show(fail.message)
+        },
+        (payout_transfer_id)=>{
+          SnackbarToast.show("Payout Request Success. $payout_transfer_id")
+        }
+    );
 
-      final register_response = await stripeServices.RegisterAccount(StripeRegisterAccountRequest(
-          Token: token,
-          Signature: await walletsStore.signPureMessage(dataSource.StripeToken),
-          Address: walletsStore.getWallets().value.last.publicAddress));
-
-      dataSource.StripeAccount = register_response.account;
-      accountlink = register_response.accountlink;
-
-    }
-
-    dataSource.saveData();
-
-    print(accountlink);
+    await _buildAssetsList();
 
 
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return StripeScreen(url: accountlink, token: dataSource.StripeToken, onBack: (){
-            navigatorKey.currentState!.pop();
-          } );
-        });
+  }
+
+  Future<void> handleStripeAccountLink() async {
+    final loading = Loading()..showLoading();
+    final account_response = await StripeHandler().handleStripeAccountLink();
+    loading.dismiss();
+    account_response.fold(
+      (fail) => {
+        SnackbarToast.show(fail.message)
+      },
+      (accountlink) =>
+    {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return StripeScreen(url: accountlink, onBack: () {
+              navigatorKey.currentState!.pop();
+            });
+          })
+    });
   }
 
   @override
@@ -109,7 +100,7 @@ class _CurrencyScreenState extends State<CurrencyScreen>
           IconButton(
             icon: Image.asset('assets/icons/stripe_logo.png', width: 24, height: 24),
             onPressed: () {
-              handleStripe();
+              handleStripeAccountLink();
             }
           ),
           IconButton(
@@ -174,7 +165,7 @@ class _CurrencyScreenState extends State<CurrencyScreen>
   Future copyClipboard() async {
     var msg = "${PylonsApp.currentWallet.publicAddress}";
     Clipboard.setData(new ClipboardData(text: msg)).then((_){
-      SnackbarToast.show("Your wallet address copied to clipboard");
+      SnackbarToast.show("wallet_copied".tr());
     });
   }
 
@@ -195,7 +186,7 @@ class _CurrencyScreenState extends State<CurrencyScreen>
   }
 
   Future getPayout(BuildContext context, String amount) async {
-    StripePayoutWidget(context:context, amount: amount ).show();
+    StripePayoutWidget(context:context, amount: amount, onCallback: handleStripePayout ).show();
   }
 }
 

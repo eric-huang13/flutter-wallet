@@ -26,3 +26,11 @@ class NoInternetFailure extends Failure{
   @override
   List<Object?> get props => [message];
 }
+
+
+class StripeFailure extends Failure {
+  const StripeFailure(String message) : super(message);
+  @override
+  List<Object?> get props => [message];
+
+}

@@ -87,7 +87,7 @@ Future<void> init() async {
   sl.registerLazySingleton<InternetConnectionChecker>(() => InternetConnectionChecker());
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
   sl.registerLazySingleton<pylons.QueryClient>(() => pylons.QueryClient(sl.get<BaseEnv>().networkInfo.gRPCChannel));
-  sl.registerLazySingleton<StripeServices>(()=>StripeServices(sl.get<BaseEnv>().baseStripeUrl, sl.get<BaseEnv>().baseStripPubKey));
+  sl.registerLazySingleton<StripeServices>(()=>StripeServicesImpl(sl.get<BaseEnv>().baseStripeUrl, sl.get<BaseEnv>().baseStripPubKey));
 
   /// Repository
   sl.registerLazySingleton<Repository>(() => RepositoryImp(networkInfo: sl(), queryClient: sl()));

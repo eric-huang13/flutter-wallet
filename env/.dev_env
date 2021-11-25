@@ -60,10 +60,7 @@ FAUCET_URL=http://faucet.testnet.pylons.tech
 FAUCET_PORT=4500
 TENDERMINT_PORT=26657
 ENV=dev
-STRIPE_SERVER=http://192.168.1.121:8080
-#https://stripe-server-jhv3rfpllq-uc.a.run.app
-#http://192.168.1.110:8080
-STRIPE_PUB_KEY=pk_test_51JvOIvBikW8oNt4hNtvUHUzBKdgLY0gKdDvPKhJbQr0RJXVbeLvrWZ9n4ttVqAuz29HuvOqQxvj5eaghdBxung4v003efVFVQI
-#pk_test_XUIpXpyaGuuw0Dc9Ng80xFWs
+STRIPE_SERVER=https://stripe-server-jhv3rfpllq-uc.a.run.app
+STRIPE_PUB_KEY=pk_test_51Iy5pOEdpQgutKvrWuZVvM0fPB4LRm0tzP1y17hWDCxBcISFb6X07BtIpOQArSfQgApOceoAwUX0qJXPC07OBLCn005w7KGtWE
 STRIPE_TEST_ENV=true
-STRIPE_CALLBACK_URL=https://testnet.pylons.tech
+STRIPE_CALLBACK_URL=https://stripe.pylons.tech
