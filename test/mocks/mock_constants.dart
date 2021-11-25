@@ -23,3 +23,7 @@ var MOCK_COOKBOOK = """
 
 
 const String MOCK_COOKBOOK_ID = 'cookbookLOUD';
+
+const String MOCK_STRIPEURL='';
+const String MOCK_STRIPEPUBKEY = '';
+const MOCK_ADDRESS = "";

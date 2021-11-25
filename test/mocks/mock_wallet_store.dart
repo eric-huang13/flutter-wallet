@@ -35,8 +35,13 @@ class MockWalletStore implements WalletsStore {
 
   @override
   Observable<List<WalletPublicInfo>> getWallets() {
-    // TODO: implement getWallets
-    throw UnimplementedError();
+    return Observable([
+      WalletPublicInfo(
+        name: 'test',
+        walletId: '0',
+        publicAddress: 'pylo1e5s74e92q3gunldrpqdnrlc8jg9l3xw6s7hea9',
+        chainId: 'pylons-devtestnet')
+    ]);
   }
 
   @override
@@ -203,6 +208,7 @@ class MockWalletStore implements WalletsStore {
   Future<String> signPureMessage(String message) {
     // TODO: implement signPureMessage
     throw UnimplementedError();
+  }
 
 
   @override
@@ -216,4 +222,11 @@ class MockWalletStore implements WalletsStore {
     return SDKIPCResponse.success(data: MOCK_COOKBOOK, sender: '', transaction: '');
 
   }
+
+  @override
+  Future<List<Recipe>> getRecipesByCookbookID(String cookbookID) {
+    // TODO: implement getRecipesByCookbookID
+    throw UnimplementedError();
+  }
 }
+
