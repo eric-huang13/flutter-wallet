@@ -171,6 +171,12 @@ abstract class WalletsStore {
   /// Output : [SDKIPCResponse] contains the info related to the profile.
   Future<SDKIPCResponse> getProfile();
 
+  Future<String> signPureMessage(String message);
+  /// This method returns the recipes based on cookbook
+  /// Input : [cookbookId] id of the cookbook
+  /// Output : [SDKIPCResponse] returns the recipes
+  Future<List<Recipe>> getRecipesByCookbookID(String cookbookID);
+
   /// This method returns the recipes based on cookbook
   /// Input : [cookbookId] id of the cookbook
   /// Output : [SDKIPCResponse] returns the recipes

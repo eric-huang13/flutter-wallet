@@ -486,7 +486,12 @@ class WalletsStoreImp implements WalletsStore {
     return SDKIPCResponse.success(data: {"username": userNameEither.getOrElse(() => '')}, sender: '', transaction: '');
   }
 
-
+  @override
+  Future<List<Recipe>> getRecipesByCookbookID(String cookbookID) async {
+    final request = pylons.QueryListRecipesByCookbookRequest.create()..cookbookID = cookbookID;
+    final response = await _queryClient.listRecipesByCookbook(request);
+    return response.recipes;
+  }
 
   @override
   Future<SDKIPCResponse> getAllRecipesByCookBookId({required String cookbookId}) async {
