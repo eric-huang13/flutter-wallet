@@ -1,22 +1,18 @@
-import 'package:fixnum/fixnum.dart';
-
 import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/pylons_blue_button.dart';
 import 'package:pylons_wallet/components/pylons_text_input_widget.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
-import 'package:pylons_wallet/services/stripe_services/stripe_services.dart';
-import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/formatter.dart';
-import 'package:pylons_wallet/utils/third_party_services/local_storage_service.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class StripePayoutWidget {
   BuildContext context;
   String amount;
+  Function? onCallback;
 
-  StripePayoutWidget({required this.context, required this.amount});
+  StripePayoutWidget({required this.context, required this.amount, this.onCallback});
 
   Future show() {
     return showModalBottomSheet(
@@ -30,7 +26,8 @@ class StripePayoutWidget {
         ),
         builder: (context) => Wrap(children: [
           StripePayoutForm(
-            maxAmount: amount
+            maxAmount: amount,
+            onCallback: onCallback
           )
         ]));
   }
@@ -40,9 +37,10 @@ class StripePayoutWidget {
 // Define a custom Form widget.
 class StripePayoutForm extends StatefulWidget {
   final String maxAmount;
+  final Function? onCallback;
 
 
-  const StripePayoutForm({Key? key, required this.maxAmount}) : super(key: key);
+  const StripePayoutForm({Key? key, required this.maxAmount, this.onCallback}) : super(key: key);
 
   @override
   StripePayoutFormState createState() => StripePayoutFormState();
@@ -75,9 +73,9 @@ class StripePayoutFormState extends State<StripePayoutForm> {
                 children: [
 
                   const VerticalSpace(30),
-                  Text("Request Payout to Current Stripe Account", style: const TextStyle(color: Colors.black, fontSize: 16)),
+                  Text("request_payout".tr(), style: const TextStyle(color: Colors.black, fontSize: 16)),
                   const VerticalSpace(30),
-                  Text("Available Amount: ${widget.maxAmount.UvalToVal() } USD", textAlign: TextAlign.start),
+                  Text("${"available_amount".tr()} ${widget.maxAmount.UvalToVal() } USD", textAlign: TextAlign.start),
 
                   const VerticalSpace(30),
                   PylonsTextInput(
@@ -85,10 +83,10 @@ class StripePayoutFormState extends State<StripePayoutForm> {
                     inputType: TextInputType.number,
                     errorText: (textValue){
                       if (textValue == null || textValue.isEmpty) {
-                        return 'Amount cannot be empty';
+                        return  "empty_amount".tr();
                       }else{
                         if(Decimal.parse(textValue) > Decimal.parse(widget.maxAmount.UvalToVal())){
-                          return 'Current value exceeds available amount';
+                          return "exceed_amount".tr();
                         }
                       }
                       return null;
@@ -97,7 +95,7 @@ class StripePayoutFormState extends State<StripePayoutForm> {
                   const VerticalSpace(50),
                   PylonsBlueButton(
                     onTap: onPayoutPressed,
-                    text: "Payout"
+                    text: "payout".tr()
                   ),
                   const VerticalSpace(30)
                 ],
@@ -109,40 +107,10 @@ class StripePayoutFormState extends State<StripePayoutForm> {
 
   void onPayoutPressed() {
     if(_formKey.currentState!.validate()){
-      handleStripePayout(amountController.text);
-    }
-  }
-
-  Future<void> handleStripePayout(String amount) async {
-    final dataSource = GetIt.I.get<LocalDataSource>();
-    final stripeServices = GetIt.I.get<StripeServices>();
-    final walletsStore = GetIt.I.get<WalletsStore>();
-    await dataSource.loadData();
-    var token = '';
-    var accountlink = "";
-    print(dataSource.StripeAccount);
-
-    if(dataSource.StripeAccount == ""){
-      final response = await stripeServices.GenerateRegistrationToken(walletsStore.getWallets().value.last.publicAddress);
-      if(response.token != ""){
-        dataSource.StripeToken = response.token;
-        token = response.token;
+      if(widget.onCallback != null){
+        widget.onCallback!(amountController.text);
       }
-
-      final register_response = await stripeServices.RegisterAccount(StripeRegisterAccountRequest(
-          Token: token,
-          Signature: await walletsStore.signPureMessage(dataSource.StripeToken),
-          Address: walletsStore.getWallets().value.last.publicAddress));
-
-      dataSource.StripeAccount = register_response.account;
-      accountlink = register_response.accountlink;
     }
-    dataSource.saveData();
-
-      final response = await stripeServices.GeneratePayoutToken(StripeGeneratePayoutTokenRequest(
-        amount: Int64.parseInt(amount.ValToUval()),
-        address: walletsStore.getWallets().value.last.publicAddress, ));
-      print(response.token);
-
   }
+
 }

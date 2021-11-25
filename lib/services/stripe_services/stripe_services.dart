@@ -55,7 +55,7 @@ class StripeGeneratePaymentReceiptRequest {
 
 // { purchaseID: String, processorName: String, payerAddr: String, amount: String, productID: String, signature: String}
 class StripeGeneratePaymentReceiptResponse {
-
+  final bool success;
   final String purchaseID;
   final String processorName;
   final String payerAddr;
@@ -69,7 +69,8 @@ class StripeGeneratePaymentReceiptResponse {
     this.payerAddr = '',
     this.amount = '',
     this.productID = '',
-    this.signature = ''});
+    this.signature = '',
+    this.success = false});
 
   factory StripeGeneratePaymentReceiptResponse.from(RequestResult<Map<String, dynamic>> ret) {
     if(ret.isSuccessful && ret.value!= null){
@@ -80,6 +81,7 @@ class StripeGeneratePaymentReceiptResponse {
         signature: ret.value?.entries.firstWhere((e) => e.key == 'signature', orElse: ()=>MapEntry('signature', '')).value as String,
         purchaseID: ret.value?.entries.firstWhere((e) => e.key == 'purchaseID', orElse: ()=>MapEntry('purchaseID', '')).value as String,
         processorName: ret.value?.entries.firstWhere((e) => e.key == 'processorName', orElse: ()=>MapEntry('processorName', '')).value as String,
+        success: true
       );
     }
     return StripeGeneratePaymentReceiptResponse();
@@ -97,15 +99,18 @@ class StripeGeneratePaymentReceiptResponse {
 }
 
 class StripeGenerateRegistrationTokenResponse {
+  final bool success;
   final String token;
   StripeGenerateRegistrationTokenResponse({
-    this.token = ''
+    this.token = '',
+    this.success = false
   });
 
   factory StripeGenerateRegistrationTokenResponse.from(RequestResult<Map<String, dynamic>> ret) {
     if(ret.isSuccessful && ret.value != null){
       return StripeGenerateRegistrationTokenResponse(
-        token: ret.value?.entries.firstWhere((e) => e.key == 'token', orElse: ()=>MapEntry('token', '')).value as String
+        token: ret.value?.entries.firstWhere((e) => e.key == 'token', orElse: ()=>MapEntry('token', '')).value as String,
+        success: true
       );
     }
     return StripeGenerateRegistrationTokenResponse();
@@ -127,19 +132,23 @@ class StripeRegisterAccountRequest {
 }
 
 class StripeRegisterAccountResponse {
-final String accountlink;
-final String account;
+  final String accountlink;
+  final String account;
+  final bool success;
+
 
   StripeRegisterAccountResponse({
     this.accountlink='',
-    this.account=''
+    this.account='',
+    this.success = false,
   });
 
   factory StripeRegisterAccountResponse.from(RequestResult<Map<String, dynamic>> ret) {
     if (ret.isSuccessful && ret.value != null) {
       return StripeRegisterAccountResponse(
         accountlink: ret.value?.entries.firstWhere((e) => e.key == 'accountlink', orElse: ()=>MapEntry('accountlink', '')).value as String,
-        account: ret.value?.entries.firstWhere((e) => e.key == 'account', orElse: ()=>MapEntry('account', '')).value as String
+        account: ret.value?.entries.firstWhere((e) => e.key == 'account', orElse: ()=>MapEntry('account', '')).value as String,
+        success: true
       );
     }
     return StripeRegisterAccountResponse();
@@ -148,14 +157,18 @@ final String account;
 
 class StripeGenerateUpdateTokenResponse {
   final String token;
+  final bool success;
+
   StripeGenerateUpdateTokenResponse({
-    this.token = ''
+    this.token = '',
+    this.success = false,
   });
 
   factory StripeGenerateUpdateTokenResponse.from(RequestResult<Map<String, dynamic>> ret) {
     if(ret.isSuccessful && ret.value != null){
       return StripeGenerateUpdateTokenResponse(
-          token: ret.value?.entries.firstWhere((e) => e.key == 'token', orElse: ()=>MapEntry('token', '')).value as String
+        token: ret.value?.entries.firstWhere((e) => e.key == 'token', orElse: ()=>MapEntry('token', '')).value as String,
+        success: true
       );
     }
     return StripeGenerateUpdateTokenResponse();
@@ -178,17 +191,20 @@ class StripeUpdateAccountRequest {
 class StripeUpdateAccountResponse {
   final String accountlink;
   final String account;
+  final bool success;
 
   StripeUpdateAccountResponse({
     this.accountlink='',
-    this.account=''
+    this.account='',
+    this.success=false
   });
 
   factory StripeUpdateAccountResponse.from(RequestResult<Map<String, dynamic>> ret) {
     if (ret.isSuccessful && ret.value != null) {
       return StripeUpdateAccountResponse(
-          accountlink: ret.value?.entries.firstWhere((e) => e.key == 'accountlink', orElse: ()=>MapEntry('accountlink', '')).value as String,
-          account: ret.value?.entries.firstWhere((e) => e.key == 'account', orElse: ()=>MapEntry('account', '')).value as String
+        accountlink: ret.value?.entries.firstWhere((e) => e.key == 'accountlink', orElse: ()=>MapEntry('accountlink', '')).value as String,
+        account: ret.value?.entries.firstWhere((e) => e.key == 'account', orElse: ()=>MapEntry('account', '')).value as String,
+        success: true
       );
     }
     return StripeUpdateAccountResponse();
@@ -208,17 +224,20 @@ class StripeAccountLinkRequest {
 class StripeAccountLinkResponse {
   final String accountlink;
   final String account;
+  final bool success;
 
   StripeAccountLinkResponse({
     this.accountlink='',
-    this.account=''
+    this.account='',
+    this.success=false
   });
 
   factory StripeAccountLinkResponse.from(RequestResult<Map<String, dynamic>> ret) {
     if (ret.isSuccessful && ret.value != null) {
       return StripeAccountLinkResponse(
-          accountlink: ret.value?.entries.firstWhere((e) => e.key == 'accountlink', orElse: ()=>MapEntry('accountlink', '')).value as String,
-          account: ret.value?.entries.firstWhere((e) => e.key == 'account', orElse: ()=>MapEntry('account', '')).value as String
+        accountlink: ret.value?.entries.firstWhere((e) => e.key == 'accountlink', orElse: ()=>MapEntry('accountlink', '')).value as String,
+        account: ret.value?.entries.firstWhere((e) => e.key == 'account', orElse: ()=>MapEntry('account', '')).value as String,
+        success: true
       );
     }
     return StripeAccountLinkResponse();
@@ -251,7 +270,7 @@ class StripeGeneratePayoutTokenResponse {
     if(ret.isSuccessful && ret.value != null){
       return StripeGeneratePayoutTokenResponse(
         token: ret.value?.entries.firstWhere((e) => e.key == 'token', orElse: ()=>MapEntry('token', '')).value as String,
-        RedeemAmount: ret.value?.entries.firstWhere((e)=>e.key == 'RedeemAmount', orElse: ()=>MapEntry('RedeemAmount', 0)).value as Int64,
+        RedeemAmount: Int64.parseInt((ret.value?.entries.firstWhere((e)=>e.key == 'RedeemAmount', orElse: ()=>MapEntry('RedeemAmount', 0)).value as int).toString() ) ,
         success: true
       );
     }
@@ -274,7 +293,7 @@ class StripePayoutRequest {
     this.amount = Int64.ZERO
   });
 
-  Map<String, dynamic> toJson() => {'address': address, 'token': token, 'signature': signature, 'amount': amount};
+  Map<String, dynamic> toJson() => {'address': address, 'token': token, 'signature': signature, 'amount': amount.toInt()};
 }
 
 class StripePayoutResponse {
@@ -297,18 +316,39 @@ class StripePayoutResponse {
   }
 }
 
+abstract class StripeServices {
+  Future<StripeCreatePaymentIntentResponse> CreatePaymentIntent(StripeCreatePaymentIntentRequest req);
 
-class StripeServices{
+  Future<StripeGeneratePaymentReceiptResponse> GeneratePaymentReceipt(StripeGeneratePaymentReceiptRequest req);
+
+  Future<StripeGenerateRegistrationTokenResponse> GenerateRegistrationToken(String address);
+
+  Future<StripeRegisterAccountResponse> RegisterAccount(StripeRegisterAccountRequest req);
+
+  Future<StripeGenerateUpdateTokenResponse> GenerateUpdateToken(String address);
+
+  Future<StripeUpdateAccountResponse> UpdateAccount(StripeUpdateAccountRequest req);
+
+  Future<StripeGeneratePayoutTokenResponse> GeneratePayoutToken(StripeGeneratePayoutTokenRequest req);
+
+  Future<StripePayoutResponse> Payout(StripePayoutRequest req);
+
+  Future<StripeAccountLinkResponse> GetAccountLink(StripeAccountLinkRequest req);
+}
+
+
+class StripeServicesImpl extends StripeServices {
   final String stripeUrl;
   final String stripePubKey;
 
   final _httpClient = http.Client();
 
-  StripeServices(this.stripeUrl, this.stripePubKey){
+  StripeServicesImpl(this.stripeUrl, this.stripePubKey){
     Stripe.publishableKey = this.stripePubKey;
     //Stripe.merchantIdentifier = 'MerchantIdentifier';
   }
 
+  @override
   Future<StripeCreatePaymentIntentResponse> CreatePaymentIntent(StripeCreatePaymentIntentRequest req) async {
     //POST
     //{address:, productID:, coin_inputs_index:}
@@ -327,11 +367,14 @@ class StripeServices{
   // productID: String,
   // signature: String
   // }
+  @override
   Future<StripeGeneratePaymentReceiptResponse> GeneratePaymentReceipt(StripeGeneratePaymentReceiptRequest req) async {
     final helper = QueryHelper(httpClient: _httpClient);
     final result = await helper.queryPost( "$stripeUrl/generate-payment-receipt", req.toJson());
     return StripeGeneratePaymentReceiptResponse.from(result);
   }
+
+  @override
   Future<StripeGenerateRegistrationTokenResponse> GenerateRegistrationToken(String address) async {
     final helper = QueryHelper(httpClient: _httpClient);
     final result = await helper.queryGet( "$stripeUrl/generate-registration-token?address=${address}");
@@ -339,6 +382,7 @@ class StripeServices{
   }
 
 
+  @override
   Future<StripeRegisterAccountResponse> RegisterAccount(StripeRegisterAccountRequest req) async {
     print(req.Signature);
     final helper = QueryHelper(httpClient: _httpClient);
@@ -346,6 +390,7 @@ class StripeServices{
     return StripeRegisterAccountResponse.from(result);
   }
 
+  @override
   Future<StripeGenerateUpdateTokenResponse> GenerateUpdateToken(String address) async {
     final helper = QueryHelper(httpClient: _httpClient);
     final result = await helper.queryGet( "$stripeUrl/generate-update-token?address=${address}");
@@ -354,6 +399,7 @@ class StripeServices{
 
   // request: {address:String, token: String, signature: String}
   // response: redirectURL
+  @override
   Future<StripeUpdateAccountResponse> UpdateAccount(StripeUpdateAccountRequest req) async {
     final helper = QueryHelper(httpClient: _httpClient);
     final result = await helper.queryPost( "$stripeUrl/update-account", req.toJson());
@@ -362,6 +408,7 @@ class StripeServices{
 
   //request: {address: String, amount: int}
   //response: {token: String, RedeemAmount: int64}
+  @override
   Future<StripeGeneratePayoutTokenResponse> GeneratePayoutToken(StripeGeneratePayoutTokenRequest req) async {
     final helper = QueryHelper(httpClient: _httpClient);
     final result = await helper.queryGet( "$stripeUrl/generate-payout-token?address=${req.address}&amount=${req.amount}");
@@ -371,6 +418,7 @@ class StripeServices{
   //request: {address:String, token:String, signature:String, amount:int}
   //response {transfer_id:String}
 
+  @override
   Future<StripePayoutResponse> Payout(StripePayoutRequest req) async {
 
     final helper = QueryHelper(httpClient: _httpClient);
@@ -379,6 +427,7 @@ class StripeServices{
   }
 
 
+  @override
   Future<StripeAccountLinkResponse> GetAccountLink(StripeAccountLinkRequest req) async {
     final helper = QueryHelper(httpClient: _httpClient);
     final result = await helper.queryPost( "$stripeUrl/accountlink", req.toJson());
@@ -394,6 +443,4 @@ class StripeServices{
     return StripeWebhooksResponse();
   }
  */
-
-
 }

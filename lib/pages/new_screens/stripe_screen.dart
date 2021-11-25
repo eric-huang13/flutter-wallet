@@ -11,10 +11,9 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class StripeScreen extends StatefulWidget {
-  final String token;
   final String url;
   final VoidCallback onBack;
-  const StripeScreen({Key? key, required this.token, required this.url, required this.onBack}) : super(key: key);
+  const StripeScreen({Key? key, required this.url, required this.onBack}) : super(key: key);
 
   @override
   State<StripeScreen> createState() => _StripeScreenState();
