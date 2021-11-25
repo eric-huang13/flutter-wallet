@@ -1,6 +1,7 @@
 import 'package:cosmos_utils/mnemonic.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/buttons/pylons_blue_button_with_loader.dart';
 import 'package:pylons_wallet/components/pylons_text_input_widget.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
@@ -54,7 +55,9 @@ class NewUserFormState extends State<NewUserForm> {
                     height: 100,
                   ),
                   PylonsTextInput(
-                      controller: usernameController, label: "user_name".tr()),
+                    controller: usernameController, label: "user_name".tr(),
+                    errorText: validateUsername
+                  ),
                   const VerticalSpace(50),
                   PylonsBlueButtonLoading(
                     onTap: onStartPylonsPressed,
@@ -69,19 +72,30 @@ class NewUserFormState extends State<NewUserForm> {
     );
   }
 
-  void onStartPylonsPressed() {
-    final username = usernameController.text;
-    if (usernameController.text.isEmpty) {
-      ScaffoldMessenger.of(context)
-        ..hideCurrentSnackBar()
-        ..showSnackBar(const SnackBar(
-          content: Text('User name is Empty'),
-        ));
-      Navigator.of(context).pop();
-      return;
+  String? validateUsername(String? username) {
+    if (username == null || username.isEmpty) {
+      return 'User name is Empty';
     }
 
-    _registerNewUser(usernameController.value.text);
+    return null;
+  }
+
+  Future<void> onStartPylonsPressed() async {
+    final walletsStore = GetIt.I.get<WalletsStore>();
+
+    if(_formKey.currentState!.validate()){
+      final exists = await walletsStore.isAccountExists(usernameController.text);
+      if(exists){
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(const SnackBar(
+            content: Text('User name already exists'),
+          ));
+        Navigator.of(context).pop();
+        return;
+      }
+      _registerNewUser(usernameController.value.text);
+    }
   }
 
   /// Create the new wallet and associate the choosen username with it.
