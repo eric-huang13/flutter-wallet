@@ -110,6 +110,17 @@
   "getting_profile": "Getting profile",
   "would_like_to": "would like to",
   "dont_allow": "Don't Allow",
-  "ok": "OK"
+  "ok": "OK",
+  "payout": "Payout",
+  "exceed_amount": "Current value exceeds available amount",
+  "empty_amount": "Amount cannot be empty",
+  "request_payout": "Request Payout to Current Stripe Account",
+  "available_amount": "Available Amount:",
+  "stripe_register_account_failed": "Stripe Register Connected Account Failed",
+  "stripe_registration_token_failed": "Generate Stripe Registration Token Failed",
+  "stripe_account_link_failed": "Stripe Account Link Failed",
+  "stripe_payout_request_failed": "Stripe Payout Request Failed",
+  "stripe_payout_token_failed": "Generate Stripe Payout Token failed",
+  "wallet_copied": "Your wallet address copied to clipboard"
 
 }

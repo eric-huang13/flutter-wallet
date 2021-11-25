@@ -111,5 +111,16 @@
   "getting_profile": "Получение профиля",
   "would_like_to": "хотел бы",
   "dont_allow": "Не позволять",
-  "ok": "Ok"
+  "ok": "Ok",
+  "payout": "Выплата",
+  "exceed_amount":"Текущая стоимость превышает доступную сумму",
+  "empty_amount": "Сумма не может быть пустой",
+  "request_payout": "Запросить выплату на текущий счет Stripe",
+  "available_amount": "Доступная сумма:",
+  "stripe_register_account_failed":"Не удалось зарегистрировать подключенную учетную запись Stripe",
+  "stripe_registration_token_failed": "Ошибка создания токена регистрации полосы",
+  "stripe_account_link_failed": "Ошибка связи с учетной записью Stripe",
+  "stripe_payout_request_failed": "Запрос на выплату Stripe не прошел",
+  "stripe_payout_token_failed": "Не удалось создать токен выплаты Stripe",
+  "wallet_copied": "Адрес вашего кошелька скопирован в буфер обмена"
 }
