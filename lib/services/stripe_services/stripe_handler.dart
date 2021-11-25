@@ -52,19 +52,19 @@ class StripeHandler {
     //save stripe variables
     dataSource.saveData();
 
-    final response = await stripeServices.GeneratePayoutToken(StripeGeneratePayoutTokenRequest(
+    final payoutToken_response = await stripeServices.GeneratePayoutToken(StripeGeneratePayoutTokenRequest(
       amount: Int64.parseInt(amount.ValToUval()),
       address: walletsStore.getWallets().value.last.publicAddress, ));
 
-    if(response.token == "") {
+    if(payoutToken_response.token == "") {
       return left(StripeFailure("stripe_payout_token_failed".tr()));
     }
 
     final payout_response = await stripeServices.Payout(StripePayoutRequest(
       address: walletsStore.getWallets().value.last.publicAddress,
-      token: response.token,
+      token: payoutToken_response.token,
       amount: Int64.parseInt(amount.ValToUval()),
-      signature: await walletsStore.signPureMessage(response.token),
+      signature: await walletsStore.signPureMessage(payoutToken_response.token),
     ));
 
     if(payout_response.transfer_id == "") {
