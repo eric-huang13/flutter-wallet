@@ -21,7 +21,7 @@ class TokenSender {
       ..toAddress = toAddress;
     message.amount.add(
       alan.Coin.create()
-        ..denom = balance.denom.text
+        ..denom = balance.denom
         ..amount = balance.amount.value.toString(),
     );
 

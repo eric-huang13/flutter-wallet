@@ -14,6 +14,7 @@ class PylonsAppTheme extends CosmosAppTheme {
         disabledColor: Colors.grey,
         dividerColor: Colors.grey,
         primarySwatch: Colors.blue,
+        primaryColor: const Color(0xFF1212C4),
         fontFamily: 'Inter',
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
@@ -29,6 +30,7 @@ class PylonsAppTheme extends CosmosAppTheme {
           subtitle1: TextStyle(fontSize: 26, fontWeight: FontWeight.w600, fontFamily: 'Inter'),
           subtitle2: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, fontFamily: 'Inter'),
           bodyText1: TextStyle(fontSize: 14, fontWeight: FontWeight.normal, fontFamily: 'Inter'),
+          headline5: TextStyle(fontSize: 15, fontWeight: FontWeight.normal, fontFamily: 'Inter', color: Color(0xFF1212C4))
         ));
   }
 }

@@ -36,7 +36,16 @@ class Constants {
       "name": "Pylon",
       "denom": "upylon",
       "short": "pylon",
-      "icon": "assets/icons/ico_pylon.png"
+      "icon": "assets/icons/ico_pylon.png",
+      "faucet" : true
+    },
+
+    'BTC': {
+      "name": "Bitcoin",
+      "denom": "BTC",
+      "short": "BTC",
+      "icon": "assets/svg/coins_svg/bitcoin.svg",
+      "faucet" : false
     },
   };
 }

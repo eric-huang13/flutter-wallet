@@ -1,10 +1,9 @@
 import 'package:decimal/decimal.dart';
 import 'package:equatable/equatable.dart';
 import 'package:pylons_wallet/entities/amount.dart';
-import 'package:pylons_wallet/entities/denom.dart';
 
 class Balance extends Equatable {
-  final Denom denom;
+  final String denom;
   final Amount amount;
 
   const Balance({
@@ -13,7 +12,7 @@ class Balance extends Equatable {
   });
 
   Balance.fromJSON(Map<String, dynamic> json)
-      : denom = Denom(json['denom'] as String),
+      : denom = json['denom'] as String,
         amount = Amount.fromString(json['amount'] as String);
 
   @override
@@ -26,9 +25,3 @@ class Balance extends Equatable {
       ];
 }
 
-
-extension AmountValue on Amount {
-  Decimal toHumanReadable() {
-    return this.value / Decimal.fromInt(1000000);
-  }
-}

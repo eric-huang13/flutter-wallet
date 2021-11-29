@@ -80,6 +80,7 @@ dependencies:
   fixnum: ^1.0.0
   fluttertoast: ^8.0.8
   intl: ^0.17.0
+  flutter_svg: ^0.23.0+1
 
 dev_dependencies:
   flutter_test:
@@ -98,6 +99,7 @@ flutter:
     - i18n/en.json
     - i18n/ru.json
     - env/
+    - assets/svg/coins_svg/
 
   fonts:
     - family: Inter
