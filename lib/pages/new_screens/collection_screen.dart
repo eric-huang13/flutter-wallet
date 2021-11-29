@@ -253,9 +253,7 @@ class _CollectionScreenState extends State<CollectionScreen>{
       final items = await walletsStore.getItemsByOwner(PylonsApp.currentWallet.publicAddress);
       items.forEach((e) async {
         final nft = await NFT.fromItem(e);
-        if(nft.appType.toLowerCase() == "easel"
-            && cookbooks.any((e) => e.iD == nft.cookbookID)
-        ) {
+        if(nft.appType.toLowerCase() == "easel") {
           setState((){
             assets.add(nft);
           });
@@ -265,9 +263,7 @@ class _CollectionScreenState extends State<CollectionScreen>{
       final trades = await walletsStore.getTrades(PylonsApp.currentWallet.publicAddress);
       trades.forEach((trade) async {
         final nft = await NFT.fromTrade(trade);
-        if(nft.appType.toLowerCase() == "easel"
-            && cookbooks.any((e) => e.iD == nft.cookbookID)
-        ) {
+        if(nft.appType.toLowerCase() == "easel") {
           setState(() {
             assets.add(nft);
           });
@@ -296,7 +292,7 @@ class _CollectionScreenState extends State<CollectionScreen>{
       final items = await walletsStore.getItemsByOwner(PylonsApp.currentWallet.publicAddress);
       items.forEach((e) async {
         final nft = await NFT.fromItem(e);
-        if(nft.appType.toLowerCase() == "avatar" && cookbooks.any((e) => e.iD == nft.cookbookID)) {
+        if(nft.appType.toLowerCase() == "avatar") {
           setState((){
             assets.add(nft);
           });
@@ -306,7 +302,7 @@ class _CollectionScreenState extends State<CollectionScreen>{
       final trades = await walletsStore.getTrades(PylonsApp.currentWallet.publicAddress);
       trades.forEach((trade) async {
         final nft = await NFT.fromTrade(trade);
-        if(nft.appType.toLowerCase() == "avatar" && cookbooks.any((e) => e.iD == nft.cookbookID)) {
+        if(nft.appType.toLowerCase() == "avatar") {
           setState(() {
             assets.add(nft);
           });
