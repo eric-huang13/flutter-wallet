@@ -61,8 +61,14 @@ class _CollectionScreenState extends State<CollectionScreen>{
     Timer(
         Duration(milliseconds: 100), (){
       loadData(colType);
-    }
-    );
+    });
+    walletsStore.getStateUpdatedFlag().observe((flag) {
+      print('getStateUpdatedFlag ${flag}');
+      if(flag == true){
+        print('getStateUpdatedFlag');
+        loadData(colType);
+      }
+    }, fireImmediately: true);
   }
 
   @override

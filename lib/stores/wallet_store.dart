@@ -187,4 +187,8 @@ abstract class WalletsStore {
   /// Input : [cookbookId] id of the cookbook
   /// Output : [SDKIPCResponse] returns the cookbook
   Future<SDKIPCResponse> getCookbookByIdForSDK({required String cookbookId});
+
+
+
+  Observable<bool> getStateUpdatedFlag();
 }

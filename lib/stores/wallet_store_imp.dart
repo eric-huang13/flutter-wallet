@@ -46,6 +46,9 @@ class WalletsStoreImp implements WalletsStore {
   final Observable<bool> isBalancesLoading = Observable(false);
   final Observable<bool> isError = Observable(false);
 
+
+  final Observable<bool> isStateUpdated = Observable(false);
+
   final Observable<List<Balance>> balancesList = Observable([]);
 
   final Observable<CredentialsStorageFailure?> loadWalletsFailureObservable = Observable(null);
@@ -246,9 +249,13 @@ class WalletsStoreImp implements WalletsStore {
 
   @override
   Future<SDKIPCResponse> createRecipe(Map json) async {
+    isStateUpdated.value = false;
     final msgObj = pylons.MsgCreateRecipe.create()..mergeFromProto3Json(json);
     msgObj.creator = wallets.value.last.publicAddress;
-    return _signAndBroadcast(msgObj);
+    //final response = _signAndBroadcast(msgObj);
+    isStateUpdated.value = true;
+    //return response;
+    return SDKIPCResponse.failure(error: '', sender: '', errorCode: '', transaction: 'transaction');
   }
 
   @override
@@ -521,4 +528,10 @@ class WalletsStoreImp implements WalletsStore {
 
     return SDKIPCResponse.success(data: recipesEither.toOption().toNullable()!.toProto3Json(), sender: '', transaction: '');
   }
+
+  @override
+  Observable<bool> getStateUpdatedFlag() {
+    return isStateUpdated;
+  }
+
 }

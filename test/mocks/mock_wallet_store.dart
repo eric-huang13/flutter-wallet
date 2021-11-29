@@ -228,5 +228,11 @@ class MockWalletStore implements WalletsStore {
     // TODO: implement getRecipesByCookbookID
     throw UnimplementedError();
   }
+
+  @override
+  Observable<bool> getStateUpdatedFlag() {
+    // TODO: implement getStateUpdatedFlag
+    throw UnimplementedError();
+  }
 }
 
