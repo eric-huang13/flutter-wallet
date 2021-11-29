@@ -8,6 +8,7 @@ import 'package:fixnum/fixnum.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobx/mobx.dart';
 import 'package:protobuf/protobuf.dart';
+import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/entities/balance.dart';
 import 'package:pylons_wallet/ipc/handler/handler_factory.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
@@ -72,7 +73,7 @@ class WalletsStoreImp implements WalletsStore {
   /// Input: [mnemonic] mnemonic for creating user account, [userName] is the user entered nick name
   /// Output: [WalletPublicInfo] contains the address of the wallet
   @override
-  Future<WalletPublicInfo> importAlanWallet(
+  Future<Either<Failure, WalletPublicInfo>> importAlanWallet(
     String mnemonic,
     String userName,
   ) async {
@@ -87,11 +88,15 @@ class WalletsStoreImp implements WalletsStore {
       mnemonic: mnemonic,
     );
 
-    await broadcastWalletCreationMessageOnBlockchain(creds, wallet.bech32Address, userName);
+    final response = await broadcastWalletCreationMessageOnBlockchain(creds, wallet.bech32Address, userName);
 
-    wallets.value.add(creds.publicInfo);
+    if(response.success) {
+      wallets.value.add(creds.publicInfo);
 
-    return creds.publicInfo;
+      return Right(creds.publicInfo);
+    }
+
+    return const Left(WalletCreationFailure(WALLET_CREATION_FAILED));
   }
 
   /// This method broadcast the wallet creation message on the blockchain
@@ -405,15 +410,9 @@ class WalletsStoreImp implements WalletsStore {
 
   @override
   Future<bool> isAccountExists(String username) async {
-    final helper = QueryHelper(httpClient: _httpClient);
-    final result = await helper.queryGet("${this.baseEnv.baseApiUrl}/pylons/account/username/$username");
-    if (!result.isSuccessful) {
-      return false;
-    }
-    if (result.value!.containsKey("address")) {
-      return true;
-    }
-    return false;
+    final accountExistResult = await repository.isAccountExists(username);
+
+    return accountExistResult.fold((failure){ return false;}, (value) {return value;});
   }
 
   @override
@@ -476,7 +475,6 @@ class WalletsStoreImp implements WalletsStore {
 
     return SDKIPCResponse.success(data: {"username": userNameEither.getOrElse(() => '')}, sender: '', transaction: '');
   }
-
 
 
   @override

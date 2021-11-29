@@ -26,3 +26,9 @@ class NoInternetFailure extends Failure{
   @override
   List<Object?> get props => [message];
 }
+
+class WalletCreationFailure extends Failure{
+  const WalletCreationFailure(String message) : super(message);
+  @override
+  List<Object?> get props => [message];
+}

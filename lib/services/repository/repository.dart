@@ -2,7 +2,10 @@ import 'package:dartz/dartz.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart' as pylons;
 import 'package:pylons_wallet/services/third_party_services/network_info.dart';
+import 'package:pylons_wallet/utils/base_env.dart';
 import 'package:pylons_wallet/utils/failure/failure.dart';
+import 'package:pylons_wallet/utils/query_helper.dart';
+import 'package:http/http.dart' as http;
 
 abstract class Repository {
   /// This method returns the recipe based on cookbook id and recipe Id
@@ -30,6 +33,13 @@ abstract class Repository {
   /// Output: if successful the output will be  [pylons.Cookbook]
   /// will return error in the form of failure
   Future<Either<Failure, pylons.Cookbook>> getCookbookBasedOnId({required String cookBookId});
+
+
+  /// check if account with username exists
+  /// Input:[String] username
+  /// Output" [bool] if exists true, else false
+  /// will return error in form of failure
+  Future<Either<Failure, bool>> isAccountExists(String username);
 }
 
 class RepositoryImp implements Repository {
@@ -37,10 +47,12 @@ class RepositoryImp implements Repository {
 
   final pylons.QueryClient queryClient;
 
+
   RepositoryImp({required this.networkInfo, required this.queryClient});
 
   @override
-  Future<Either<Failure, pylons.Recipe>> getRecipe({required String cookBookId, required String recipeId}) async {
+  Future<Either<Failure, pylons.Recipe>> getRecipe(
+      {required String cookBookId, required String recipeId}) async {
     if (!await networkInfo.isConnected) {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
@@ -69,7 +81,8 @@ class RepositoryImp implements Repository {
     }
 
     try {
-      final request = pylons.QueryGetUsernameByAddressRequest.create()..address = address;
+      final request = pylons.QueryGetUsernameByAddressRequest.create()
+        ..address = address;
 
       final response = await queryClient.usernameByAddress(request);
 
@@ -84,13 +97,15 @@ class RepositoryImp implements Repository {
   }
 
   @override
-  Future<Either<Failure, List<pylons.Recipe>>> getRecipesBasedOnCookBookId({required String cookBookId}) async {
+  Future<Either<Failure, List<pylons.Recipe>>> getRecipesBasedOnCookBookId(
+      {required String cookBookId}) async {
     if (!await networkInfo.isConnected) {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
 
     try {
-      final request = pylons.QueryListRecipesByCookbookRequest.create()..cookbookID = cookBookId;
+      final request = pylons.QueryListRecipesByCookbookRequest.create()
+        ..cookbookID = cookBookId;
 
       final response = await queryClient.listRecipesByCookbook(request);
 
@@ -101,13 +116,15 @@ class RepositoryImp implements Repository {
   }
 
   @override
-  Future<Either<Failure, pylons.Cookbook>> getCookbookBasedOnId({required String cookBookId}) async {
+  Future<Either<Failure, pylons.Cookbook>> getCookbookBasedOnId(
+      {required String cookBookId}) async {
     if (!await networkInfo.isConnected) {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
 
     try {
-      final request = pylons.QueryGetCookbookRequest.create()..iD = cookBookId;
+      final request = pylons.QueryGetCookbookRequest.create()
+        ..iD = cookBookId;
 
       final response = await queryClient.cookbook(request);
       if (!response.hasCookbook()) {
@@ -115,9 +132,31 @@ class RepositoryImp implements Repository {
       }
 
       return Right(response.cookbook);
-
     } on Exception catch (_) {
       return const Left(CookBookNotFoundFailure(COOK_BOOK_NOT_FOUND));
     }
   }
+
+  @override
+  Future<Either<Failure, bool>> isAccountExists(String username) async {
+    if (!await networkInfo.isConnected) {
+      return const Left(NoInternetFailure(NO_INTERNET));
+    }
+
+    try {
+      final request = pylons.QueryGetAddressByUsernameRequest.create()
+        ..username = username;
+
+      final response = await queryClient.addressByUsername(request);
+
+      if (!response.hasAddress()) {
+        return const Left(RecipeNotFoundFailure(USERNAME_NOT_FOUND));
+      }
+
+      return Right(response.hasAddress());
+    } on Exception catch (_) {
+      return const Left(RecipeNotFoundFailure(USERNAME_NOT_FOUND));
+    }
+  }
+
 }
