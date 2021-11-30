@@ -36,7 +36,16 @@ class Constants {
       "name": "Pylon",
       "denom": "upylon",
       "short": "pylon",
-      "icon": "assets/icons/ico_pylon.png"
+      "icon": "assets/icons/ico_pylon.png",
+      "faucet" : true
+    },
+
+    'BTC': {
+      "name": "Bitcoin",
+      "denom": "BTC",
+      "short": "BTC",
+      "icon": "assets/svg/coins_svg/bitcoin.svg",
+      "faucet" : false
     },
     'ustripeusd': {
       'name': "USD",
@@ -53,3 +62,4 @@ const String NO_INTERNET = 'No internet';
 const String RECIPE_NOT_FOUND = 'Recipe not found';
 const String USERNAME_NOT_FOUND = 'Username not found';
 const String COOK_BOOK_NOT_FOUND = 'Cookbook not found';
+const String WALLET_CREATION_FAILED = 'Wallet creation failed';

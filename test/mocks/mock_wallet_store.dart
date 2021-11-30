@@ -45,7 +45,7 @@ class MockWalletStore implements WalletsStore {
   }
 
   @override
-  Future<WalletPublicInfo> importAlanWallet(String mnemonic, String userName) {
+  Future<Either<Failure, WalletPublicInfo>> importAlanWallet(String mnemonic, String userName) {
     // TODO: implement importAlanWallet
     throw UnimplementedError();
   }

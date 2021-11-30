@@ -122,5 +122,6 @@
   "stripe_account_link_failed": "Ошибка связи с учетной записью Stripe",
   "stripe_payout_request_failed": "Запрос на выплату Stripe не прошел",
   "stripe_payout_token_failed": "Не удалось создать токен выплаты Stripe",
-  "wallet_copied": "Адрес вашего кошелька скопирован в буфер обмена"
+  "wallet_copied": "Адрес вашего кошелька скопирован в буфер обмена",
+  "user_name_already_exists": "Имя пользователя уже занято"
 }

@@ -20,7 +20,7 @@ abstract class WalletsStore {
   /// This method creates uer wallet and broadcast it in the blockchain
   /// Input: [mnemonic] mnemonic for creating user account, [userName] is the user entered nick name
   /// Output: [WalletPublicInfo] contains the address of the wallet
-  Future<WalletPublicInfo> importAlanWallet(
+  Future<Either<Failure, WalletPublicInfo>> importAlanWallet(
     String mnemonic,
     String userName,
   );

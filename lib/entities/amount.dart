@@ -22,3 +22,11 @@ extension StringAmount on String {
 extension IntAmount on int {
   Amount get amount => Amount.fromInt(this);
 }
+
+
+
+extension AmountValue on Amount {
+  Decimal toHumanReadable() {
+    return value / Decimal.fromInt(1000000);
+  }
+}

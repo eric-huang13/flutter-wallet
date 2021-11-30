@@ -121,6 +121,7 @@
   "stripe_account_link_failed": "Stripe Account Link Failed",
   "stripe_payout_request_failed": "Stripe Payout Request Failed",
   "stripe_payout_token_failed": "Generate Stripe Payout Token failed",
-  "wallet_copied": "Your wallet address copied to clipboard"
+  "wallet_copied": "Your wallet address copied to clipboard",
+  "user_name_already_exists": "User name already exists"
 
 }
