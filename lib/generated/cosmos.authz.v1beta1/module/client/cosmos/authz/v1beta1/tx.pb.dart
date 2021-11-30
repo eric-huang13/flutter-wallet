@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: cosmos/authz/v1beta1/tx.proto
 //
-// @dart = 2.12
+// @dart = 2.3
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -21,23 +21,7 @@ class MsgGrant extends $pb.GeneratedMessage {
   ;
 
   MsgGrant._() : super();
-  factory MsgGrant({
-    $core.String? granter,
-    $core.String? grantee,
-    $7.Grant? grant,
-  }) {
-    final _result = create();
-    if (granter != null) {
-      _result.granter = granter;
-    }
-    if (grantee != null) {
-      _result.grantee = grantee;
-    }
-    if (grant != null) {
-      _result.grant = grant;
-    }
-    return _result;
-  }
+  factory MsgGrant() => create();
   factory MsgGrant.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgGrant.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -49,7 +33,7 @@ class MsgGrant extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgGrant copyWith(void Function(MsgGrant) updates) => super.copyWith((message) => updates(message as MsgGrant)) as MsgGrant; // ignore: deprecated_member_use
+  MsgGrant copyWith(void Function(MsgGrant) updates) => super.copyWith((message) => updates(message as MsgGrant)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgGrant create() => MsgGrant._();
@@ -57,7 +41,7 @@ class MsgGrant extends $pb.GeneratedMessage {
   static $pb.PbList<MsgGrant> createRepeated() => $pb.PbList<MsgGrant>();
   @$core.pragma('dart2js:noInline')
   static MsgGrant getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MsgGrant>(create);
-  static MsgGrant? _defaultInstance;
+  static MsgGrant _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get granter => $_getSZ(0);
@@ -96,15 +80,7 @@ class MsgExecResponse extends $pb.GeneratedMessage {
   ;
 
   MsgExecResponse._() : super();
-  factory MsgExecResponse({
-    $core.Iterable<$core.List<$core.int>>? results,
-  }) {
-    final _result = create();
-    if (results != null) {
-      _result.results.addAll(results);
-    }
-    return _result;
-  }
+  factory MsgExecResponse() => create();
   factory MsgExecResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgExecResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -116,7 +92,7 @@ class MsgExecResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgExecResponse copyWith(void Function(MsgExecResponse) updates) => super.copyWith((message) => updates(message as MsgExecResponse)) as MsgExecResponse; // ignore: deprecated_member_use
+  MsgExecResponse copyWith(void Function(MsgExecResponse) updates) => super.copyWith((message) => updates(message as MsgExecResponse)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgExecResponse create() => MsgExecResponse._();
@@ -124,7 +100,7 @@ class MsgExecResponse extends $pb.GeneratedMessage {
   static $pb.PbList<MsgExecResponse> createRepeated() => $pb.PbList<MsgExecResponse>();
   @$core.pragma('dart2js:noInline')
   static MsgExecResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MsgExecResponse>(create);
-  static MsgExecResponse? _defaultInstance;
+  static MsgExecResponse _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.List<$core.List<$core.int>> get results => $_getList(0);
@@ -138,19 +114,7 @@ class MsgExec extends $pb.GeneratedMessage {
   ;
 
   MsgExec._() : super();
-  factory MsgExec({
-    $core.String? grantee,
-    $core.Iterable<$3.Any>? msgs,
-  }) {
-    final _result = create();
-    if (grantee != null) {
-      _result.grantee = grantee;
-    }
-    if (msgs != null) {
-      _result.msgs.addAll(msgs);
-    }
-    return _result;
-  }
+  factory MsgExec() => create();
   factory MsgExec.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgExec.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -162,7 +126,7 @@ class MsgExec extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgExec copyWith(void Function(MsgExec) updates) => super.copyWith((message) => updates(message as MsgExec)) as MsgExec; // ignore: deprecated_member_use
+  MsgExec copyWith(void Function(MsgExec) updates) => super.copyWith((message) => updates(message as MsgExec)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgExec create() => MsgExec._();
@@ -170,7 +134,7 @@ class MsgExec extends $pb.GeneratedMessage {
   static $pb.PbList<MsgExec> createRepeated() => $pb.PbList<MsgExec>();
   @$core.pragma('dart2js:noInline')
   static MsgExec getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MsgExec>(create);
-  static MsgExec? _defaultInstance;
+  static MsgExec _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get grantee => $_getSZ(0);
@@ -203,7 +167,7 @@ class MsgGrantResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgGrantResponse copyWith(void Function(MsgGrantResponse) updates) => super.copyWith((message) => updates(message as MsgGrantResponse)) as MsgGrantResponse; // ignore: deprecated_member_use
+  MsgGrantResponse copyWith(void Function(MsgGrantResponse) updates) => super.copyWith((message) => updates(message as MsgGrantResponse)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgGrantResponse create() => MsgGrantResponse._();
@@ -211,7 +175,7 @@ class MsgGrantResponse extends $pb.GeneratedMessage {
   static $pb.PbList<MsgGrantResponse> createRepeated() => $pb.PbList<MsgGrantResponse>();
   @$core.pragma('dart2js:noInline')
   static MsgGrantResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MsgGrantResponse>(create);
-  static MsgGrantResponse? _defaultInstance;
+  static MsgGrantResponse _defaultInstance;
 }
 
 class MsgRevoke extends $pb.GeneratedMessage {
@@ -223,23 +187,7 @@ class MsgRevoke extends $pb.GeneratedMessage {
   ;
 
   MsgRevoke._() : super();
-  factory MsgRevoke({
-    $core.String? granter,
-    $core.String? grantee,
-    $core.String? msgTypeUrl,
-  }) {
-    final _result = create();
-    if (granter != null) {
-      _result.granter = granter;
-    }
-    if (grantee != null) {
-      _result.grantee = grantee;
-    }
-    if (msgTypeUrl != null) {
-      _result.msgTypeUrl = msgTypeUrl;
-    }
-    return _result;
-  }
+  factory MsgRevoke() => create();
   factory MsgRevoke.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgRevoke.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -251,7 +199,7 @@ class MsgRevoke extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgRevoke copyWith(void Function(MsgRevoke) updates) => super.copyWith((message) => updates(message as MsgRevoke)) as MsgRevoke; // ignore: deprecated_member_use
+  MsgRevoke copyWith(void Function(MsgRevoke) updates) => super.copyWith((message) => updates(message as MsgRevoke)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgRevoke create() => MsgRevoke._();
@@ -259,7 +207,7 @@ class MsgRevoke extends $pb.GeneratedMessage {
   static $pb.PbList<MsgRevoke> createRepeated() => $pb.PbList<MsgRevoke>();
   @$core.pragma('dart2js:noInline')
   static MsgRevoke getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MsgRevoke>(create);
-  static MsgRevoke? _defaultInstance;
+  static MsgRevoke _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get granter => $_getSZ(0);
@@ -307,7 +255,7 @@ class MsgRevokeResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgRevokeResponse copyWith(void Function(MsgRevokeResponse) updates) => super.copyWith((message) => updates(message as MsgRevokeResponse)) as MsgRevokeResponse; // ignore: deprecated_member_use
+  MsgRevokeResponse copyWith(void Function(MsgRevokeResponse) updates) => super.copyWith((message) => updates(message as MsgRevokeResponse)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgRevokeResponse create() => MsgRevokeResponse._();
@@ -315,6 +263,6 @@ class MsgRevokeResponse extends $pb.GeneratedMessage {
   static $pb.PbList<MsgRevokeResponse> createRepeated() => $pb.PbList<MsgRevokeResponse>();
   @$core.pragma('dart2js:noInline')
   static MsgRevokeResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MsgRevokeResponse>(create);
-  static MsgRevokeResponse? _defaultInstance;
+  static MsgRevokeResponse _defaultInstance;
 }
 

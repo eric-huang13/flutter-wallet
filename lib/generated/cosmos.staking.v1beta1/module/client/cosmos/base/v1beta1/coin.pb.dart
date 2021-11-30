@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: cosmos/base/v1beta1/coin.proto
 //
-// @dart = 2.12
+// @dart = 2.3
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -17,19 +17,7 @@ class Coin extends $pb.GeneratedMessage {
   ;
 
   Coin._() : super();
-  factory Coin({
-    $core.String? denom,
-    $core.String? amount,
-  }) {
-    final _result = create();
-    if (denom != null) {
-      _result.denom = denom;
-    }
-    if (amount != null) {
-      _result.amount = amount;
-    }
-    return _result;
-  }
+  factory Coin() => create();
   factory Coin.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Coin.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -41,7 +29,7 @@ class Coin extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Coin copyWith(void Function(Coin) updates) => super.copyWith((message) => updates(message as Coin)) as Coin; // ignore: deprecated_member_use
+  Coin copyWith(void Function(Coin) updates) => super.copyWith((message) => updates(message as Coin)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static Coin create() => Coin._();
@@ -49,7 +37,7 @@ class Coin extends $pb.GeneratedMessage {
   static $pb.PbList<Coin> createRepeated() => $pb.PbList<Coin>();
   @$core.pragma('dart2js:noInline')
   static Coin getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Coin>(create);
-  static Coin? _defaultInstance;
+  static Coin _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get denom => $_getSZ(0);
@@ -78,19 +66,7 @@ class DecCoin extends $pb.GeneratedMessage {
   ;
 
   DecCoin._() : super();
-  factory DecCoin({
-    $core.String? denom,
-    $core.String? amount,
-  }) {
-    final _result = create();
-    if (denom != null) {
-      _result.denom = denom;
-    }
-    if (amount != null) {
-      _result.amount = amount;
-    }
-    return _result;
-  }
+  factory DecCoin() => create();
   factory DecCoin.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory DecCoin.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -102,7 +78,7 @@ class DecCoin extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  DecCoin copyWith(void Function(DecCoin) updates) => super.copyWith((message) => updates(message as DecCoin)) as DecCoin; // ignore: deprecated_member_use
+  DecCoin copyWith(void Function(DecCoin) updates) => super.copyWith((message) => updates(message as DecCoin)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static DecCoin create() => DecCoin._();
@@ -110,7 +86,7 @@ class DecCoin extends $pb.GeneratedMessage {
   static $pb.PbList<DecCoin> createRepeated() => $pb.PbList<DecCoin>();
   @$core.pragma('dart2js:noInline')
   static DecCoin getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DecCoin>(create);
-  static DecCoin? _defaultInstance;
+  static DecCoin _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get denom => $_getSZ(0);
@@ -138,15 +114,7 @@ class IntProto extends $pb.GeneratedMessage {
   ;
 
   IntProto._() : super();
-  factory IntProto({
-    $core.String? int_1,
-  }) {
-    final _result = create();
-    if (int_1 != null) {
-      _result.int_1 = int_1;
-    }
-    return _result;
-  }
+  factory IntProto() => create();
   factory IntProto.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory IntProto.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -158,7 +126,7 @@ class IntProto extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  IntProto copyWith(void Function(IntProto) updates) => super.copyWith((message) => updates(message as IntProto)) as IntProto; // ignore: deprecated_member_use
+  IntProto copyWith(void Function(IntProto) updates) => super.copyWith((message) => updates(message as IntProto)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static IntProto create() => IntProto._();
@@ -166,7 +134,7 @@ class IntProto extends $pb.GeneratedMessage {
   static $pb.PbList<IntProto> createRepeated() => $pb.PbList<IntProto>();
   @$core.pragma('dart2js:noInline')
   static IntProto getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<IntProto>(create);
-  static IntProto? _defaultInstance;
+  static IntProto _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get int_1 => $_getSZ(0);
@@ -185,15 +153,7 @@ class DecProto extends $pb.GeneratedMessage {
   ;
 
   DecProto._() : super();
-  factory DecProto({
-    $core.String? dec,
-  }) {
-    final _result = create();
-    if (dec != null) {
-      _result.dec = dec;
-    }
-    return _result;
-  }
+  factory DecProto() => create();
   factory DecProto.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory DecProto.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -205,7 +165,7 @@ class DecProto extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  DecProto copyWith(void Function(DecProto) updates) => super.copyWith((message) => updates(message as DecProto)) as DecProto; // ignore: deprecated_member_use
+  DecProto copyWith(void Function(DecProto) updates) => super.copyWith((message) => updates(message as DecProto)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static DecProto create() => DecProto._();
@@ -213,7 +173,7 @@ class DecProto extends $pb.GeneratedMessage {
   static $pb.PbList<DecProto> createRepeated() => $pb.PbList<DecProto>();
   @$core.pragma('dart2js:noInline')
   static DecProto getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DecProto>(create);
-  static DecProto? _defaultInstance;
+  static DecProto _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get dec => $_getSZ(0);

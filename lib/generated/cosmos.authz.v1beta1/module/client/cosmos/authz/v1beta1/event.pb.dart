@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: cosmos/authz/v1beta1/event.proto
 //
-// @dart = 2.12
+// @dart = 2.3
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -18,23 +18,7 @@ class EventGrant extends $pb.GeneratedMessage {
   ;
 
   EventGrant._() : super();
-  factory EventGrant({
-    $core.String? msgTypeUrl,
-    $core.String? granter,
-    $core.String? grantee,
-  }) {
-    final _result = create();
-    if (msgTypeUrl != null) {
-      _result.msgTypeUrl = msgTypeUrl;
-    }
-    if (granter != null) {
-      _result.granter = granter;
-    }
-    if (grantee != null) {
-      _result.grantee = grantee;
-    }
-    return _result;
-  }
+  factory EventGrant() => create();
   factory EventGrant.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory EventGrant.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -46,7 +30,7 @@ class EventGrant extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  EventGrant copyWith(void Function(EventGrant) updates) => super.copyWith((message) => updates(message as EventGrant)) as EventGrant; // ignore: deprecated_member_use
+  EventGrant copyWith(void Function(EventGrant) updates) => super.copyWith((message) => updates(message as EventGrant)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static EventGrant create() => EventGrant._();
@@ -54,7 +38,7 @@ class EventGrant extends $pb.GeneratedMessage {
   static $pb.PbList<EventGrant> createRepeated() => $pb.PbList<EventGrant>();
   @$core.pragma('dart2js:noInline')
   static EventGrant getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<EventGrant>(create);
-  static EventGrant? _defaultInstance;
+  static EventGrant _defaultInstance;
 
   @$pb.TagNumber(2)
   $core.String get msgTypeUrl => $_getSZ(0);
@@ -93,23 +77,7 @@ class EventRevoke extends $pb.GeneratedMessage {
   ;
 
   EventRevoke._() : super();
-  factory EventRevoke({
-    $core.String? msgTypeUrl,
-    $core.String? granter,
-    $core.String? grantee,
-  }) {
-    final _result = create();
-    if (msgTypeUrl != null) {
-      _result.msgTypeUrl = msgTypeUrl;
-    }
-    if (granter != null) {
-      _result.granter = granter;
-    }
-    if (grantee != null) {
-      _result.grantee = grantee;
-    }
-    return _result;
-  }
+  factory EventRevoke() => create();
   factory EventRevoke.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory EventRevoke.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -121,7 +89,7 @@ class EventRevoke extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  EventRevoke copyWith(void Function(EventRevoke) updates) => super.copyWith((message) => updates(message as EventRevoke)) as EventRevoke; // ignore: deprecated_member_use
+  EventRevoke copyWith(void Function(EventRevoke) updates) => super.copyWith((message) => updates(message as EventRevoke)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static EventRevoke create() => EventRevoke._();
@@ -129,7 +97,7 @@ class EventRevoke extends $pb.GeneratedMessage {
   static $pb.PbList<EventRevoke> createRepeated() => $pb.PbList<EventRevoke>();
   @$core.pragma('dart2js:noInline')
   static EventRevoke getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<EventRevoke>(create);
-  static EventRevoke? _defaultInstance;
+  static EventRevoke _defaultInstance;
 
   @$pb.TagNumber(2)
   $core.String get msgTypeUrl => $_getSZ(0);

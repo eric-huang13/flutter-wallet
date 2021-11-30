@@ -2,11 +2,12 @@
 //  Generated code. Do not modify.
 //  source: pylons/cookbook.proto
 //
-// @dart = 2.12
+// @dart = 2.3
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
 
+import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import '../cosmos/base/v1beta1/coin.pb.dart' as $2;
@@ -15,7 +16,7 @@ class Cookbook extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Cookbook', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Pylonstech.pylons.pylons'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'creator')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ID', protoName: 'ID')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nodeVersion', protoName: 'nodeVersion')
+    ..a<$fixnum.Int64>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nodeVersion', $pb.PbFieldType.OU6, protoName: 'nodeVersion', defaultOrMaker: $fixnum.Int64.ZERO)
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'description')
     ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'developer')
@@ -27,51 +28,7 @@ class Cookbook extends $pb.GeneratedMessage {
   ;
 
   Cookbook._() : super();
-  factory Cookbook({
-    $core.String? creator,
-    $core.String? iD,
-    $core.String? nodeVersion,
-    $core.String? name,
-    $core.String? description,
-    $core.String? developer,
-    $core.String? version,
-    $core.String? supportEmail,
-    $2.Coin? costPerBlock,
-    $core.bool? enabled,
-  }) {
-    final _result = create();
-    if (creator != null) {
-      _result.creator = creator;
-    }
-    if (iD != null) {
-      _result.iD = iD;
-    }
-    if (nodeVersion != null) {
-      _result.nodeVersion = nodeVersion;
-    }
-    if (name != null) {
-      _result.name = name;
-    }
-    if (description != null) {
-      _result.description = description;
-    }
-    if (developer != null) {
-      _result.developer = developer;
-    }
-    if (version != null) {
-      _result.version = version;
-    }
-    if (supportEmail != null) {
-      _result.supportEmail = supportEmail;
-    }
-    if (costPerBlock != null) {
-      _result.costPerBlock = costPerBlock;
-    }
-    if (enabled != null) {
-      _result.enabled = enabled;
-    }
-    return _result;
-  }
+  factory Cookbook() => create();
   factory Cookbook.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Cookbook.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -83,7 +40,7 @@ class Cookbook extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Cookbook copyWith(void Function(Cookbook) updates) => super.copyWith((message) => updates(message as Cookbook)) as Cookbook; // ignore: deprecated_member_use
+  Cookbook copyWith(void Function(Cookbook) updates) => super.copyWith((message) => updates(message as Cookbook)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static Cookbook create() => Cookbook._();
@@ -91,7 +48,7 @@ class Cookbook extends $pb.GeneratedMessage {
   static $pb.PbList<Cookbook> createRepeated() => $pb.PbList<Cookbook>();
   @$core.pragma('dart2js:noInline')
   static Cookbook getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Cookbook>(create);
-  static Cookbook? _defaultInstance;
+  static Cookbook _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get creator => $_getSZ(0);
@@ -112,9 +69,9 @@ class Cookbook extends $pb.GeneratedMessage {
   void clearID() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get nodeVersion => $_getSZ(2);
+  $fixnum.Int64 get nodeVersion => $_getI64(2);
   @$pb.TagNumber(3)
-  set nodeVersion($core.String v) { $_setString(2, v); }
+  set nodeVersion($fixnum.Int64 v) { $_setInt64(2, v); }
   @$pb.TagNumber(3)
   $core.bool hasNodeVersion() => $_has(2);
   @$pb.TagNumber(3)

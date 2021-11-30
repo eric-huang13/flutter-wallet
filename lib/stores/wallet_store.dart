@@ -162,11 +162,6 @@ abstract class WalletsStore {
   Observable<CredentialsStorageFailure?> getLoadWalletsFailure();
 
 
-  /// This method enables the recipe int the recipe in the blockchain
-  /// Input : [Map] containing the info related to the updation of recipe
-  /// Output : [SDKIPCResponse] response
-  Future<SDKIPCResponse> enableRecipe(Map<dynamic, dynamic> jsonMap);
-
 
   /// This method updates the cookbook in the block chain
   /// Input : [Map] containing the info related to the updation of cookbook

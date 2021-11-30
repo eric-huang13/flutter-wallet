@@ -436,30 +436,8 @@ class WalletsStoreImp implements WalletsStore {
 
   @override
   Future<SDKIPCResponse> updateRecipe(Map jsonMap) async {
-    final msgObj = pylons.MsgUpdateRecipe.create()..mergeFromProto3Json(json);
+    final msgObj = pylons.MsgUpdateRecipe.create()..mergeFromProto3Json(jsonMap);
     msgObj.creator = wallets.value.last.publicAddress;
-    return _signAndBroadcast(msgObj);
-  }
-
-  @override
-  Future<SDKIPCResponse> enableRecipe(Map jsonMap) async {
-    final cookBookId = jsonMap['cookbookId'].toString();
-    final recipeId = jsonMap['recipeId'].toString();
-    final version = jsonMap['version'].toString();
-    final response = await repository.getRecipe(cookBookId: cookBookId, recipeId: recipeId);
-
-    if (response.isLeft()) {
-      return SDKIPCResponse.failure(sender: '', error: response.swap().toOption().toNullable()!.message, errorCode: HandlerFactory.ERR_CANNOT_FETCH_RECIPE, transaction: '');
-    }
-
-    final recipe = response.toOption().toNullable()!;
-    print(recipe);
-
-    final msgObj = pylons.MsgUpdateRecipe.create()
-      ..mergeFromProto3Json(recipe.toProto3Json())
-      ..enabled = true
-      ..version = version
-      ..creator = wallets.value.last.publicAddress;
     return _signAndBroadcast(msgObj);
   }
 
@@ -503,6 +481,6 @@ class WalletsStoreImp implements WalletsStore {
       return SDKIPCResponse.failure(sender: '', error: recipesEither.swap().toOption().toNullable()!.message, errorCode: HandlerFactory.ERR_CANNOT_FETCH_RECIPES, transaction: '');
     }
 
-    return SDKIPCResponse.success(data: recipesEither.toOption().toNullable()!.toProto3Json(), sender: '', transaction: '');
+    return SDKIPCResponse.success(data: jsonEncode(recipesEither.toOption().toNullable()!.toProto3Json()), sender: '', transaction: '');
   }
 }

@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: cosmos/upgrade/v1beta1/upgrade.proto
 //
-// @dart = 2.12
+// @dart = 2.3
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -22,27 +22,7 @@ class Plan extends $pb.GeneratedMessage {
   ;
 
   Plan._() : super();
-  factory Plan({
-    $core.String? name,
-    $5.Timestamp? time,
-    $fixnum.Int64? height,
-    $core.String? info,
-  }) {
-    final _result = create();
-    if (name != null) {
-      _result.name = name;
-    }
-    if (time != null) {
-      _result.time = time;
-    }
-    if (height != null) {
-      _result.height = height;
-    }
-    if (info != null) {
-      _result.info = info;
-    }
-    return _result;
-  }
+  factory Plan() => create();
   factory Plan.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Plan.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -54,7 +34,7 @@ class Plan extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Plan copyWith(void Function(Plan) updates) => super.copyWith((message) => updates(message as Plan)) as Plan; // ignore: deprecated_member_use
+  Plan copyWith(void Function(Plan) updates) => super.copyWith((message) => updates(message as Plan)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static Plan create() => Plan._();
@@ -62,7 +42,7 @@ class Plan extends $pb.GeneratedMessage {
   static $pb.PbList<Plan> createRepeated() => $pb.PbList<Plan>();
   @$core.pragma('dart2js:noInline')
   static Plan getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Plan>(create);
-  static Plan? _defaultInstance;
+  static Plan _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get name => $_getSZ(0);
@@ -112,23 +92,7 @@ class SoftwareUpgradeProposal extends $pb.GeneratedMessage {
   ;
 
   SoftwareUpgradeProposal._() : super();
-  factory SoftwareUpgradeProposal({
-    $core.String? title,
-    $core.String? description,
-    Plan? plan,
-  }) {
-    final _result = create();
-    if (title != null) {
-      _result.title = title;
-    }
-    if (description != null) {
-      _result.description = description;
-    }
-    if (plan != null) {
-      _result.plan = plan;
-    }
-    return _result;
-  }
+  factory SoftwareUpgradeProposal() => create();
   factory SoftwareUpgradeProposal.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory SoftwareUpgradeProposal.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -140,7 +104,7 @@ class SoftwareUpgradeProposal extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  SoftwareUpgradeProposal copyWith(void Function(SoftwareUpgradeProposal) updates) => super.copyWith((message) => updates(message as SoftwareUpgradeProposal)) as SoftwareUpgradeProposal; // ignore: deprecated_member_use
+  SoftwareUpgradeProposal copyWith(void Function(SoftwareUpgradeProposal) updates) => super.copyWith((message) => updates(message as SoftwareUpgradeProposal)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static SoftwareUpgradeProposal create() => SoftwareUpgradeProposal._();
@@ -148,7 +112,7 @@ class SoftwareUpgradeProposal extends $pb.GeneratedMessage {
   static $pb.PbList<SoftwareUpgradeProposal> createRepeated() => $pb.PbList<SoftwareUpgradeProposal>();
   @$core.pragma('dart2js:noInline')
   static SoftwareUpgradeProposal getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SoftwareUpgradeProposal>(create);
-  static SoftwareUpgradeProposal? _defaultInstance;
+  static SoftwareUpgradeProposal _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get title => $_getSZ(0);
@@ -188,19 +152,7 @@ class CancelSoftwareUpgradeProposal extends $pb.GeneratedMessage {
   ;
 
   CancelSoftwareUpgradeProposal._() : super();
-  factory CancelSoftwareUpgradeProposal({
-    $core.String? title,
-    $core.String? description,
-  }) {
-    final _result = create();
-    if (title != null) {
-      _result.title = title;
-    }
-    if (description != null) {
-      _result.description = description;
-    }
-    return _result;
-  }
+  factory CancelSoftwareUpgradeProposal() => create();
   factory CancelSoftwareUpgradeProposal.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory CancelSoftwareUpgradeProposal.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -212,7 +164,7 @@ class CancelSoftwareUpgradeProposal extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  CancelSoftwareUpgradeProposal copyWith(void Function(CancelSoftwareUpgradeProposal) updates) => super.copyWith((message) => updates(message as CancelSoftwareUpgradeProposal)) as CancelSoftwareUpgradeProposal; // ignore: deprecated_member_use
+  CancelSoftwareUpgradeProposal copyWith(void Function(CancelSoftwareUpgradeProposal) updates) => super.copyWith((message) => updates(message as CancelSoftwareUpgradeProposal)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static CancelSoftwareUpgradeProposal create() => CancelSoftwareUpgradeProposal._();
@@ -220,7 +172,7 @@ class CancelSoftwareUpgradeProposal extends $pb.GeneratedMessage {
   static $pb.PbList<CancelSoftwareUpgradeProposal> createRepeated() => $pb.PbList<CancelSoftwareUpgradeProposal>();
   @$core.pragma('dart2js:noInline')
   static CancelSoftwareUpgradeProposal getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CancelSoftwareUpgradeProposal>(create);
-  static CancelSoftwareUpgradeProposal? _defaultInstance;
+  static CancelSoftwareUpgradeProposal _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get title => $_getSZ(0);

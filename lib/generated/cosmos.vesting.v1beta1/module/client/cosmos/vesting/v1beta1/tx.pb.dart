@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: cosmos/vesting/v1beta1/tx.proto
 //
-// @dart = 2.12
+// @dart = 2.3
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -23,31 +23,7 @@ class MsgCreateVestingAccount extends $pb.GeneratedMessage {
   ;
 
   MsgCreateVestingAccount._() : super();
-  factory MsgCreateVestingAccount({
-    $core.String? fromAddress,
-    $core.String? toAddress,
-    $core.Iterable<$1.Coin>? amount,
-    $fixnum.Int64? endTime,
-    $core.bool? delayed,
-  }) {
-    final _result = create();
-    if (fromAddress != null) {
-      _result.fromAddress = fromAddress;
-    }
-    if (toAddress != null) {
-      _result.toAddress = toAddress;
-    }
-    if (amount != null) {
-      _result.amount.addAll(amount);
-    }
-    if (endTime != null) {
-      _result.endTime = endTime;
-    }
-    if (delayed != null) {
-      _result.delayed = delayed;
-    }
-    return _result;
-  }
+  factory MsgCreateVestingAccount() => create();
   factory MsgCreateVestingAccount.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgCreateVestingAccount.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -59,7 +35,7 @@ class MsgCreateVestingAccount extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgCreateVestingAccount copyWith(void Function(MsgCreateVestingAccount) updates) => super.copyWith((message) => updates(message as MsgCreateVestingAccount)) as MsgCreateVestingAccount; // ignore: deprecated_member_use
+  MsgCreateVestingAccount copyWith(void Function(MsgCreateVestingAccount) updates) => super.copyWith((message) => updates(message as MsgCreateVestingAccount)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgCreateVestingAccount create() => MsgCreateVestingAccount._();
@@ -67,7 +43,7 @@ class MsgCreateVestingAccount extends $pb.GeneratedMessage {
   static $pb.PbList<MsgCreateVestingAccount> createRepeated() => $pb.PbList<MsgCreateVestingAccount>();
   @$core.pragma('dart2js:noInline')
   static MsgCreateVestingAccount getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MsgCreateVestingAccount>(create);
-  static MsgCreateVestingAccount? _defaultInstance;
+  static MsgCreateVestingAccount _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get fromAddress => $_getSZ(0);
@@ -127,7 +103,7 @@ class MsgCreateVestingAccountResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgCreateVestingAccountResponse copyWith(void Function(MsgCreateVestingAccountResponse) updates) => super.copyWith((message) => updates(message as MsgCreateVestingAccountResponse)) as MsgCreateVestingAccountResponse; // ignore: deprecated_member_use
+  MsgCreateVestingAccountResponse copyWith(void Function(MsgCreateVestingAccountResponse) updates) => super.copyWith((message) => updates(message as MsgCreateVestingAccountResponse)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgCreateVestingAccountResponse create() => MsgCreateVestingAccountResponse._();
@@ -135,6 +111,6 @@ class MsgCreateVestingAccountResponse extends $pb.GeneratedMessage {
   static $pb.PbList<MsgCreateVestingAccountResponse> createRepeated() => $pb.PbList<MsgCreateVestingAccountResponse>();
   @$core.pragma('dart2js:noInline')
   static MsgCreateVestingAccountResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MsgCreateVestingAccountResponse>(create);
-  static MsgCreateVestingAccountResponse? _defaultInstance;
+  static MsgCreateVestingAccountResponse _defaultInstance;
 }
 

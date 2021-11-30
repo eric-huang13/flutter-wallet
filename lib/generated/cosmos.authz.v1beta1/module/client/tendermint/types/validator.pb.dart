@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: tendermint/types/validator.proto
 //
-// @dart = 2.12
+// @dart = 2.3
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -21,23 +21,7 @@ class ValidatorSet extends $pb.GeneratedMessage {
   ;
 
   ValidatorSet._() : super();
-  factory ValidatorSet({
-    $core.Iterable<Validator>? validators,
-    Validator? proposer,
-    $fixnum.Int64? totalVotingPower,
-  }) {
-    final _result = create();
-    if (validators != null) {
-      _result.validators.addAll(validators);
-    }
-    if (proposer != null) {
-      _result.proposer = proposer;
-    }
-    if (totalVotingPower != null) {
-      _result.totalVotingPower = totalVotingPower;
-    }
-    return _result;
-  }
+  factory ValidatorSet() => create();
   factory ValidatorSet.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ValidatorSet.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -49,7 +33,7 @@ class ValidatorSet extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ValidatorSet copyWith(void Function(ValidatorSet) updates) => super.copyWith((message) => updates(message as ValidatorSet)) as ValidatorSet; // ignore: deprecated_member_use
+  ValidatorSet copyWith(void Function(ValidatorSet) updates) => super.copyWith((message) => updates(message as ValidatorSet)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static ValidatorSet create() => ValidatorSet._();
@@ -57,7 +41,7 @@ class ValidatorSet extends $pb.GeneratedMessage {
   static $pb.PbList<ValidatorSet> createRepeated() => $pb.PbList<ValidatorSet>();
   @$core.pragma('dart2js:noInline')
   static ValidatorSet getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ValidatorSet>(create);
-  static ValidatorSet? _defaultInstance;
+  static ValidatorSet _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.List<Validator> get validators => $_getList(0);
@@ -93,27 +77,7 @@ class Validator extends $pb.GeneratedMessage {
   ;
 
   Validator._() : super();
-  factory Validator({
-    $core.List<$core.int>? address,
-    $8.PublicKey? pubKey,
-    $fixnum.Int64? votingPower,
-    $fixnum.Int64? proposerPriority,
-  }) {
-    final _result = create();
-    if (address != null) {
-      _result.address = address;
-    }
-    if (pubKey != null) {
-      _result.pubKey = pubKey;
-    }
-    if (votingPower != null) {
-      _result.votingPower = votingPower;
-    }
-    if (proposerPriority != null) {
-      _result.proposerPriority = proposerPriority;
-    }
-    return _result;
-  }
+  factory Validator() => create();
   factory Validator.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Validator.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -125,7 +89,7 @@ class Validator extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Validator copyWith(void Function(Validator) updates) => super.copyWith((message) => updates(message as Validator)) as Validator; // ignore: deprecated_member_use
+  Validator copyWith(void Function(Validator) updates) => super.copyWith((message) => updates(message as Validator)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static Validator create() => Validator._();
@@ -133,7 +97,7 @@ class Validator extends $pb.GeneratedMessage {
   static $pb.PbList<Validator> createRepeated() => $pb.PbList<Validator>();
   @$core.pragma('dart2js:noInline')
   static Validator getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Validator>(create);
-  static Validator? _defaultInstance;
+  static Validator _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.List<$core.int> get address => $_getN(0);
@@ -182,19 +146,7 @@ class SimpleValidator extends $pb.GeneratedMessage {
   ;
 
   SimpleValidator._() : super();
-  factory SimpleValidator({
-    $8.PublicKey? pubKey,
-    $fixnum.Int64? votingPower,
-  }) {
-    final _result = create();
-    if (pubKey != null) {
-      _result.pubKey = pubKey;
-    }
-    if (votingPower != null) {
-      _result.votingPower = votingPower;
-    }
-    return _result;
-  }
+  factory SimpleValidator() => create();
   factory SimpleValidator.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory SimpleValidator.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -206,7 +158,7 @@ class SimpleValidator extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  SimpleValidator copyWith(void Function(SimpleValidator) updates) => super.copyWith((message) => updates(message as SimpleValidator)) as SimpleValidator; // ignore: deprecated_member_use
+  SimpleValidator copyWith(void Function(SimpleValidator) updates) => super.copyWith((message) => updates(message as SimpleValidator)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static SimpleValidator create() => SimpleValidator._();
@@ -214,7 +166,7 @@ class SimpleValidator extends $pb.GeneratedMessage {
   static $pb.PbList<SimpleValidator> createRepeated() => $pb.PbList<SimpleValidator>();
   @$core.pragma('dart2js:noInline')
   static SimpleValidator getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SimpleValidator>(create);
-  static SimpleValidator? _defaultInstance;
+  static SimpleValidator _defaultInstance;
 
   @$pb.TagNumber(1)
   $8.PublicKey get pubKey => $_getN(0);

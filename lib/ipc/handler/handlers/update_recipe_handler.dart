@@ -14,7 +14,9 @@ class UpdateRecipeHandler implements BaseHandler {
 
   @override
   Future<SDKIPCResponse> handle() async {
+
     final jsonMap = jsonDecode(sdkipcMessage.json) as Map;
+
 
     jsonMap.remove('nodeVersion');
 

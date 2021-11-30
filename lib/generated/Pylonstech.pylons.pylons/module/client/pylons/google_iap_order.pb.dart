@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: pylons/google_iap_order.proto
 //
-// @dart = 2.12
+// @dart = 2.3
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -20,31 +20,7 @@ class GoogleInAppPurchaseOrder extends $pb.GeneratedMessage {
   ;
 
   GoogleInAppPurchaseOrder._() : super();
-  factory GoogleInAppPurchaseOrder({
-    $core.String? creator,
-    $core.String? productID,
-    $core.String? purchaseToken,
-    $core.String? receiptDataBase64,
-    $core.String? signature,
-  }) {
-    final _result = create();
-    if (creator != null) {
-      _result.creator = creator;
-    }
-    if (productID != null) {
-      _result.productID = productID;
-    }
-    if (purchaseToken != null) {
-      _result.purchaseToken = purchaseToken;
-    }
-    if (receiptDataBase64 != null) {
-      _result.receiptDataBase64 = receiptDataBase64;
-    }
-    if (signature != null) {
-      _result.signature = signature;
-    }
-    return _result;
-  }
+  factory GoogleInAppPurchaseOrder() => create();
   factory GoogleInAppPurchaseOrder.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GoogleInAppPurchaseOrder.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -56,7 +32,7 @@ class GoogleInAppPurchaseOrder extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  GoogleInAppPurchaseOrder copyWith(void Function(GoogleInAppPurchaseOrder) updates) => super.copyWith((message) => updates(message as GoogleInAppPurchaseOrder)) as GoogleInAppPurchaseOrder; // ignore: deprecated_member_use
+  GoogleInAppPurchaseOrder copyWith(void Function(GoogleInAppPurchaseOrder) updates) => super.copyWith((message) => updates(message as GoogleInAppPurchaseOrder)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static GoogleInAppPurchaseOrder create() => GoogleInAppPurchaseOrder._();
@@ -64,7 +40,7 @@ class GoogleInAppPurchaseOrder extends $pb.GeneratedMessage {
   static $pb.PbList<GoogleInAppPurchaseOrder> createRepeated() => $pb.PbList<GoogleInAppPurchaseOrder>();
   @$core.pragma('dart2js:noInline')
   static GoogleInAppPurchaseOrder getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GoogleInAppPurchaseOrder>(create);
-  static GoogleInAppPurchaseOrder? _defaultInstance;
+  static GoogleInAppPurchaseOrder _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get creator => $_getSZ(0);

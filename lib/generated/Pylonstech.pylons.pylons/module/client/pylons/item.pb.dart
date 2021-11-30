@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: pylons/item.proto
 //
-// @dart = 2.12
+// @dart = 2.3
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -20,19 +20,7 @@ class DoubleKeyValue extends $pb.GeneratedMessage {
   ;
 
   DoubleKeyValue._() : super();
-  factory DoubleKeyValue({
-    $core.String? key,
-    $core.String? value,
-  }) {
-    final _result = create();
-    if (key != null) {
-      _result.key = key;
-    }
-    if (value != null) {
-      _result.value = value;
-    }
-    return _result;
-  }
+  factory DoubleKeyValue() => create();
   factory DoubleKeyValue.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory DoubleKeyValue.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -44,7 +32,7 @@ class DoubleKeyValue extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  DoubleKeyValue copyWith(void Function(DoubleKeyValue) updates) => super.copyWith((message) => updates(message as DoubleKeyValue)) as DoubleKeyValue; // ignore: deprecated_member_use
+  DoubleKeyValue copyWith(void Function(DoubleKeyValue) updates) => super.copyWith((message) => updates(message as DoubleKeyValue)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static DoubleKeyValue create() => DoubleKeyValue._();
@@ -52,7 +40,7 @@ class DoubleKeyValue extends $pb.GeneratedMessage {
   static $pb.PbList<DoubleKeyValue> createRepeated() => $pb.PbList<DoubleKeyValue>();
   @$core.pragma('dart2js:noInline')
   static DoubleKeyValue getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DoubleKeyValue>(create);
-  static DoubleKeyValue? _defaultInstance;
+  static DoubleKeyValue _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get key => $_getSZ(0);
@@ -81,19 +69,7 @@ class LongKeyValue extends $pb.GeneratedMessage {
   ;
 
   LongKeyValue._() : super();
-  factory LongKeyValue({
-    $core.String? key,
-    $fixnum.Int64? value,
-  }) {
-    final _result = create();
-    if (key != null) {
-      _result.key = key;
-    }
-    if (value != null) {
-      _result.value = value;
-    }
-    return _result;
-  }
+  factory LongKeyValue() => create();
   factory LongKeyValue.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory LongKeyValue.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -105,7 +81,7 @@ class LongKeyValue extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  LongKeyValue copyWith(void Function(LongKeyValue) updates) => super.copyWith((message) => updates(message as LongKeyValue)) as LongKeyValue; // ignore: deprecated_member_use
+  LongKeyValue copyWith(void Function(LongKeyValue) updates) => super.copyWith((message) => updates(message as LongKeyValue)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static LongKeyValue create() => LongKeyValue._();
@@ -113,7 +89,7 @@ class LongKeyValue extends $pb.GeneratedMessage {
   static $pb.PbList<LongKeyValue> createRepeated() => $pb.PbList<LongKeyValue>();
   @$core.pragma('dart2js:noInline')
   static LongKeyValue getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<LongKeyValue>(create);
-  static LongKeyValue? _defaultInstance;
+  static LongKeyValue _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get key => $_getSZ(0);
@@ -142,19 +118,7 @@ class StringKeyValue extends $pb.GeneratedMessage {
   ;
 
   StringKeyValue._() : super();
-  factory StringKeyValue({
-    $core.String? key,
-    $core.String? value,
-  }) {
-    final _result = create();
-    if (key != null) {
-      _result.key = key;
-    }
-    if (value != null) {
-      _result.value = value;
-    }
-    return _result;
-  }
+  factory StringKeyValue() => create();
   factory StringKeyValue.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory StringKeyValue.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -166,7 +130,7 @@ class StringKeyValue extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  StringKeyValue copyWith(void Function(StringKeyValue) updates) => super.copyWith((message) => updates(message as StringKeyValue)) as StringKeyValue; // ignore: deprecated_member_use
+  StringKeyValue copyWith(void Function(StringKeyValue) updates) => super.copyWith((message) => updates(message as StringKeyValue)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static StringKeyValue create() => StringKeyValue._();
@@ -174,7 +138,7 @@ class StringKeyValue extends $pb.GeneratedMessage {
   static $pb.PbList<StringKeyValue> createRepeated() => $pb.PbList<StringKeyValue>();
   @$core.pragma('dart2js:noInline')
   static StringKeyValue getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<StringKeyValue>(create);
-  static StringKeyValue? _defaultInstance;
+  static StringKeyValue _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get key => $_getSZ(0);
@@ -200,7 +164,7 @@ class Item extends $pb.GeneratedMessage {
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'owner')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'cookbookID', protoName: 'cookbookID')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ID', protoName: 'ID')
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nodeVersion', protoName: 'nodeVersion')
+    ..a<$fixnum.Int64>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nodeVersion', $pb.PbFieldType.OU6, protoName: 'nodeVersion', defaultOrMaker: $fixnum.Int64.ZERO)
     ..pc<DoubleKeyValue>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'doubles', $pb.PbFieldType.PM, subBuilder: DoubleKeyValue.create)
     ..pc<LongKeyValue>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'longs', $pb.PbFieldType.PM, subBuilder: LongKeyValue.create)
     ..pc<StringKeyValue>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'strings', $pb.PbFieldType.PM, subBuilder: StringKeyValue.create)
@@ -213,59 +177,7 @@ class Item extends $pb.GeneratedMessage {
   ;
 
   Item._() : super();
-  factory Item({
-    $core.String? owner,
-    $core.String? cookbookID,
-    $core.String? iD,
-    $core.String? nodeVersion,
-    $core.Iterable<DoubleKeyValue>? doubles,
-    $core.Iterable<LongKeyValue>? longs,
-    $core.Iterable<StringKeyValue>? strings,
-    $core.Iterable<StringKeyValue>? mutableStrings,
-    $core.bool? tradeable,
-    $fixnum.Int64? lastUpdate,
-    $core.Iterable<$2.Coin>? transferFee,
-    $core.String? tradePercentage,
-  }) {
-    final _result = create();
-    if (owner != null) {
-      _result.owner = owner;
-    }
-    if (cookbookID != null) {
-      _result.cookbookID = cookbookID;
-    }
-    if (iD != null) {
-      _result.iD = iD;
-    }
-    if (nodeVersion != null) {
-      _result.nodeVersion = nodeVersion;
-    }
-    if (doubles != null) {
-      _result.doubles.addAll(doubles);
-    }
-    if (longs != null) {
-      _result.longs.addAll(longs);
-    }
-    if (strings != null) {
-      _result.strings.addAll(strings);
-    }
-    if (mutableStrings != null) {
-      _result.mutableStrings.addAll(mutableStrings);
-    }
-    if (tradeable != null) {
-      _result.tradeable = tradeable;
-    }
-    if (lastUpdate != null) {
-      _result.lastUpdate = lastUpdate;
-    }
-    if (transferFee != null) {
-      _result.transferFee.addAll(transferFee);
-    }
-    if (tradePercentage != null) {
-      _result.tradePercentage = tradePercentage;
-    }
-    return _result;
-  }
+  factory Item() => create();
   factory Item.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Item.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -277,7 +189,7 @@ class Item extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Item copyWith(void Function(Item) updates) => super.copyWith((message) => updates(message as Item)) as Item; // ignore: deprecated_member_use
+  Item copyWith(void Function(Item) updates) => super.copyWith((message) => updates(message as Item)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static Item create() => Item._();
@@ -285,7 +197,7 @@ class Item extends $pb.GeneratedMessage {
   static $pb.PbList<Item> createRepeated() => $pb.PbList<Item>();
   @$core.pragma('dart2js:noInline')
   static Item getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Item>(create);
-  static Item? _defaultInstance;
+  static Item _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get owner => $_getSZ(0);
@@ -315,9 +227,9 @@ class Item extends $pb.GeneratedMessage {
   void clearID() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.String get nodeVersion => $_getSZ(3);
+  $fixnum.Int64 get nodeVersion => $_getI64(3);
   @$pb.TagNumber(4)
-  set nodeVersion($core.String v) { $_setString(3, v); }
+  set nodeVersion($fixnum.Int64 v) { $_setInt64(3, v); }
   @$pb.TagNumber(4)
   $core.bool hasNodeVersion() => $_has(3);
   @$pb.TagNumber(4)

@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: tendermint/crypto/proof.proto
 //
-// @dart = 2.12
+// @dart = 2.3
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -20,27 +20,7 @@ class Proof extends $pb.GeneratedMessage {
   ;
 
   Proof._() : super();
-  factory Proof({
-    $fixnum.Int64? total,
-    $fixnum.Int64? index,
-    $core.List<$core.int>? leafHash,
-    $core.Iterable<$core.List<$core.int>>? aunts,
-  }) {
-    final _result = create();
-    if (total != null) {
-      _result.total = total;
-    }
-    if (index != null) {
-      _result.index = index;
-    }
-    if (leafHash != null) {
-      _result.leafHash = leafHash;
-    }
-    if (aunts != null) {
-      _result.aunts.addAll(aunts);
-    }
-    return _result;
-  }
+  factory Proof() => create();
   factory Proof.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Proof.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -52,7 +32,7 @@ class Proof extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Proof copyWith(void Function(Proof) updates) => super.copyWith((message) => updates(message as Proof)) as Proof; // ignore: deprecated_member_use
+  Proof copyWith(void Function(Proof) updates) => super.copyWith((message) => updates(message as Proof)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static Proof create() => Proof._();
@@ -60,7 +40,7 @@ class Proof extends $pb.GeneratedMessage {
   static $pb.PbList<Proof> createRepeated() => $pb.PbList<Proof>();
   @$core.pragma('dart2js:noInline')
   static Proof getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Proof>(create);
-  static Proof? _defaultInstance;
+  static Proof _defaultInstance;
 
   @$pb.TagNumber(1)
   $fixnum.Int64 get total => $_getI64(0);
@@ -101,19 +81,7 @@ class ValueOp extends $pb.GeneratedMessage {
   ;
 
   ValueOp._() : super();
-  factory ValueOp({
-    $core.List<$core.int>? key,
-    Proof? proof,
-  }) {
-    final _result = create();
-    if (key != null) {
-      _result.key = key;
-    }
-    if (proof != null) {
-      _result.proof = proof;
-    }
-    return _result;
-  }
+  factory ValueOp() => create();
   factory ValueOp.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ValueOp.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -125,7 +93,7 @@ class ValueOp extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ValueOp copyWith(void Function(ValueOp) updates) => super.copyWith((message) => updates(message as ValueOp)) as ValueOp; // ignore: deprecated_member_use
+  ValueOp copyWith(void Function(ValueOp) updates) => super.copyWith((message) => updates(message as ValueOp)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static ValueOp create() => ValueOp._();
@@ -133,7 +101,7 @@ class ValueOp extends $pb.GeneratedMessage {
   static $pb.PbList<ValueOp> createRepeated() => $pb.PbList<ValueOp>();
   @$core.pragma('dart2js:noInline')
   static ValueOp getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ValueOp>(create);
-  static ValueOp? _defaultInstance;
+  static ValueOp _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.List<$core.int> get key => $_getN(0);
@@ -165,23 +133,7 @@ class DominoOp extends $pb.GeneratedMessage {
   ;
 
   DominoOp._() : super();
-  factory DominoOp({
-    $core.String? key,
-    $core.String? input,
-    $core.String? output,
-  }) {
-    final _result = create();
-    if (key != null) {
-      _result.key = key;
-    }
-    if (input != null) {
-      _result.input = input;
-    }
-    if (output != null) {
-      _result.output = output;
-    }
-    return _result;
-  }
+  factory DominoOp() => create();
   factory DominoOp.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory DominoOp.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -193,7 +145,7 @@ class DominoOp extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  DominoOp copyWith(void Function(DominoOp) updates) => super.copyWith((message) => updates(message as DominoOp)) as DominoOp; // ignore: deprecated_member_use
+  DominoOp copyWith(void Function(DominoOp) updates) => super.copyWith((message) => updates(message as DominoOp)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static DominoOp create() => DominoOp._();
@@ -201,7 +153,7 @@ class DominoOp extends $pb.GeneratedMessage {
   static $pb.PbList<DominoOp> createRepeated() => $pb.PbList<DominoOp>();
   @$core.pragma('dart2js:noInline')
   static DominoOp getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DominoOp>(create);
-  static DominoOp? _defaultInstance;
+  static DominoOp _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get key => $_getSZ(0);
@@ -240,23 +192,7 @@ class ProofOp extends $pb.GeneratedMessage {
   ;
 
   ProofOp._() : super();
-  factory ProofOp({
-    $core.String? type,
-    $core.List<$core.int>? key,
-    $core.List<$core.int>? data,
-  }) {
-    final _result = create();
-    if (type != null) {
-      _result.type = type;
-    }
-    if (key != null) {
-      _result.key = key;
-    }
-    if (data != null) {
-      _result.data = data;
-    }
-    return _result;
-  }
+  factory ProofOp() => create();
   factory ProofOp.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ProofOp.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -268,7 +204,7 @@ class ProofOp extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ProofOp copyWith(void Function(ProofOp) updates) => super.copyWith((message) => updates(message as ProofOp)) as ProofOp; // ignore: deprecated_member_use
+  ProofOp copyWith(void Function(ProofOp) updates) => super.copyWith((message) => updates(message as ProofOp)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static ProofOp create() => ProofOp._();
@@ -276,7 +212,7 @@ class ProofOp extends $pb.GeneratedMessage {
   static $pb.PbList<ProofOp> createRepeated() => $pb.PbList<ProofOp>();
   @$core.pragma('dart2js:noInline')
   static ProofOp getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ProofOp>(create);
-  static ProofOp? _defaultInstance;
+  static ProofOp _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get type => $_getSZ(0);
@@ -313,15 +249,7 @@ class ProofOps extends $pb.GeneratedMessage {
   ;
 
   ProofOps._() : super();
-  factory ProofOps({
-    $core.Iterable<ProofOp>? ops,
-  }) {
-    final _result = create();
-    if (ops != null) {
-      _result.ops.addAll(ops);
-    }
-    return _result;
-  }
+  factory ProofOps() => create();
   factory ProofOps.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ProofOps.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -333,7 +261,7 @@ class ProofOps extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ProofOps copyWith(void Function(ProofOps) updates) => super.copyWith((message) => updates(message as ProofOps)) as ProofOps; // ignore: deprecated_member_use
+  ProofOps copyWith(void Function(ProofOps) updates) => super.copyWith((message) => updates(message as ProofOps)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static ProofOps create() => ProofOps._();
@@ -341,7 +269,7 @@ class ProofOps extends $pb.GeneratedMessage {
   static $pb.PbList<ProofOps> createRepeated() => $pb.PbList<ProofOps>();
   @$core.pragma('dart2js:noInline')
   static ProofOps getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ProofOps>(create);
-  static ProofOps? _defaultInstance;
+  static ProofOps _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.List<ProofOp> get ops => $_getList(0);

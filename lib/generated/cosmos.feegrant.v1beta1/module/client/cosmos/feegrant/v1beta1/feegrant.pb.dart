@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: cosmos/feegrant/v1beta1/feegrant.proto
 //
-// @dart = 2.12
+// @dart = 2.3
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -22,19 +22,7 @@ class BasicAllowance extends $pb.GeneratedMessage {
   ;
 
   BasicAllowance._() : super();
-  factory BasicAllowance({
-    $core.Iterable<$2.Coin>? spendLimit,
-    $3.Timestamp? expiration,
-  }) {
-    final _result = create();
-    if (spendLimit != null) {
-      _result.spendLimit.addAll(spendLimit);
-    }
-    if (expiration != null) {
-      _result.expiration = expiration;
-    }
-    return _result;
-  }
+  factory BasicAllowance() => create();
   factory BasicAllowance.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory BasicAllowance.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -46,7 +34,7 @@ class BasicAllowance extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  BasicAllowance copyWith(void Function(BasicAllowance) updates) => super.copyWith((message) => updates(message as BasicAllowance)) as BasicAllowance; // ignore: deprecated_member_use
+  BasicAllowance copyWith(void Function(BasicAllowance) updates) => super.copyWith((message) => updates(message as BasicAllowance)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static BasicAllowance create() => BasicAllowance._();
@@ -54,7 +42,7 @@ class BasicAllowance extends $pb.GeneratedMessage {
   static $pb.PbList<BasicAllowance> createRepeated() => $pb.PbList<BasicAllowance>();
   @$core.pragma('dart2js:noInline')
   static BasicAllowance getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<BasicAllowance>(create);
-  static BasicAllowance? _defaultInstance;
+  static BasicAllowance _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.List<$2.Coin> get spendLimit => $_getList(0);
@@ -82,31 +70,7 @@ class PeriodicAllowance extends $pb.GeneratedMessage {
   ;
 
   PeriodicAllowance._() : super();
-  factory PeriodicAllowance({
-    BasicAllowance? basic,
-    $4.Duration? period,
-    $core.Iterable<$2.Coin>? periodSpendLimit,
-    $core.Iterable<$2.Coin>? periodCanSpend,
-    $3.Timestamp? periodReset,
-  }) {
-    final _result = create();
-    if (basic != null) {
-      _result.basic = basic;
-    }
-    if (period != null) {
-      _result.period = period;
-    }
-    if (periodSpendLimit != null) {
-      _result.periodSpendLimit.addAll(periodSpendLimit);
-    }
-    if (periodCanSpend != null) {
-      _result.periodCanSpend.addAll(periodCanSpend);
-    }
-    if (periodReset != null) {
-      _result.periodReset = periodReset;
-    }
-    return _result;
-  }
+  factory PeriodicAllowance() => create();
   factory PeriodicAllowance.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory PeriodicAllowance.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -118,7 +82,7 @@ class PeriodicAllowance extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  PeriodicAllowance copyWith(void Function(PeriodicAllowance) updates) => super.copyWith((message) => updates(message as PeriodicAllowance)) as PeriodicAllowance; // ignore: deprecated_member_use
+  PeriodicAllowance copyWith(void Function(PeriodicAllowance) updates) => super.copyWith((message) => updates(message as PeriodicAllowance)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static PeriodicAllowance create() => PeriodicAllowance._();
@@ -126,7 +90,7 @@ class PeriodicAllowance extends $pb.GeneratedMessage {
   static $pb.PbList<PeriodicAllowance> createRepeated() => $pb.PbList<PeriodicAllowance>();
   @$core.pragma('dart2js:noInline')
   static PeriodicAllowance getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<PeriodicAllowance>(create);
-  static PeriodicAllowance? _defaultInstance;
+  static PeriodicAllowance _defaultInstance;
 
   @$pb.TagNumber(1)
   BasicAllowance get basic => $_getN(0);
@@ -176,19 +140,7 @@ class AllowedMsgAllowance extends $pb.GeneratedMessage {
   ;
 
   AllowedMsgAllowance._() : super();
-  factory AllowedMsgAllowance({
-    $5.Any? allowance,
-    $core.Iterable<$core.String>? allowedMessages,
-  }) {
-    final _result = create();
-    if (allowance != null) {
-      _result.allowance = allowance;
-    }
-    if (allowedMessages != null) {
-      _result.allowedMessages.addAll(allowedMessages);
-    }
-    return _result;
-  }
+  factory AllowedMsgAllowance() => create();
   factory AllowedMsgAllowance.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory AllowedMsgAllowance.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -200,7 +152,7 @@ class AllowedMsgAllowance extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  AllowedMsgAllowance copyWith(void Function(AllowedMsgAllowance) updates) => super.copyWith((message) => updates(message as AllowedMsgAllowance)) as AllowedMsgAllowance; // ignore: deprecated_member_use
+  AllowedMsgAllowance copyWith(void Function(AllowedMsgAllowance) updates) => super.copyWith((message) => updates(message as AllowedMsgAllowance)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static AllowedMsgAllowance create() => AllowedMsgAllowance._();
@@ -208,7 +160,7 @@ class AllowedMsgAllowance extends $pb.GeneratedMessage {
   static $pb.PbList<AllowedMsgAllowance> createRepeated() => $pb.PbList<AllowedMsgAllowance>();
   @$core.pragma('dart2js:noInline')
   static AllowedMsgAllowance getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AllowedMsgAllowance>(create);
-  static AllowedMsgAllowance? _defaultInstance;
+  static AllowedMsgAllowance _defaultInstance;
 
   @$pb.TagNumber(1)
   $5.Any get allowance => $_getN(0);
@@ -234,23 +186,7 @@ class Grant extends $pb.GeneratedMessage {
   ;
 
   Grant._() : super();
-  factory Grant({
-    $core.String? granter,
-    $core.String? grantee,
-    $5.Any? allowance,
-  }) {
-    final _result = create();
-    if (granter != null) {
-      _result.granter = granter;
-    }
-    if (grantee != null) {
-      _result.grantee = grantee;
-    }
-    if (allowance != null) {
-      _result.allowance = allowance;
-    }
-    return _result;
-  }
+  factory Grant() => create();
   factory Grant.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Grant.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -262,7 +198,7 @@ class Grant extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Grant copyWith(void Function(Grant) updates) => super.copyWith((message) => updates(message as Grant)) as Grant; // ignore: deprecated_member_use
+  Grant copyWith(void Function(Grant) updates) => super.copyWith((message) => updates(message as Grant)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static Grant create() => Grant._();
@@ -270,7 +206,7 @@ class Grant extends $pb.GeneratedMessage {
   static $pb.PbList<Grant> createRepeated() => $pb.PbList<Grant>();
   @$core.pragma('dart2js:noInline')
   static Grant getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Grant>(create);
-  static Grant? _defaultInstance;
+  static Grant _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get granter => $_getSZ(0);

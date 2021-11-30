@@ -2,13 +2,9 @@
 //  Generated code. Do not modify.
 //  source: pylons/trade.proto
 //
-// @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields,deprecated_member_use_from_same_package
+// @dart = 2.3
+// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
-import 'dart:core' as $core;
-import 'dart:convert' as $convert;
-import 'dart:typed_data' as $typed_data;
-@$core.Deprecated('Use itemRefDescriptor instead')
 const ItemRef$json = const {
   '1': 'ItemRef',
   '2': const [
@@ -17,9 +13,6 @@ const ItemRef$json = const {
   ],
 };
 
-/// Descriptor for `ItemRef`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List itemRefDescriptor = $convert.base64Decode('CgdJdGVtUmVmEh4KCmNvb2tib29rSUQYASABKAlSCmNvb2tib29rSUQSFgoGaXRlbUlEGAIgASgJUgZpdGVtSUQ=');
-@$core.Deprecated('Use tradeDescriptor instead')
 const Trade$json = const {
   '1': 'Trade',
   '2': const [
@@ -35,5 +28,3 @@ const Trade$json = const {
   ],
 };
 
-/// Descriptor for `Trade`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List tradeDescriptor = $convert.base64Decode('CgVUcmFkZRIYCgdjcmVhdG9yGAEgASgJUgdjcmVhdG9yEg4KAklEGAIgASgEUgJJRBJJCgpjb2luSW5wdXRzGAMgAygLMiMuUHlsb25zdGVjaC5weWxvbnMucHlsb25zLkNvaW5JbnB1dEIEyN4fAFIKY29pbklucHV0cxJJCgppdGVtSW5wdXRzGAQgAygLMiMuUHlsb25zdGVjaC5weWxvbnMucHlsb25zLkl0ZW1JbnB1dEIEyN4fAFIKaXRlbUlucHV0cxJtCgtjb2luT3V0cHV0cxgFIAMoCzIZLmNvc21vcy5iYXNlLnYxYmV0YTEuQ29pbkIwyN4fAKrfHyhnaXRodWIuY29tL2Nvc21vcy9jb3Ntb3Mtc2RrL3R5cGVzLkNvaW5zUgtjb2luT3V0cHV0cxJJCgtpdGVtT3V0cHV0cxgGIAMoCzIhLlB5bG9uc3RlY2gucHlsb25zLnB5bG9ucy5JdGVtUmVmQgTI3h8AUgtpdGVtT3V0cHV0cxIcCglleHRyYUluZm8YByABKAlSCWV4dHJhSW5mbxIaCghyZWNlaXZlchgIIAEoCVIIcmVjZWl2ZXISUwoQdHJhZGVkSXRlbUlucHV0cxgJIAMoCzIhLlB5bG9uc3RlY2gucHlsb25zLnB5bG9ucy5JdGVtUmVmQgTI3h8AUhB0cmFkZWRJdGVtSW5wdXRz');

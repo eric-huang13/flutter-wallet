@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: cosmos/gov/v1beta1/tx.proto
 //
-// @dart = 2.12
+// @dart = 2.3
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -25,23 +25,7 @@ class MsgSubmitProposal extends $pb.GeneratedMessage {
   ;
 
   MsgSubmitProposal._() : super();
-  factory MsgSubmitProposal({
-    $3.Any? content,
-    $core.Iterable<$2.Coin>? initialDeposit,
-    $core.String? proposer,
-  }) {
-    final _result = create();
-    if (content != null) {
-      _result.content = content;
-    }
-    if (initialDeposit != null) {
-      _result.initialDeposit.addAll(initialDeposit);
-    }
-    if (proposer != null) {
-      _result.proposer = proposer;
-    }
-    return _result;
-  }
+  factory MsgSubmitProposal() => create();
   factory MsgSubmitProposal.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgSubmitProposal.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -53,7 +37,7 @@ class MsgSubmitProposal extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgSubmitProposal copyWith(void Function(MsgSubmitProposal) updates) => super.copyWith((message) => updates(message as MsgSubmitProposal)) as MsgSubmitProposal; // ignore: deprecated_member_use
+  MsgSubmitProposal copyWith(void Function(MsgSubmitProposal) updates) => super.copyWith((message) => updates(message as MsgSubmitProposal)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgSubmitProposal create() => MsgSubmitProposal._();
@@ -61,7 +45,7 @@ class MsgSubmitProposal extends $pb.GeneratedMessage {
   static $pb.PbList<MsgSubmitProposal> createRepeated() => $pb.PbList<MsgSubmitProposal>();
   @$core.pragma('dart2js:noInline')
   static MsgSubmitProposal getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MsgSubmitProposal>(create);
-  static MsgSubmitProposal? _defaultInstance;
+  static MsgSubmitProposal _defaultInstance;
 
   @$pb.TagNumber(1)
   $3.Any get content => $_getN(0);
@@ -94,15 +78,7 @@ class MsgSubmitProposalResponse extends $pb.GeneratedMessage {
   ;
 
   MsgSubmitProposalResponse._() : super();
-  factory MsgSubmitProposalResponse({
-    $fixnum.Int64? proposalId,
-  }) {
-    final _result = create();
-    if (proposalId != null) {
-      _result.proposalId = proposalId;
-    }
-    return _result;
-  }
+  factory MsgSubmitProposalResponse() => create();
   factory MsgSubmitProposalResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgSubmitProposalResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -114,7 +90,7 @@ class MsgSubmitProposalResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgSubmitProposalResponse copyWith(void Function(MsgSubmitProposalResponse) updates) => super.copyWith((message) => updates(message as MsgSubmitProposalResponse)) as MsgSubmitProposalResponse; // ignore: deprecated_member_use
+  MsgSubmitProposalResponse copyWith(void Function(MsgSubmitProposalResponse) updates) => super.copyWith((message) => updates(message as MsgSubmitProposalResponse)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgSubmitProposalResponse create() => MsgSubmitProposalResponse._();
@@ -122,7 +98,7 @@ class MsgSubmitProposalResponse extends $pb.GeneratedMessage {
   static $pb.PbList<MsgSubmitProposalResponse> createRepeated() => $pb.PbList<MsgSubmitProposalResponse>();
   @$core.pragma('dart2js:noInline')
   static MsgSubmitProposalResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MsgSubmitProposalResponse>(create);
-  static MsgSubmitProposalResponse? _defaultInstance;
+  static MsgSubmitProposalResponse _defaultInstance;
 
   @$pb.TagNumber(1)
   $fixnum.Int64 get proposalId => $_getI64(0);
@@ -143,23 +119,7 @@ class MsgVote extends $pb.GeneratedMessage {
   ;
 
   MsgVote._() : super();
-  factory MsgVote({
-    $fixnum.Int64? proposalId,
-    $core.String? voter,
-    $6.VoteOption? option,
-  }) {
-    final _result = create();
-    if (proposalId != null) {
-      _result.proposalId = proposalId;
-    }
-    if (voter != null) {
-      _result.voter = voter;
-    }
-    if (option != null) {
-      _result.option = option;
-    }
-    return _result;
-  }
+  factory MsgVote() => create();
   factory MsgVote.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgVote.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -171,7 +131,7 @@ class MsgVote extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgVote copyWith(void Function(MsgVote) updates) => super.copyWith((message) => updates(message as MsgVote)) as MsgVote; // ignore: deprecated_member_use
+  MsgVote copyWith(void Function(MsgVote) updates) => super.copyWith((message) => updates(message as MsgVote)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgVote create() => MsgVote._();
@@ -179,7 +139,7 @@ class MsgVote extends $pb.GeneratedMessage {
   static $pb.PbList<MsgVote> createRepeated() => $pb.PbList<MsgVote>();
   @$core.pragma('dart2js:noInline')
   static MsgVote getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MsgVote>(create);
-  static MsgVote? _defaultInstance;
+  static MsgVote _defaultInstance;
 
   @$pb.TagNumber(1)
   $fixnum.Int64 get proposalId => $_getI64(0);
@@ -227,7 +187,7 @@ class MsgVoteResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgVoteResponse copyWith(void Function(MsgVoteResponse) updates) => super.copyWith((message) => updates(message as MsgVoteResponse)) as MsgVoteResponse; // ignore: deprecated_member_use
+  MsgVoteResponse copyWith(void Function(MsgVoteResponse) updates) => super.copyWith((message) => updates(message as MsgVoteResponse)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgVoteResponse create() => MsgVoteResponse._();
@@ -235,7 +195,7 @@ class MsgVoteResponse extends $pb.GeneratedMessage {
   static $pb.PbList<MsgVoteResponse> createRepeated() => $pb.PbList<MsgVoteResponse>();
   @$core.pragma('dart2js:noInline')
   static MsgVoteResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MsgVoteResponse>(create);
-  static MsgVoteResponse? _defaultInstance;
+  static MsgVoteResponse _defaultInstance;
 }
 
 class MsgVoteWeighted extends $pb.GeneratedMessage {
@@ -247,23 +207,7 @@ class MsgVoteWeighted extends $pb.GeneratedMessage {
   ;
 
   MsgVoteWeighted._() : super();
-  factory MsgVoteWeighted({
-    $fixnum.Int64? proposalId,
-    $core.String? voter,
-    $core.Iterable<$6.WeightedVoteOption>? options,
-  }) {
-    final _result = create();
-    if (proposalId != null) {
-      _result.proposalId = proposalId;
-    }
-    if (voter != null) {
-      _result.voter = voter;
-    }
-    if (options != null) {
-      _result.options.addAll(options);
-    }
-    return _result;
-  }
+  factory MsgVoteWeighted() => create();
   factory MsgVoteWeighted.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgVoteWeighted.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -275,7 +219,7 @@ class MsgVoteWeighted extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgVoteWeighted copyWith(void Function(MsgVoteWeighted) updates) => super.copyWith((message) => updates(message as MsgVoteWeighted)) as MsgVoteWeighted; // ignore: deprecated_member_use
+  MsgVoteWeighted copyWith(void Function(MsgVoteWeighted) updates) => super.copyWith((message) => updates(message as MsgVoteWeighted)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgVoteWeighted create() => MsgVoteWeighted._();
@@ -283,7 +227,7 @@ class MsgVoteWeighted extends $pb.GeneratedMessage {
   static $pb.PbList<MsgVoteWeighted> createRepeated() => $pb.PbList<MsgVoteWeighted>();
   @$core.pragma('dart2js:noInline')
   static MsgVoteWeighted getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MsgVoteWeighted>(create);
-  static MsgVoteWeighted? _defaultInstance;
+  static MsgVoteWeighted _defaultInstance;
 
   @$pb.TagNumber(1)
   $fixnum.Int64 get proposalId => $_getI64(0);
@@ -325,7 +269,7 @@ class MsgVoteWeightedResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgVoteWeightedResponse copyWith(void Function(MsgVoteWeightedResponse) updates) => super.copyWith((message) => updates(message as MsgVoteWeightedResponse)) as MsgVoteWeightedResponse; // ignore: deprecated_member_use
+  MsgVoteWeightedResponse copyWith(void Function(MsgVoteWeightedResponse) updates) => super.copyWith((message) => updates(message as MsgVoteWeightedResponse)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgVoteWeightedResponse create() => MsgVoteWeightedResponse._();
@@ -333,7 +277,7 @@ class MsgVoteWeightedResponse extends $pb.GeneratedMessage {
   static $pb.PbList<MsgVoteWeightedResponse> createRepeated() => $pb.PbList<MsgVoteWeightedResponse>();
   @$core.pragma('dart2js:noInline')
   static MsgVoteWeightedResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MsgVoteWeightedResponse>(create);
-  static MsgVoteWeightedResponse? _defaultInstance;
+  static MsgVoteWeightedResponse _defaultInstance;
 }
 
 class MsgDeposit extends $pb.GeneratedMessage {
@@ -345,23 +289,7 @@ class MsgDeposit extends $pb.GeneratedMessage {
   ;
 
   MsgDeposit._() : super();
-  factory MsgDeposit({
-    $fixnum.Int64? proposalId,
-    $core.String? depositor,
-    $core.Iterable<$2.Coin>? amount,
-  }) {
-    final _result = create();
-    if (proposalId != null) {
-      _result.proposalId = proposalId;
-    }
-    if (depositor != null) {
-      _result.depositor = depositor;
-    }
-    if (amount != null) {
-      _result.amount.addAll(amount);
-    }
-    return _result;
-  }
+  factory MsgDeposit() => create();
   factory MsgDeposit.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgDeposit.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -373,7 +301,7 @@ class MsgDeposit extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgDeposit copyWith(void Function(MsgDeposit) updates) => super.copyWith((message) => updates(message as MsgDeposit)) as MsgDeposit; // ignore: deprecated_member_use
+  MsgDeposit copyWith(void Function(MsgDeposit) updates) => super.copyWith((message) => updates(message as MsgDeposit)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgDeposit create() => MsgDeposit._();
@@ -381,7 +309,7 @@ class MsgDeposit extends $pb.GeneratedMessage {
   static $pb.PbList<MsgDeposit> createRepeated() => $pb.PbList<MsgDeposit>();
   @$core.pragma('dart2js:noInline')
   static MsgDeposit getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MsgDeposit>(create);
-  static MsgDeposit? _defaultInstance;
+  static MsgDeposit _defaultInstance;
 
   @$pb.TagNumber(1)
   $fixnum.Int64 get proposalId => $_getI64(0);
@@ -423,7 +351,7 @@ class MsgDepositResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgDepositResponse copyWith(void Function(MsgDepositResponse) updates) => super.copyWith((message) => updates(message as MsgDepositResponse)) as MsgDepositResponse; // ignore: deprecated_member_use
+  MsgDepositResponse copyWith(void Function(MsgDepositResponse) updates) => super.copyWith((message) => updates(message as MsgDepositResponse)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgDepositResponse create() => MsgDepositResponse._();
@@ -431,6 +359,6 @@ class MsgDepositResponse extends $pb.GeneratedMessage {
   static $pb.PbList<MsgDepositResponse> createRepeated() => $pb.PbList<MsgDepositResponse>();
   @$core.pragma('dart2js:noInline')
   static MsgDepositResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MsgDepositResponse>(create);
-  static MsgDepositResponse? _defaultInstance;
+  static MsgDepositResponse _defaultInstance;
 }
 

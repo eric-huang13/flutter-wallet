@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:pylons_wallet/ipc/handler/base_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/create_cook_book_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/create_recipe_handler.dart';
-import 'package:pylons_wallet/ipc/handler/handlers/enable_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/execute_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/get_cookbook_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/get_recipes_handler.dart';
@@ -24,8 +23,6 @@ class HandlerFactory {
   static const String TX_CREATE_RECIPE = 'txCreateRecipe';
   static const String TX_UPDATE_COOKBOOK = 'txUpdateCookbook';
   static const String TX_UPDATE_RECIPE = 'txUpdateRecipe';
-  static const String TX_ENABLE_RECIPE = 'txEnableRecipe';
-  static const String TX_DISABLE_RECIPE = 'txDisableRecipe';
   static const String TX_EXECUTE_RECIPE = 'txExecuteRecipe';
   static const String TX_PLACE_FOR_SALE = 'txPlaceForSale';
   static const String ERR_NODE = 'node';
@@ -72,11 +69,6 @@ class HandlerFactory {
 
     if (sdkipcMessage.action == TX_UPDATE_RECIPE) {
       return UpdateRecipeHandler(sdkipcMessage);
-    }
-
-
-    if (sdkipcMessage.action == TX_ENABLE_RECIPE) {
-      return EnableRecipeHandler(sdkipcMessage);
     }
 
 

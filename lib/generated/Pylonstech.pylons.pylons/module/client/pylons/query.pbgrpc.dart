@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: pylons/query.proto
 //
-// @dart = 2.12
+// @dart = 2.3
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:async' as $async;
@@ -14,6 +14,37 @@ import 'query.pb.dart' as $0;
 export 'query.pb.dart';
 
 class QueryClient extends $grpc.Client {
+  static final _$listTradesByCreator = $grpc.ClientMethod<
+          $0.QueryListTradesByCreatorRequest,
+          $0.QueryListTradesByCreatorResponse>(
+      '/Pylonstech.pylons.pylons.Query/ListTradesByCreator',
+      ($0.QueryListTradesByCreatorRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.QueryListTradesByCreatorResponse.fromBuffer(value));
+  static final _$redeemInfo = $grpc.ClientMethod<$0.QueryGetRedeemInfoRequest,
+          $0.QueryGetRedeemInfoResponse>(
+      '/Pylonstech.pylons.pylons.Query/RedeemInfo',
+      ($0.QueryGetRedeemInfoRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.QueryGetRedeemInfoResponse.fromBuffer(value));
+  static final _$redeemInfoAll = $grpc.ClientMethod<
+          $0.QueryAllRedeemInfoRequest, $0.QueryAllRedeemInfoResponse>(
+      '/Pylonstech.pylons.pylons.Query/RedeemInfoAll',
+      ($0.QueryAllRedeemInfoRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.QueryAllRedeemInfoResponse.fromBuffer(value));
+  static final _$paymentInfo = $grpc.ClientMethod<$0.QueryGetPaymentInfoRequest,
+          $0.QueryGetPaymentInfoResponse>(
+      '/Pylonstech.pylons.pylons.Query/PaymentInfo',
+      ($0.QueryGetPaymentInfoRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.QueryGetPaymentInfoResponse.fromBuffer(value));
+  static final _$paymentInfoAll = $grpc.ClientMethod<
+          $0.QueryAllPaymentInfoRequest, $0.QueryAllPaymentInfoResponse>(
+      '/Pylonstech.pylons.pylons.Query/PaymentInfoAll',
+      ($0.QueryAllPaymentInfoRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.QueryAllPaymentInfoResponse.fromBuffer(value));
   static final _$usernameByAddress = $grpc.ClientMethod<
           $0.QueryGetUsernameByAddressRequest,
           $0.QueryGetUsernameByAddressResponse>(
@@ -102,89 +133,119 @@ class QueryClient extends $grpc.Client {
           $0.QueryGetCookbookResponse.fromBuffer(value));
 
   QueryClient($grpc.ClientChannel channel,
-      {$grpc.CallOptions? options,
-      $core.Iterable<$grpc.ClientInterceptor>? interceptors})
+      {$grpc.CallOptions options,
+      $core.Iterable<$grpc.ClientInterceptor> interceptors})
       : super(channel, options: options, interceptors: interceptors);
+
+  $grpc.ResponseFuture<$0.QueryListTradesByCreatorResponse> listTradesByCreator(
+      $0.QueryListTradesByCreatorRequest request,
+      {$grpc.CallOptions options}) {
+    return $createUnaryCall(_$listTradesByCreator, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.QueryGetRedeemInfoResponse> redeemInfo(
+      $0.QueryGetRedeemInfoRequest request,
+      {$grpc.CallOptions options}) {
+    return $createUnaryCall(_$redeemInfo, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.QueryAllRedeemInfoResponse> redeemInfoAll(
+      $0.QueryAllRedeemInfoRequest request,
+      {$grpc.CallOptions options}) {
+    return $createUnaryCall(_$redeemInfoAll, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.QueryGetPaymentInfoResponse> paymentInfo(
+      $0.QueryGetPaymentInfoRequest request,
+      {$grpc.CallOptions options}) {
+    return $createUnaryCall(_$paymentInfo, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.QueryAllPaymentInfoResponse> paymentInfoAll(
+      $0.QueryAllPaymentInfoRequest request,
+      {$grpc.CallOptions options}) {
+    return $createUnaryCall(_$paymentInfoAll, request, options: options);
+  }
 
   $grpc.ResponseFuture<$0.QueryGetUsernameByAddressResponse> usernameByAddress(
       $0.QueryGetUsernameByAddressRequest request,
-      {$grpc.CallOptions? options}) {
+      {$grpc.CallOptions options}) {
     return $createUnaryCall(_$usernameByAddress, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.QueryGetAddressByUsernameResponse> addressByUsername(
       $0.QueryGetAddressByUsernameRequest request,
-      {$grpc.CallOptions? options}) {
+      {$grpc.CallOptions options}) {
     return $createUnaryCall(_$addressByUsername, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.QueryGetTradeResponse> trade(
       $0.QueryGetTradeRequest request,
-      {$grpc.CallOptions? options}) {
+      {$grpc.CallOptions options}) {
     return $createUnaryCall(_$trade, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.QueryListItemByOwnerResponse> listItemByOwner(
       $0.QueryListItemByOwnerRequest request,
-      {$grpc.CallOptions? options}) {
+      {$grpc.CallOptions options}) {
     return $createUnaryCall(_$listItemByOwner, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.QueryGetGoogleInAppPurchaseOrderResponse>
       googleInAppPurchaseOrder(
           $0.QueryGetGoogleInAppPurchaseOrderRequest request,
-          {$grpc.CallOptions? options}) {
+          {$grpc.CallOptions options}) {
     return $createUnaryCall(_$googleInAppPurchaseOrder, request,
         options: options);
   }
 
   $grpc.ResponseFuture<$0.QueryListExecutionsByItemResponse>
       listExecutionsByItem($0.QueryListExecutionsByItemRequest request,
-          {$grpc.CallOptions? options}) {
+          {$grpc.CallOptions options}) {
     return $createUnaryCall(_$listExecutionsByItem, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.QueryListExecutionsByRecipeResponse>
       listExecutionsByRecipe($0.QueryListExecutionsByRecipeRequest request,
-          {$grpc.CallOptions? options}) {
+          {$grpc.CallOptions options}) {
     return $createUnaryCall(_$listExecutionsByRecipe, request,
         options: options);
   }
 
   $grpc.ResponseFuture<$0.QueryGetExecutionResponse> execution(
       $0.QueryGetExecutionRequest request,
-      {$grpc.CallOptions? options}) {
+      {$grpc.CallOptions options}) {
     return $createUnaryCall(_$execution, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.QueryListRecipesByCookbookResponse>
       listRecipesByCookbook($0.QueryListRecipesByCookbookRequest request,
-          {$grpc.CallOptions? options}) {
+          {$grpc.CallOptions options}) {
     return $createUnaryCall(_$listRecipesByCookbook, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.QueryGetItemResponse> item(
       $0.QueryGetItemRequest request,
-      {$grpc.CallOptions? options}) {
+      {$grpc.CallOptions options}) {
     return $createUnaryCall(_$item, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.QueryGetRecipeResponse> recipe(
       $0.QueryGetRecipeRequest request,
-      {$grpc.CallOptions? options}) {
+      {$grpc.CallOptions options}) {
     return $createUnaryCall(_$recipe, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.QueryListCookbooksByCreatorResponse>
       listCookbooksByCreator($0.QueryListCookbooksByCreatorRequest request,
-          {$grpc.CallOptions? options}) {
+          {$grpc.CallOptions options}) {
     return $createUnaryCall(_$listCookbooksByCreator, request,
         options: options);
   }
 
   $grpc.ResponseFuture<$0.QueryGetCookbookResponse> cookbook(
       $0.QueryGetCookbookRequest request,
-      {$grpc.CallOptions? options}) {
+      {$grpc.CallOptions options}) {
     return $createUnaryCall(_$cookbook, request, options: options);
   }
 }
@@ -193,6 +254,51 @@ abstract class QueryServiceBase extends $grpc.Service {
   $core.String get $name => 'Pylonstech.pylons.pylons.Query';
 
   QueryServiceBase() {
+    $addMethod($grpc.ServiceMethod<$0.QueryListTradesByCreatorRequest,
+            $0.QueryListTradesByCreatorResponse>(
+        'ListTradesByCreator',
+        listTradesByCreator_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.QueryListTradesByCreatorRequest.fromBuffer(value),
+        ($0.QueryListTradesByCreatorResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.QueryGetRedeemInfoRequest,
+            $0.QueryGetRedeemInfoResponse>(
+        'RedeemInfo',
+        redeemInfo_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.QueryGetRedeemInfoRequest.fromBuffer(value),
+        ($0.QueryGetRedeemInfoResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.QueryAllRedeemInfoRequest,
+            $0.QueryAllRedeemInfoResponse>(
+        'RedeemInfoAll',
+        redeemInfoAll_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.QueryAllRedeemInfoRequest.fromBuffer(value),
+        ($0.QueryAllRedeemInfoResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.QueryGetPaymentInfoRequest,
+            $0.QueryGetPaymentInfoResponse>(
+        'PaymentInfo',
+        paymentInfo_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.QueryGetPaymentInfoRequest.fromBuffer(value),
+        ($0.QueryGetPaymentInfoResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.QueryAllPaymentInfoRequest,
+            $0.QueryAllPaymentInfoResponse>(
+        'PaymentInfoAll',
+        paymentInfoAll_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.QueryAllPaymentInfoRequest.fromBuffer(value),
+        ($0.QueryAllPaymentInfoResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.QueryGetUsernameByAddressRequest,
             $0.QueryGetUsernameByAddressResponse>(
         'UsernameByAddress',
@@ -316,6 +422,36 @@ abstract class QueryServiceBase extends $grpc.Service {
         ($0.QueryGetCookbookResponse value) => value.writeToBuffer()));
   }
 
+  $async.Future<$0.QueryListTradesByCreatorResponse> listTradesByCreator_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.QueryListTradesByCreatorRequest> request) async {
+    return listTradesByCreator(call, await request);
+  }
+
+  $async.Future<$0.QueryGetRedeemInfoResponse> redeemInfo_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.QueryGetRedeemInfoRequest> request) async {
+    return redeemInfo(call, await request);
+  }
+
+  $async.Future<$0.QueryAllRedeemInfoResponse> redeemInfoAll_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.QueryAllRedeemInfoRequest> request) async {
+    return redeemInfoAll(call, await request);
+  }
+
+  $async.Future<$0.QueryGetPaymentInfoResponse> paymentInfo_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.QueryGetPaymentInfoRequest> request) async {
+    return paymentInfo(call, await request);
+  }
+
+  $async.Future<$0.QueryAllPaymentInfoResponse> paymentInfoAll_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.QueryAllPaymentInfoRequest> request) async {
+    return paymentInfoAll(call, await request);
+  }
+
   $async.Future<$0.QueryGetUsernameByAddressResponse> usernameByAddress_Pre(
       $grpc.ServiceCall call,
       $async.Future<$0.QueryGetUsernameByAddressRequest> request) async {
@@ -393,6 +529,16 @@ abstract class QueryServiceBase extends $grpc.Service {
     return cookbook(call, await request);
   }
 
+  $async.Future<$0.QueryListTradesByCreatorResponse> listTradesByCreator(
+      $grpc.ServiceCall call, $0.QueryListTradesByCreatorRequest request);
+  $async.Future<$0.QueryGetRedeemInfoResponse> redeemInfo(
+      $grpc.ServiceCall call, $0.QueryGetRedeemInfoRequest request);
+  $async.Future<$0.QueryAllRedeemInfoResponse> redeemInfoAll(
+      $grpc.ServiceCall call, $0.QueryAllRedeemInfoRequest request);
+  $async.Future<$0.QueryGetPaymentInfoResponse> paymentInfo(
+      $grpc.ServiceCall call, $0.QueryGetPaymentInfoRequest request);
+  $async.Future<$0.QueryAllPaymentInfoResponse> paymentInfoAll(
+      $grpc.ServiceCall call, $0.QueryAllPaymentInfoRequest request);
   $async.Future<$0.QueryGetUsernameByAddressResponse> usernameByAddress(
       $grpc.ServiceCall call, $0.QueryGetUsernameByAddressRequest request);
   $async.Future<$0.QueryGetAddressByUsernameResponse> addressByUsername(

@@ -2,13 +2,9 @@
 //  Generated code. Do not modify.
 //  source: cosmos/authz/v1beta1/genesis.proto
 //
-// @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields,deprecated_member_use_from_same_package
+// @dart = 2.3
+// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
-import 'dart:core' as $core;
-import 'dart:convert' as $convert;
-import 'dart:typed_data' as $typed_data;
-@$core.Deprecated('Use genesisStateDescriptor instead')
 const GenesisState$json = const {
   '1': 'GenesisState',
   '2': const [
@@ -16,9 +12,6 @@ const GenesisState$json = const {
   ],
 };
 
-/// Descriptor for `GenesisState`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List genesisStateDescriptor = $convert.base64Decode('CgxHZW5lc2lzU3RhdGUSVAoNYXV0aG9yaXphdGlvbhgBIAMoCzIoLmNvc21vcy5hdXRoei52MWJldGExLkdyYW50QXV0aG9yaXphdGlvbkIEyN4fAFINYXV0aG9yaXphdGlvbg==');
-@$core.Deprecated('Use grantAuthorizationDescriptor instead')
 const GrantAuthorization$json = const {
   '1': 'GrantAuthorization',
   '2': const [
@@ -29,5 +22,3 @@ const GrantAuthorization$json = const {
   ],
 };
 
-/// Descriptor for `GrantAuthorization`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List grantAuthorizationDescriptor = $convert.base64Decode('ChJHcmFudEF1dGhvcml6YXRpb24SGAoHZ3JhbnRlchgBIAEoCVIHZ3JhbnRlchIYCgdncmFudGVlGAIgASgJUgdncmFudGVlEk0KDWF1dGhvcml6YXRpb24YAyABKAsyFC5nb29nbGUucHJvdG9idWYuQW55QhHKtC0NQXV0aG9yaXphdGlvblINYXV0aG9yaXphdGlvbhJECgpleHBpcmF0aW9uGAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcEIIyN4fAJDfHwFSCmV4cGlyYXRpb24=');

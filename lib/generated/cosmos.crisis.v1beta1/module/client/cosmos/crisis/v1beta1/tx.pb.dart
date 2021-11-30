@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: cosmos/crisis/v1beta1/tx.proto
 //
-// @dart = 2.12
+// @dart = 2.3
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -18,23 +18,7 @@ class MsgVerifyInvariant extends $pb.GeneratedMessage {
   ;
 
   MsgVerifyInvariant._() : super();
-  factory MsgVerifyInvariant({
-    $core.String? sender,
-    $core.String? invariantModuleName,
-    $core.String? invariantRoute,
-  }) {
-    final _result = create();
-    if (sender != null) {
-      _result.sender = sender;
-    }
-    if (invariantModuleName != null) {
-      _result.invariantModuleName = invariantModuleName;
-    }
-    if (invariantRoute != null) {
-      _result.invariantRoute = invariantRoute;
-    }
-    return _result;
-  }
+  factory MsgVerifyInvariant() => create();
   factory MsgVerifyInvariant.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgVerifyInvariant.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -46,7 +30,7 @@ class MsgVerifyInvariant extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgVerifyInvariant copyWith(void Function(MsgVerifyInvariant) updates) => super.copyWith((message) => updates(message as MsgVerifyInvariant)) as MsgVerifyInvariant; // ignore: deprecated_member_use
+  MsgVerifyInvariant copyWith(void Function(MsgVerifyInvariant) updates) => super.copyWith((message) => updates(message as MsgVerifyInvariant)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgVerifyInvariant create() => MsgVerifyInvariant._();
@@ -54,7 +38,7 @@ class MsgVerifyInvariant extends $pb.GeneratedMessage {
   static $pb.PbList<MsgVerifyInvariant> createRepeated() => $pb.PbList<MsgVerifyInvariant>();
   @$core.pragma('dart2js:noInline')
   static MsgVerifyInvariant getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MsgVerifyInvariant>(create);
-  static MsgVerifyInvariant? _defaultInstance;
+  static MsgVerifyInvariant _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sender => $_getSZ(0);
@@ -102,7 +86,7 @@ class MsgVerifyInvariantResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgVerifyInvariantResponse copyWith(void Function(MsgVerifyInvariantResponse) updates) => super.copyWith((message) => updates(message as MsgVerifyInvariantResponse)) as MsgVerifyInvariantResponse; // ignore: deprecated_member_use
+  MsgVerifyInvariantResponse copyWith(void Function(MsgVerifyInvariantResponse) updates) => super.copyWith((message) => updates(message as MsgVerifyInvariantResponse)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgVerifyInvariantResponse create() => MsgVerifyInvariantResponse._();
@@ -110,6 +94,6 @@ class MsgVerifyInvariantResponse extends $pb.GeneratedMessage {
   static $pb.PbList<MsgVerifyInvariantResponse> createRepeated() => $pb.PbList<MsgVerifyInvariantResponse>();
   @$core.pragma('dart2js:noInline')
   static MsgVerifyInvariantResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MsgVerifyInvariantResponse>(create);
-  static MsgVerifyInvariantResponse? _defaultInstance;
+  static MsgVerifyInvariantResponse _defaultInstance;
 }
 

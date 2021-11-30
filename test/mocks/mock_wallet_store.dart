@@ -183,12 +183,6 @@ class MockWalletStore implements WalletsStore {
   }
 
   @override
-  Future<SDKIPCResponse> enableRecipe(Map<dynamic, dynamic> jsonMap) {
-    // TODO: implement enableRecipe
-    throw UnimplementedError();
-  }
-
-  @override
   Future<Either<Failure, Recipe>> getRecipe(String cookbookID, String recipeID) {
     // TODO: implement getRecipe
     throw UnimplementedError();
