@@ -4,7 +4,6 @@ import 'package:decimal/decimal.dart';
 import 'package:http/http.dart' as http;
 import 'package:pylons_wallet/entities/amount.dart';
 import 'package:pylons_wallet/entities/balance.dart';
-import 'package:pylons_wallet/entities/denom.dart';
 import 'package:pylons_wallet/utils/base_env.dart';
 
 class PylonsBalance {
@@ -22,10 +21,10 @@ class PylonsBalance {
     final balancesList = balancesResponse["balances"] as List;
     final balances = <Balance>[];
     for (final balance in balancesList) {
-      balances.add(Balance(denom: Denom(balance["denom"] as String), amount: Amount(Decimal.parse(balance["amount"] as String))));
+      balances.add(Balance(denom: balance["denom"] as String, amount: Amount(Decimal.parse(balance["amount"] as String))));
     }
-    if(balances.indexWhere((balance)=>balance.denom.text == "upylon") == -1) {
-      balances.add(Balance(denom: const Denom("upylon"), amount: Amount(Decimal.zero)));
+    if(balances.indexWhere((balance)=>balance.denom == "upylon") == -1) {
+      balances.add(Balance(denom: "upylon", amount: Amount(Decimal.zero)));
     }
     return balances;
   }

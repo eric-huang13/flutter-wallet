@@ -116,13 +116,13 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
         itemCount: assets.length,
         itemBuilder: (_, index) => _BalanceWidget(
             balance: assets[index],
-            index: index,
             onCallFaucet: () {
-              getFaucet(context, assets[index].denom.text);
+              getFaucet(context, assets[index].denom);
             },
             onCallStripePayout: () {
               getPayout(context, assets[index].amount.value.toString());
-            }
+            },
+          backgroundAsset: Constants.kCardBGList[index % Constants.kCardBGList.length],
             //onCallFaucet: () {
             //  getFaucet(context, assets[index].denom);
             //},
@@ -173,21 +173,29 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
             context: context, amount: amount, onCallback: handleStripePayout)
         .show();
   }
+  void showErrorMessageToUser(Dz.Either<Failure, List<Balance>> response) {
+    if (!mounted) {
+      return;
+    }
+    context.show(message: response.swap().toOption().toNullable()!.message);
+  }
 }
 
 class _BalanceWidget extends StatefulWidget {
   const _BalanceWidget(
       {Key? key,
       required this.balance,
-      required this.index,
       required this.onCallFaucet,
-      required this.onCallStripePayout})
+      required this.onCallStripePayout,
+      required this.backgroundAsset
+      }
+  )
       : super(key: key);
 
   final Balance balance;
   final Function onCallFaucet;
   final Function onCallStripePayout;
-
+  final String backgroundAsset;
   @override
   State<_BalanceWidget> createState() => _BalanceWidgetState();
 }
@@ -248,7 +256,7 @@ class _BalanceWidgetState extends State<_BalanceWidget> {
                       .copyWith(color: Colors.white, fontSize: 18),
                 ),
                 Spacer(),
-                if (widget.balance.denom.text == "ustripeusd")
+                if (widget.balance.denom == "ustripeusd")
                   ElevatedButton(
                     onPressed: () {
                       widget.onCallStripePayout();
