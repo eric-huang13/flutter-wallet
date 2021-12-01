@@ -20,6 +20,9 @@ import 'package:transaction_signing_gateway/alan/alan_transaction_signer.dart';
 import 'package:transaction_signing_gateway/gateway/transaction_signing_gateway.dart';
 import 'package:transaction_signing_gateway/mobile/mobile_key_info_storage.dart';
 import 'package:transaction_signing_gateway/mobile/no_op_transaction_summary_ui.dart';
+import 'package:http/http.dart' as http;
+
+import '../query_helper.dart';
 
 final sl = GetIt.instance;
 
@@ -33,8 +36,18 @@ Future<void> init() async {
     () => LocalDataSourceImp(sl()),
   );
 
+  sl.registerLazySingleton<QueryHelper>( () => QueryHelper(httpClient: sl()));
+
+
   /// External Dependencies
   sl.registerSingletonAsync<SharedPreferences>(() => SharedPreferences.getInstance());
+
+
+
+
+  sl.registerLazySingleton<http.Client>( () => http.Client());
+
+
 
   sl.registerLazySingleton(() => BaseEnv()
     ..setEnv(
@@ -74,6 +87,7 @@ Future<void> init() async {
         ),
       ));
 
+
   sl.registerLazySingleton<WalletsStore>(() => WalletsStoreImp(sl(), sl(), sl(), repository: sl()));
 
   /// Services
@@ -83,5 +97,5 @@ Future<void> init() async {
   sl.registerLazySingleton<bank.QueryClient>(() => bank.QueryClient(sl.get<BaseEnv>().networkInfo.gRPCChannel));
 
   /// Repository
-  sl.registerLazySingleton<Repository>(() => RepositoryImp(networkInfo: sl(), queryClient: sl(), bankQueryClient: sl()));
+  sl.registerLazySingleton<Repository>(() => RepositoryImp(networkInfo: sl(), queryClient: sl(), bankQueryClient: sl(), queryHelper: sl()));
 }

@@ -101,9 +101,15 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
   Future getFaucet(BuildContext context, String denom) async {
     final diag = Loading()..showLoading();
     final walletsStore = GetIt.I.get<WalletsStore>();
-    final amount = await walletsStore.getFaucetCoin(denom: denom);
-    SnackbarToast.show("faucet ${amount.toString().UvalToVal()} ${denom.UdenomToDenom()} added.");
-    Timer(const Duration(milliseconds: 3000), () {
+    final faucetEither = await walletsStore.getFaucetCoin(denom: denom);
+
+    if (faucetEither.isLeft()) {
+      SnackbarToast.show(faucetEither.swap().toOption().toNullable()!.message);
+    }
+
+    SnackbarToast.show("faucet ${faucetEither.getOrElse(() => 0).toString().UvalToVal()} ${denom.UdenomToDenom()} added.");
+
+    Timer(const Duration(milliseconds: 400), () {
       _buildAssetsList();
 
       diag.dismiss();
