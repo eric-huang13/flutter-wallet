@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/entities/amount.dart';
 import 'package:pylons_wallet/entities/balance.dart';
+import 'package:pylons_wallet/model/execution_list_by_recipe_response.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart' as pylons;
 import 'package:pylons_wallet/services/third_party_services/network_info.dart';
 import 'package:pylons_wallet/utils/failure/failure.dart';
@@ -40,17 +41,15 @@ abstract class Repository {
   /// will return error in form of failure
   Future<Either<Failure, bool>> isAccountExists(String username);
 
-
-  /// THis method returns list of balances against an address
+  /// This method returns list of balances against an address
   /// Input:[address] public address of the user
   /// Output : returns the list of [Balance] els throws an error
   Future<Either<Failure, List<Balance>>> getBalance(String address);
 
-
-
-
-
-
+  /// THis method returns execution based on the recipe id
+  /// Input:[cookBookId] the id of the cookbook that contains recipe, [recipeId] the recipe whose list of execution you want
+  /// Output : returns the [ExecutionListByRecipeResponse] else throws an error
+  Future<Either<Failure, ExecutionListByRecipeResponse>> getExecutionsByRecipeId({required String cookBookId, required String recipeId});
 }
 
 class RepositoryImp implements Repository {
@@ -182,5 +181,23 @@ class RepositoryImp implements Repository {
       balances.add(Balance(denom: balance.denom, amount: Amount(Decimal.parse(balance.amount))));
     }
     return Right(balances);
+  }
+
+  @override
+  Future<Either<Failure, ExecutionListByRecipeResponse>> getExecutionsByRecipeId({required String cookBookId, required String recipeId}) async {
+    if (!await networkInfo.isConnected) {
+      return const Left(NoInternetFailure(NO_INTERNET));
+    }
+
+    final queryExecutionListByRecipe = pylons.QueryListExecutionsByRecipeRequest()
+      ..cookbookID = cookBookId
+      ..recipeID = recipeId;
+    final response = await queryClient.listExecutionsByRecipe(queryExecutionListByRecipe);
+
+    if (!response.hasRequiredFields()) {
+      return const Left(ExecutionNotFoundFailure(EXECUTION_NOT_FOUND));
+    }
+
+    return Right(ExecutionListByRecipeResponse(completedExecutions: response.completedExecutions, pendingExecutions: response.pendingExecutions));
   }
 }

@@ -206,4 +206,10 @@ class MockWalletStore implements WalletsStore {
     return SDKIPCResponse.success(data: MOCK_COOKBOOK, sender: '', transaction: '');
 
   }
+
+  @override
+  Future<SDKIPCResponse> getExecutionByRecipeId({required String cookbookId, required String recipeId}) {
+    // TODO: implement getExecutionByRecipeId
+    throw UnimplementedError();
+  }
 }
