@@ -19,12 +19,13 @@ class GetExecutionByRecipe implements BaseHandler {
   Future<SDKIPCResponse> handle() async {
     final jsonMap = jsonDecode(sdkipcMessage.json) as Map;
     final cookbookId =  jsonMap[HandlerFactory.COOKBOOK_ID].toString();
+    final recipeId =  jsonMap[HandlerFactory.RECIPE_ID].toString();
 
     jsonMap.remove('nodeVersion');
 
     final walletsStore = GetIt.I.get<WalletsStore>();
 
-    final response = await walletsStore.getCookbookByIdForSDK(cookbookId: cookbookId);
+    final response = await walletsStore.getExecutionByRecipeId(cookbookId: cookbookId, recipeId: recipeId);
     response.sender = sdkipcMessage.sender;
     response.action = sdkipcMessage.action;
     return SynchronousFuture(response);

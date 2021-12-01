@@ -194,9 +194,7 @@ class RepositoryImp implements Repository {
       ..recipeID = recipeId;
     final response = await queryClient.listExecutionsByRecipe(queryExecutionListByRecipe);
 
-    if (!response.hasRequiredFields()) {
-      return const Left(ExecutionNotFoundFailure(EXECUTION_NOT_FOUND));
-    }
+
 
     return Right(ExecutionListByRecipeResponse(completedExecutions: response.completedExecutions, pendingExecutions: response.pendingExecutions));
   }

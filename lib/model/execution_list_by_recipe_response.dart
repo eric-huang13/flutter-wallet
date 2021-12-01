@@ -6,9 +6,11 @@ class ExecutionListByRecipeResponse {
 
   ExecutionListByRecipeResponse({required this.completedExecutions, required this.pendingExecutions});
 
+  factory ExecutionListByRecipeResponse.empty() {
+    return ExecutionListByRecipeResponse(pendingExecutions: [], completedExecutions: []);
+  }
 
-  Map<String, dynamic> toJson() => {
-    "completedExecutions" :  completedExecutions.map((execution) => execution.toProto3Json()),
-    "pendingExecutions" : pendingExecutions.map((execution) => execution.toProto3Json())
-  };
+
+  Map<String, dynamic> toJson() =>
+      {"completedExecutions": completedExecutions.map((execution) => execution.toProto3Json()).toList(), "pendingExecutions": pendingExecutions.map((execution) => execution.toProto3Json()).toList()};
 }

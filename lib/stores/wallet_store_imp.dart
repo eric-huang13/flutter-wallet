@@ -12,6 +12,7 @@ import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/entities/balance.dart';
 import 'package:pylons_wallet/ipc/handler/handler_factory.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
+import 'package:pylons_wallet/model/execution_list_by_recipe_response.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart' as pylons;
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart';
 import 'package:pylons_wallet/modules/cosmos.authz.v1beta1/module/client/cosmos/base/abci/v1beta1/abci.pb.dart';
@@ -502,6 +503,9 @@ class WalletsStoreImp implements WalletsStore {
       return SDKIPCResponse.failure(sender: '', error: recipesEither.swap().toOption().toNullable()!.message, errorCode: HandlerFactory.ERR_CANNOT_FETCH_RECIPES, transaction: '');
     }
 
-    return SDKIPCResponse.success(data: jsonEncode(recipesEither.toOption().toNullable()!), sender: '', transaction: '');
+
+    final response = recipesEither.toOption().toNullable()!;
+
+    return SDKIPCResponse.success(data: jsonEncode(response), sender: '', transaction: '');
   }
 }

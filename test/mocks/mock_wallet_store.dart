@@ -2,7 +2,9 @@ import 'package:dartz/dartz.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:mobx/src/core.dart';
 import 'package:pylons_wallet/entities/balance.dart';
+import 'package:pylons_wallet/ipc/handler/handlers/get_execution_by_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
+import 'package:pylons_wallet/model/execution_list_by_recipe_response.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart';
 import 'package:pylons_wallet/modules/cosmos.authz.v1beta1/module/client/cosmos/base/abci/v1beta1/abci.pb.dart';
 import 'package:pylons_wallet/modules/cosmos.authz.v1beta1/module/export.dart';
@@ -219,8 +221,12 @@ class MockWalletStore implements WalletsStore {
   }
 
   @override
-  Future<SDKIPCResponse> getExecutionByRecipeId({required String cookbookId, required String recipeId}) {
-    // TODO: implement getExecutionByRecipeId
-    throw UnimplementedError();
+  Future<SDKIPCResponse> getExecutionByRecipeId({required String cookbookId, required String recipeId}) async {
+
+    if(cookbookId != MOCK_COOKBOOK_ID && recipeId != MOCK_RECIPE_ID){
+      throw MOCK_ERROR;
+    }
+
+    return SDKIPCResponse.success(data: ExecutionListByRecipeResponse.empty(), sender: '', transaction: '');
   }
 }
