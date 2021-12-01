@@ -12,6 +12,7 @@ import 'package:transaction_signing_gateway/alan/alan_private_wallet_credentials
 import 'package:transaction_signing_gateway/model/credentials_storage_failure.dart';
 import 'package:transaction_signing_gateway/model/wallet_public_info.dart';
 
+import '../widget_testing/ipc/handler/handlers/create_recipe_handler_test.dart';
 import 'mock_constants.dart';
 
 class MockWalletStore implements WalletsStore {
@@ -205,6 +206,16 @@ class MockWalletStore implements WalletsStore {
   Future<SDKIPCResponse> getCookbookByIdForSDK({required String cookbookId}) async {
     return SDKIPCResponse.success(data: MOCK_COOKBOOK, sender: '', transaction: '');
 
+  }
+
+  @override
+  Future<SDKIPCResponse> getRecipeByIdForSDK({required String cookbookId, required String recipeId}) async {
+
+    if(cookbookId != MOCK_COOKBOOK_ID && recipeId != MOCK_RECIPE_ID){
+      throw MOCK_ERROR;
+    }
+
+    return SDKIPCResponse.success(data: MOCK_RECIPE, sender: '', transaction: '');
   }
 
   @override
