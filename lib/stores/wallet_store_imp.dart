@@ -475,12 +475,23 @@ class WalletsStoreImp implements WalletsStore {
 
   @override
   Future<SDKIPCResponse> getCookbookByIdForSDK({required String cookbookId}) async {
-    final recipesEither = await repository.getCookbookBasedOnId(cookBookId: cookbookId);
+    final cookBookEither = await repository.getCookbookBasedOnId(cookBookId: cookbookId);
 
-    if (recipesEither.isLeft()) {
-      return SDKIPCResponse.failure(sender: '', error: recipesEither.swap().toOption().toNullable()!.message, errorCode: HandlerFactory.ERR_CANNOT_FETCH_RECIPES, transaction: '');
+    if (cookBookEither.isLeft()) {
+      return SDKIPCResponse.failure(sender: '', error: cookBookEither.swap().toOption().toNullable()!.message, errorCode: HandlerFactory.ERR_CANNOT_FETCH_COOKBOOK, transaction: '');
     }
 
-    return SDKIPCResponse.success(data: jsonEncode(recipesEither.toOption().toNullable()!.toProto3Json()), sender: '', transaction: '');
+    return SDKIPCResponse.success(data: jsonEncode(cookBookEither.toOption().toNullable()!.toProto3Json()), sender: '', transaction: '');
+  }
+
+  @override
+  Future<SDKIPCResponse> getRecipeByIdForSDK({required String cookbookId, required String recipeId}) async {
+    final recipeEither = await repository.getRecipe(cookBookId: cookbookId, recipeId: recipeId);
+
+    if (recipeEither.isLeft()) {
+      return SDKIPCResponse.failure(sender: '', error: recipeEither.swap().toOption().toNullable()!.message, errorCode: HandlerFactory.ERR_CANNOT_FETCH_RECIPE, transaction: '');
+    }
+
+    return SDKIPCResponse.success(data: jsonEncode(recipeEither.toOption().toNullable()!.toProto3Json()), sender: '', transaction: '');
   }
 }
