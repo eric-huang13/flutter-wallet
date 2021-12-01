@@ -5,6 +5,7 @@ import 'package:pylons_wallet/ipc/handler/handlers/create_cook_book_handler.dart
 import 'package:pylons_wallet/ipc/handler/handlers/create_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/execute_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/get_cookbook_handler.dart';
+import 'package:pylons_wallet/ipc/handler/handlers/get_execution_by_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/get_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/get_recipes_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/update_cookbook_handler.dart';
@@ -19,6 +20,7 @@ class HandlerFactory {
   static const String GET_PROFILE = 'getProfile';
   static const String GET_RECIPES = 'getRecipes';
   static const String GET_RECIPE = 'getRecipe';
+  static const String GET_EXECUTION_BY_RECIPE_ID = 'getExecutionByRecipeId';
   static const String GET_TRADES = 'getTrades';
   static const String TX_BUY_ITEMS = 'txBuyItem';
   static const String TX_BUY_PYLONS = 'txBuyPylons';
@@ -94,6 +96,14 @@ class HandlerFactory {
     if (sdkipcMessage.action == GET_RECIPE) {
       return GetRecipeHandler(sdkipcMessage);
     }
+
+
+
+    if (sdkipcMessage.action == GET_EXECUTION_BY_RECIPE_ID) {
+      return GetExecutionByRecipe(sdkipcMessage);
+    }
+
+
 
 
     return CreateCookBookHandler(sdkipcMessage);
