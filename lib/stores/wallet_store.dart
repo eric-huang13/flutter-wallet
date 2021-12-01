@@ -189,4 +189,12 @@ abstract class WalletsStore {
   /// Input : [cookbookId] id of the cookbook
   /// Output : [SDKIPCResponse] returns the cookbook
   Future<SDKIPCResponse> getCookbookByIdForSDK({required String cookbookId});
+
+
+
+  /// This method returns the recipes based on cookbook
+  /// Input : [cookbookId] the id of the cookbook which contains the recipe, [recipeId] the id of the recipe
+  /// Output : [SDKIPCResponse] returns the recipe with the specified id
+  Future<SDKIPCResponse> getRecipeByIdForSDK({required String cookbookId, required String recipeId});
+
 }
