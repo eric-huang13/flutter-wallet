@@ -132,11 +132,7 @@ class MockWalletStore implements WalletsStore {
     throw UnimplementedError();
   }
 
-  @override
-  Future<int> getFaucetCoin({String? denom}) {
-    // TODO: implement getFaucetCoin
-    throw UnimplementedError();
-  }
+
 
   @override
   Future<List<Recipe>> getRecipes() {
@@ -208,6 +204,12 @@ class MockWalletStore implements WalletsStore {
   Future<SDKIPCResponse> getCookbookByIdForSDK({required String cookbookId}) async {
     return SDKIPCResponse.success(data: MOCK_COOKBOOK, sender: '', transaction: '');
 
+  }
+
+  @override
+  Future<Either<Failure, int>> getFaucetCoin({String denom = ""}) {
+    // TODO: implement getFaucetCoin
+    throw UnimplementedError();
   }
 
   @override

@@ -90,7 +90,7 @@ class WalletsStoreImp implements WalletsStore {
 
     final response = await broadcastWalletCreationMessageOnBlockchain(creds, wallet.bech32Address, userName);
 
-    if(response.success) {
+    if (response.success) {
       wallets.value.add(creds.publicInfo);
 
       return Right(creds.publicInfo);
@@ -313,8 +313,6 @@ class WalletsStoreImp implements WalletsStore {
     return response.recipes;
   }
 
-
-
   @override
   Future<Trade?> getTradeByID(Int64 ID) async {
     final request = pylons.QueryGetTradeRequest.create()..iD = ID;
@@ -380,39 +378,19 @@ class WalletsStoreImp implements WalletsStore {
   }
 
   @override
-  Future<int> getFaucetCoin({String? denom}) async {
-    final faucetUrl = "http://34.132.229.23:8080/coins?address=${wallets.value.last.publicAddress}";
-    final helper = QueryHelper(httpClient: _httpClient);
-    final result = await helper.queryGet(faucetUrl);
-
-    const amount = 1000000;
-    if (result.isSuccessful) {
-      //check faucet success
-      return amount;
-    }
-    return 0;
-    /**
-    const amount = 5000;
-    final Map data = {
-      "address": wallets.value.last.publicAddress,
-    };
-    if (denom != null) {
-      data["coins"] = ["$amount$denom"];
-    }
-    final helper = QueryHelper(httpClient: _httpClient);
-    final result = await helper.queryPost(this.baseEnv.baseFaucetUrl, data);
-    if (!result.isSuccessful) {
-      return 0;
-    }
-    return amount;
-    */
+  Future<Either<Failure, int>> getFaucetCoin({String? denom}) async {
+    return repository.getFaucetCoin(address: wallets.value.last.publicAddress, denom: denom);
   }
 
   @override
   Future<bool> isAccountExists(String username) async {
     final accountExistResult = await repository.isAccountExists(username);
 
-    return accountExistResult.fold((failure){ return false;}, (value) {return value;});
+    return accountExistResult.fold((failure) {
+      return false;
+    }, (value) {
+      return value;
+    });
   }
 
   @override
@@ -454,7 +432,6 @@ class WalletsStoreImp implements WalletsStore {
     return SDKIPCResponse.success(data: {"username": userNameEither.getOrElse(() => '')}, sender: '', transaction: '');
   }
 
-
   @override
   Future<SDKIPCResponse> getAllRecipesByCookBookId({required String cookbookId}) async {
     final recipesEither = await repository.getRecipesBasedOnCookBookId(cookBookId: cookbookId);
@@ -470,7 +447,7 @@ class WalletsStoreImp implements WalletsStore {
   Future<SDKIPCResponse> updateCookBook(Map<dynamic, dynamic> jsonMap) async {
     final msgObj = pylons.MsgUpdateCookbook.create()..mergeFromProto3Json(jsonMap);
     msgObj.creator = wallets.value.last.publicAddress;
-    return  _signAndBroadcast(msgObj);
+    return _signAndBroadcast(msgObj);
   }
 
   @override

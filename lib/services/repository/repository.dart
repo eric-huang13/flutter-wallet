@@ -1,7 +1,6 @@
 import 'package:alan/proto/cosmos/bank/v1beta1/export.dart' as bank;
 import 'package:dartz/dartz.dart';
 import 'package:decimal/decimal.dart';
-import 'package:http/http.dart' as http;
 import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/entities/amount.dart';
 import 'package:pylons_wallet/entities/balance.dart';
@@ -9,6 +8,8 @@ import 'package:pylons_wallet/model/execution_list_by_recipe_response.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart' as pylons;
 import 'package:pylons_wallet/services/third_party_services/network_info.dart';
 import 'package:pylons_wallet/utils/failure/failure.dart';
+import 'package:pylons_wallet/utils/query_helper.dart';
+import 'package:http/http.dart' as http;
 
 abstract class Repository {
   /// This method returns the recipe based on cookbook id and recipe Id
@@ -41,7 +42,7 @@ abstract class Repository {
   /// will return error in form of failure
   Future<Either<Failure, bool>> isAccountExists(String username);
 
-  /// This method returns list of balances against an address
+  /// THis method returns list of balances against an address
   /// Input:[address] public address of the user
   /// Output : returns the list of [Balance] els throws an error
   Future<Either<Failure, List<Balance>>> getBalance(String address);
@@ -50,6 +51,12 @@ abstract class Repository {
   /// Input:[cookBookId] the id of the cookbook that contains recipe, [recipeId] the id of the recipe whose list of execution you want
   /// Output : returns the [ExecutionListByRecipeResponse] else throws an error
   Future<Either<Failure, ExecutionListByRecipeResponse>> getExecutionsByRecipeId({required String cookBookId, required String recipeId});
+
+
+  /// This method returns list of balances against an address
+  /// Input:[address] to which amount is to sent, [denom] tells denomination of the fetch coins
+  /// Output : returns new balance in case of success else failure
+  Future<Either<Failure, int>> getFaucetCoin({required String address, String? denom});
 }
 
 class RepositoryImp implements Repository {
@@ -59,7 +66,9 @@ class RepositoryImp implements Repository {
 
   final bank.QueryClient bankQueryClient;
 
-  RepositoryImp({required this.networkInfo, required this.queryClient, required this.bankQueryClient});
+  final QueryHelper queryHelper;
+
+  RepositoryImp({required this.networkInfo, required this.queryClient, required this.bankQueryClient, required this.queryHelper});
 
   @override
   Future<Either<Failure, pylons.Recipe>> getRecipe({required String cookBookId, required String recipeId}) async {
@@ -197,5 +206,23 @@ class RepositoryImp implements Repository {
 
 
     return Right(ExecutionListByRecipeResponse(completedExecutions: response.completedExecutions, pendingExecutions: response.pendingExecutions));
+  }
+
+  @override
+  Future<Either<Failure, int>> getFaucetCoin({required String address, String? denom}) async {
+    if (!await networkInfo.isConnected) {
+      return const Left(NoInternetFailure(NO_INTERNET));
+    }
+
+    final faucetUrl = "http://34.132.229.23:8080/coins?address=$address";
+
+    final result = await queryHelper.queryGet(faucetUrl);
+
+    if (!result.isSuccessful) {
+      return Left(FaucetServerFailure(result.error ?? ''));
+    }
+
+    const amount = 1000000;
+    return const Right(amount);
   }
 }

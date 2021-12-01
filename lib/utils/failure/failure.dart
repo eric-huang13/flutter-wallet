@@ -39,3 +39,11 @@ class ExecutionNotFoundFailure extends Failure{
   @override
   List<Object?> get props => [message];
 }
+
+
+
+class FaucetServerFailure extends Failure{
+  const FaucetServerFailure(String message) : super(message);
+  @override
+  List<Object?> get props => [message];
+}

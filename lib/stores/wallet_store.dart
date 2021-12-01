@@ -140,10 +140,10 @@ abstract class WalletsStore {
 
 
 
-  /// This method is used for getting faucet token for the user
-  /// Input : [denom]
+  /// This method is used for giving faucet token to the user based on the current wallet address
+  /// Input : [denom] coin denomination
   /// Output : [int] the amount that the user has in its wallet
-  Future<int> getFaucetCoin({String denom = ""});
+  Future<Either<Failure, int>> getFaucetCoin({String denom = ""});
 
   /// check if account with username exists
   /// Input:[String] username
