@@ -195,7 +195,7 @@ abstract class WalletsStore {
 
 
   /// This method returns the recipes based on cookbook
-  /// Input: [cookBookId] the id of the cookbook that contains recipe, [recipeId] the recipe whose list of execution you want
+  /// Input: [cookbookId] the id of the cookbook that contains recipe, [recipeId] the id of the recipe whose list of execution you want
   /// Output : [SDKIPCResponse] returns the cookbook
   Future<SDKIPCResponse> getExecutionByRecipeId({required String cookbookId, required String recipeId});
 

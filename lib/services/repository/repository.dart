@@ -47,7 +47,7 @@ abstract class Repository {
   Future<Either<Failure, List<Balance>>> getBalance(String address);
 
   /// THis method returns execution based on the recipe id
-  /// Input:[cookBookId] the id of the cookbook that contains recipe, [recipeId] the recipe whose list of execution you want
+  /// Input:[cookBookId] the id of the cookbook that contains recipe, [recipeId] the id of the recipe whose list of execution you want
   /// Output : returns the [ExecutionListByRecipeResponse] else throws an error
   Future<Either<Failure, ExecutionListByRecipeResponse>> getExecutionsByRecipeId({required String cookBookId, required String recipeId});
 }
