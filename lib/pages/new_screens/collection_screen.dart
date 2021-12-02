@@ -53,22 +53,28 @@ class _CollectionScreenState extends State<CollectionScreen>{
 
   String colType = collectionType[0].title;
 
-
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   void initState() {
     super.initState();
     Timer(
-        Duration(milliseconds: 100), (){
-      loadData(colType);
+        Duration(milliseconds: 100),  () async {
+      await loadData(colType);
+
+      walletsStore.getStateUpdatedFlag().observe((flag) async {
+        print('getStateUpdatedFlag ${flag.oldValue} ${flag.newValue}');
+        if(flag.newValue == true){
+          print('getStateUpdatedFlag');
+          await loadData(colType);
+          walletsStore.setStateUpdatedFlag();
+        }
+      }, fireImmediately: true);
+
     });
-    walletsStore.getStateUpdatedFlag().observe((flag) {
-      print('getStateUpdatedFlag ${flag}');
-      if(flag == true){
-        print('getStateUpdatedFlag');
-        loadData(colType);
-      }
-    }, fireImmediately: true);
   }
 
   @override

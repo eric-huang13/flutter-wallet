@@ -157,11 +157,6 @@ abstract class WalletsStore {
 
   Observable<CredentialsStorageFailure?> getLoadWalletsFailure();
 
-  /// This method enables the recipe int the recipe in the blockchain
-  /// Input : [Map] containing the info related to the updation of recipe
-  /// Output : [SDKIPCResponse] response
-  Future<SDKIPCResponse> enableRecipe(Map<dynamic, dynamic> jsonMap);
-
   /// This method updates the cookbook in the block chain
   /// Input : [Map] containing the info related to the updation of cookbook
   /// Output : [SDKIPCResponse] response
@@ -190,6 +185,8 @@ abstract class WalletsStore {
   Future<SDKIPCResponse> getCookbookByIdForSDK({required String cookbookId});
 
   Observable<bool> getStateUpdatedFlag();
+
+  void setStateUpdatedFlag({bool flag});
 
   /// This method returns the recipes based on cookbook
   /// Input: [cookbookId] the id of the cookbook that contains recipe, [recipeId] the id of the recipe whose list of execution you want

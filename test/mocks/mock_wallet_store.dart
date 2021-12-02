@@ -236,6 +236,10 @@ class MockWalletStore implements WalletsStore {
   }
 
   @override
+  void setStateUpdatedFlag({bool flag = false}) {
+    // TODO: implement setStateUpdatedFlag
+  }
+  @override
   Future<SDKIPCResponse> getRecipeByIdForSDK(
       {required String cookbookId, required String recipeId}) async {
     if (cookbookId != MOCK_COOKBOOK_ID && recipeId != MOCK_RECIPE_ID) {
@@ -258,4 +262,11 @@ class MockWalletStore implements WalletsStore {
         sender: '',
         transaction: '');
   }
+
+  @override
+  Future<List<Recipe>> getRecipesByCookbookID(String cookbookID) {
+    // TODO: implement getRecipesByCookbookID
+    throw UnimplementedError();
+  }
+
 }
