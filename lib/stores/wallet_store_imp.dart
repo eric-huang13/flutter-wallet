@@ -636,4 +636,24 @@ class WalletsStoreImp implements WalletsStore {
   void setStateUpdatedFlag({bool flag = false}) {
     isStateUpdated.value = flag;
   }
+
+  @override
+  Future<SDKIPCResponse> getItemByIdForSDK(
+      {required String cookBookId, required String itemId}) async {
+    final getItemEither =
+        await repository.getItem(cookBookId: cookBookId, itemId: itemId);
+
+    if (getItemEither.isLeft()) {
+      return SDKIPCResponse.failure(
+          sender: '',
+          error: getItemEither.swap().toOption().toNullable()!.message,
+          errorCode: HandlerFactory.ERR_CANNOT_FETCH_ITEM,
+          transaction: '');
+    }
+
+    final response = getItemEither.toOption().toNullable()!;
+
+    return SDKIPCResponse.success(
+        data: jsonEncode(response.toProto3Json()), sender: '', transaction: '');
+  }
 }

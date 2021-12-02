@@ -46,3 +46,9 @@ class FaucetServerFailure extends Failure {
   @override
   List<Object?> get props => [message];
 }
+
+class ItemNotFoundFailure extends Failure {
+  const ItemNotFoundFailure(String message) : super(message);
+  @override
+  List<Object?> get props => [message];
+}

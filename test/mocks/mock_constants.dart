@@ -1,3 +1,4 @@
+import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart';
 import 'package:transaction_signing_gateway/model/transaction_hash.dart';
 
 TransactionHash MOCK_TRANSACTION = TransactionHash(
@@ -147,5 +148,18 @@ const String MOCK_STRIPEURL = '';
 const String MOCK_STRIPEPUBKEY = '';
 const MOCK_ADDRESS = "";
 const String MOCK_RECIPE_ID = 'recipeid';
+const String MOCK_ITEM_ID = 'itemId';
 
 const String MOCK_ERROR = 'SOMETHING_WENT_WRONG';
+
+
+
+Item MOCK_ITEM = Item(
+  owner: '',
+  cookbookID: MOCK_COOKBOOK_ID,
+  iD: MOCK_ITEM_ID,
+  nodeVersion: 'v0.1.3',
+  doubles: [],
+  longs: [],
+  strings: [],
+);

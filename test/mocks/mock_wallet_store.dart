@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:mobx/src/core.dart';
@@ -269,4 +271,15 @@ class MockWalletStore implements WalletsStore {
     throw UnimplementedError();
   }
 
+  Future<SDKIPCResponse> getItemByIdForSDK(
+      {required String cookBookId, required String itemId}) async {
+    if (cookBookId != MOCK_COOKBOOK_ID && itemId != MOCK_ITEM_ID) {
+      throw MOCK_ERROR;
+    }
+
+    return SDKIPCResponse.success(
+        data: jsonEncode(MOCK_ITEM.toProto3Json()),
+        sender: '',
+        transaction: '');
+  }
 }
