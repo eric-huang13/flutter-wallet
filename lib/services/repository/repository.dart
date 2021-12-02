@@ -52,11 +52,15 @@ abstract class Repository {
   /// Output : returns the [ExecutionListByRecipeResponse] else throws an error
   Future<Either<Failure, ExecutionListByRecipeResponse>> getExecutionsByRecipeId({required String cookBookId, required String recipeId});
 
-
   /// This method returns list of balances against an address
   /// Input:[address] to which amount is to sent, [denom] tells denomination of the fetch coins
   /// Output : returns new balance in case of success else failure
   Future<Either<Failure, int>> getFaucetCoin({required String address, String? denom});
+
+  /// This method returns the Item based on id
+  /// Input : [cookBookId] the id of the cookbook which contains the cookbook, [itemId] the id of the item
+  /// Output: [pylons.Item] returns the item
+  Future<Either<Failure, pylons.Item>> getItem({required String cookBookId, required String itemId});
 }
 
 class RepositoryImp implements Repository {
@@ -203,8 +207,6 @@ class RepositoryImp implements Repository {
       ..recipeID = recipeId;
     final response = await queryClient.listExecutionsByRecipe(queryExecutionListByRecipe);
 
-
-
     return Right(ExecutionListByRecipeResponse(completedExecutions: response.completedExecutions, pendingExecutions: response.pendingExecutions));
   }
 
@@ -224,5 +226,24 @@ class RepositoryImp implements Repository {
 
     const amount = 1000000;
     return const Right(amount);
+  }
+
+  @override
+  Future<Either<Failure, pylons.Item>> getItem({required String cookBookId, required String itemId}) async {
+    if (!await networkInfo.isConnected) {
+      return const Left(NoInternetFailure(NO_INTERNET));
+    }
+
+    final queryGetItemRequest = pylons.QueryGetItemRequest()
+      ..cookbookID = cookBookId
+      ..iD = itemId;
+
+    final response = await queryClient.item(queryGetItemRequest);
+
+    if (!response.hasItem()) {
+      return const Left(ItemNotFoundFailure(ITEM_NOT_FOUND));
+    }
+
+    return Right(response.item);
   }
 }

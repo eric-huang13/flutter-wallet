@@ -12,7 +12,6 @@ import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/entities/balance.dart';
 import 'package:pylons_wallet/ipc/handler/handler_factory.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
-import 'package:pylons_wallet/model/execution_list_by_recipe_response.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart' as pylons;
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart';
 import 'package:pylons_wallet/modules/cosmos.authz.v1beta1/module/client/cosmos/base/abci/v1beta1/abci.pb.dart';
@@ -484,5 +483,18 @@ class WalletsStoreImp implements WalletsStore {
     final response = recipesEither.toOption().toNullable()!;
 
     return SDKIPCResponse.success(data: jsonEncode(response), sender: '', transaction: '');
+  }
+
+  @override
+  Future<SDKIPCResponse> getItemByIdForSDK({required String cookBookId, required String itemId}) async {
+    final getItemEither = await repository.getItem(cookBookId: cookBookId, itemId: itemId);
+
+    if (getItemEither.isLeft()) {
+      return SDKIPCResponse.failure(sender: '', error: getItemEither.swap().toOption().toNullable()!.message, errorCode: HandlerFactory.ERR_CANNOT_FETCH_ITEM, transaction: '');
+    }
+
+    final response = getItemEither.toOption().toNullable()!;
+
+    return SDKIPCResponse.success(data: jsonEncode(response.toProto3Json()), sender: '', transaction: '');
   }
 }

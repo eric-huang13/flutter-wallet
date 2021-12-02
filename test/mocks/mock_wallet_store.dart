@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:mobx/src/core.dart';
@@ -107,7 +109,6 @@ class MockWalletStore implements WalletsStore {
     throw UnimplementedError();
   }
 
-
   @override
   Future<Trade?> getTradeByID(Int64 ID) {
     // TODO: implement getTradeByID
@@ -131,8 +132,6 @@ class MockWalletStore implements WalletsStore {
     // TODO: implement getAccountNameByAddress
     throw UnimplementedError();
   }
-
-
 
   @override
   Future<List<Recipe>> getRecipes() {
@@ -178,7 +177,6 @@ class MockWalletStore implements WalletsStore {
   @override
   Future<SDKIPCResponse> updateCookBook(Map<dynamic, dynamic> jsonMap) async {
     return SDKIPCResponse.success(data: MOCK_TRANSACTION.txHash, sender: '', transaction: '');
-
   }
 
   @override
@@ -192,18 +190,14 @@ class MockWalletStore implements WalletsStore {
     return SDKIPCResponse.success(data: {"username": MOCK_USERNAME}, sender: '', transaction: '');
   }
 
-
-
   @override
   Future<SDKIPCResponse> getAllRecipesByCookBookId({required String cookbookId}) async {
     return SDKIPCResponse.success(data: [], sender: '', transaction: '');
-
   }
 
   @override
   Future<SDKIPCResponse> getCookbookByIdForSDK({required String cookbookId}) async {
     return SDKIPCResponse.success(data: MOCK_COOKBOOK, sender: '', transaction: '');
-
   }
 
   @override
@@ -214,8 +208,7 @@ class MockWalletStore implements WalletsStore {
 
   @override
   Future<SDKIPCResponse> getRecipeByIdForSDK({required String cookbookId, required String recipeId}) async {
-
-    if(cookbookId != MOCK_COOKBOOK_ID && recipeId != MOCK_RECIPE_ID){
+    if (cookbookId != MOCK_COOKBOOK_ID && recipeId != MOCK_RECIPE_ID) {
       throw MOCK_ERROR;
     }
 
@@ -224,11 +217,19 @@ class MockWalletStore implements WalletsStore {
 
   @override
   Future<SDKIPCResponse> getExecutionByRecipeId({required String cookbookId, required String recipeId}) async {
-
-    if(cookbookId != MOCK_COOKBOOK_ID && recipeId != MOCK_RECIPE_ID){
+    if (cookbookId != MOCK_COOKBOOK_ID && recipeId != MOCK_RECIPE_ID) {
       throw MOCK_ERROR;
     }
 
     return SDKIPCResponse.success(data: ExecutionListByRecipeResponse.empty(), sender: '', transaction: '');
+  }
+
+  @override
+  Future<SDKIPCResponse> getItemByIdForSDK({required String cookBookId, required String itemId}) async {
+    if (cookBookId != MOCK_COOKBOOK_ID && itemId != MOCK_ITEM_ID) {
+      throw MOCK_ERROR;
+    }
+
+    return SDKIPCResponse.success(data: jsonEncode(MOCK_ITEM.toProto3Json()), sender: '', transaction: '');
   }
 }
