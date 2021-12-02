@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: cosmos/bank/v1beta1/authz.proto
 //
-// @dart = 2.12
+// @dart = 2.3
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -18,15 +18,7 @@ class SendAuthorization extends $pb.GeneratedMessage {
   ;
 
   SendAuthorization._() : super();
-  factory SendAuthorization({
-    $core.Iterable<$2.Coin>? spendLimit,
-  }) {
-    final _result = create();
-    if (spendLimit != null) {
-      _result.spendLimit.addAll(spendLimit);
-    }
-    return _result;
-  }
+  factory SendAuthorization() => create();
   factory SendAuthorization.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory SendAuthorization.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -38,7 +30,7 @@ class SendAuthorization extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  SendAuthorization copyWith(void Function(SendAuthorization) updates) => super.copyWith((message) => updates(message as SendAuthorization)) as SendAuthorization; // ignore: deprecated_member_use
+  SendAuthorization copyWith(void Function(SendAuthorization) updates) => super.copyWith((message) => updates(message as SendAuthorization)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static SendAuthorization create() => SendAuthorization._();
@@ -46,7 +38,7 @@ class SendAuthorization extends $pb.GeneratedMessage {
   static $pb.PbList<SendAuthorization> createRepeated() => $pb.PbList<SendAuthorization>();
   @$core.pragma('dart2js:noInline')
   static SendAuthorization getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SendAuthorization>(create);
-  static SendAuthorization? _defaultInstance;
+  static SendAuthorization _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.List<$2.Coin> get spendLimit => $_getList(0);

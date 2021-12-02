@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: cosmos/staking/v1beta1/query.proto
 //
-// @dart = 2.12
+// @dart = 2.3
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -21,19 +21,7 @@ class QueryValidatorsRequest extends $pb.GeneratedMessage {
   ;
 
   QueryValidatorsRequest._() : super();
-  factory QueryValidatorsRequest({
-    $core.String? status,
-    $13.PageRequest? pagination,
-  }) {
-    final _result = create();
-    if (status != null) {
-      _result.status = status;
-    }
-    if (pagination != null) {
-      _result.pagination = pagination;
-    }
-    return _result;
-  }
+  factory QueryValidatorsRequest() => create();
   factory QueryValidatorsRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryValidatorsRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -45,7 +33,7 @@ class QueryValidatorsRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryValidatorsRequest copyWith(void Function(QueryValidatorsRequest) updates) => super.copyWith((message) => updates(message as QueryValidatorsRequest)) as QueryValidatorsRequest; // ignore: deprecated_member_use
+  QueryValidatorsRequest copyWith(void Function(QueryValidatorsRequest) updates) => super.copyWith((message) => updates(message as QueryValidatorsRequest)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryValidatorsRequest create() => QueryValidatorsRequest._();
@@ -53,7 +41,7 @@ class QueryValidatorsRequest extends $pb.GeneratedMessage {
   static $pb.PbList<QueryValidatorsRequest> createRepeated() => $pb.PbList<QueryValidatorsRequest>();
   @$core.pragma('dart2js:noInline')
   static QueryValidatorsRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryValidatorsRequest>(create);
-  static QueryValidatorsRequest? _defaultInstance;
+  static QueryValidatorsRequest _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get status => $_getSZ(0);
@@ -84,19 +72,7 @@ class QueryValidatorsResponse extends $pb.GeneratedMessage {
   ;
 
   QueryValidatorsResponse._() : super();
-  factory QueryValidatorsResponse({
-    $core.Iterable<$11.Validator>? validators,
-    $13.PageResponse? pagination,
-  }) {
-    final _result = create();
-    if (validators != null) {
-      _result.validators.addAll(validators);
-    }
-    if (pagination != null) {
-      _result.pagination = pagination;
-    }
-    return _result;
-  }
+  factory QueryValidatorsResponse() => create();
   factory QueryValidatorsResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryValidatorsResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -108,7 +84,7 @@ class QueryValidatorsResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryValidatorsResponse copyWith(void Function(QueryValidatorsResponse) updates) => super.copyWith((message) => updates(message as QueryValidatorsResponse)) as QueryValidatorsResponse; // ignore: deprecated_member_use
+  QueryValidatorsResponse copyWith(void Function(QueryValidatorsResponse) updates) => super.copyWith((message) => updates(message as QueryValidatorsResponse)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryValidatorsResponse create() => QueryValidatorsResponse._();
@@ -116,7 +92,7 @@ class QueryValidatorsResponse extends $pb.GeneratedMessage {
   static $pb.PbList<QueryValidatorsResponse> createRepeated() => $pb.PbList<QueryValidatorsResponse>();
   @$core.pragma('dart2js:noInline')
   static QueryValidatorsResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryValidatorsResponse>(create);
-  static QueryValidatorsResponse? _defaultInstance;
+  static QueryValidatorsResponse _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.List<$11.Validator> get validators => $_getList(0);
@@ -140,15 +116,7 @@ class QueryValidatorRequest extends $pb.GeneratedMessage {
   ;
 
   QueryValidatorRequest._() : super();
-  factory QueryValidatorRequest({
-    $core.String? validatorAddr,
-  }) {
-    final _result = create();
-    if (validatorAddr != null) {
-      _result.validatorAddr = validatorAddr;
-    }
-    return _result;
-  }
+  factory QueryValidatorRequest() => create();
   factory QueryValidatorRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryValidatorRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -160,7 +128,7 @@ class QueryValidatorRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryValidatorRequest copyWith(void Function(QueryValidatorRequest) updates) => super.copyWith((message) => updates(message as QueryValidatorRequest)) as QueryValidatorRequest; // ignore: deprecated_member_use
+  QueryValidatorRequest copyWith(void Function(QueryValidatorRequest) updates) => super.copyWith((message) => updates(message as QueryValidatorRequest)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryValidatorRequest create() => QueryValidatorRequest._();
@@ -168,7 +136,7 @@ class QueryValidatorRequest extends $pb.GeneratedMessage {
   static $pb.PbList<QueryValidatorRequest> createRepeated() => $pb.PbList<QueryValidatorRequest>();
   @$core.pragma('dart2js:noInline')
   static QueryValidatorRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryValidatorRequest>(create);
-  static QueryValidatorRequest? _defaultInstance;
+  static QueryValidatorRequest _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get validatorAddr => $_getSZ(0);
@@ -187,15 +155,7 @@ class QueryValidatorResponse extends $pb.GeneratedMessage {
   ;
 
   QueryValidatorResponse._() : super();
-  factory QueryValidatorResponse({
-    $11.Validator? validator,
-  }) {
-    final _result = create();
-    if (validator != null) {
-      _result.validator = validator;
-    }
-    return _result;
-  }
+  factory QueryValidatorResponse() => create();
   factory QueryValidatorResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryValidatorResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -207,7 +167,7 @@ class QueryValidatorResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryValidatorResponse copyWith(void Function(QueryValidatorResponse) updates) => super.copyWith((message) => updates(message as QueryValidatorResponse)) as QueryValidatorResponse; // ignore: deprecated_member_use
+  QueryValidatorResponse copyWith(void Function(QueryValidatorResponse) updates) => super.copyWith((message) => updates(message as QueryValidatorResponse)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryValidatorResponse create() => QueryValidatorResponse._();
@@ -215,7 +175,7 @@ class QueryValidatorResponse extends $pb.GeneratedMessage {
   static $pb.PbList<QueryValidatorResponse> createRepeated() => $pb.PbList<QueryValidatorResponse>();
   @$core.pragma('dart2js:noInline')
   static QueryValidatorResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryValidatorResponse>(create);
-  static QueryValidatorResponse? _defaultInstance;
+  static QueryValidatorResponse _defaultInstance;
 
   @$pb.TagNumber(1)
   $11.Validator get validator => $_getN(0);
@@ -237,19 +197,7 @@ class QueryValidatorDelegationsRequest extends $pb.GeneratedMessage {
   ;
 
   QueryValidatorDelegationsRequest._() : super();
-  factory QueryValidatorDelegationsRequest({
-    $core.String? validatorAddr,
-    $13.PageRequest? pagination,
-  }) {
-    final _result = create();
-    if (validatorAddr != null) {
-      _result.validatorAddr = validatorAddr;
-    }
-    if (pagination != null) {
-      _result.pagination = pagination;
-    }
-    return _result;
-  }
+  factory QueryValidatorDelegationsRequest() => create();
   factory QueryValidatorDelegationsRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryValidatorDelegationsRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -261,7 +209,7 @@ class QueryValidatorDelegationsRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryValidatorDelegationsRequest copyWith(void Function(QueryValidatorDelegationsRequest) updates) => super.copyWith((message) => updates(message as QueryValidatorDelegationsRequest)) as QueryValidatorDelegationsRequest; // ignore: deprecated_member_use
+  QueryValidatorDelegationsRequest copyWith(void Function(QueryValidatorDelegationsRequest) updates) => super.copyWith((message) => updates(message as QueryValidatorDelegationsRequest)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryValidatorDelegationsRequest create() => QueryValidatorDelegationsRequest._();
@@ -269,7 +217,7 @@ class QueryValidatorDelegationsRequest extends $pb.GeneratedMessage {
   static $pb.PbList<QueryValidatorDelegationsRequest> createRepeated() => $pb.PbList<QueryValidatorDelegationsRequest>();
   @$core.pragma('dart2js:noInline')
   static QueryValidatorDelegationsRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryValidatorDelegationsRequest>(create);
-  static QueryValidatorDelegationsRequest? _defaultInstance;
+  static QueryValidatorDelegationsRequest _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get validatorAddr => $_getSZ(0);
@@ -300,19 +248,7 @@ class QueryValidatorDelegationsResponse extends $pb.GeneratedMessage {
   ;
 
   QueryValidatorDelegationsResponse._() : super();
-  factory QueryValidatorDelegationsResponse({
-    $core.Iterable<$11.DelegationResponse>? delegationResponses,
-    $13.PageResponse? pagination,
-  }) {
-    final _result = create();
-    if (delegationResponses != null) {
-      _result.delegationResponses.addAll(delegationResponses);
-    }
-    if (pagination != null) {
-      _result.pagination = pagination;
-    }
-    return _result;
-  }
+  factory QueryValidatorDelegationsResponse() => create();
   factory QueryValidatorDelegationsResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryValidatorDelegationsResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -324,7 +260,7 @@ class QueryValidatorDelegationsResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryValidatorDelegationsResponse copyWith(void Function(QueryValidatorDelegationsResponse) updates) => super.copyWith((message) => updates(message as QueryValidatorDelegationsResponse)) as QueryValidatorDelegationsResponse; // ignore: deprecated_member_use
+  QueryValidatorDelegationsResponse copyWith(void Function(QueryValidatorDelegationsResponse) updates) => super.copyWith((message) => updates(message as QueryValidatorDelegationsResponse)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryValidatorDelegationsResponse create() => QueryValidatorDelegationsResponse._();
@@ -332,7 +268,7 @@ class QueryValidatorDelegationsResponse extends $pb.GeneratedMessage {
   static $pb.PbList<QueryValidatorDelegationsResponse> createRepeated() => $pb.PbList<QueryValidatorDelegationsResponse>();
   @$core.pragma('dart2js:noInline')
   static QueryValidatorDelegationsResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryValidatorDelegationsResponse>(create);
-  static QueryValidatorDelegationsResponse? _defaultInstance;
+  static QueryValidatorDelegationsResponse _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.List<$11.DelegationResponse> get delegationResponses => $_getList(0);
@@ -357,19 +293,7 @@ class QueryValidatorUnbondingDelegationsRequest extends $pb.GeneratedMessage {
   ;
 
   QueryValidatorUnbondingDelegationsRequest._() : super();
-  factory QueryValidatorUnbondingDelegationsRequest({
-    $core.String? validatorAddr,
-    $13.PageRequest? pagination,
-  }) {
-    final _result = create();
-    if (validatorAddr != null) {
-      _result.validatorAddr = validatorAddr;
-    }
-    if (pagination != null) {
-      _result.pagination = pagination;
-    }
-    return _result;
-  }
+  factory QueryValidatorUnbondingDelegationsRequest() => create();
   factory QueryValidatorUnbondingDelegationsRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryValidatorUnbondingDelegationsRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -381,7 +305,7 @@ class QueryValidatorUnbondingDelegationsRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryValidatorUnbondingDelegationsRequest copyWith(void Function(QueryValidatorUnbondingDelegationsRequest) updates) => super.copyWith((message) => updates(message as QueryValidatorUnbondingDelegationsRequest)) as QueryValidatorUnbondingDelegationsRequest; // ignore: deprecated_member_use
+  QueryValidatorUnbondingDelegationsRequest copyWith(void Function(QueryValidatorUnbondingDelegationsRequest) updates) => super.copyWith((message) => updates(message as QueryValidatorUnbondingDelegationsRequest)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryValidatorUnbondingDelegationsRequest create() => QueryValidatorUnbondingDelegationsRequest._();
@@ -389,7 +313,7 @@ class QueryValidatorUnbondingDelegationsRequest extends $pb.GeneratedMessage {
   static $pb.PbList<QueryValidatorUnbondingDelegationsRequest> createRepeated() => $pb.PbList<QueryValidatorUnbondingDelegationsRequest>();
   @$core.pragma('dart2js:noInline')
   static QueryValidatorUnbondingDelegationsRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryValidatorUnbondingDelegationsRequest>(create);
-  static QueryValidatorUnbondingDelegationsRequest? _defaultInstance;
+  static QueryValidatorUnbondingDelegationsRequest _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get validatorAddr => $_getSZ(0);
@@ -420,19 +344,7 @@ class QueryValidatorUnbondingDelegationsResponse extends $pb.GeneratedMessage {
   ;
 
   QueryValidatorUnbondingDelegationsResponse._() : super();
-  factory QueryValidatorUnbondingDelegationsResponse({
-    $core.Iterable<$11.UnbondingDelegation>? unbondingResponses,
-    $13.PageResponse? pagination,
-  }) {
-    final _result = create();
-    if (unbondingResponses != null) {
-      _result.unbondingResponses.addAll(unbondingResponses);
-    }
-    if (pagination != null) {
-      _result.pagination = pagination;
-    }
-    return _result;
-  }
+  factory QueryValidatorUnbondingDelegationsResponse() => create();
   factory QueryValidatorUnbondingDelegationsResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryValidatorUnbondingDelegationsResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -444,7 +356,7 @@ class QueryValidatorUnbondingDelegationsResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryValidatorUnbondingDelegationsResponse copyWith(void Function(QueryValidatorUnbondingDelegationsResponse) updates) => super.copyWith((message) => updates(message as QueryValidatorUnbondingDelegationsResponse)) as QueryValidatorUnbondingDelegationsResponse; // ignore: deprecated_member_use
+  QueryValidatorUnbondingDelegationsResponse copyWith(void Function(QueryValidatorUnbondingDelegationsResponse) updates) => super.copyWith((message) => updates(message as QueryValidatorUnbondingDelegationsResponse)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryValidatorUnbondingDelegationsResponse create() => QueryValidatorUnbondingDelegationsResponse._();
@@ -452,7 +364,7 @@ class QueryValidatorUnbondingDelegationsResponse extends $pb.GeneratedMessage {
   static $pb.PbList<QueryValidatorUnbondingDelegationsResponse> createRepeated() => $pb.PbList<QueryValidatorUnbondingDelegationsResponse>();
   @$core.pragma('dart2js:noInline')
   static QueryValidatorUnbondingDelegationsResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryValidatorUnbondingDelegationsResponse>(create);
-  static QueryValidatorUnbondingDelegationsResponse? _defaultInstance;
+  static QueryValidatorUnbondingDelegationsResponse _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.List<$11.UnbondingDelegation> get unbondingResponses => $_getList(0);
@@ -477,19 +389,7 @@ class QueryDelegationRequest extends $pb.GeneratedMessage {
   ;
 
   QueryDelegationRequest._() : super();
-  factory QueryDelegationRequest({
-    $core.String? delegatorAddr,
-    $core.String? validatorAddr,
-  }) {
-    final _result = create();
-    if (delegatorAddr != null) {
-      _result.delegatorAddr = delegatorAddr;
-    }
-    if (validatorAddr != null) {
-      _result.validatorAddr = validatorAddr;
-    }
-    return _result;
-  }
+  factory QueryDelegationRequest() => create();
   factory QueryDelegationRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryDelegationRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -501,7 +401,7 @@ class QueryDelegationRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryDelegationRequest copyWith(void Function(QueryDelegationRequest) updates) => super.copyWith((message) => updates(message as QueryDelegationRequest)) as QueryDelegationRequest; // ignore: deprecated_member_use
+  QueryDelegationRequest copyWith(void Function(QueryDelegationRequest) updates) => super.copyWith((message) => updates(message as QueryDelegationRequest)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryDelegationRequest create() => QueryDelegationRequest._();
@@ -509,7 +409,7 @@ class QueryDelegationRequest extends $pb.GeneratedMessage {
   static $pb.PbList<QueryDelegationRequest> createRepeated() => $pb.PbList<QueryDelegationRequest>();
   @$core.pragma('dart2js:noInline')
   static QueryDelegationRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryDelegationRequest>(create);
-  static QueryDelegationRequest? _defaultInstance;
+  static QueryDelegationRequest _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get delegatorAddr => $_getSZ(0);
@@ -537,15 +437,7 @@ class QueryDelegationResponse extends $pb.GeneratedMessage {
   ;
 
   QueryDelegationResponse._() : super();
-  factory QueryDelegationResponse({
-    $11.DelegationResponse? delegationResponse,
-  }) {
-    final _result = create();
-    if (delegationResponse != null) {
-      _result.delegationResponse = delegationResponse;
-    }
-    return _result;
-  }
+  factory QueryDelegationResponse() => create();
   factory QueryDelegationResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryDelegationResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -557,7 +449,7 @@ class QueryDelegationResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryDelegationResponse copyWith(void Function(QueryDelegationResponse) updates) => super.copyWith((message) => updates(message as QueryDelegationResponse)) as QueryDelegationResponse; // ignore: deprecated_member_use
+  QueryDelegationResponse copyWith(void Function(QueryDelegationResponse) updates) => super.copyWith((message) => updates(message as QueryDelegationResponse)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryDelegationResponse create() => QueryDelegationResponse._();
@@ -565,7 +457,7 @@ class QueryDelegationResponse extends $pb.GeneratedMessage {
   static $pb.PbList<QueryDelegationResponse> createRepeated() => $pb.PbList<QueryDelegationResponse>();
   @$core.pragma('dart2js:noInline')
   static QueryDelegationResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryDelegationResponse>(create);
-  static QueryDelegationResponse? _defaultInstance;
+  static QueryDelegationResponse _defaultInstance;
 
   @$pb.TagNumber(1)
   $11.DelegationResponse get delegationResponse => $_getN(0);
@@ -587,19 +479,7 @@ class QueryUnbondingDelegationRequest extends $pb.GeneratedMessage {
   ;
 
   QueryUnbondingDelegationRequest._() : super();
-  factory QueryUnbondingDelegationRequest({
-    $core.String? delegatorAddr,
-    $core.String? validatorAddr,
-  }) {
-    final _result = create();
-    if (delegatorAddr != null) {
-      _result.delegatorAddr = delegatorAddr;
-    }
-    if (validatorAddr != null) {
-      _result.validatorAddr = validatorAddr;
-    }
-    return _result;
-  }
+  factory QueryUnbondingDelegationRequest() => create();
   factory QueryUnbondingDelegationRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryUnbondingDelegationRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -611,7 +491,7 @@ class QueryUnbondingDelegationRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryUnbondingDelegationRequest copyWith(void Function(QueryUnbondingDelegationRequest) updates) => super.copyWith((message) => updates(message as QueryUnbondingDelegationRequest)) as QueryUnbondingDelegationRequest; // ignore: deprecated_member_use
+  QueryUnbondingDelegationRequest copyWith(void Function(QueryUnbondingDelegationRequest) updates) => super.copyWith((message) => updates(message as QueryUnbondingDelegationRequest)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryUnbondingDelegationRequest create() => QueryUnbondingDelegationRequest._();
@@ -619,7 +499,7 @@ class QueryUnbondingDelegationRequest extends $pb.GeneratedMessage {
   static $pb.PbList<QueryUnbondingDelegationRequest> createRepeated() => $pb.PbList<QueryUnbondingDelegationRequest>();
   @$core.pragma('dart2js:noInline')
   static QueryUnbondingDelegationRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryUnbondingDelegationRequest>(create);
-  static QueryUnbondingDelegationRequest? _defaultInstance;
+  static QueryUnbondingDelegationRequest _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get delegatorAddr => $_getSZ(0);
@@ -647,15 +527,7 @@ class QueryUnbondingDelegationResponse extends $pb.GeneratedMessage {
   ;
 
   QueryUnbondingDelegationResponse._() : super();
-  factory QueryUnbondingDelegationResponse({
-    $11.UnbondingDelegation? unbond,
-  }) {
-    final _result = create();
-    if (unbond != null) {
-      _result.unbond = unbond;
-    }
-    return _result;
-  }
+  factory QueryUnbondingDelegationResponse() => create();
   factory QueryUnbondingDelegationResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryUnbondingDelegationResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -667,7 +539,7 @@ class QueryUnbondingDelegationResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryUnbondingDelegationResponse copyWith(void Function(QueryUnbondingDelegationResponse) updates) => super.copyWith((message) => updates(message as QueryUnbondingDelegationResponse)) as QueryUnbondingDelegationResponse; // ignore: deprecated_member_use
+  QueryUnbondingDelegationResponse copyWith(void Function(QueryUnbondingDelegationResponse) updates) => super.copyWith((message) => updates(message as QueryUnbondingDelegationResponse)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryUnbondingDelegationResponse create() => QueryUnbondingDelegationResponse._();
@@ -675,7 +547,7 @@ class QueryUnbondingDelegationResponse extends $pb.GeneratedMessage {
   static $pb.PbList<QueryUnbondingDelegationResponse> createRepeated() => $pb.PbList<QueryUnbondingDelegationResponse>();
   @$core.pragma('dart2js:noInline')
   static QueryUnbondingDelegationResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryUnbondingDelegationResponse>(create);
-  static QueryUnbondingDelegationResponse? _defaultInstance;
+  static QueryUnbondingDelegationResponse _defaultInstance;
 
   @$pb.TagNumber(1)
   $11.UnbondingDelegation get unbond => $_getN(0);
@@ -697,19 +569,7 @@ class QueryDelegatorDelegationsRequest extends $pb.GeneratedMessage {
   ;
 
   QueryDelegatorDelegationsRequest._() : super();
-  factory QueryDelegatorDelegationsRequest({
-    $core.String? delegatorAddr,
-    $13.PageRequest? pagination,
-  }) {
-    final _result = create();
-    if (delegatorAddr != null) {
-      _result.delegatorAddr = delegatorAddr;
-    }
-    if (pagination != null) {
-      _result.pagination = pagination;
-    }
-    return _result;
-  }
+  factory QueryDelegatorDelegationsRequest() => create();
   factory QueryDelegatorDelegationsRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryDelegatorDelegationsRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -721,7 +581,7 @@ class QueryDelegatorDelegationsRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryDelegatorDelegationsRequest copyWith(void Function(QueryDelegatorDelegationsRequest) updates) => super.copyWith((message) => updates(message as QueryDelegatorDelegationsRequest)) as QueryDelegatorDelegationsRequest; // ignore: deprecated_member_use
+  QueryDelegatorDelegationsRequest copyWith(void Function(QueryDelegatorDelegationsRequest) updates) => super.copyWith((message) => updates(message as QueryDelegatorDelegationsRequest)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryDelegatorDelegationsRequest create() => QueryDelegatorDelegationsRequest._();
@@ -729,7 +589,7 @@ class QueryDelegatorDelegationsRequest extends $pb.GeneratedMessage {
   static $pb.PbList<QueryDelegatorDelegationsRequest> createRepeated() => $pb.PbList<QueryDelegatorDelegationsRequest>();
   @$core.pragma('dart2js:noInline')
   static QueryDelegatorDelegationsRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryDelegatorDelegationsRequest>(create);
-  static QueryDelegatorDelegationsRequest? _defaultInstance;
+  static QueryDelegatorDelegationsRequest _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get delegatorAddr => $_getSZ(0);
@@ -760,19 +620,7 @@ class QueryDelegatorDelegationsResponse extends $pb.GeneratedMessage {
   ;
 
   QueryDelegatorDelegationsResponse._() : super();
-  factory QueryDelegatorDelegationsResponse({
-    $core.Iterable<$11.DelegationResponse>? delegationResponses,
-    $13.PageResponse? pagination,
-  }) {
-    final _result = create();
-    if (delegationResponses != null) {
-      _result.delegationResponses.addAll(delegationResponses);
-    }
-    if (pagination != null) {
-      _result.pagination = pagination;
-    }
-    return _result;
-  }
+  factory QueryDelegatorDelegationsResponse() => create();
   factory QueryDelegatorDelegationsResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryDelegatorDelegationsResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -784,7 +632,7 @@ class QueryDelegatorDelegationsResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryDelegatorDelegationsResponse copyWith(void Function(QueryDelegatorDelegationsResponse) updates) => super.copyWith((message) => updates(message as QueryDelegatorDelegationsResponse)) as QueryDelegatorDelegationsResponse; // ignore: deprecated_member_use
+  QueryDelegatorDelegationsResponse copyWith(void Function(QueryDelegatorDelegationsResponse) updates) => super.copyWith((message) => updates(message as QueryDelegatorDelegationsResponse)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryDelegatorDelegationsResponse create() => QueryDelegatorDelegationsResponse._();
@@ -792,7 +640,7 @@ class QueryDelegatorDelegationsResponse extends $pb.GeneratedMessage {
   static $pb.PbList<QueryDelegatorDelegationsResponse> createRepeated() => $pb.PbList<QueryDelegatorDelegationsResponse>();
   @$core.pragma('dart2js:noInline')
   static QueryDelegatorDelegationsResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryDelegatorDelegationsResponse>(create);
-  static QueryDelegatorDelegationsResponse? _defaultInstance;
+  static QueryDelegatorDelegationsResponse _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.List<$11.DelegationResponse> get delegationResponses => $_getList(0);
@@ -817,19 +665,7 @@ class QueryDelegatorUnbondingDelegationsRequest extends $pb.GeneratedMessage {
   ;
 
   QueryDelegatorUnbondingDelegationsRequest._() : super();
-  factory QueryDelegatorUnbondingDelegationsRequest({
-    $core.String? delegatorAddr,
-    $13.PageRequest? pagination,
-  }) {
-    final _result = create();
-    if (delegatorAddr != null) {
-      _result.delegatorAddr = delegatorAddr;
-    }
-    if (pagination != null) {
-      _result.pagination = pagination;
-    }
-    return _result;
-  }
+  factory QueryDelegatorUnbondingDelegationsRequest() => create();
   factory QueryDelegatorUnbondingDelegationsRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryDelegatorUnbondingDelegationsRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -841,7 +677,7 @@ class QueryDelegatorUnbondingDelegationsRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryDelegatorUnbondingDelegationsRequest copyWith(void Function(QueryDelegatorUnbondingDelegationsRequest) updates) => super.copyWith((message) => updates(message as QueryDelegatorUnbondingDelegationsRequest)) as QueryDelegatorUnbondingDelegationsRequest; // ignore: deprecated_member_use
+  QueryDelegatorUnbondingDelegationsRequest copyWith(void Function(QueryDelegatorUnbondingDelegationsRequest) updates) => super.copyWith((message) => updates(message as QueryDelegatorUnbondingDelegationsRequest)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryDelegatorUnbondingDelegationsRequest create() => QueryDelegatorUnbondingDelegationsRequest._();
@@ -849,7 +685,7 @@ class QueryDelegatorUnbondingDelegationsRequest extends $pb.GeneratedMessage {
   static $pb.PbList<QueryDelegatorUnbondingDelegationsRequest> createRepeated() => $pb.PbList<QueryDelegatorUnbondingDelegationsRequest>();
   @$core.pragma('dart2js:noInline')
   static QueryDelegatorUnbondingDelegationsRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryDelegatorUnbondingDelegationsRequest>(create);
-  static QueryDelegatorUnbondingDelegationsRequest? _defaultInstance;
+  static QueryDelegatorUnbondingDelegationsRequest _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get delegatorAddr => $_getSZ(0);
@@ -880,19 +716,7 @@ class QueryDelegatorUnbondingDelegationsResponse extends $pb.GeneratedMessage {
   ;
 
   QueryDelegatorUnbondingDelegationsResponse._() : super();
-  factory QueryDelegatorUnbondingDelegationsResponse({
-    $core.Iterable<$11.UnbondingDelegation>? unbondingResponses,
-    $13.PageResponse? pagination,
-  }) {
-    final _result = create();
-    if (unbondingResponses != null) {
-      _result.unbondingResponses.addAll(unbondingResponses);
-    }
-    if (pagination != null) {
-      _result.pagination = pagination;
-    }
-    return _result;
-  }
+  factory QueryDelegatorUnbondingDelegationsResponse() => create();
   factory QueryDelegatorUnbondingDelegationsResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryDelegatorUnbondingDelegationsResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -904,7 +728,7 @@ class QueryDelegatorUnbondingDelegationsResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryDelegatorUnbondingDelegationsResponse copyWith(void Function(QueryDelegatorUnbondingDelegationsResponse) updates) => super.copyWith((message) => updates(message as QueryDelegatorUnbondingDelegationsResponse)) as QueryDelegatorUnbondingDelegationsResponse; // ignore: deprecated_member_use
+  QueryDelegatorUnbondingDelegationsResponse copyWith(void Function(QueryDelegatorUnbondingDelegationsResponse) updates) => super.copyWith((message) => updates(message as QueryDelegatorUnbondingDelegationsResponse)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryDelegatorUnbondingDelegationsResponse create() => QueryDelegatorUnbondingDelegationsResponse._();
@@ -912,7 +736,7 @@ class QueryDelegatorUnbondingDelegationsResponse extends $pb.GeneratedMessage {
   static $pb.PbList<QueryDelegatorUnbondingDelegationsResponse> createRepeated() => $pb.PbList<QueryDelegatorUnbondingDelegationsResponse>();
   @$core.pragma('dart2js:noInline')
   static QueryDelegatorUnbondingDelegationsResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryDelegatorUnbondingDelegationsResponse>(create);
-  static QueryDelegatorUnbondingDelegationsResponse? _defaultInstance;
+  static QueryDelegatorUnbondingDelegationsResponse _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.List<$11.UnbondingDelegation> get unbondingResponses => $_getList(0);
@@ -939,27 +763,7 @@ class QueryRedelegationsRequest extends $pb.GeneratedMessage {
   ;
 
   QueryRedelegationsRequest._() : super();
-  factory QueryRedelegationsRequest({
-    $core.String? delegatorAddr,
-    $core.String? srcValidatorAddr,
-    $core.String? dstValidatorAddr,
-    $13.PageRequest? pagination,
-  }) {
-    final _result = create();
-    if (delegatorAddr != null) {
-      _result.delegatorAddr = delegatorAddr;
-    }
-    if (srcValidatorAddr != null) {
-      _result.srcValidatorAddr = srcValidatorAddr;
-    }
-    if (dstValidatorAddr != null) {
-      _result.dstValidatorAddr = dstValidatorAddr;
-    }
-    if (pagination != null) {
-      _result.pagination = pagination;
-    }
-    return _result;
-  }
+  factory QueryRedelegationsRequest() => create();
   factory QueryRedelegationsRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryRedelegationsRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -971,7 +775,7 @@ class QueryRedelegationsRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryRedelegationsRequest copyWith(void Function(QueryRedelegationsRequest) updates) => super.copyWith((message) => updates(message as QueryRedelegationsRequest)) as QueryRedelegationsRequest; // ignore: deprecated_member_use
+  QueryRedelegationsRequest copyWith(void Function(QueryRedelegationsRequest) updates) => super.copyWith((message) => updates(message as QueryRedelegationsRequest)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryRedelegationsRequest create() => QueryRedelegationsRequest._();
@@ -979,7 +783,7 @@ class QueryRedelegationsRequest extends $pb.GeneratedMessage {
   static $pb.PbList<QueryRedelegationsRequest> createRepeated() => $pb.PbList<QueryRedelegationsRequest>();
   @$core.pragma('dart2js:noInline')
   static QueryRedelegationsRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryRedelegationsRequest>(create);
-  static QueryRedelegationsRequest? _defaultInstance;
+  static QueryRedelegationsRequest _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get delegatorAddr => $_getSZ(0);
@@ -1028,19 +832,7 @@ class QueryRedelegationsResponse extends $pb.GeneratedMessage {
   ;
 
   QueryRedelegationsResponse._() : super();
-  factory QueryRedelegationsResponse({
-    $core.Iterable<$11.RedelegationResponse>? redelegationResponses,
-    $13.PageResponse? pagination,
-  }) {
-    final _result = create();
-    if (redelegationResponses != null) {
-      _result.redelegationResponses.addAll(redelegationResponses);
-    }
-    if (pagination != null) {
-      _result.pagination = pagination;
-    }
-    return _result;
-  }
+  factory QueryRedelegationsResponse() => create();
   factory QueryRedelegationsResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryRedelegationsResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -1052,7 +844,7 @@ class QueryRedelegationsResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryRedelegationsResponse copyWith(void Function(QueryRedelegationsResponse) updates) => super.copyWith((message) => updates(message as QueryRedelegationsResponse)) as QueryRedelegationsResponse; // ignore: deprecated_member_use
+  QueryRedelegationsResponse copyWith(void Function(QueryRedelegationsResponse) updates) => super.copyWith((message) => updates(message as QueryRedelegationsResponse)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryRedelegationsResponse create() => QueryRedelegationsResponse._();
@@ -1060,7 +852,7 @@ class QueryRedelegationsResponse extends $pb.GeneratedMessage {
   static $pb.PbList<QueryRedelegationsResponse> createRepeated() => $pb.PbList<QueryRedelegationsResponse>();
   @$core.pragma('dart2js:noInline')
   static QueryRedelegationsResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryRedelegationsResponse>(create);
-  static QueryRedelegationsResponse? _defaultInstance;
+  static QueryRedelegationsResponse _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.List<$11.RedelegationResponse> get redelegationResponses => $_getList(0);
@@ -1085,19 +877,7 @@ class QueryDelegatorValidatorsRequest extends $pb.GeneratedMessage {
   ;
 
   QueryDelegatorValidatorsRequest._() : super();
-  factory QueryDelegatorValidatorsRequest({
-    $core.String? delegatorAddr,
-    $13.PageRequest? pagination,
-  }) {
-    final _result = create();
-    if (delegatorAddr != null) {
-      _result.delegatorAddr = delegatorAddr;
-    }
-    if (pagination != null) {
-      _result.pagination = pagination;
-    }
-    return _result;
-  }
+  factory QueryDelegatorValidatorsRequest() => create();
   factory QueryDelegatorValidatorsRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryDelegatorValidatorsRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -1109,7 +889,7 @@ class QueryDelegatorValidatorsRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryDelegatorValidatorsRequest copyWith(void Function(QueryDelegatorValidatorsRequest) updates) => super.copyWith((message) => updates(message as QueryDelegatorValidatorsRequest)) as QueryDelegatorValidatorsRequest; // ignore: deprecated_member_use
+  QueryDelegatorValidatorsRequest copyWith(void Function(QueryDelegatorValidatorsRequest) updates) => super.copyWith((message) => updates(message as QueryDelegatorValidatorsRequest)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryDelegatorValidatorsRequest create() => QueryDelegatorValidatorsRequest._();
@@ -1117,7 +897,7 @@ class QueryDelegatorValidatorsRequest extends $pb.GeneratedMessage {
   static $pb.PbList<QueryDelegatorValidatorsRequest> createRepeated() => $pb.PbList<QueryDelegatorValidatorsRequest>();
   @$core.pragma('dart2js:noInline')
   static QueryDelegatorValidatorsRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryDelegatorValidatorsRequest>(create);
-  static QueryDelegatorValidatorsRequest? _defaultInstance;
+  static QueryDelegatorValidatorsRequest _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get delegatorAddr => $_getSZ(0);
@@ -1148,19 +928,7 @@ class QueryDelegatorValidatorsResponse extends $pb.GeneratedMessage {
   ;
 
   QueryDelegatorValidatorsResponse._() : super();
-  factory QueryDelegatorValidatorsResponse({
-    $core.Iterable<$11.Validator>? validators,
-    $13.PageResponse? pagination,
-  }) {
-    final _result = create();
-    if (validators != null) {
-      _result.validators.addAll(validators);
-    }
-    if (pagination != null) {
-      _result.pagination = pagination;
-    }
-    return _result;
-  }
+  factory QueryDelegatorValidatorsResponse() => create();
   factory QueryDelegatorValidatorsResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryDelegatorValidatorsResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -1172,7 +940,7 @@ class QueryDelegatorValidatorsResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryDelegatorValidatorsResponse copyWith(void Function(QueryDelegatorValidatorsResponse) updates) => super.copyWith((message) => updates(message as QueryDelegatorValidatorsResponse)) as QueryDelegatorValidatorsResponse; // ignore: deprecated_member_use
+  QueryDelegatorValidatorsResponse copyWith(void Function(QueryDelegatorValidatorsResponse) updates) => super.copyWith((message) => updates(message as QueryDelegatorValidatorsResponse)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryDelegatorValidatorsResponse create() => QueryDelegatorValidatorsResponse._();
@@ -1180,7 +948,7 @@ class QueryDelegatorValidatorsResponse extends $pb.GeneratedMessage {
   static $pb.PbList<QueryDelegatorValidatorsResponse> createRepeated() => $pb.PbList<QueryDelegatorValidatorsResponse>();
   @$core.pragma('dart2js:noInline')
   static QueryDelegatorValidatorsResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryDelegatorValidatorsResponse>(create);
-  static QueryDelegatorValidatorsResponse? _defaultInstance;
+  static QueryDelegatorValidatorsResponse _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.List<$11.Validator> get validators => $_getList(0);
@@ -1205,19 +973,7 @@ class QueryDelegatorValidatorRequest extends $pb.GeneratedMessage {
   ;
 
   QueryDelegatorValidatorRequest._() : super();
-  factory QueryDelegatorValidatorRequest({
-    $core.String? delegatorAddr,
-    $core.String? validatorAddr,
-  }) {
-    final _result = create();
-    if (delegatorAddr != null) {
-      _result.delegatorAddr = delegatorAddr;
-    }
-    if (validatorAddr != null) {
-      _result.validatorAddr = validatorAddr;
-    }
-    return _result;
-  }
+  factory QueryDelegatorValidatorRequest() => create();
   factory QueryDelegatorValidatorRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryDelegatorValidatorRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -1229,7 +985,7 @@ class QueryDelegatorValidatorRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryDelegatorValidatorRequest copyWith(void Function(QueryDelegatorValidatorRequest) updates) => super.copyWith((message) => updates(message as QueryDelegatorValidatorRequest)) as QueryDelegatorValidatorRequest; // ignore: deprecated_member_use
+  QueryDelegatorValidatorRequest copyWith(void Function(QueryDelegatorValidatorRequest) updates) => super.copyWith((message) => updates(message as QueryDelegatorValidatorRequest)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryDelegatorValidatorRequest create() => QueryDelegatorValidatorRequest._();
@@ -1237,7 +993,7 @@ class QueryDelegatorValidatorRequest extends $pb.GeneratedMessage {
   static $pb.PbList<QueryDelegatorValidatorRequest> createRepeated() => $pb.PbList<QueryDelegatorValidatorRequest>();
   @$core.pragma('dart2js:noInline')
   static QueryDelegatorValidatorRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryDelegatorValidatorRequest>(create);
-  static QueryDelegatorValidatorRequest? _defaultInstance;
+  static QueryDelegatorValidatorRequest _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get delegatorAddr => $_getSZ(0);
@@ -1265,15 +1021,7 @@ class QueryDelegatorValidatorResponse extends $pb.GeneratedMessage {
   ;
 
   QueryDelegatorValidatorResponse._() : super();
-  factory QueryDelegatorValidatorResponse({
-    $11.Validator? validator,
-  }) {
-    final _result = create();
-    if (validator != null) {
-      _result.validator = validator;
-    }
-    return _result;
-  }
+  factory QueryDelegatorValidatorResponse() => create();
   factory QueryDelegatorValidatorResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryDelegatorValidatorResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -1285,7 +1033,7 @@ class QueryDelegatorValidatorResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryDelegatorValidatorResponse copyWith(void Function(QueryDelegatorValidatorResponse) updates) => super.copyWith((message) => updates(message as QueryDelegatorValidatorResponse)) as QueryDelegatorValidatorResponse; // ignore: deprecated_member_use
+  QueryDelegatorValidatorResponse copyWith(void Function(QueryDelegatorValidatorResponse) updates) => super.copyWith((message) => updates(message as QueryDelegatorValidatorResponse)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryDelegatorValidatorResponse create() => QueryDelegatorValidatorResponse._();
@@ -1293,7 +1041,7 @@ class QueryDelegatorValidatorResponse extends $pb.GeneratedMessage {
   static $pb.PbList<QueryDelegatorValidatorResponse> createRepeated() => $pb.PbList<QueryDelegatorValidatorResponse>();
   @$core.pragma('dart2js:noInline')
   static QueryDelegatorValidatorResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryDelegatorValidatorResponse>(create);
-  static QueryDelegatorValidatorResponse? _defaultInstance;
+  static QueryDelegatorValidatorResponse _defaultInstance;
 
   @$pb.TagNumber(1)
   $11.Validator get validator => $_getN(0);
@@ -1314,15 +1062,7 @@ class QueryHistoricalInfoRequest extends $pb.GeneratedMessage {
   ;
 
   QueryHistoricalInfoRequest._() : super();
-  factory QueryHistoricalInfoRequest({
-    $fixnum.Int64? height,
-  }) {
-    final _result = create();
-    if (height != null) {
-      _result.height = height;
-    }
-    return _result;
-  }
+  factory QueryHistoricalInfoRequest() => create();
   factory QueryHistoricalInfoRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryHistoricalInfoRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -1334,7 +1074,7 @@ class QueryHistoricalInfoRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryHistoricalInfoRequest copyWith(void Function(QueryHistoricalInfoRequest) updates) => super.copyWith((message) => updates(message as QueryHistoricalInfoRequest)) as QueryHistoricalInfoRequest; // ignore: deprecated_member_use
+  QueryHistoricalInfoRequest copyWith(void Function(QueryHistoricalInfoRequest) updates) => super.copyWith((message) => updates(message as QueryHistoricalInfoRequest)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryHistoricalInfoRequest create() => QueryHistoricalInfoRequest._();
@@ -1342,7 +1082,7 @@ class QueryHistoricalInfoRequest extends $pb.GeneratedMessage {
   static $pb.PbList<QueryHistoricalInfoRequest> createRepeated() => $pb.PbList<QueryHistoricalInfoRequest>();
   @$core.pragma('dart2js:noInline')
   static QueryHistoricalInfoRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryHistoricalInfoRequest>(create);
-  static QueryHistoricalInfoRequest? _defaultInstance;
+  static QueryHistoricalInfoRequest _defaultInstance;
 
   @$pb.TagNumber(1)
   $fixnum.Int64 get height => $_getI64(0);
@@ -1361,15 +1101,7 @@ class QueryHistoricalInfoResponse extends $pb.GeneratedMessage {
   ;
 
   QueryHistoricalInfoResponse._() : super();
-  factory QueryHistoricalInfoResponse({
-    $11.HistoricalInfo? hist,
-  }) {
-    final _result = create();
-    if (hist != null) {
-      _result.hist = hist;
-    }
-    return _result;
-  }
+  factory QueryHistoricalInfoResponse() => create();
   factory QueryHistoricalInfoResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryHistoricalInfoResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -1381,7 +1113,7 @@ class QueryHistoricalInfoResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryHistoricalInfoResponse copyWith(void Function(QueryHistoricalInfoResponse) updates) => super.copyWith((message) => updates(message as QueryHistoricalInfoResponse)) as QueryHistoricalInfoResponse; // ignore: deprecated_member_use
+  QueryHistoricalInfoResponse copyWith(void Function(QueryHistoricalInfoResponse) updates) => super.copyWith((message) => updates(message as QueryHistoricalInfoResponse)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryHistoricalInfoResponse create() => QueryHistoricalInfoResponse._();
@@ -1389,7 +1121,7 @@ class QueryHistoricalInfoResponse extends $pb.GeneratedMessage {
   static $pb.PbList<QueryHistoricalInfoResponse> createRepeated() => $pb.PbList<QueryHistoricalInfoResponse>();
   @$core.pragma('dart2js:noInline')
   static QueryHistoricalInfoResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryHistoricalInfoResponse>(create);
-  static QueryHistoricalInfoResponse? _defaultInstance;
+  static QueryHistoricalInfoResponse _defaultInstance;
 
   @$pb.TagNumber(1)
   $11.HistoricalInfo get hist => $_getN(0);
@@ -1421,7 +1153,7 @@ class QueryPoolRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryPoolRequest copyWith(void Function(QueryPoolRequest) updates) => super.copyWith((message) => updates(message as QueryPoolRequest)) as QueryPoolRequest; // ignore: deprecated_member_use
+  QueryPoolRequest copyWith(void Function(QueryPoolRequest) updates) => super.copyWith((message) => updates(message as QueryPoolRequest)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryPoolRequest create() => QueryPoolRequest._();
@@ -1429,7 +1161,7 @@ class QueryPoolRequest extends $pb.GeneratedMessage {
   static $pb.PbList<QueryPoolRequest> createRepeated() => $pb.PbList<QueryPoolRequest>();
   @$core.pragma('dart2js:noInline')
   static QueryPoolRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryPoolRequest>(create);
-  static QueryPoolRequest? _defaultInstance;
+  static QueryPoolRequest _defaultInstance;
 }
 
 class QueryPoolResponse extends $pb.GeneratedMessage {
@@ -1439,15 +1171,7 @@ class QueryPoolResponse extends $pb.GeneratedMessage {
   ;
 
   QueryPoolResponse._() : super();
-  factory QueryPoolResponse({
-    $11.Pool? pool,
-  }) {
-    final _result = create();
-    if (pool != null) {
-      _result.pool = pool;
-    }
-    return _result;
-  }
+  factory QueryPoolResponse() => create();
   factory QueryPoolResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryPoolResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -1459,7 +1183,7 @@ class QueryPoolResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryPoolResponse copyWith(void Function(QueryPoolResponse) updates) => super.copyWith((message) => updates(message as QueryPoolResponse)) as QueryPoolResponse; // ignore: deprecated_member_use
+  QueryPoolResponse copyWith(void Function(QueryPoolResponse) updates) => super.copyWith((message) => updates(message as QueryPoolResponse)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryPoolResponse create() => QueryPoolResponse._();
@@ -1467,7 +1191,7 @@ class QueryPoolResponse extends $pb.GeneratedMessage {
   static $pb.PbList<QueryPoolResponse> createRepeated() => $pb.PbList<QueryPoolResponse>();
   @$core.pragma('dart2js:noInline')
   static QueryPoolResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryPoolResponse>(create);
-  static QueryPoolResponse? _defaultInstance;
+  static QueryPoolResponse _defaultInstance;
 
   @$pb.TagNumber(1)
   $11.Pool get pool => $_getN(0);
@@ -1499,7 +1223,7 @@ class QueryParamsRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryParamsRequest copyWith(void Function(QueryParamsRequest) updates) => super.copyWith((message) => updates(message as QueryParamsRequest)) as QueryParamsRequest; // ignore: deprecated_member_use
+  QueryParamsRequest copyWith(void Function(QueryParamsRequest) updates) => super.copyWith((message) => updates(message as QueryParamsRequest)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryParamsRequest create() => QueryParamsRequest._();
@@ -1507,7 +1231,7 @@ class QueryParamsRequest extends $pb.GeneratedMessage {
   static $pb.PbList<QueryParamsRequest> createRepeated() => $pb.PbList<QueryParamsRequest>();
   @$core.pragma('dart2js:noInline')
   static QueryParamsRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryParamsRequest>(create);
-  static QueryParamsRequest? _defaultInstance;
+  static QueryParamsRequest _defaultInstance;
 }
 
 class QueryParamsResponse extends $pb.GeneratedMessage {
@@ -1517,15 +1241,7 @@ class QueryParamsResponse extends $pb.GeneratedMessage {
   ;
 
   QueryParamsResponse._() : super();
-  factory QueryParamsResponse({
-    $11.Params? params,
-  }) {
-    final _result = create();
-    if (params != null) {
-      _result.params = params;
-    }
-    return _result;
-  }
+  factory QueryParamsResponse() => create();
   factory QueryParamsResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryParamsResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -1537,7 +1253,7 @@ class QueryParamsResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryParamsResponse copyWith(void Function(QueryParamsResponse) updates) => super.copyWith((message) => updates(message as QueryParamsResponse)) as QueryParamsResponse; // ignore: deprecated_member_use
+  QueryParamsResponse copyWith(void Function(QueryParamsResponse) updates) => super.copyWith((message) => updates(message as QueryParamsResponse)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryParamsResponse create() => QueryParamsResponse._();
@@ -1545,7 +1261,7 @@ class QueryParamsResponse extends $pb.GeneratedMessage {
   static $pb.PbList<QueryParamsResponse> createRepeated() => $pb.PbList<QueryParamsResponse>();
   @$core.pragma('dart2js:noInline')
   static QueryParamsResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryParamsResponse>(create);
-  static QueryParamsResponse? _defaultInstance;
+  static QueryParamsResponse _defaultInstance;
 
   @$pb.TagNumber(1)
   $11.Params get params => $_getN(0);

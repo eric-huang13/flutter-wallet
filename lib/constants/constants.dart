@@ -63,3 +63,4 @@ const String RECIPE_NOT_FOUND = 'Recipe not found';
 const String USERNAME_NOT_FOUND = 'Username not found';
 const String COOK_BOOK_NOT_FOUND = 'Cookbook not found';
 const String WALLET_CREATION_FAILED = 'Wallet creation failed';
+const String EXECUTION_NOT_FOUND = 'Execution not found';

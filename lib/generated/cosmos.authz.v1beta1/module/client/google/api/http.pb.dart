@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: google/api/http.proto
 //
-// @dart = 2.12
+// @dart = 2.3
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -17,19 +17,7 @@ class Http extends $pb.GeneratedMessage {
   ;
 
   Http._() : super();
-  factory Http({
-    $core.Iterable<HttpRule>? rules,
-    $core.bool? fullyDecodeReservedExpansion,
-  }) {
-    final _result = create();
-    if (rules != null) {
-      _result.rules.addAll(rules);
-    }
-    if (fullyDecodeReservedExpansion != null) {
-      _result.fullyDecodeReservedExpansion = fullyDecodeReservedExpansion;
-    }
-    return _result;
-  }
+  factory Http() => create();
   factory Http.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Http.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -41,7 +29,7 @@ class Http extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Http copyWith(void Function(Http) updates) => super.copyWith((message) => updates(message as Http)) as Http; // ignore: deprecated_member_use
+  Http copyWith(void Function(Http) updates) => super.copyWith((message) => updates(message as Http)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static Http create() => Http._();
@@ -49,7 +37,7 @@ class Http extends $pb.GeneratedMessage {
   static $pb.PbList<Http> createRepeated() => $pb.PbList<Http>();
   @$core.pragma('dart2js:noInline')
   static Http getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Http>(create);
-  static Http? _defaultInstance;
+  static Http _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.List<HttpRule> get rules => $_getList(0);
@@ -100,51 +88,7 @@ class HttpRule extends $pb.GeneratedMessage {
   ;
 
   HttpRule._() : super();
-  factory HttpRule({
-    $core.String? selector,
-    $core.String? get,
-    $core.String? put,
-    $core.String? post,
-    $core.String? delete,
-    $core.String? patch,
-    $core.String? body,
-    CustomHttpPattern? custom,
-    $core.Iterable<HttpRule>? additionalBindings,
-    $core.String? responseBody,
-  }) {
-    final _result = create();
-    if (selector != null) {
-      _result.selector = selector;
-    }
-    if (get != null) {
-      _result.get = get;
-    }
-    if (put != null) {
-      _result.put = put;
-    }
-    if (post != null) {
-      _result.post = post;
-    }
-    if (delete != null) {
-      _result.delete = delete;
-    }
-    if (patch != null) {
-      _result.patch = patch;
-    }
-    if (body != null) {
-      _result.body = body;
-    }
-    if (custom != null) {
-      _result.custom = custom;
-    }
-    if (additionalBindings != null) {
-      _result.additionalBindings.addAll(additionalBindings);
-    }
-    if (responseBody != null) {
-      _result.responseBody = responseBody;
-    }
-    return _result;
-  }
+  factory HttpRule() => create();
   factory HttpRule.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory HttpRule.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -156,7 +100,7 @@ class HttpRule extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  HttpRule copyWith(void Function(HttpRule) updates) => super.copyWith((message) => updates(message as HttpRule)) as HttpRule; // ignore: deprecated_member_use
+  HttpRule copyWith(void Function(HttpRule) updates) => super.copyWith((message) => updates(message as HttpRule)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static HttpRule create() => HttpRule._();
@@ -164,9 +108,9 @@ class HttpRule extends $pb.GeneratedMessage {
   static $pb.PbList<HttpRule> createRepeated() => $pb.PbList<HttpRule>();
   @$core.pragma('dart2js:noInline')
   static HttpRule getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<HttpRule>(create);
-  static HttpRule? _defaultInstance;
+  static HttpRule _defaultInstance;
 
-  HttpRule_Pattern whichPattern() => _HttpRule_PatternByTag[$_whichOneof(0)]!;
+  HttpRule_Pattern whichPattern() => _HttpRule_PatternByTag[$_whichOneof(0)];
   void clearPattern() => clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)
@@ -264,19 +208,7 @@ class CustomHttpPattern extends $pb.GeneratedMessage {
   ;
 
   CustomHttpPattern._() : super();
-  factory CustomHttpPattern({
-    $core.String? kind,
-    $core.String? path,
-  }) {
-    final _result = create();
-    if (kind != null) {
-      _result.kind = kind;
-    }
-    if (path != null) {
-      _result.path = path;
-    }
-    return _result;
-  }
+  factory CustomHttpPattern() => create();
   factory CustomHttpPattern.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory CustomHttpPattern.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -288,7 +220,7 @@ class CustomHttpPattern extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  CustomHttpPattern copyWith(void Function(CustomHttpPattern) updates) => super.copyWith((message) => updates(message as CustomHttpPattern)) as CustomHttpPattern; // ignore: deprecated_member_use
+  CustomHttpPattern copyWith(void Function(CustomHttpPattern) updates) => super.copyWith((message) => updates(message as CustomHttpPattern)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static CustomHttpPattern create() => CustomHttpPattern._();
@@ -296,7 +228,7 @@ class CustomHttpPattern extends $pb.GeneratedMessage {
   static $pb.PbList<CustomHttpPattern> createRepeated() => $pb.PbList<CustomHttpPattern>();
   @$core.pragma('dart2js:noInline')
   static CustomHttpPattern getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CustomHttpPattern>(create);
-  static CustomHttpPattern? _defaultInstance;
+  static CustomHttpPattern _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get kind => $_getSZ(0);

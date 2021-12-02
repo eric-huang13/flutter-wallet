@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: cosmos/feegrant/v1beta1/query.proto
 //
-// @dart = 2.12
+// @dart = 2.3
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -20,19 +20,7 @@ class QueryAllowanceRequest extends $pb.GeneratedMessage {
   ;
 
   QueryAllowanceRequest._() : super();
-  factory QueryAllowanceRequest({
-    $core.String? granter,
-    $core.String? grantee,
-  }) {
-    final _result = create();
-    if (granter != null) {
-      _result.granter = granter;
-    }
-    if (grantee != null) {
-      _result.grantee = grantee;
-    }
-    return _result;
-  }
+  factory QueryAllowanceRequest() => create();
   factory QueryAllowanceRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryAllowanceRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -44,7 +32,7 @@ class QueryAllowanceRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryAllowanceRequest copyWith(void Function(QueryAllowanceRequest) updates) => super.copyWith((message) => updates(message as QueryAllowanceRequest)) as QueryAllowanceRequest; // ignore: deprecated_member_use
+  QueryAllowanceRequest copyWith(void Function(QueryAllowanceRequest) updates) => super.copyWith((message) => updates(message as QueryAllowanceRequest)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryAllowanceRequest create() => QueryAllowanceRequest._();
@@ -52,7 +40,7 @@ class QueryAllowanceRequest extends $pb.GeneratedMessage {
   static $pb.PbList<QueryAllowanceRequest> createRepeated() => $pb.PbList<QueryAllowanceRequest>();
   @$core.pragma('dart2js:noInline')
   static QueryAllowanceRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryAllowanceRequest>(create);
-  static QueryAllowanceRequest? _defaultInstance;
+  static QueryAllowanceRequest _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get granter => $_getSZ(0);
@@ -80,15 +68,7 @@ class QueryAllowanceResponse extends $pb.GeneratedMessage {
   ;
 
   QueryAllowanceResponse._() : super();
-  factory QueryAllowanceResponse({
-    $6.Grant? allowance,
-  }) {
-    final _result = create();
-    if (allowance != null) {
-      _result.allowance = allowance;
-    }
-    return _result;
-  }
+  factory QueryAllowanceResponse() => create();
   factory QueryAllowanceResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryAllowanceResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -100,7 +80,7 @@ class QueryAllowanceResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryAllowanceResponse copyWith(void Function(QueryAllowanceResponse) updates) => super.copyWith((message) => updates(message as QueryAllowanceResponse)) as QueryAllowanceResponse; // ignore: deprecated_member_use
+  QueryAllowanceResponse copyWith(void Function(QueryAllowanceResponse) updates) => super.copyWith((message) => updates(message as QueryAllowanceResponse)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryAllowanceResponse create() => QueryAllowanceResponse._();
@@ -108,7 +88,7 @@ class QueryAllowanceResponse extends $pb.GeneratedMessage {
   static $pb.PbList<QueryAllowanceResponse> createRepeated() => $pb.PbList<QueryAllowanceResponse>();
   @$core.pragma('dart2js:noInline')
   static QueryAllowanceResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryAllowanceResponse>(create);
-  static QueryAllowanceResponse? _defaultInstance;
+  static QueryAllowanceResponse _defaultInstance;
 
   @$pb.TagNumber(1)
   $6.Grant get allowance => $_getN(0);
@@ -130,19 +110,7 @@ class QueryAllowancesRequest extends $pb.GeneratedMessage {
   ;
 
   QueryAllowancesRequest._() : super();
-  factory QueryAllowancesRequest({
-    $core.String? grantee,
-    $8.PageRequest? pagination,
-  }) {
-    final _result = create();
-    if (grantee != null) {
-      _result.grantee = grantee;
-    }
-    if (pagination != null) {
-      _result.pagination = pagination;
-    }
-    return _result;
-  }
+  factory QueryAllowancesRequest() => create();
   factory QueryAllowancesRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryAllowancesRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -154,7 +122,7 @@ class QueryAllowancesRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryAllowancesRequest copyWith(void Function(QueryAllowancesRequest) updates) => super.copyWith((message) => updates(message as QueryAllowancesRequest)) as QueryAllowancesRequest; // ignore: deprecated_member_use
+  QueryAllowancesRequest copyWith(void Function(QueryAllowancesRequest) updates) => super.copyWith((message) => updates(message as QueryAllowancesRequest)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryAllowancesRequest create() => QueryAllowancesRequest._();
@@ -162,7 +130,7 @@ class QueryAllowancesRequest extends $pb.GeneratedMessage {
   static $pb.PbList<QueryAllowancesRequest> createRepeated() => $pb.PbList<QueryAllowancesRequest>();
   @$core.pragma('dart2js:noInline')
   static QueryAllowancesRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryAllowancesRequest>(create);
-  static QueryAllowancesRequest? _defaultInstance;
+  static QueryAllowancesRequest _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get grantee => $_getSZ(0);
@@ -193,19 +161,7 @@ class QueryAllowancesResponse extends $pb.GeneratedMessage {
   ;
 
   QueryAllowancesResponse._() : super();
-  factory QueryAllowancesResponse({
-    $core.Iterable<$6.Grant>? allowances,
-    $8.PageResponse? pagination,
-  }) {
-    final _result = create();
-    if (allowances != null) {
-      _result.allowances.addAll(allowances);
-    }
-    if (pagination != null) {
-      _result.pagination = pagination;
-    }
-    return _result;
-  }
+  factory QueryAllowancesResponse() => create();
   factory QueryAllowancesResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory QueryAllowancesResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -217,7 +173,7 @@ class QueryAllowancesResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  QueryAllowancesResponse copyWith(void Function(QueryAllowancesResponse) updates) => super.copyWith((message) => updates(message as QueryAllowancesResponse)) as QueryAllowancesResponse; // ignore: deprecated_member_use
+  QueryAllowancesResponse copyWith(void Function(QueryAllowancesResponse) updates) => super.copyWith((message) => updates(message as QueryAllowancesResponse)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryAllowancesResponse create() => QueryAllowancesResponse._();
@@ -225,7 +181,7 @@ class QueryAllowancesResponse extends $pb.GeneratedMessage {
   static $pb.PbList<QueryAllowancesResponse> createRepeated() => $pb.PbList<QueryAllowancesResponse>();
   @$core.pragma('dart2js:noInline')
   static QueryAllowancesResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryAllowancesResponse>(create);
-  static QueryAllowancesResponse? _defaultInstance;
+  static QueryAllowancesResponse _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.List<$6.Grant> get allowances => $_getList(0);

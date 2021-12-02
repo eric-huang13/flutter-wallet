@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: pylons/tx.proto
 //
-// @dart = 2.12
+// @dart = 2.3
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:async' as $async;
@@ -14,6 +14,12 @@ import 'tx.pb.dart' as $1;
 export 'tx.pb.dart';
 
 class MsgClient extends $grpc.Client {
+  static final _$burnDebtToken =
+      $grpc.ClientMethod<$1.MsgBurnDebtToken, $1.MsgBurnDebtTokenResponse>(
+          '/Pylonstech.pylons.pylons.Msg/BurnDebtToken',
+          ($1.MsgBurnDebtToken value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $1.MsgBurnDebtTokenResponse.fromBuffer(value));
   static final _$updateAccount =
       $grpc.ClientMethod<$1.MsgUpdateAccount, $1.MsgUpdateAccountResponse>(
           '/Pylonstech.pylons.pylons.Msg/UpdateAccount',
@@ -107,99 +113,105 @@ class MsgClient extends $grpc.Client {
               $1.MsgUpdateCookbookResponse.fromBuffer(value));
 
   MsgClient($grpc.ClientChannel channel,
-      {$grpc.CallOptions? options,
-      $core.Iterable<$grpc.ClientInterceptor>? interceptors})
+      {$grpc.CallOptions options,
+      $core.Iterable<$grpc.ClientInterceptor> interceptors})
       : super(channel, options: options, interceptors: interceptors);
+
+  $grpc.ResponseFuture<$1.MsgBurnDebtTokenResponse> burnDebtToken(
+      $1.MsgBurnDebtToken request,
+      {$grpc.CallOptions options}) {
+    return $createUnaryCall(_$burnDebtToken, request, options: options);
+  }
 
   $grpc.ResponseFuture<$1.MsgUpdateAccountResponse> updateAccount(
       $1.MsgUpdateAccount request,
-      {$grpc.CallOptions? options}) {
+      {$grpc.CallOptions options}) {
     return $createUnaryCall(_$updateAccount, request, options: options);
   }
 
   $grpc.ResponseFuture<$1.MsgFulfillTradeResponse> fulfillTrade(
       $1.MsgFulfillTrade request,
-      {$grpc.CallOptions? options}) {
+      {$grpc.CallOptions options}) {
     return $createUnaryCall(_$fulfillTrade, request, options: options);
   }
 
   $grpc.ResponseFuture<$1.MsgCreateTradeResponse> createTrade(
       $1.MsgCreateTrade request,
-      {$grpc.CallOptions? options}) {
+      {$grpc.CallOptions options}) {
     return $createUnaryCall(_$createTrade, request, options: options);
   }
 
   $grpc.ResponseFuture<$1.MsgCancelTradeResponse> cancelTrade(
       $1.MsgCancelTrade request,
-      {$grpc.CallOptions? options}) {
+      {$grpc.CallOptions options}) {
     return $createUnaryCall(_$cancelTrade, request, options: options);
   }
 
   $grpc.ResponseFuture<$1.MsgCompleteExecutionEarlyResponse>
       completeExecutionEarly($1.MsgCompleteExecutionEarly request,
-          {$grpc.CallOptions? options}) {
+          {$grpc.CallOptions options}) {
     return $createUnaryCall(_$completeExecutionEarly, request,
         options: options);
   }
 
   $grpc.ResponseFuture<$1.MsgTransferCookbookResponse> transferCookbook(
       $1.MsgTransferCookbook request,
-      {$grpc.CallOptions? options}) {
+      {$grpc.CallOptions options}) {
     return $createUnaryCall(_$transferCookbook, request, options: options);
   }
 
   $grpc.ResponseFuture<$1.MsgGoogleInAppPurchaseGetCoinsResponse>
       googleInAppPurchaseGetCoins($1.MsgGoogleInAppPurchaseGetCoins request,
-          {$grpc.CallOptions? options}) {
+          {$grpc.CallOptions options}) {
     return $createUnaryCall(_$googleInAppPurchaseGetCoins, request,
         options: options);
   }
 
   $grpc.ResponseFuture<$1.MsgCreateAccountResponse> createAccount(
       $1.MsgCreateAccount request,
-      {$grpc.CallOptions? options}) {
+      {$grpc.CallOptions options}) {
     return $createUnaryCall(_$createAccount, request, options: options);
   }
 
   $grpc.ResponseFuture<$1.MsgSendItemsResponse> sendItems(
       $1.MsgSendItems request,
-      {$grpc.CallOptions? options}) {
+      {$grpc.CallOptions options}) {
     return $createUnaryCall(_$sendItems, request, options: options);
   }
 
   $grpc.ResponseFuture<$1.MsgExecuteRecipeResponse> executeRecipe(
       $1.MsgExecuteRecipe request,
-      {$grpc.CallOptions? options}) {
+      {$grpc.CallOptions options}) {
     return $createUnaryCall(_$executeRecipe, request, options: options);
   }
 
   $grpc.ResponseFuture<$1.MsgSetItemStringResponse> setItemString(
       $1.MsgSetItemString request,
-      {$grpc.CallOptions? options}) {
+      {$grpc.CallOptions options}) {
     return $createUnaryCall(_$setItemString, request, options: options);
   }
 
   $grpc.ResponseFuture<$1.MsgCreateRecipeResponse> createRecipe(
       $1.MsgCreateRecipe request,
-      {$grpc.CallOptions? options}) {
+      {$grpc.CallOptions options}) {
     return $createUnaryCall(_$createRecipe, request, options: options);
   }
 
   $grpc.ResponseFuture<$1.MsgUpdateRecipeResponse> updateRecipe(
       $1.MsgUpdateRecipe request,
-      {$grpc.CallOptions? options}) {
+      {$grpc.CallOptions options}) {
     return $createUnaryCall(_$updateRecipe, request, options: options);
   }
 
   $grpc.ResponseFuture<$1.MsgCreateCookbookResponse> createCookbook(
       $1.MsgCreateCookbook request,
-      {$grpc.CallOptions? options}) {
+      {$grpc.CallOptions options}) {
     return $createUnaryCall(_$createCookbook, request, options: options);
   }
 
   $grpc.ResponseFuture<$1.MsgUpdateCookbookResponse> updateCookbook(
       $1.MsgUpdateCookbook request,
-      {$grpc.CallOptions? options}) {
+      {$grpc.CallOptions options}) {
     return $createUnaryCall(_$updateCookbook, request, options: options);
   }
 }
@@ -208,6 +220,15 @@ abstract class MsgServiceBase extends $grpc.Service {
   $core.String get $name => 'Pylonstech.pylons.pylons.Msg';
 
   MsgServiceBase() {
+    $addMethod(
+        $grpc.ServiceMethod<$1.MsgBurnDebtToken, $1.MsgBurnDebtTokenResponse>(
+            'BurnDebtToken',
+            burnDebtToken_Pre,
+            false,
+            false,
+            ($core.List<$core.int> value) =>
+                $1.MsgBurnDebtToken.fromBuffer(value),
+            ($1.MsgBurnDebtTokenResponse value) => value.writeToBuffer()));
     $addMethod(
         $grpc.ServiceMethod<$1.MsgUpdateAccount, $1.MsgUpdateAccountResponse>(
             'UpdateAccount',
@@ -344,6 +365,12 @@ abstract class MsgServiceBase extends $grpc.Service {
             ($1.MsgUpdateCookbookResponse value) => value.writeToBuffer()));
   }
 
+  $async.Future<$1.MsgBurnDebtTokenResponse> burnDebtToken_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$1.MsgBurnDebtToken> request) async {
+    return burnDebtToken(call, await request);
+  }
+
   $async.Future<$1.MsgUpdateAccountResponse> updateAccount_Pre(
       $grpc.ServiceCall call,
       $async.Future<$1.MsgUpdateAccount> request) async {
@@ -428,6 +455,8 @@ abstract class MsgServiceBase extends $grpc.Service {
     return updateCookbook(call, await request);
   }
 
+  $async.Future<$1.MsgBurnDebtTokenResponse> burnDebtToken(
+      $grpc.ServiceCall call, $1.MsgBurnDebtToken request);
   $async.Future<$1.MsgUpdateAccountResponse> updateAccount(
       $grpc.ServiceCall call, $1.MsgUpdateAccount request);
   $async.Future<$1.MsgFulfillTradeResponse> fulfillTrade(

@@ -12,11 +12,13 @@ import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/entities/balance.dart';
 import 'package:pylons_wallet/ipc/handler/handler_factory.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
+import 'package:pylons_wallet/model/execution_list_by_recipe_response.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart'
     as pylons;
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart';
 import 'package:pylons_wallet/modules/cosmos.authz.v1beta1/module/client/cosmos/base/abci/v1beta1/abci.pb.dart';
 import 'package:pylons_wallet/services/repository/repository.dart';
+import 'package:pylons_wallet/stores/models/transaction_response.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/base_env.dart';
 import 'package:pylons_wallet/utils/custom_transaction_signing_gateaway/custom_transaction_signing_gateway.dart';
@@ -29,8 +31,6 @@ import 'package:transaction_signing_gateway/model/transaction_hash.dart';
 import 'package:transaction_signing_gateway/model/wallet_lookup_key.dart';
 import 'package:transaction_signing_gateway/model/wallet_public_info.dart';
 import 'package:transaction_signing_gateway/transaction_signing_gateway.dart';
-
-import 'models/transaction_response.dart';
 
 class WalletsStoreImp implements WalletsStore {
   final TransactionSigningGateway _transactionSigningGateway;
@@ -454,33 +454,9 @@ class WalletsStoreImp implements WalletsStore {
   }
 
   @override
-  Future<int> getFaucetCoin({String? denom}) async {
-    final faucetUrl =
-        "http://34.132.229.23:8080/coins?address=${wallets.value.last.publicAddress}";
-    final helper = QueryHelper(httpClient: _httpClient);
-    final result = await helper.queryGet(faucetUrl);
-
-    const amount = 1000000;
-    if (result.isSuccessful) {
-      //check faucet success
-      return amount;
-    }
-    return 0;
-    /**
-    const amount = 5000;
-    final Map data = {
-      "address": wallets.value.last.publicAddress,
-    };
-    if (denom != null) {
-      data["coins"] = ["$amount$denom"];
-    }
-    final helper = QueryHelper(httpClient: _httpClient);
-    final result = await helper.queryPost(this.baseEnv.baseFaucetUrl, data);
-    if (!result.isSuccessful) {
-      return 0;
-    }
-    return amount;
-    */
+  Future<Either<Failure, int>> getFaucetCoin({String? denom}) async {
+    return repository.getFaucetCoin(
+        address: wallets.value.last.publicAddress, denom: denom);
   }
 
   @override
@@ -517,35 +493,9 @@ class WalletsStoreImp implements WalletsStore {
 
   @override
   Future<SDKIPCResponse> updateRecipe(Map jsonMap) async {
-    final msgObj = pylons.MsgUpdateRecipe.create()..mergeFromProto3Json(json);
-    msgObj.creator = wallets.value.last.publicAddress;
-    return _signAndBroadcast(msgObj);
-  }
-
-  @override
-  Future<SDKIPCResponse> enableRecipe(Map jsonMap) async {
-    final cookBookId = jsonMap['cookbookId'].toString();
-    final recipeId = jsonMap['recipeId'].toString();
-    final version = jsonMap['version'].toString();
-    final response =
-        await repository.getRecipe(cookBookId: cookBookId, recipeId: recipeId);
-
-    if (response.isLeft()) {
-      return SDKIPCResponse.failure(
-          sender: '',
-          error: response.swap().toOption().toNullable()!.message,
-          errorCode: HandlerFactory.ERR_CANNOT_FETCH_RECIPE,
-          transaction: '');
-    }
-
-    final recipe = response.toOption().toNullable()!;
-    print(recipe);
-
     final msgObj = pylons.MsgUpdateRecipe.create()
-      ..mergeFromProto3Json(recipe.toProto3Json())
-      ..enabled = true
-      ..version = version
-      ..creator = wallets.value.last.publicAddress;
+      ..mergeFromProto3Json(jsonMap);
+    msgObj.creator = wallets.value.last.publicAddress;
     return _signAndBroadcast(msgObj);
   }
 
@@ -611,8 +561,49 @@ class WalletsStoreImp implements WalletsStore {
   @override
   Future<SDKIPCResponse> getCookbookByIdForSDK(
       {required String cookbookId}) async {
-    final recipesEither =
+    final cookBookEither =
         await repository.getCookbookBasedOnId(cookBookId: cookbookId);
+
+    if (cookBookEither.isLeft()) {
+      return SDKIPCResponse.failure(
+          sender: '',
+          error: cookBookEither.swap().toOption().toNullable()!.message,
+          errorCode: HandlerFactory.ERR_CANNOT_FETCH_COOKBOOK,
+          transaction: '');
+    }
+
+    return SDKIPCResponse.success(
+        data:
+            jsonEncode(cookBookEither.toOption().toNullable()!.toProto3Json()),
+        sender: '',
+        transaction: '');
+  }
+
+  @override
+  Future<SDKIPCResponse> getRecipeByIdForSDK(
+      {required String cookbookId, required String recipeId}) async {
+    final recipeEither =
+        await repository.getRecipe(cookBookId: cookbookId, recipeId: recipeId);
+
+    if (recipeEither.isLeft()) {
+      return SDKIPCResponse.failure(
+          sender: '',
+          error: recipeEither.swap().toOption().toNullable()!.message,
+          errorCode: HandlerFactory.ERR_CANNOT_FETCH_RECIPE,
+          transaction: '');
+    }
+
+    return SDKIPCResponse.success(
+        data: jsonEncode(recipeEither.toOption().toNullable()!.toProto3Json()),
+        sender: '',
+        transaction: '');
+  }
+
+  @override
+  Future<SDKIPCResponse> getExecutionByRecipeId(
+      {required String cookbookId, required String recipeId}) async {
+    final recipesEither = await repository.getExecutionsByRecipeId(
+        cookBookId: cookbookId, recipeId: recipeId);
 
     if (recipesEither.isLeft()) {
       return SDKIPCResponse.failure(
@@ -621,11 +612,10 @@ class WalletsStoreImp implements WalletsStore {
           errorCode: HandlerFactory.ERR_CANNOT_FETCH_RECIPES,
           transaction: '');
     }
+    final response = recipesEither.toOption().toNullable()!;
 
     return SDKIPCResponse.success(
-        data: recipesEither.toOption().toNullable()!.toProto3Json(),
-        sender: '',
-        transaction: '');
+        data: jsonEncode(response), sender: '', transaction: '');
   }
 
   @override

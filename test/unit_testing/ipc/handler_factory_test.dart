@@ -2,9 +2,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:pylons_wallet/ipc/handler/handler_factory.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/create_cook_book_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/create_recipe_handler.dart';
-import 'package:pylons_wallet/ipc/handler/handlers/enable_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/execute_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/get_cookbook_handler.dart';
+import 'package:pylons_wallet/ipc/handler/handlers/get_execution_by_recipe_handler.dart';
+import 'package:pylons_wallet/ipc/handler/handlers/get_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/get_recipes_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/update_cookbook_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/update_recipe_handler.dart';
@@ -32,13 +33,7 @@ void main(){
   });
 
 
-  test('should return Enable recipe on TX_ENABLE_RECIPE action', (){
-    final handler = HandlerFactory().getHandler(SDKIPCMessage(json: '', action: HandlerFactory.TX_ENABLE_RECIPE, sender: ''));
-    expect(true, handler is EnableRecipeHandler);
-  });
-
-
-  test('should return ExecuteRecipeHandler on TX_ENABLE_RECIPE action', (){
+  test('should return ExecuteRecipeHandler on TX_EXECUTE_RECIPE action', (){
     final handler = HandlerFactory().getHandler(SDKIPCMessage(json: '', action: HandlerFactory.TX_EXECUTE_RECIPE, sender: ''));
     expect(true, handler is ExecuteRecipeHandler);
   });
@@ -65,6 +60,20 @@ void main(){
     final handler = HandlerFactory().getHandler(SDKIPCMessage(json: '', action: HandlerFactory.GET_COOKBOOK, sender: ''));
     expect(true, handler is GetCookbookHandler);
   });
+
+
+  test('should return GetRecipeHandler on GetRecipe action', (){
+    final handler = HandlerFactory().getHandler(SDKIPCMessage(json: '', action: HandlerFactory.GET_RECIPE, sender: ''));
+    expect(true, handler is GetRecipeHandler);
+  });
+
+
+
+  test('should return GetExecutionByRecipe on GET_EXECUTION_BY_RECIPE_ID action', (){
+    final handler = HandlerFactory().getHandler(SDKIPCMessage(json: '', action: HandlerFactory.GET_EXECUTION_BY_RECIPE_ID, sender: ''));
+    expect(true, handler is GetExecutionByRecipe);
+  });
+
 
 
 }

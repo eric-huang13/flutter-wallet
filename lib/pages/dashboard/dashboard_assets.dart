@@ -87,7 +87,15 @@ class _DashboardAssetsState extends State<DashboardAssets> {
 
   Future<void> _getFaucet() async {
     final result = await walletsStore.getFaucetCoin();
-    if (result > 0) {
+
+    if(result.isLeft()){
+      return;
+    }
+
+
+    final amount = result.getOrElse(() => 0);
+
+    if (amount > 0) {
       _buildAssetsList();
     }
   }

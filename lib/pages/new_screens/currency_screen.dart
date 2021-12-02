@@ -115,19 +115,20 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
       body: ListView.builder(
         itemCount: assets.length,
         itemBuilder: (_, index) => _BalanceWidget(
-            balance: assets[index],
-            onCallFaucet: () {
-              getFaucet(context, assets[index].denom);
-            },
-            onCallStripePayout: () {
-              getPayout(context, assets[index].amount.value.toString());
-            },
-          backgroundAsset: Constants.kCardBGList[index % Constants.kCardBGList.length],
-            //onCallFaucet: () {
-            //  getFaucet(context, assets[index].denom);
-            //},
-            //backgroundAsset: Constants.kCardBGList[index % Constants.kCardBGList.length],
-            ),
+          balance: assets[index],
+          onCallFaucet: () {
+            getFaucet(context, assets[index].denom);
+          },
+          onCallStripePayout: () {
+            getPayout(context, assets[index].amount.value.toString());
+          },
+          backgroundAsset:
+              Constants.kCardBGList[index % Constants.kCardBGList.length],
+          //onCallFaucet: () {
+          //  getFaucet(context, assets[index].denom);
+          //},
+          //backgroundAsset: Constants.kCardBGList[index % Constants.kCardBGList.length],
+        ),
       ),
     );
   }
@@ -158,10 +159,16 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
   Future getFaucet(BuildContext context, String denom) async {
     final diag = Loading()..showLoading();
     final walletsStore = GetIt.I.get<WalletsStore>();
-    final amount = await walletsStore.getFaucetCoin(denom: denom);
+    final faucetEither = await walletsStore.getFaucetCoin(denom: denom);
+
+    if (faucetEither.isLeft()) {
+      SnackbarToast.show(faucetEither.swap().toOption().toNullable()!.message);
+    }
+
     SnackbarToast.show(
-        "faucet ${amount.toString().UvalToVal()} ${denom.UdenomToDenom()} added.");
-    Timer(const Duration(milliseconds: 3000), () {
+        "faucet ${faucetEither.getOrElse(() => 0).toString().UvalToVal()} ${denom.UdenomToDenom()} added.");
+
+    Timer(const Duration(milliseconds: 400), () {
       _buildAssetsList();
 
       diag.dismiss();
@@ -173,6 +180,7 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
             context: context, amount: amount, onCallback: handleStripePayout)
         .show();
   }
+
   void showErrorMessageToUser(Dz.Either<Failure, List<Balance>> response) {
     if (!mounted) {
       return;
@@ -187,9 +195,7 @@ class _BalanceWidget extends StatefulWidget {
       required this.balance,
       required this.onCallFaucet,
       required this.onCallStripePayout,
-      required this.backgroundAsset
-      }
-  )
+      required this.backgroundAsset})
       : super(key: key);
 
   final Balance balance;

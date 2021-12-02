@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: cosmos/bank/v1beta1/tx.proto
 //
-// @dart = 2.12
+// @dart = 2.3
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -21,23 +21,7 @@ class MsgSend extends $pb.GeneratedMessage {
   ;
 
   MsgSend._() : super();
-  factory MsgSend({
-    $core.String? fromAddress,
-    $core.String? toAddress,
-    $core.Iterable<$2.Coin>? amount,
-  }) {
-    final _result = create();
-    if (fromAddress != null) {
-      _result.fromAddress = fromAddress;
-    }
-    if (toAddress != null) {
-      _result.toAddress = toAddress;
-    }
-    if (amount != null) {
-      _result.amount.addAll(amount);
-    }
-    return _result;
-  }
+  factory MsgSend() => create();
   factory MsgSend.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgSend.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -49,7 +33,7 @@ class MsgSend extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgSend copyWith(void Function(MsgSend) updates) => super.copyWith((message) => updates(message as MsgSend)) as MsgSend; // ignore: deprecated_member_use
+  MsgSend copyWith(void Function(MsgSend) updates) => super.copyWith((message) => updates(message as MsgSend)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgSend create() => MsgSend._();
@@ -57,7 +41,7 @@ class MsgSend extends $pb.GeneratedMessage {
   static $pb.PbList<MsgSend> createRepeated() => $pb.PbList<MsgSend>();
   @$core.pragma('dart2js:noInline')
   static MsgSend getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MsgSend>(create);
-  static MsgSend? _defaultInstance;
+  static MsgSend _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get fromAddress => $_getSZ(0);
@@ -99,7 +83,7 @@ class MsgSendResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgSendResponse copyWith(void Function(MsgSendResponse) updates) => super.copyWith((message) => updates(message as MsgSendResponse)) as MsgSendResponse; // ignore: deprecated_member_use
+  MsgSendResponse copyWith(void Function(MsgSendResponse) updates) => super.copyWith((message) => updates(message as MsgSendResponse)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgSendResponse create() => MsgSendResponse._();
@@ -107,7 +91,7 @@ class MsgSendResponse extends $pb.GeneratedMessage {
   static $pb.PbList<MsgSendResponse> createRepeated() => $pb.PbList<MsgSendResponse>();
   @$core.pragma('dart2js:noInline')
   static MsgSendResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MsgSendResponse>(create);
-  static MsgSendResponse? _defaultInstance;
+  static MsgSendResponse _defaultInstance;
 }
 
 class MsgMultiSend extends $pb.GeneratedMessage {
@@ -118,19 +102,7 @@ class MsgMultiSend extends $pb.GeneratedMessage {
   ;
 
   MsgMultiSend._() : super();
-  factory MsgMultiSend({
-    $core.Iterable<$3.Input>? inputs,
-    $core.Iterable<$3.Output>? outputs,
-  }) {
-    final _result = create();
-    if (inputs != null) {
-      _result.inputs.addAll(inputs);
-    }
-    if (outputs != null) {
-      _result.outputs.addAll(outputs);
-    }
-    return _result;
-  }
+  factory MsgMultiSend() => create();
   factory MsgMultiSend.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgMultiSend.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -142,7 +114,7 @@ class MsgMultiSend extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgMultiSend copyWith(void Function(MsgMultiSend) updates) => super.copyWith((message) => updates(message as MsgMultiSend)) as MsgMultiSend; // ignore: deprecated_member_use
+  MsgMultiSend copyWith(void Function(MsgMultiSend) updates) => super.copyWith((message) => updates(message as MsgMultiSend)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgMultiSend create() => MsgMultiSend._();
@@ -150,7 +122,7 @@ class MsgMultiSend extends $pb.GeneratedMessage {
   static $pb.PbList<MsgMultiSend> createRepeated() => $pb.PbList<MsgMultiSend>();
   @$core.pragma('dart2js:noInline')
   static MsgMultiSend getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MsgMultiSend>(create);
-  static MsgMultiSend? _defaultInstance;
+  static MsgMultiSend _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.List<$3.Input> get inputs => $_getList(0);
@@ -177,7 +149,7 @@ class MsgMultiSendResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgMultiSendResponse copyWith(void Function(MsgMultiSendResponse) updates) => super.copyWith((message) => updates(message as MsgMultiSendResponse)) as MsgMultiSendResponse; // ignore: deprecated_member_use
+  MsgMultiSendResponse copyWith(void Function(MsgMultiSendResponse) updates) => super.copyWith((message) => updates(message as MsgMultiSendResponse)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgMultiSendResponse create() => MsgMultiSendResponse._();
@@ -185,6 +157,6 @@ class MsgMultiSendResponse extends $pb.GeneratedMessage {
   static $pb.PbList<MsgMultiSendResponse> createRepeated() => $pb.PbList<MsgMultiSendResponse>();
   @$core.pragma('dart2js:noInline')
   static MsgMultiSendResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MsgMultiSendResponse>(create);
-  static MsgMultiSendResponse? _defaultInstance;
+  static MsgMultiSendResponse _defaultInstance;
 }
 

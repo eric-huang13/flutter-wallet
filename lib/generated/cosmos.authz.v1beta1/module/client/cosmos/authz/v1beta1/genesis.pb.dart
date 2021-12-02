@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: cosmos/authz/v1beta1/genesis.proto
 //
-// @dart = 2.12
+// @dart = 2.3
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -19,15 +19,7 @@ class GenesisState extends $pb.GeneratedMessage {
   ;
 
   GenesisState._() : super();
-  factory GenesisState({
-    $core.Iterable<GrantAuthorization>? authorization,
-  }) {
-    final _result = create();
-    if (authorization != null) {
-      _result.authorization.addAll(authorization);
-    }
-    return _result;
-  }
+  factory GenesisState() => create();
   factory GenesisState.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GenesisState.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -39,7 +31,7 @@ class GenesisState extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  GenesisState copyWith(void Function(GenesisState) updates) => super.copyWith((message) => updates(message as GenesisState)) as GenesisState; // ignore: deprecated_member_use
+  GenesisState copyWith(void Function(GenesisState) updates) => super.copyWith((message) => updates(message as GenesisState)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static GenesisState create() => GenesisState._();
@@ -47,7 +39,7 @@ class GenesisState extends $pb.GeneratedMessage {
   static $pb.PbList<GenesisState> createRepeated() => $pb.PbList<GenesisState>();
   @$core.pragma('dart2js:noInline')
   static GenesisState getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GenesisState>(create);
-  static GenesisState? _defaultInstance;
+  static GenesisState _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.List<GrantAuthorization> get authorization => $_getList(0);
@@ -63,27 +55,7 @@ class GrantAuthorization extends $pb.GeneratedMessage {
   ;
 
   GrantAuthorization._() : super();
-  factory GrantAuthorization({
-    $core.String? granter,
-    $core.String? grantee,
-    $3.Any? authorization,
-    $4.Timestamp? expiration,
-  }) {
-    final _result = create();
-    if (granter != null) {
-      _result.granter = granter;
-    }
-    if (grantee != null) {
-      _result.grantee = grantee;
-    }
-    if (authorization != null) {
-      _result.authorization = authorization;
-    }
-    if (expiration != null) {
-      _result.expiration = expiration;
-    }
-    return _result;
-  }
+  factory GrantAuthorization() => create();
   factory GrantAuthorization.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GrantAuthorization.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -95,7 +67,7 @@ class GrantAuthorization extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  GrantAuthorization copyWith(void Function(GrantAuthorization) updates) => super.copyWith((message) => updates(message as GrantAuthorization)) as GrantAuthorization; // ignore: deprecated_member_use
+  GrantAuthorization copyWith(void Function(GrantAuthorization) updates) => super.copyWith((message) => updates(message as GrantAuthorization)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static GrantAuthorization create() => GrantAuthorization._();
@@ -103,7 +75,7 @@ class GrantAuthorization extends $pb.GeneratedMessage {
   static $pb.PbList<GrantAuthorization> createRepeated() => $pb.PbList<GrantAuthorization>();
   @$core.pragma('dart2js:noInline')
   static GrantAuthorization getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GrantAuthorization>(create);
-  static GrantAuthorization? _defaultInstance;
+  static GrantAuthorization _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get granter => $_getSZ(0);

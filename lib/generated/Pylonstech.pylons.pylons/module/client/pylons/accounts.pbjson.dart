@@ -2,13 +2,9 @@
 //  Generated code. Do not modify.
 //  source: pylons/accounts.proto
 //
-// @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields,deprecated_member_use_from_same_package
+// @dart = 2.3
+// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
-import 'dart:core' as $core;
-import 'dart:convert' as $convert;
-import 'dart:typed_data' as $typed_data;
-@$core.Deprecated('Use userMapDescriptor instead')
 const UserMap$json = const {
   '1': 'UserMap',
   '2': const [
@@ -17,9 +13,6 @@ const UserMap$json = const {
   ],
 };
 
-/// Descriptor for `UserMap`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List userMapDescriptor = $convert.base64Decode('CgdVc2VyTWFwEiAKC2FjY291bnRBZGRyGAEgASgJUgthY2NvdW50QWRkchIaCgh1c2VybmFtZRgCIAEoCVIIdXNlcm5hbWU=');
-@$core.Deprecated('Use usernameDescriptor instead')
 const Username$json = const {
   '1': 'Username',
   '2': const [
@@ -27,9 +20,6 @@ const Username$json = const {
   ],
 };
 
-/// Descriptor for `Username`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List usernameDescriptor = $convert.base64Decode('CghVc2VybmFtZRIUCgV2YWx1ZRgBIAEoCVIFdmFsdWU=');
-@$core.Deprecated('Use accountAddrDescriptor instead')
 const AccountAddr$json = const {
   '1': 'AccountAddr',
   '2': const [
@@ -37,5 +27,3 @@ const AccountAddr$json = const {
   ],
 };
 
-/// Descriptor for `AccountAddr`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List accountAddrDescriptor = $convert.base64Decode('CgtBY2NvdW50QWRkchIUCgV2YWx1ZRgCIAEoCVIFdmFsdWU=');

@@ -2,13 +2,9 @@
 //  Generated code. Do not modify.
 //  source: pylons/google_iap_order.proto
 //
-// @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields,deprecated_member_use_from_same_package
+// @dart = 2.3
+// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
-import 'dart:core' as $core;
-import 'dart:convert' as $convert;
-import 'dart:typed_data' as $typed_data;
-@$core.Deprecated('Use googleInAppPurchaseOrderDescriptor instead')
 const GoogleInAppPurchaseOrder$json = const {
   '1': 'GoogleInAppPurchaseOrder',
   '2': const [
@@ -20,5 +16,3 @@ const GoogleInAppPurchaseOrder$json = const {
   ],
 };
 
-/// Descriptor for `GoogleInAppPurchaseOrder`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List googleInAppPurchaseOrderDescriptor = $convert.base64Decode('ChhHb29nbGVJbkFwcFB1cmNoYXNlT3JkZXISGAoHY3JlYXRvchgBIAEoCVIHY3JlYXRvchIcCglwcm9kdWN0SUQYAiABKAlSCXByb2R1Y3RJRBIkCg1wdXJjaGFzZVRva2VuGAMgASgJUg1wdXJjaGFzZVRva2VuEiwKEXJlY2VpcHREYXRhQmFzZTY0GAQgASgJUhFyZWNlaXB0RGF0YUJhc2U2NBIcCglzaWduYXR1cmUYBSABKAlSCXNpZ25hdHVyZQ==');

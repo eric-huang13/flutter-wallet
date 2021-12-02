@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: tendermint/abci/types.proto
 //
-// @dart = 2.12
+// @dart = 2.3
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 // ignore_for_file: UNDEFINED_SHOWN_NAME
@@ -19,7 +19,7 @@ class CheckTxType extends $pb.ProtobufEnum {
   ];
 
   static final $core.Map<$core.int, CheckTxType> _byValue = $pb.ProtobufEnum.initByValue(values);
-  static CheckTxType? valueOf($core.int value) => _byValue[value];
+  static CheckTxType valueOf($core.int value) => _byValue[value];
 
   const CheckTxType._($core.int v, $core.String n) : super(v, n);
 }
@@ -36,7 +36,7 @@ class EvidenceType extends $pb.ProtobufEnum {
   ];
 
   static final $core.Map<$core.int, EvidenceType> _byValue = $pb.ProtobufEnum.initByValue(values);
-  static EvidenceType? valueOf($core.int value) => _byValue[value];
+  static EvidenceType valueOf($core.int value) => _byValue[value];
 
   const EvidenceType._($core.int v, $core.String n) : super(v, n);
 }
@@ -59,7 +59,7 @@ class ResponseOfferSnapshot_Result extends $pb.ProtobufEnum {
   ];
 
   static final $core.Map<$core.int, ResponseOfferSnapshot_Result> _byValue = $pb.ProtobufEnum.initByValue(values);
-  static ResponseOfferSnapshot_Result? valueOf($core.int value) => _byValue[value];
+  static ResponseOfferSnapshot_Result valueOf($core.int value) => _byValue[value];
 
   const ResponseOfferSnapshot_Result._($core.int v, $core.String n) : super(v, n);
 }
@@ -82,7 +82,7 @@ class ResponseApplySnapshotChunk_Result extends $pb.ProtobufEnum {
   ];
 
   static final $core.Map<$core.int, ResponseApplySnapshotChunk_Result> _byValue = $pb.ProtobufEnum.initByValue(values);
-  static ResponseApplySnapshotChunk_Result? valueOf($core.int value) => _byValue[value];
+  static ResponseApplySnapshotChunk_Result valueOf($core.int value) => _byValue[value];
 
   const ResponseApplySnapshotChunk_Result._($core.int v, $core.String n) : super(v, n);
 }

@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: pylons/execution.proto
 //
-// @dart = 2.12
+// @dart = 2.3
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -23,27 +23,7 @@ class ItemRecord extends $pb.GeneratedMessage {
   ;
 
   ItemRecord._() : super();
-  factory ItemRecord({
-    $core.String? iD,
-    $core.Iterable<$3.DoubleKeyValue>? doubles,
-    $core.Iterable<$3.LongKeyValue>? longs,
-    $core.Iterable<$3.StringKeyValue>? strings,
-  }) {
-    final _result = create();
-    if (iD != null) {
-      _result.iD = iD;
-    }
-    if (doubles != null) {
-      _result.doubles.addAll(doubles);
-    }
-    if (longs != null) {
-      _result.longs.addAll(longs);
-    }
-    if (strings != null) {
-      _result.strings.addAll(strings);
-    }
-    return _result;
-  }
+  factory ItemRecord() => create();
   factory ItemRecord.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ItemRecord.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -55,7 +35,7 @@ class ItemRecord extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ItemRecord copyWith(void Function(ItemRecord) updates) => super.copyWith((message) => updates(message as ItemRecord)) as ItemRecord; // ignore: deprecated_member_use
+  ItemRecord copyWith(void Function(ItemRecord) updates) => super.copyWith((message) => updates(message as ItemRecord)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static ItemRecord create() => ItemRecord._();
@@ -63,7 +43,7 @@ class ItemRecord extends $pb.GeneratedMessage {
   static $pb.PbList<ItemRecord> createRepeated() => $pb.PbList<ItemRecord>();
   @$core.pragma('dart2js:noInline')
   static ItemRecord getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ItemRecord>(create);
-  static ItemRecord? _defaultInstance;
+  static ItemRecord _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get iD => $_getSZ(0);
@@ -91,7 +71,7 @@ class Execution extends $pb.GeneratedMessage {
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'recipeID', protoName: 'recipeID')
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'cookbookID', protoName: 'cookbookID')
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'recipeVersion', protoName: 'recipeVersion')
-    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nodeVersion', protoName: 'nodeVersion')
+    ..a<$fixnum.Int64>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nodeVersion', $pb.PbFieldType.OU6, protoName: 'nodeVersion', defaultOrMaker: $fixnum.Int64.ZERO)
     ..aInt64(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'blockHeight', protoName: 'blockHeight')
     ..pc<ItemRecord>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'itemInputs', $pb.PbFieldType.PM, protoName: 'itemInputs', subBuilder: ItemRecord.create)
     ..pc<$2.Coin>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'coinInputs', $pb.PbFieldType.PM, protoName: 'coinInputs', subBuilder: $2.Coin.create)
@@ -102,59 +82,7 @@ class Execution extends $pb.GeneratedMessage {
   ;
 
   Execution._() : super();
-  factory Execution({
-    $core.String? creator,
-    $core.String? iD,
-    $core.String? recipeID,
-    $core.String? cookbookID,
-    $core.String? recipeVersion,
-    $core.String? nodeVersion,
-    $fixnum.Int64? blockHeight,
-    $core.Iterable<ItemRecord>? itemInputs,
-    $core.Iterable<$2.Coin>? coinInputs,
-    $core.Iterable<$2.Coin>? coinOutputs,
-    $core.Iterable<$core.String>? itemOutputIDs,
-    $core.Iterable<$core.String>? itemModifyOutputIDs,
-  }) {
-    final _result = create();
-    if (creator != null) {
-      _result.creator = creator;
-    }
-    if (iD != null) {
-      _result.iD = iD;
-    }
-    if (recipeID != null) {
-      _result.recipeID = recipeID;
-    }
-    if (cookbookID != null) {
-      _result.cookbookID = cookbookID;
-    }
-    if (recipeVersion != null) {
-      _result.recipeVersion = recipeVersion;
-    }
-    if (nodeVersion != null) {
-      _result.nodeVersion = nodeVersion;
-    }
-    if (blockHeight != null) {
-      _result.blockHeight = blockHeight;
-    }
-    if (itemInputs != null) {
-      _result.itemInputs.addAll(itemInputs);
-    }
-    if (coinInputs != null) {
-      _result.coinInputs.addAll(coinInputs);
-    }
-    if (coinOutputs != null) {
-      _result.coinOutputs.addAll(coinOutputs);
-    }
-    if (itemOutputIDs != null) {
-      _result.itemOutputIDs.addAll(itemOutputIDs);
-    }
-    if (itemModifyOutputIDs != null) {
-      _result.itemModifyOutputIDs.addAll(itemModifyOutputIDs);
-    }
-    return _result;
-  }
+  factory Execution() => create();
   factory Execution.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Execution.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -166,7 +94,7 @@ class Execution extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Execution copyWith(void Function(Execution) updates) => super.copyWith((message) => updates(message as Execution)) as Execution; // ignore: deprecated_member_use
+  Execution copyWith(void Function(Execution) updates) => super.copyWith((message) => updates(message as Execution)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static Execution create() => Execution._();
@@ -174,7 +102,7 @@ class Execution extends $pb.GeneratedMessage {
   static $pb.PbList<Execution> createRepeated() => $pb.PbList<Execution>();
   @$core.pragma('dart2js:noInline')
   static Execution getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Execution>(create);
-  static Execution? _defaultInstance;
+  static Execution _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get creator => $_getSZ(0);
@@ -222,9 +150,9 @@ class Execution extends $pb.GeneratedMessage {
   void clearRecipeVersion() => clearField(5);
 
   @$pb.TagNumber(6)
-  $core.String get nodeVersion => $_getSZ(5);
+  $fixnum.Int64 get nodeVersion => $_getI64(5);
   @$pb.TagNumber(6)
-  set nodeVersion($core.String v) { $_setString(5, v); }
+  set nodeVersion($fixnum.Int64 v) { $_setInt64(5, v); }
   @$pb.TagNumber(6)
   $core.bool hasNodeVersion() => $_has(5);
   @$pb.TagNumber(6)

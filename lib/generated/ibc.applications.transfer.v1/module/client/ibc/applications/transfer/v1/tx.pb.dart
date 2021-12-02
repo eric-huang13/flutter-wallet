@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: ibc/applications/transfer/v1/tx.proto
 //
-// @dart = 2.12
+// @dart = 2.3
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -26,39 +26,7 @@ class MsgTransfer extends $pb.GeneratedMessage {
   ;
 
   MsgTransfer._() : super();
-  factory MsgTransfer({
-    $core.String? sourcePort,
-    $core.String? sourceChannel,
-    $8.Coin? token,
-    $core.String? sender,
-    $core.String? receiver,
-    $9.Height? timeoutHeight,
-    $fixnum.Int64? timeoutTimestamp,
-  }) {
-    final _result = create();
-    if (sourcePort != null) {
-      _result.sourcePort = sourcePort;
-    }
-    if (sourceChannel != null) {
-      _result.sourceChannel = sourceChannel;
-    }
-    if (token != null) {
-      _result.token = token;
-    }
-    if (sender != null) {
-      _result.sender = sender;
-    }
-    if (receiver != null) {
-      _result.receiver = receiver;
-    }
-    if (timeoutHeight != null) {
-      _result.timeoutHeight = timeoutHeight;
-    }
-    if (timeoutTimestamp != null) {
-      _result.timeoutTimestamp = timeoutTimestamp;
-    }
-    return _result;
-  }
+  factory MsgTransfer() => create();
   factory MsgTransfer.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgTransfer.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -70,7 +38,7 @@ class MsgTransfer extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgTransfer copyWith(void Function(MsgTransfer) updates) => super.copyWith((message) => updates(message as MsgTransfer)) as MsgTransfer; // ignore: deprecated_member_use
+  MsgTransfer copyWith(void Function(MsgTransfer) updates) => super.copyWith((message) => updates(message as MsgTransfer)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgTransfer create() => MsgTransfer._();
@@ -78,7 +46,7 @@ class MsgTransfer extends $pb.GeneratedMessage {
   static $pb.PbList<MsgTransfer> createRepeated() => $pb.PbList<MsgTransfer>();
   @$core.pragma('dart2js:noInline')
   static MsgTransfer getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MsgTransfer>(create);
-  static MsgTransfer? _defaultInstance;
+  static MsgTransfer _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sourcePort => $_getSZ(0);
@@ -166,7 +134,7 @@ class MsgTransferResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgTransferResponse copyWith(void Function(MsgTransferResponse) updates) => super.copyWith((message) => updates(message as MsgTransferResponse)) as MsgTransferResponse; // ignore: deprecated_member_use
+  MsgTransferResponse copyWith(void Function(MsgTransferResponse) updates) => super.copyWith((message) => updates(message as MsgTransferResponse)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgTransferResponse create() => MsgTransferResponse._();
@@ -174,6 +142,6 @@ class MsgTransferResponse extends $pb.GeneratedMessage {
   static $pb.PbList<MsgTransferResponse> createRepeated() => $pb.PbList<MsgTransferResponse>();
   @$core.pragma('dart2js:noInline')
   static MsgTransferResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MsgTransferResponse>(create);
-  static MsgTransferResponse? _defaultInstance;
+  static MsgTransferResponse _defaultInstance;
 }
 

@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: cosmos/staking/v1beta1/genesis.proto
 //
-// @dart = 2.12
+// @dart = 2.3
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -26,43 +26,7 @@ class GenesisState extends $pb.GeneratedMessage {
   ;
 
   GenesisState._() : super();
-  factory GenesisState({
-    $11.Params? params,
-    $core.List<$core.int>? lastTotalPower,
-    $core.Iterable<LastValidatorPower>? lastValidatorPowers,
-    $core.Iterable<$11.Validator>? validators,
-    $core.Iterable<$11.Delegation>? delegations,
-    $core.Iterable<$11.UnbondingDelegation>? unbondingDelegations,
-    $core.Iterable<$11.Redelegation>? redelegations,
-    $core.bool? exported,
-  }) {
-    final _result = create();
-    if (params != null) {
-      _result.params = params;
-    }
-    if (lastTotalPower != null) {
-      _result.lastTotalPower = lastTotalPower;
-    }
-    if (lastValidatorPowers != null) {
-      _result.lastValidatorPowers.addAll(lastValidatorPowers);
-    }
-    if (validators != null) {
-      _result.validators.addAll(validators);
-    }
-    if (delegations != null) {
-      _result.delegations.addAll(delegations);
-    }
-    if (unbondingDelegations != null) {
-      _result.unbondingDelegations.addAll(unbondingDelegations);
-    }
-    if (redelegations != null) {
-      _result.redelegations.addAll(redelegations);
-    }
-    if (exported != null) {
-      _result.exported = exported;
-    }
-    return _result;
-  }
+  factory GenesisState() => create();
   factory GenesisState.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GenesisState.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -74,7 +38,7 @@ class GenesisState extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  GenesisState copyWith(void Function(GenesisState) updates) => super.copyWith((message) => updates(message as GenesisState)) as GenesisState; // ignore: deprecated_member_use
+  GenesisState copyWith(void Function(GenesisState) updates) => super.copyWith((message) => updates(message as GenesisState)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static GenesisState create() => GenesisState._();
@@ -82,7 +46,7 @@ class GenesisState extends $pb.GeneratedMessage {
   static $pb.PbList<GenesisState> createRepeated() => $pb.PbList<GenesisState>();
   @$core.pragma('dart2js:noInline')
   static GenesisState getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GenesisState>(create);
-  static GenesisState? _defaultInstance;
+  static GenesisState _defaultInstance;
 
   @$pb.TagNumber(1)
   $11.Params get params => $_getN(0);
@@ -137,19 +101,7 @@ class LastValidatorPower extends $pb.GeneratedMessage {
   ;
 
   LastValidatorPower._() : super();
-  factory LastValidatorPower({
-    $core.String? address,
-    $fixnum.Int64? power,
-  }) {
-    final _result = create();
-    if (address != null) {
-      _result.address = address;
-    }
-    if (power != null) {
-      _result.power = power;
-    }
-    return _result;
-  }
+  factory LastValidatorPower() => create();
   factory LastValidatorPower.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory LastValidatorPower.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -161,7 +113,7 @@ class LastValidatorPower extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  LastValidatorPower copyWith(void Function(LastValidatorPower) updates) => super.copyWith((message) => updates(message as LastValidatorPower)) as LastValidatorPower; // ignore: deprecated_member_use
+  LastValidatorPower copyWith(void Function(LastValidatorPower) updates) => super.copyWith((message) => updates(message as LastValidatorPower)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static LastValidatorPower create() => LastValidatorPower._();
@@ -169,7 +121,7 @@ class LastValidatorPower extends $pb.GeneratedMessage {
   static $pb.PbList<LastValidatorPower> createRepeated() => $pb.PbList<LastValidatorPower>();
   @$core.pragma('dart2js:noInline')
   static LastValidatorPower getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<LastValidatorPower>(create);
-  static LastValidatorPower? _defaultInstance;
+  static LastValidatorPower _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get address => $_getSZ(0);

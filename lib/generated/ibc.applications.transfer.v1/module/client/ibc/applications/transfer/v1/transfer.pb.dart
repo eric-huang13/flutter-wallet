@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: ibc/applications/transfer/v1/transfer.proto
 //
-// @dart = 2.12
+// @dart = 2.3
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -20,27 +20,7 @@ class FungibleTokenPacketData extends $pb.GeneratedMessage {
   ;
 
   FungibleTokenPacketData._() : super();
-  factory FungibleTokenPacketData({
-    $core.String? denom,
-    $fixnum.Int64? amount,
-    $core.String? sender,
-    $core.String? receiver,
-  }) {
-    final _result = create();
-    if (denom != null) {
-      _result.denom = denom;
-    }
-    if (amount != null) {
-      _result.amount = amount;
-    }
-    if (sender != null) {
-      _result.sender = sender;
-    }
-    if (receiver != null) {
-      _result.receiver = receiver;
-    }
-    return _result;
-  }
+  factory FungibleTokenPacketData() => create();
   factory FungibleTokenPacketData.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory FungibleTokenPacketData.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -52,7 +32,7 @@ class FungibleTokenPacketData extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  FungibleTokenPacketData copyWith(void Function(FungibleTokenPacketData) updates) => super.copyWith((message) => updates(message as FungibleTokenPacketData)) as FungibleTokenPacketData; // ignore: deprecated_member_use
+  FungibleTokenPacketData copyWith(void Function(FungibleTokenPacketData) updates) => super.copyWith((message) => updates(message as FungibleTokenPacketData)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static FungibleTokenPacketData create() => FungibleTokenPacketData._();
@@ -60,7 +40,7 @@ class FungibleTokenPacketData extends $pb.GeneratedMessage {
   static $pb.PbList<FungibleTokenPacketData> createRepeated() => $pb.PbList<FungibleTokenPacketData>();
   @$core.pragma('dart2js:noInline')
   static FungibleTokenPacketData getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FungibleTokenPacketData>(create);
-  static FungibleTokenPacketData? _defaultInstance;
+  static FungibleTokenPacketData _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get denom => $_getSZ(0);
@@ -107,19 +87,7 @@ class DenomTrace extends $pb.GeneratedMessage {
   ;
 
   DenomTrace._() : super();
-  factory DenomTrace({
-    $core.String? path,
-    $core.String? baseDenom,
-  }) {
-    final _result = create();
-    if (path != null) {
-      _result.path = path;
-    }
-    if (baseDenom != null) {
-      _result.baseDenom = baseDenom;
-    }
-    return _result;
-  }
+  factory DenomTrace() => create();
   factory DenomTrace.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory DenomTrace.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -131,7 +99,7 @@ class DenomTrace extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  DenomTrace copyWith(void Function(DenomTrace) updates) => super.copyWith((message) => updates(message as DenomTrace)) as DenomTrace; // ignore: deprecated_member_use
+  DenomTrace copyWith(void Function(DenomTrace) updates) => super.copyWith((message) => updates(message as DenomTrace)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static DenomTrace create() => DenomTrace._();
@@ -139,7 +107,7 @@ class DenomTrace extends $pb.GeneratedMessage {
   static $pb.PbList<DenomTrace> createRepeated() => $pb.PbList<DenomTrace>();
   @$core.pragma('dart2js:noInline')
   static DenomTrace getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DenomTrace>(create);
-  static DenomTrace? _defaultInstance;
+  static DenomTrace _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get path => $_getSZ(0);
@@ -168,19 +136,7 @@ class Params extends $pb.GeneratedMessage {
   ;
 
   Params._() : super();
-  factory Params({
-    $core.bool? sendEnabled,
-    $core.bool? receiveEnabled,
-  }) {
-    final _result = create();
-    if (sendEnabled != null) {
-      _result.sendEnabled = sendEnabled;
-    }
-    if (receiveEnabled != null) {
-      _result.receiveEnabled = receiveEnabled;
-    }
-    return _result;
-  }
+  factory Params() => create();
   factory Params.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Params.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -192,7 +148,7 @@ class Params extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Params copyWith(void Function(Params) updates) => super.copyWith((message) => updates(message as Params)) as Params; // ignore: deprecated_member_use
+  Params copyWith(void Function(Params) updates) => super.copyWith((message) => updates(message as Params)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static Params create() => Params._();
@@ -200,7 +156,7 @@ class Params extends $pb.GeneratedMessage {
   static $pb.PbList<Params> createRepeated() => $pb.PbList<Params>();
   @$core.pragma('dart2js:noInline')
   static Params getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Params>(create);
-  static Params? _defaultInstance;
+  static Params _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get sendEnabled => $_getBF(0);

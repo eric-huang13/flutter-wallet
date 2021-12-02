@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: google/protobuf/duration.proto
 //
-// @dart = 2.12
+// @dart = 2.3
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -20,19 +20,7 @@ class Duration extends $pb.GeneratedMessage with $mixin.DurationMixin {
   ;
 
   Duration._() : super();
-  factory Duration({
-    $fixnum.Int64? seconds,
-    $core.int? nanos,
-  }) {
-    final _result = create();
-    if (seconds != null) {
-      _result.seconds = seconds;
-    }
-    if (nanos != null) {
-      _result.nanos = nanos;
-    }
-    return _result;
-  }
+  factory Duration() => create();
   factory Duration.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Duration.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -44,7 +32,7 @@ class Duration extends $pb.GeneratedMessage with $mixin.DurationMixin {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Duration copyWith(void Function(Duration) updates) => super.copyWith((message) => updates(message as Duration)) as Duration; // ignore: deprecated_member_use
+  Duration copyWith(void Function(Duration) updates) => super.copyWith((message) => updates(message as Duration)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static Duration create() => Duration._();
@@ -52,7 +40,7 @@ class Duration extends $pb.GeneratedMessage with $mixin.DurationMixin {
   static $pb.PbList<Duration> createRepeated() => $pb.PbList<Duration>();
   @$core.pragma('dart2js:noInline')
   static Duration getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Duration>(create);
-  static Duration? _defaultInstance;
+  static Duration _defaultInstance;
 
   @$pb.TagNumber(1)
   $fixnum.Int64 get seconds => $_getI64(0);

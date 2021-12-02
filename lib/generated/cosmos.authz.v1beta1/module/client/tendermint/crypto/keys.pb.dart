@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: tendermint/crypto/keys.proto
 //
-// @dart = 2.12
+// @dart = 2.3
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -29,19 +29,7 @@ class PublicKey extends $pb.GeneratedMessage {
   ;
 
   PublicKey._() : super();
-  factory PublicKey({
-    $core.List<$core.int>? ed25519,
-    $core.List<$core.int>? secp256k1,
-  }) {
-    final _result = create();
-    if (ed25519 != null) {
-      _result.ed25519 = ed25519;
-    }
-    if (secp256k1 != null) {
-      _result.secp256k1 = secp256k1;
-    }
-    return _result;
-  }
+  factory PublicKey() => create();
   factory PublicKey.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory PublicKey.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -53,7 +41,7 @@ class PublicKey extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  PublicKey copyWith(void Function(PublicKey) updates) => super.copyWith((message) => updates(message as PublicKey)) as PublicKey; // ignore: deprecated_member_use
+  PublicKey copyWith(void Function(PublicKey) updates) => super.copyWith((message) => updates(message as PublicKey)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static PublicKey create() => PublicKey._();
@@ -61,9 +49,9 @@ class PublicKey extends $pb.GeneratedMessage {
   static $pb.PbList<PublicKey> createRepeated() => $pb.PbList<PublicKey>();
   @$core.pragma('dart2js:noInline')
   static PublicKey getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<PublicKey>(create);
-  static PublicKey? _defaultInstance;
+  static PublicKey _defaultInstance;
 
-  PublicKey_Sum whichSum() => _PublicKey_SumByTag[$_whichOneof(0)]!;
+  PublicKey_Sum whichSum() => _PublicKey_SumByTag[$_whichOneof(0)];
   void clearSum() => clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)

@@ -136,10 +136,10 @@ abstract class WalletsStore {
   Future<List<Execution>> getRecipeEexecutions(
       String cookbookID, String recipeID);
 
-  /// This method is used for getting faucet token for the user
-  /// Input : [denom]
+  /// This method is used for giving faucet token to the user based on the current wallet address
+  /// Input : [denom] coin denomination
   /// Output : [int] the amount that the user has in its wallet
-  Future<int> getFaucetCoin({String denom = ""});
+  Future<Either<Failure, int>> getFaucetCoin({String denom = ""});
 
   /// check if account with username exists
   /// Input:[String] username
@@ -172,6 +172,7 @@ abstract class WalletsStore {
   Future<SDKIPCResponse> getProfile();
 
   Future<String> signPureMessage(String message);
+
   /// This method returns the recipes based on cookbook
   /// Input : [cookbookId] id of the cookbook
   /// Output : [SDKIPCResponse] returns the recipes
@@ -188,7 +189,17 @@ abstract class WalletsStore {
   /// Output : [SDKIPCResponse] returns the cookbook
   Future<SDKIPCResponse> getCookbookByIdForSDK({required String cookbookId});
 
-
-
   Observable<bool> getStateUpdatedFlag();
+
+  /// This method returns the recipes based on cookbook
+  /// Input: [cookbookId] the id of the cookbook that contains recipe, [recipeId] the id of the recipe whose list of execution you want
+  /// Output : [SDKIPCResponse] returns the cookbook
+  Future<SDKIPCResponse> getExecutionByRecipeId(
+      {required String cookbookId, required String recipeId});
+
+  /// This method returns the recipes based on cookbook
+  /// Input : [cookbookId] the id of the cookbook which contains the recipe, [recipeId] the id of the recipe
+  /// Output : [SDKIPCResponse] returns the recipe with the specified id
+  Future<SDKIPCResponse> getRecipeByIdForSDK(
+      {required String cookbookId, required String recipeId});
 }

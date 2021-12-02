@@ -2,13 +2,9 @@
 //  Generated code. Do not modify.
 //  source: cosmos/feegrant/v1beta1/query.proto
 //
-// @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields,deprecated_member_use_from_same_package
+// @dart = 2.3
+// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
-import 'dart:core' as $core;
-import 'dart:convert' as $convert;
-import 'dart:typed_data' as $typed_data;
-@$core.Deprecated('Use queryAllowanceRequestDescriptor instead')
 const QueryAllowanceRequest$json = const {
   '1': 'QueryAllowanceRequest',
   '2': const [
@@ -17,9 +13,6 @@ const QueryAllowanceRequest$json = const {
   ],
 };
 
-/// Descriptor for `QueryAllowanceRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List queryAllowanceRequestDescriptor = $convert.base64Decode('ChVRdWVyeUFsbG93YW5jZVJlcXVlc3QSGAoHZ3JhbnRlchgBIAEoCVIHZ3JhbnRlchIYCgdncmFudGVlGAIgASgJUgdncmFudGVl');
-@$core.Deprecated('Use queryAllowanceResponseDescriptor instead')
 const QueryAllowanceResponse$json = const {
   '1': 'QueryAllowanceResponse',
   '2': const [
@@ -27,9 +20,6 @@ const QueryAllowanceResponse$json = const {
   ],
 };
 
-/// Descriptor for `QueryAllowanceResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List queryAllowanceResponseDescriptor = $convert.base64Decode('ChZRdWVyeUFsbG93YW5jZVJlc3BvbnNlEjwKCWFsbG93YW5jZRgBIAEoCzIeLmNvc21vcy5mZWVncmFudC52MWJldGExLkdyYW50UglhbGxvd2FuY2U=');
-@$core.Deprecated('Use queryAllowancesRequestDescriptor instead')
 const QueryAllowancesRequest$json = const {
   '1': 'QueryAllowancesRequest',
   '2': const [
@@ -38,9 +28,6 @@ const QueryAllowancesRequest$json = const {
   ],
 };
 
-/// Descriptor for `QueryAllowancesRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List queryAllowancesRequestDescriptor = $convert.base64Decode('ChZRdWVyeUFsbG93YW5jZXNSZXF1ZXN0EhgKB2dyYW50ZWUYASABKAlSB2dyYW50ZWUSRgoKcGFnaW5hdGlvbhgCIAEoCzImLmNvc21vcy5iYXNlLnF1ZXJ5LnYxYmV0YTEuUGFnZVJlcXVlc3RSCnBhZ2luYXRpb24=');
-@$core.Deprecated('Use queryAllowancesResponseDescriptor instead')
 const QueryAllowancesResponse$json = const {
   '1': 'QueryAllowancesResponse',
   '2': const [
@@ -49,5 +36,3 @@ const QueryAllowancesResponse$json = const {
   ],
 };
 
-/// Descriptor for `QueryAllowancesResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List queryAllowancesResponseDescriptor = $convert.base64Decode('ChdRdWVyeUFsbG93YW5jZXNSZXNwb25zZRI+CgphbGxvd2FuY2VzGAEgAygLMh4uY29zbW9zLmZlZWdyYW50LnYxYmV0YTEuR3JhbnRSCmFsbG93YW5jZXMSRwoKcGFnaW5hdGlvbhgCIAEoCzInLmNvc21vcy5iYXNlLnF1ZXJ5LnYxYmV0YTEuUGFnZVJlc3BvbnNlUgpwYWdpbmF0aW9u');

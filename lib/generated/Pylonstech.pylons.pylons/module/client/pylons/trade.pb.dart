@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: pylons/trade.proto
 //
-// @dart = 2.12
+// @dart = 2.3
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -21,19 +21,7 @@ class ItemRef extends $pb.GeneratedMessage {
   ;
 
   ItemRef._() : super();
-  factory ItemRef({
-    $core.String? cookbookID,
-    $core.String? itemID,
-  }) {
-    final _result = create();
-    if (cookbookID != null) {
-      _result.cookbookID = cookbookID;
-    }
-    if (itemID != null) {
-      _result.itemID = itemID;
-    }
-    return _result;
-  }
+  factory ItemRef() => create();
   factory ItemRef.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ItemRef.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -45,7 +33,7 @@ class ItemRef extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ItemRef copyWith(void Function(ItemRef) updates) => super.copyWith((message) => updates(message as ItemRef)) as ItemRef; // ignore: deprecated_member_use
+  ItemRef copyWith(void Function(ItemRef) updates) => super.copyWith((message) => updates(message as ItemRef)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static ItemRef create() => ItemRef._();
@@ -53,7 +41,7 @@ class ItemRef extends $pb.GeneratedMessage {
   static $pb.PbList<ItemRef> createRepeated() => $pb.PbList<ItemRef>();
   @$core.pragma('dart2js:noInline')
   static ItemRef getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ItemRef>(create);
-  static ItemRef? _defaultInstance;
+  static ItemRef _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get cookbookID => $_getSZ(0);
@@ -89,47 +77,7 @@ class Trade extends $pb.GeneratedMessage {
   ;
 
   Trade._() : super();
-  factory Trade({
-    $core.String? creator,
-    $fixnum.Int64? iD,
-    $core.Iterable<$4.CoinInput>? coinInputs,
-    $core.Iterable<$4.ItemInput>? itemInputs,
-    $core.Iterable<$2.Coin>? coinOutputs,
-    $core.Iterable<ItemRef>? itemOutputs,
-    $core.String? extraInfo,
-    $core.String? receiver,
-    $core.Iterable<ItemRef>? tradedItemInputs,
-  }) {
-    final _result = create();
-    if (creator != null) {
-      _result.creator = creator;
-    }
-    if (iD != null) {
-      _result.iD = iD;
-    }
-    if (coinInputs != null) {
-      _result.coinInputs.addAll(coinInputs);
-    }
-    if (itemInputs != null) {
-      _result.itemInputs.addAll(itemInputs);
-    }
-    if (coinOutputs != null) {
-      _result.coinOutputs.addAll(coinOutputs);
-    }
-    if (itemOutputs != null) {
-      _result.itemOutputs.addAll(itemOutputs);
-    }
-    if (extraInfo != null) {
-      _result.extraInfo = extraInfo;
-    }
-    if (receiver != null) {
-      _result.receiver = receiver;
-    }
-    if (tradedItemInputs != null) {
-      _result.tradedItemInputs.addAll(tradedItemInputs);
-    }
-    return _result;
-  }
+  factory Trade() => create();
   factory Trade.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Trade.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -141,7 +89,7 @@ class Trade extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Trade copyWith(void Function(Trade) updates) => super.copyWith((message) => updates(message as Trade)) as Trade; // ignore: deprecated_member_use
+  Trade copyWith(void Function(Trade) updates) => super.copyWith((message) => updates(message as Trade)); // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static Trade create() => Trade._();
@@ -149,7 +97,7 @@ class Trade extends $pb.GeneratedMessage {
   static $pb.PbList<Trade> createRepeated() => $pb.PbList<Trade>();
   @$core.pragma('dart2js:noInline')
   static Trade getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Trade>(create);
-  static Trade? _defaultInstance;
+  static Trade _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get creator => $_getSZ(0);
