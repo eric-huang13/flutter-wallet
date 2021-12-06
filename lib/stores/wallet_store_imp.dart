@@ -73,10 +73,10 @@ class WalletsStoreImp implements WalletsStore {
     );
 
     areWalletsLoadingObservable.value = false;
-    _queryClient = pylons.QueryClient(this.baseEnv.networkInfo.gRPCChannel);
+    _queryClient = pylons.QueryClient(baseEnv.networkInfo.gRPCChannel);
   }
 
-  /// This method creates uer wallet and broadcast it in the blockchain
+  /// This method creates user wallet and broadcast it in the blockchain
   /// Input: [mnemonic] mnemonic for creating user account, [userName] is the user entered nick name
   /// Output: [WalletPublicInfo] contains the address of the wallet
   @override
@@ -127,8 +127,6 @@ class WalletsStoreImp implements WalletsStore {
       final msgObj = pylons.MsgCreateAccount.create()
         ..mergeFromProto3Json(
             {'creator': creatorAddress, 'username': userName});
-
-      print(msgObj);
 
       final walletLookupKey = createWalletLookUp(info);
 
@@ -652,5 +650,25 @@ class WalletsStoreImp implements WalletsStore {
 
     return SDKIPCResponse.success(
         data: jsonEncode(response.toProto3Json()), sender: '', transaction: '');
+  }
+
+  @override
+  Future<SDKIPCResponse> getItemListByOwner({required String owner}) async {
+    final getItemListEither = await repository.getListItemByOwner(owner: owner);
+
+    if (getItemListEither.isLeft()) {
+      return SDKIPCResponse.failure(
+          sender: '',
+          error: getItemListEither.swap().toOption().toNullable()!.message,
+          errorCode: HandlerFactory.ERR_CANNOT_FETCH_ITEM,
+          transaction: '');
+    }
+
+    final response = getItemListEither.toOption().toNullable()!;
+
+    return SDKIPCResponse.success(
+        data: jsonEncode(response.map((item) => item.toProto3Json()).toList()),
+        sender: '',
+        transaction: '');
   }
 }

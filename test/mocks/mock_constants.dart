@@ -146,13 +146,11 @@ const String MOCK_COOKBOOK_ID = 'cookbookLOUD';
 
 const String MOCK_STRIPEURL = '';
 const String MOCK_STRIPEPUBKEY = '';
-const MOCK_ADDRESS = "";
+const String MOCK_ADDRESS = 'pylo18238123823kjhgda7w1';
 const String MOCK_RECIPE_ID = 'recipeid';
 const String MOCK_ITEM_ID = 'itemId';
 
 const String MOCK_ERROR = 'SOMETHING_WENT_WRONG';
-
-
 
 Item MOCK_ITEM = Item(
   owner: '',

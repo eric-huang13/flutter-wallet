@@ -16,7 +16,6 @@ import 'package:transaction_signing_gateway/alan/alan_private_wallet_credentials
 import 'package:transaction_signing_gateway/model/credentials_storage_failure.dart';
 import 'package:transaction_signing_gateway/model/wallet_public_info.dart';
 
-import '../widget_testing/ipc/handler/handlers/create_recipe_handler_test.dart';
 import 'mock_constants.dart';
 
 class MockWalletStore implements WalletsStore {
@@ -282,5 +281,14 @@ class MockWalletStore implements WalletsStore {
         data: jsonEncode(MOCK_ITEM.toProto3Json()),
         sender: '',
         transaction: '');
+  }
+
+  @override
+  Future<SDKIPCResponse> getItemListByOwner({required String owner}) async {
+    if (owner != MOCK_ADDRESS) {
+      throw MOCK_ERROR;
+    }
+
+    return SDKIPCResponse.success(data: jsonEncode([MOCK_ITEM.toProto3Json()]), sender: '', transaction: '');
   }
 }

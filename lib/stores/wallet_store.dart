@@ -205,4 +205,9 @@ abstract class WalletsStore {
   /// Output: [SDKIPCResponse] returns the item
   Future<SDKIPCResponse> getItemByIdForSDK(
       {required String cookBookId, required String itemId});
+
+  /// This method returns the list of item based on it
+  /// Input : [owner] the id of the owner
+  /// Output: [SDKIPCResponse] returns the item list
+  Future<SDKIPCResponse> getItemListByOwner({required String owner});
 }

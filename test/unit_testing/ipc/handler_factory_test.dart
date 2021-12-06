@@ -6,6 +6,7 @@ import 'package:pylons_wallet/ipc/handler/handlers/execute_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/get_cookbook_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/get_execution_by_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/get_item_by_id_handler.dart';
+import 'package:pylons_wallet/ipc/handler/handlers/get_list_by_owner_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/get_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/get_recipes_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/update_cookbook_handler.dart';
@@ -81,6 +82,14 @@ void main(){
   test('should return GetItemByIdHandler on GET_ITEM_BY_ID action', (){
     final handler = HandlerFactory().getHandler(SDKIPCMessage(json: '', action: HandlerFactory.GET_ITEM_BY_ID, sender: ''));
     expect(true, handler is GetItemByIdHandler);
+  });
+
+
+
+
+  test('should return GetListByOwnerHandler on GET_ITEM_BY_ID action', (){
+    final handler = HandlerFactory().getHandler(SDKIPCMessage(json: '', action: HandlerFactory.GET_ITEMS_BY_OWNER, sender: ''));
+    expect(true, handler is GetItemsByOwnerHandler);
   });
 
 

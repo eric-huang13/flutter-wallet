@@ -61,6 +61,11 @@ abstract class Repository {
   /// Input : [cookBookId] the id of the cookbook which contains the cookbook, [itemId] the id of the item
   /// Output: [pylons.Item] returns the item
   Future<Either<Failure, pylons.Item>> getItem({required String cookBookId, required String itemId});
+
+  /// This method returns the list of items based on id
+  /// Input : [owner] the id of the owner
+  /// Output: [List][pylons.Item] returns the item list
+  Future<Either<Failure, List<pylons.Item>>> getListItemByOwner({required String owner});
 }
 
 class RepositoryImp implements Repository {
@@ -249,5 +254,18 @@ class RepositoryImp implements Repository {
     }
 
     return Right(response.item);
+  }
+
+  @override
+  Future<Either<Failure, List<pylons.Item>>> getListItemByOwner({required String owner}) async {
+    if (!await networkInfo.isConnected) {
+      return const Left(NoInternetFailure(NO_INTERNET));
+    }
+
+    final queryListItemByOwner = pylons.QueryListItemByOwnerRequest()..owner = owner;
+
+    final response = await queryClient.listItemByOwner(queryListItemByOwner);
+
+    return Right(response.items);
   }
 }
