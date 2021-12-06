@@ -479,7 +479,7 @@ class _PayByCardWidget extends StatelessWidget {
     final walletsStore = GetIt.I.get<WalletsStore>();
     final stripeServices = GetIt.I.get<StripeServices>();
     final baseEnv = GetIt.I.get<BaseEnv>();
-
+    _showLoading(context);
     final response = await stripeServices.CreatePaymentIntent(
         StripeCreatePaymentIntentRequest(productID: "trade/${nft.tradeID}", coinInputIndex: 0, address: walletsStore.getWallets().value.last.publicAddress)
     );
@@ -497,6 +497,8 @@ class _PayByCardWidget extends StatelessWidget {
             merchantDisplayName: 'Pylons',
             paymentIntentClientSecret: response.clientsecret
         ));
+        Navigator.pop(context);
+
         await Stripe.instance.presentPaymentSheet();
 
         print('stripe payment done');
@@ -526,6 +528,7 @@ class _PayByCardWidget extends StatelessWidget {
             content: Text("${tradeResponse.success ? "Successfully purchased this NFT." : tradeResponse.error}")));
       }catch(e){
         print(e);
+        Navigator.pop(context);
       }
     }
   }
@@ -563,6 +566,8 @@ class _PayByCardWidget extends StatelessWidget {
     final walletsStore = GetIt.I.get<WalletsStore>();
     final stripeServices = GetIt.I.get<StripeServices>();
     final baseEnv = GetIt.I.get<BaseEnv>();
+    _showLoading(context);
+
     final response = await stripeServices.CreatePaymentIntent(
         StripeCreatePaymentIntentRequest(productID: "recipe/${nft.cookbookID}/${nft.recipeID}", coinInputIndex: 0, address: walletsStore.getWallets().value.last.publicAddress)
     );
@@ -580,6 +585,7 @@ class _PayByCardWidget extends StatelessWidget {
             merchantDisplayName: 'Pylons',
             paymentIntentClientSecret: response.clientsecret
         ));
+        Navigator.pop(context);
         await Stripe.instance.presentPaymentSheet();
         
         print('stripe payment done');
@@ -605,7 +611,7 @@ class _PayByCardWidget extends StatelessWidget {
         print(jsonMap);
 
         _showLoading(context);
-  
+
         final execution = await walletsStore.executeRecipe(jsonMap);
 
 
@@ -616,6 +622,7 @@ class _PayByCardWidget extends StatelessWidget {
             content: Text("${execution.success ? "Successfully purchased this NFT." : execution.error}")));
       }catch(e){
         print(e);
+        Navigator.pop(context);
       }
     }
   }

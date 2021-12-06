@@ -160,18 +160,16 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
     final diag = Loading()..showLoading();
     final walletsStore = GetIt.I.get<WalletsStore>();
     final faucetEither = await walletsStore.getFaucetCoin(denom: denom);
-
-    if (faucetEither.isLeft()) {
+    diag.dismiss();
+    faucetEither.fold((failure){
       SnackbarToast.show(faucetEither.swap().toOption().toNullable()!.message);
-    }
-
-    SnackbarToast.show(
-        "faucet ${faucetEither.getOrElse(() => 0).toString().UvalToVal()} ${denom.UdenomToDenom()} added.");
-
-    Timer(const Duration(milliseconds: 400), () {
-      _buildAssetsList();
-
-      diag.dismiss();
+    }, (success)
+    {
+      SnackbarToast.show(
+          "faucet ${faucetEither.getOrElse(() => 0).toString().UvalToVal()} ${denom.UdenomToDenom()} added.");
+      Timer(const Duration(milliseconds: 400), () {
+        _buildAssetsList();
+      });
     });
   }
 

@@ -87,7 +87,7 @@ class WalletsStoreImp implements WalletsStore {
     final wallet = alan.Wallet.derive(mnemonic.split(" "), baseEnv.networkInfo);
     final creds = AlanPrivateWalletCredentials(
       publicInfo: WalletPublicInfo(
-        chainId: 'pylons',
+        chainId: 'pylons-testnet',
         walletId: userName,
         name: userName,
         publicAddress: wallet.bech32Address,
@@ -308,7 +308,6 @@ class WalletsStoreImp implements WalletsStore {
 
   @override
   Future<SDKIPCResponse> createRecipe(Map json) async {
-    isStateUpdated.value = false;
     final msgObj = pylons.MsgCreateRecipe.create()..mergeFromProto3Json(json);
     msgObj.creator = wallets.value.last.publicAddress;
     print(msgObj);
@@ -328,7 +327,6 @@ class WalletsStoreImp implements WalletsStore {
 
   @override
   Future<SDKIPCResponse> executeRecipe(Map json) async {
-    isStateUpdated.value = false;
     final msgObj = pylons.MsgExecuteRecipe.create()..mergeFromProto3Json(json);
     msgObj.creator = wallets.value.last.publicAddress;
     print(msgObj.toProto3Json());
@@ -339,7 +337,6 @@ class WalletsStoreImp implements WalletsStore {
 
   @override
   Future<SDKIPCResponse> fulfillTrade(Map json) async {
-    isStateUpdated.value = false;
     final msgObj = pylons.MsgFulfillTrade.create()..mergeFromProto3Json(json);
     msgObj.creator = wallets.value.last.publicAddress;
     final response = await _signAndBroadcast(msgObj);

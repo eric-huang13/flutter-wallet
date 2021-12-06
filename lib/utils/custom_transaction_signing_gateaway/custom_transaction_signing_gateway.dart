@@ -96,7 +96,6 @@ class CustomTransactionSigningGateway {
         List<int> list = utf8.encode(msg);
         Uint8List bytes = Uint8List.fromList(list);
         final signedMsg = wallet.sign(bytes);
-        print(msg);
         return base64Encode(signedMsg);
       }
     }

@@ -85,17 +85,6 @@ class NewUserFormState extends State<NewUserForm> {
     final walletsStore = GetIt.I.get<WalletsStore>();
 
     if (_formKey.currentState!.validate()) {
-      final exists =
-          await walletsStore.isAccountExists(usernameController.text);
-      if (exists) {
-        ScaffoldMessenger.of(context)
-          ..hideCurrentSnackBar()
-          ..showSnackBar(const SnackBar(
-            content: Text('User name already exists'),
-          ));
-        Navigator.of(context).pop();
-        return;
-      }
       _registerNewUser(usernameController.value.text);
     }
   }

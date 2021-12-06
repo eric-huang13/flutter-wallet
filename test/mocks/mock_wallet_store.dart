@@ -271,6 +271,7 @@ class MockWalletStore implements WalletsStore {
     throw UnimplementedError();
   }
 
+  @override
   Future<SDKIPCResponse> getItemByIdForSDK(
       {required String cookBookId, required String itemId}) async {
     if (cookBookId != MOCK_COOKBOOK_ID && itemId != MOCK_ITEM_ID) {

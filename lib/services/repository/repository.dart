@@ -224,6 +224,10 @@ class RepositoryImp implements Repository {
       return Left(FaucetServerFailure(result.error ?? ''));
     }
 
+    if(result.value!['success'] == false){
+      return Left(FaucetServerFailure(result.value!['error'] as String));
+    }
+
     const amount = 1000000;
     return const Right(amount);
   }

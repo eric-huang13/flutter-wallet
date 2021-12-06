@@ -13,7 +13,8 @@ import 'package:pylons_wallet/pages/new_screens/purchase_item_screen.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart';
-
+import 'package:device_apps/device_apps.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../pylons_app.dart';
 
 class Collection {
@@ -127,10 +128,18 @@ class _CollectionScreenState extends State<CollectionScreen>{
                 selected: colType == 'Easel',
                 icon: "pylons",
                 onTap: () {
-                  setState((){
-                    colType = 'Easel';
+                  //https://play.google.com/store/apps/details?id=tech.pylons.easel
+                  DeviceApps.isAppInstalled('tech.pylons.easel').then((installed) async
+                  {
+                    setState((){
+                      colType = 'Easel';
+                    });
+                    await loadData(colType);
+
+                    if(!installed){
+                      launch("market://details?id=tech.pylons.easel");
+                    }
                   });
-                  loadData(colType);
                 },
               ),
               const SizedBox(width: 10),
