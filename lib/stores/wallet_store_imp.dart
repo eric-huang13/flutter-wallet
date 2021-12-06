@@ -64,11 +64,13 @@ class WalletsStoreImp implements WalletsStore {
       (newWallets) => wallets.value = newWallets,
     );
 
+
+
     areWalletsLoadingObservable.value = false;
-    _queryClient = pylons.QueryClient(this.baseEnv.networkInfo.gRPCChannel);
+    _queryClient = pylons.QueryClient(baseEnv.networkInfo.gRPCChannel);
   }
 
-  /// This method creates uer wallet and broadcast it in the blockchain
+  /// This method creates user wallet and broadcast it in the blockchain
   /// Input: [mnemonic] mnemonic for creating user account, [userName] is the user entered nick name
   /// Output: [WalletPublicInfo] contains the address of the wallet
   @override
@@ -114,7 +116,6 @@ class WalletsStoreImp implements WalletsStore {
 
       final msgObj = pylons.MsgCreateAccount.create()..mergeFromProto3Json({'creator': creatorAddress, 'username': userName});
 
-      print(msgObj);
 
       final walletLookupKey = createWalletLookUp(info);
 
@@ -133,7 +134,6 @@ class WalletsStoreImp implements WalletsStore {
       }
 
       return SDKIPCResponse.success(sender: '', data: result.getOrElse(() => TransactionResponse.initial()).hash, transaction: '');
-      print(result);
     } catch (e) {
       print(e);
     }
@@ -479,7 +479,6 @@ class WalletsStoreImp implements WalletsStore {
       return SDKIPCResponse.failure(sender: '', error: recipesEither.swap().toOption().toNullable()!.message, errorCode: HandlerFactory.ERR_CANNOT_FETCH_RECIPES, transaction: '');
     }
 
-
     final response = recipesEither.toOption().toNullable()!;
 
     return SDKIPCResponse.success(data: jsonEncode(response), sender: '', transaction: '');
@@ -496,5 +495,18 @@ class WalletsStoreImp implements WalletsStore {
     final response = getItemEither.toOption().toNullable()!;
 
     return SDKIPCResponse.success(data: jsonEncode(response.toProto3Json()), sender: '', transaction: '');
+  }
+
+  @override
+  Future<SDKIPCResponse> getItemListByOwner({required String owner}) async {
+    final getItemListEither = await repository.getListItemByOwner(owner: owner);
+
+    if (getItemListEither.isLeft()) {
+      return SDKIPCResponse.failure(sender: '', error: getItemListEither.swap().toOption().toNullable()!.message, errorCode: HandlerFactory.ERR_CANNOT_FETCH_ITEM, transaction: '');
+    }
+
+    final response = getItemListEither.toOption().toNullable()!;
+
+    return SDKIPCResponse.success(data: jsonEncode(response.map((item) => item.toProto3Json()).toList()), sender: '', transaction: '');
   }
 }

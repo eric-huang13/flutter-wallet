@@ -145,6 +145,7 @@ var MOCK_RECIPE = """
 }""";
 
 const String MOCK_COOKBOOK_ID = 'cookbookLOUD';
+const String MOCK_ADDRESS  = 'pylo18238123823kjhgda7w1';
 const String MOCK_RECIPE_ID = 'recipeid';
 const String MOCK_ITEM_ID = 'itemId';
 
