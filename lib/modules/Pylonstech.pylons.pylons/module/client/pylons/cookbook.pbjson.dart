@@ -8,7 +8,7 @@
 import 'dart:core' as $core;
 import 'dart:convert' as $convert;
 import 'dart:typed_data' as $typed_data;
-@$core.Deprecated('Use cookbookDescriptor instead')
+
 const Cookbook$json = const {
   '1': 'Cookbook',
   '2': const [
@@ -24,5 +24,5 @@ const Cookbook$json = const {
   ],
 };
 
-/// Descriptor for `Cookbook`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List cookbookDescriptor = $convert.base64Decode('CghDb29rYm9vaxIYCgdjcmVhdG9yGAEgASgJUgdjcmVhdG9yEg4KAklEGAIgASgJUgJJRBIgCgtub2RlVmVyc2lvbhgDIAEoBFILbm9kZVZlcnNpb24SEgoEbmFtZRgEIAEoCVIEbmFtZRIgCgtkZXNjcmlwdGlvbhgFIAEoCVILZGVzY3JpcHRpb24SHAoJZGV2ZWxvcGVyGAYgASgJUglkZXZlbG9wZXISGAoHdmVyc2lvbhgHIAEoCVIHdmVyc2lvbhIiCgxzdXBwb3J0RW1haWwYCCABKAlSDHN1cHBvcnRFbWFpbBIYCgdlbmFibGVkGAkgASgIUgdlbmFibGVk');
+
+

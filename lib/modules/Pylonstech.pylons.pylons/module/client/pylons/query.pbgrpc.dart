@@ -15,126 +15,126 @@ export 'query.pb.dart';
 
 class QueryClient extends $grpc.Client {
   static final _$listTradesByCreator = $grpc.ClientMethod<
-          $0.QueryListTradesByCreatorRequest,
-          $0.QueryListTradesByCreatorResponse>(
+      $0.QueryListTradesByCreatorRequest,
+      $0.QueryListTradesByCreatorResponse>(
       '/Pylonstech.pylons.pylons.Query/ListTradesByCreator',
-      ($0.QueryListTradesByCreatorRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) =>
+          ($0.QueryListTradesByCreatorRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
           $0.QueryListTradesByCreatorResponse.fromBuffer(value));
   static final _$redeemInfo = $grpc.ClientMethod<$0.QueryGetRedeemInfoRequest,
-          $0.QueryGetRedeemInfoResponse>(
+      $0.QueryGetRedeemInfoResponse>(
       '/Pylonstech.pylons.pylons.Query/RedeemInfo',
-      ($0.QueryGetRedeemInfoRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) =>
+          ($0.QueryGetRedeemInfoRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
           $0.QueryGetRedeemInfoResponse.fromBuffer(value));
   static final _$redeemInfoAll = $grpc.ClientMethod<
-          $0.QueryAllRedeemInfoRequest, $0.QueryAllRedeemInfoResponse>(
+      $0.QueryAllRedeemInfoRequest, $0.QueryAllRedeemInfoResponse>(
       '/Pylonstech.pylons.pylons.Query/RedeemInfoAll',
-      ($0.QueryAllRedeemInfoRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) =>
+          ($0.QueryAllRedeemInfoRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
           $0.QueryAllRedeemInfoResponse.fromBuffer(value));
   static final _$paymentInfo = $grpc.ClientMethod<$0.QueryGetPaymentInfoRequest,
-          $0.QueryGetPaymentInfoResponse>(
+      $0.QueryGetPaymentInfoResponse>(
       '/Pylonstech.pylons.pylons.Query/PaymentInfo',
-      ($0.QueryGetPaymentInfoRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) =>
+          ($0.QueryGetPaymentInfoRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
           $0.QueryGetPaymentInfoResponse.fromBuffer(value));
   static final _$paymentInfoAll = $grpc.ClientMethod<
-          $0.QueryAllPaymentInfoRequest, $0.QueryAllPaymentInfoResponse>(
+      $0.QueryAllPaymentInfoRequest, $0.QueryAllPaymentInfoResponse>(
       '/Pylonstech.pylons.pylons.Query/PaymentInfoAll',
-      ($0.QueryAllPaymentInfoRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) =>
+          ($0.QueryAllPaymentInfoRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
           $0.QueryAllPaymentInfoResponse.fromBuffer(value));
   static final _$usernameByAddress = $grpc.ClientMethod<
-          $0.QueryGetUsernameByAddressRequest,
-          $0.QueryGetUsernameByAddressResponse>(
+      $0.QueryGetUsernameByAddressRequest,
+      $0.QueryGetUsernameByAddressResponse>(
       '/Pylonstech.pylons.pylons.Query/UsernameByAddress',
-      ($0.QueryGetUsernameByAddressRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) =>
+          ($0.QueryGetUsernameByAddressRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
           $0.QueryGetUsernameByAddressResponse.fromBuffer(value));
   static final _$addressByUsername = $grpc.ClientMethod<
-          $0.QueryGetAddressByUsernameRequest,
-          $0.QueryGetAddressByUsernameResponse>(
+      $0.QueryGetAddressByUsernameRequest,
+      $0.QueryGetAddressByUsernameResponse>(
       '/Pylonstech.pylons.pylons.Query/AddressByUsername',
-      ($0.QueryGetAddressByUsernameRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) =>
+          ($0.QueryGetAddressByUsernameRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
           $0.QueryGetAddressByUsernameResponse.fromBuffer(value));
   static final _$trade =
-      $grpc.ClientMethod<$0.QueryGetTradeRequest, $0.QueryGetTradeResponse>(
-          '/Pylonstech.pylons.pylons.Query/Trade',
+  $grpc.ClientMethod<$0.QueryGetTradeRequest, $0.QueryGetTradeResponse>(
+      '/Pylonstech.pylons.pylons.Query/Trade',
           ($0.QueryGetTradeRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
-              $0.QueryGetTradeResponse.fromBuffer(value));
+          $0.QueryGetTradeResponse.fromBuffer(value));
   static final _$listItemByOwner = $grpc.ClientMethod<
-          $0.QueryListItemByOwnerRequest, $0.QueryListItemByOwnerResponse>(
+      $0.QueryListItemByOwnerRequest, $0.QueryListItemByOwnerResponse>(
       '/Pylonstech.pylons.pylons.Query/ListItemByOwner',
-      ($0.QueryListItemByOwnerRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) =>
+          ($0.QueryListItemByOwnerRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
           $0.QueryListItemByOwnerResponse.fromBuffer(value));
   static final _$googleInAppPurchaseOrder = $grpc.ClientMethod<
-          $0.QueryGetGoogleInAppPurchaseOrderRequest,
-          $0.QueryGetGoogleInAppPurchaseOrderResponse>(
+      $0.QueryGetGoogleInAppPurchaseOrderRequest,
+      $0.QueryGetGoogleInAppPurchaseOrderResponse>(
       '/Pylonstech.pylons.pylons.Query/GoogleInAppPurchaseOrder',
-      ($0.QueryGetGoogleInAppPurchaseOrderRequest value) =>
+          ($0.QueryGetGoogleInAppPurchaseOrderRequest value) =>
           value.writeToBuffer(),
-      ($core.List<$core.int> value) =>
+          ($core.List<$core.int> value) =>
           $0.QueryGetGoogleInAppPurchaseOrderResponse.fromBuffer(value));
   static final _$listExecutionsByItem = $grpc.ClientMethod<
-          $0.QueryListExecutionsByItemRequest,
-          $0.QueryListExecutionsByItemResponse>(
+      $0.QueryListExecutionsByItemRequest,
+      $0.QueryListExecutionsByItemResponse>(
       '/Pylonstech.pylons.pylons.Query/ListExecutionsByItem',
-      ($0.QueryListExecutionsByItemRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) =>
+          ($0.QueryListExecutionsByItemRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
           $0.QueryListExecutionsByItemResponse.fromBuffer(value));
   static final _$listExecutionsByRecipe = $grpc.ClientMethod<
-          $0.QueryListExecutionsByRecipeRequest,
-          $0.QueryListExecutionsByRecipeResponse>(
+      $0.QueryListExecutionsByRecipeRequest,
+      $0.QueryListExecutionsByRecipeResponse>(
       '/Pylonstech.pylons.pylons.Query/ListExecutionsByRecipe',
-      ($0.QueryListExecutionsByRecipeRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) =>
+          ($0.QueryListExecutionsByRecipeRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
           $0.QueryListExecutionsByRecipeResponse.fromBuffer(value));
   static final _$execution = $grpc.ClientMethod<$0.QueryGetExecutionRequest,
-          $0.QueryGetExecutionResponse>(
+      $0.QueryGetExecutionResponse>(
       '/Pylonstech.pylons.pylons.Query/Execution',
-      ($0.QueryGetExecutionRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) =>
+          ($0.QueryGetExecutionRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
           $0.QueryGetExecutionResponse.fromBuffer(value));
   static final _$listRecipesByCookbook = $grpc.ClientMethod<
-          $0.QueryListRecipesByCookbookRequest,
-          $0.QueryListRecipesByCookbookResponse>(
+      $0.QueryListRecipesByCookbookRequest,
+      $0.QueryListRecipesByCookbookResponse>(
       '/Pylonstech.pylons.pylons.Query/ListRecipesByCookbook',
-      ($0.QueryListRecipesByCookbookRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) =>
+          ($0.QueryListRecipesByCookbookRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
           $0.QueryListRecipesByCookbookResponse.fromBuffer(value));
   static final _$item =
-      $grpc.ClientMethod<$0.QueryGetItemRequest, $0.QueryGetItemResponse>(
-          '/Pylonstech.pylons.pylons.Query/Item',
+  $grpc.ClientMethod<$0.QueryGetItemRequest, $0.QueryGetItemResponse>(
+      '/Pylonstech.pylons.pylons.Query/Item',
           ($0.QueryGetItemRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
-              $0.QueryGetItemResponse.fromBuffer(value));
+          $0.QueryGetItemResponse.fromBuffer(value));
   static final _$recipe =
-      $grpc.ClientMethod<$0.QueryGetRecipeRequest, $0.QueryGetRecipeResponse>(
-          '/Pylonstech.pylons.pylons.Query/Recipe',
+  $grpc.ClientMethod<$0.QueryGetRecipeRequest, $0.QueryGetRecipeResponse>(
+      '/Pylonstech.pylons.pylons.Query/Recipe',
           ($0.QueryGetRecipeRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
-              $0.QueryGetRecipeResponse.fromBuffer(value));
+          $0.QueryGetRecipeResponse.fromBuffer(value));
   static final _$listCookbooksByCreator = $grpc.ClientMethod<
-          $0.QueryListCookbooksByCreatorRequest,
-          $0.QueryListCookbooksByCreatorResponse>(
+      $0.QueryListCookbooksByCreatorRequest,
+      $0.QueryListCookbooksByCreatorResponse>(
       '/Pylonstech.pylons.pylons.Query/ListCookbooksByCreator',
-      ($0.QueryListCookbooksByCreatorRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) =>
+          ($0.QueryListCookbooksByCreatorRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
           $0.QueryListCookbooksByCreatorResponse.fromBuffer(value));
   static final _$cookbook = $grpc.ClientMethod<$0.QueryGetCookbookRequest,
-          $0.QueryGetCookbookResponse>(
+      $0.QueryGetCookbookResponse>(
       '/Pylonstech.pylons.pylons.Query/Cookbook',
-      ($0.QueryGetCookbookRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) =>
+          ($0.QueryGetCookbookRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
           $0.QueryGetCookbookResponse.fromBuffer(value));
 
   QueryClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
-      $core.Iterable<$grpc.ClientInterceptor>? interceptors})
+        $core.Iterable<$grpc.ClientInterceptor>? interceptors})
       : super(channel, options: options, interceptors: interceptors);
 
   $grpc.ResponseFuture<$0.QueryListTradesByCreatorResponse> listTradesByCreator(
@@ -192,22 +192,22 @@ class QueryClient extends $grpc.Client {
   }
 
   $grpc.ResponseFuture<$0.QueryGetGoogleInAppPurchaseOrderResponse>
-      googleInAppPurchaseOrder(
-          $0.QueryGetGoogleInAppPurchaseOrderRequest request,
-          {$grpc.CallOptions? options}) {
+  googleInAppPurchaseOrder(
+      $0.QueryGetGoogleInAppPurchaseOrderRequest request,
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$googleInAppPurchaseOrder, request,
         options: options);
   }
 
   $grpc.ResponseFuture<$0.QueryListExecutionsByItemResponse>
-      listExecutionsByItem($0.QueryListExecutionsByItemRequest request,
-          {$grpc.CallOptions? options}) {
+  listExecutionsByItem($0.QueryListExecutionsByItemRequest request,
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$listExecutionsByItem, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.QueryListExecutionsByRecipeResponse>
-      listExecutionsByRecipe($0.QueryListExecutionsByRecipeRequest request,
-          {$grpc.CallOptions? options}) {
+  listExecutionsByRecipe($0.QueryListExecutionsByRecipeRequest request,
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$listExecutionsByRecipe, request,
         options: options);
   }
@@ -219,8 +219,8 @@ class QueryClient extends $grpc.Client {
   }
 
   $grpc.ResponseFuture<$0.QueryListRecipesByCookbookResponse>
-      listRecipesByCookbook($0.QueryListRecipesByCookbookRequest request,
-          {$grpc.CallOptions? options}) {
+  listRecipesByCookbook($0.QueryListRecipesByCookbookRequest request,
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$listRecipesByCookbook, request, options: options);
   }
 
@@ -237,8 +237,8 @@ class QueryClient extends $grpc.Client {
   }
 
   $grpc.ResponseFuture<$0.QueryListCookbooksByCreatorResponse>
-      listCookbooksByCreator($0.QueryListCookbooksByCreatorRequest request,
-          {$grpc.CallOptions? options}) {
+  listCookbooksByCreator($0.QueryListCookbooksByCreatorRequest request,
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$listCookbooksByCreator, request,
         options: options);
   }
@@ -255,133 +255,133 @@ abstract class QueryServiceBase extends $grpc.Service {
 
   QueryServiceBase() {
     $addMethod($grpc.ServiceMethod<$0.QueryListTradesByCreatorRequest,
-            $0.QueryListTradesByCreatorResponse>(
+        $0.QueryListTradesByCreatorResponse>(
         'ListTradesByCreator',
         listTradesByCreator_Pre,
         false,
         false,
-        ($core.List<$core.int> value) =>
+            ($core.List<$core.int> value) =>
             $0.QueryListTradesByCreatorRequest.fromBuffer(value),
-        ($0.QueryListTradesByCreatorResponse value) => value.writeToBuffer()));
+            ($0.QueryListTradesByCreatorResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.QueryGetRedeemInfoRequest,
-            $0.QueryGetRedeemInfoResponse>(
+        $0.QueryGetRedeemInfoResponse>(
         'RedeemInfo',
         redeemInfo_Pre,
         false,
         false,
-        ($core.List<$core.int> value) =>
+            ($core.List<$core.int> value) =>
             $0.QueryGetRedeemInfoRequest.fromBuffer(value),
-        ($0.QueryGetRedeemInfoResponse value) => value.writeToBuffer()));
+            ($0.QueryGetRedeemInfoResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.QueryAllRedeemInfoRequest,
-            $0.QueryAllRedeemInfoResponse>(
+        $0.QueryAllRedeemInfoResponse>(
         'RedeemInfoAll',
         redeemInfoAll_Pre,
         false,
         false,
-        ($core.List<$core.int> value) =>
+            ($core.List<$core.int> value) =>
             $0.QueryAllRedeemInfoRequest.fromBuffer(value),
-        ($0.QueryAllRedeemInfoResponse value) => value.writeToBuffer()));
+            ($0.QueryAllRedeemInfoResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.QueryGetPaymentInfoRequest,
-            $0.QueryGetPaymentInfoResponse>(
+        $0.QueryGetPaymentInfoResponse>(
         'PaymentInfo',
         paymentInfo_Pre,
         false,
         false,
-        ($core.List<$core.int> value) =>
+            ($core.List<$core.int> value) =>
             $0.QueryGetPaymentInfoRequest.fromBuffer(value),
-        ($0.QueryGetPaymentInfoResponse value) => value.writeToBuffer()));
+            ($0.QueryGetPaymentInfoResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.QueryAllPaymentInfoRequest,
-            $0.QueryAllPaymentInfoResponse>(
+        $0.QueryAllPaymentInfoResponse>(
         'PaymentInfoAll',
         paymentInfoAll_Pre,
         false,
         false,
-        ($core.List<$core.int> value) =>
+            ($core.List<$core.int> value) =>
             $0.QueryAllPaymentInfoRequest.fromBuffer(value),
-        ($0.QueryAllPaymentInfoResponse value) => value.writeToBuffer()));
+            ($0.QueryAllPaymentInfoResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.QueryGetUsernameByAddressRequest,
-            $0.QueryGetUsernameByAddressResponse>(
+        $0.QueryGetUsernameByAddressResponse>(
         'UsernameByAddress',
         usernameByAddress_Pre,
         false,
         false,
-        ($core.List<$core.int> value) =>
+            ($core.List<$core.int> value) =>
             $0.QueryGetUsernameByAddressRequest.fromBuffer(value),
-        ($0.QueryGetUsernameByAddressResponse value) => value.writeToBuffer()));
+            ($0.QueryGetUsernameByAddressResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.QueryGetAddressByUsernameRequest,
-            $0.QueryGetAddressByUsernameResponse>(
+        $0.QueryGetAddressByUsernameResponse>(
         'AddressByUsername',
         addressByUsername_Pre,
         false,
         false,
-        ($core.List<$core.int> value) =>
+            ($core.List<$core.int> value) =>
             $0.QueryGetAddressByUsernameRequest.fromBuffer(value),
-        ($0.QueryGetAddressByUsernameResponse value) => value.writeToBuffer()));
+            ($0.QueryGetAddressByUsernameResponse value) => value.writeToBuffer()));
     $addMethod(
         $grpc.ServiceMethod<$0.QueryGetTradeRequest, $0.QueryGetTradeResponse>(
             'Trade',
             trade_Pre,
             false,
             false,
-            ($core.List<$core.int> value) =>
+                ($core.List<$core.int> value) =>
                 $0.QueryGetTradeRequest.fromBuffer(value),
-            ($0.QueryGetTradeResponse value) => value.writeToBuffer()));
+                ($0.QueryGetTradeResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.QueryListItemByOwnerRequest,
-            $0.QueryListItemByOwnerResponse>(
+        $0.QueryListItemByOwnerResponse>(
         'ListItemByOwner',
         listItemByOwner_Pre,
         false,
         false,
-        ($core.List<$core.int> value) =>
+            ($core.List<$core.int> value) =>
             $0.QueryListItemByOwnerRequest.fromBuffer(value),
-        ($0.QueryListItemByOwnerResponse value) => value.writeToBuffer()));
+            ($0.QueryListItemByOwnerResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.QueryGetGoogleInAppPurchaseOrderRequest,
-            $0.QueryGetGoogleInAppPurchaseOrderResponse>(
+        $0.QueryGetGoogleInAppPurchaseOrderResponse>(
         'GoogleInAppPurchaseOrder',
         googleInAppPurchaseOrder_Pre,
         false,
         false,
-        ($core.List<$core.int> value) =>
+            ($core.List<$core.int> value) =>
             $0.QueryGetGoogleInAppPurchaseOrderRequest.fromBuffer(value),
-        ($0.QueryGetGoogleInAppPurchaseOrderResponse value) =>
+            ($0.QueryGetGoogleInAppPurchaseOrderResponse value) =>
             value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.QueryListExecutionsByItemRequest,
-            $0.QueryListExecutionsByItemResponse>(
+        $0.QueryListExecutionsByItemResponse>(
         'ListExecutionsByItem',
         listExecutionsByItem_Pre,
         false,
         false,
-        ($core.List<$core.int> value) =>
+            ($core.List<$core.int> value) =>
             $0.QueryListExecutionsByItemRequest.fromBuffer(value),
-        ($0.QueryListExecutionsByItemResponse value) => value.writeToBuffer()));
+            ($0.QueryListExecutionsByItemResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.QueryListExecutionsByRecipeRequest,
-            $0.QueryListExecutionsByRecipeResponse>(
+        $0.QueryListExecutionsByRecipeResponse>(
         'ListExecutionsByRecipe',
         listExecutionsByRecipe_Pre,
         false,
         false,
-        ($core.List<$core.int> value) =>
+            ($core.List<$core.int> value) =>
             $0.QueryListExecutionsByRecipeRequest.fromBuffer(value),
-        ($0.QueryListExecutionsByRecipeResponse value) =>
+            ($0.QueryListExecutionsByRecipeResponse value) =>
             value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.QueryGetExecutionRequest,
-            $0.QueryGetExecutionResponse>(
+        $0.QueryGetExecutionResponse>(
         'Execution',
         execution_Pre,
         false,
         false,
-        ($core.List<$core.int> value) =>
+            ($core.List<$core.int> value) =>
             $0.QueryGetExecutionRequest.fromBuffer(value),
-        ($0.QueryGetExecutionResponse value) => value.writeToBuffer()));
+            ($0.QueryGetExecutionResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.QueryListRecipesByCookbookRequest,
-            $0.QueryListRecipesByCookbookResponse>(
+        $0.QueryListRecipesByCookbookResponse>(
         'ListRecipesByCookbook',
         listRecipesByCookbook_Pre,
         false,
         false,
-        ($core.List<$core.int> value) =>
+            ($core.List<$core.int> value) =>
             $0.QueryListRecipesByCookbookRequest.fromBuffer(value),
-        ($0.QueryListRecipesByCookbookResponse value) =>
+            ($0.QueryListRecipesByCookbookResponse value) =>
             value.writeToBuffer()));
     $addMethod(
         $grpc.ServiceMethod<$0.QueryGetItemRequest, $0.QueryGetItemResponse>(
@@ -389,37 +389,37 @@ abstract class QueryServiceBase extends $grpc.Service {
             item_Pre,
             false,
             false,
-            ($core.List<$core.int> value) =>
+                ($core.List<$core.int> value) =>
                 $0.QueryGetItemRequest.fromBuffer(value),
-            ($0.QueryGetItemResponse value) => value.writeToBuffer()));
+                ($0.QueryGetItemResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.QueryGetRecipeRequest,
-            $0.QueryGetRecipeResponse>(
+        $0.QueryGetRecipeResponse>(
         'Recipe',
         recipe_Pre,
         false,
         false,
-        ($core.List<$core.int> value) =>
+            ($core.List<$core.int> value) =>
             $0.QueryGetRecipeRequest.fromBuffer(value),
-        ($0.QueryGetRecipeResponse value) => value.writeToBuffer()));
+            ($0.QueryGetRecipeResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.QueryListCookbooksByCreatorRequest,
-            $0.QueryListCookbooksByCreatorResponse>(
+        $0.QueryListCookbooksByCreatorResponse>(
         'ListCookbooksByCreator',
         listCookbooksByCreator_Pre,
         false,
         false,
-        ($core.List<$core.int> value) =>
+            ($core.List<$core.int> value) =>
             $0.QueryListCookbooksByCreatorRequest.fromBuffer(value),
-        ($0.QueryListCookbooksByCreatorResponse value) =>
+            ($0.QueryListCookbooksByCreatorResponse value) =>
             value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.QueryGetCookbookRequest,
-            $0.QueryGetCookbookResponse>(
+        $0.QueryGetCookbookResponse>(
         'Cookbook',
         cookbook_Pre,
         false,
         false,
-        ($core.List<$core.int> value) =>
+            ($core.List<$core.int> value) =>
             $0.QueryGetCookbookRequest.fromBuffer(value),
-        ($0.QueryGetCookbookResponse value) => value.writeToBuffer()));
+            ($0.QueryGetCookbookResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.QueryListTradesByCreatorResponse> listTradesByCreator_Pre(
@@ -476,10 +476,10 @@ abstract class QueryServiceBase extends $grpc.Service {
   }
 
   $async.Future<$0.QueryGetGoogleInAppPurchaseOrderResponse>
-      googleInAppPurchaseOrder_Pre(
-          $grpc.ServiceCall call,
-          $async.Future<$0.QueryGetGoogleInAppPurchaseOrderRequest>
-              request) async {
+  googleInAppPurchaseOrder_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.QueryGetGoogleInAppPurchaseOrderRequest>
+      request) async {
     return googleInAppPurchaseOrder(call, await request);
   }
 
@@ -490,8 +490,8 @@ abstract class QueryServiceBase extends $grpc.Service {
   }
 
   $async.Future<$0.QueryListExecutionsByRecipeResponse>
-      listExecutionsByRecipe_Pre($grpc.ServiceCall call,
-          $async.Future<$0.QueryListExecutionsByRecipeRequest> request) async {
+  listExecutionsByRecipe_Pre($grpc.ServiceCall call,
+      $async.Future<$0.QueryListExecutionsByRecipeRequest> request) async {
     return listExecutionsByRecipe(call, await request);
   }
 
@@ -502,8 +502,8 @@ abstract class QueryServiceBase extends $grpc.Service {
   }
 
   $async.Future<$0.QueryListRecipesByCookbookResponse>
-      listRecipesByCookbook_Pre($grpc.ServiceCall call,
-          $async.Future<$0.QueryListRecipesByCookbookRequest> request) async {
+  listRecipesByCookbook_Pre($grpc.ServiceCall call,
+      $async.Future<$0.QueryListRecipesByCookbookRequest> request) async {
     return listRecipesByCookbook(call, await request);
   }
 
@@ -518,8 +518,8 @@ abstract class QueryServiceBase extends $grpc.Service {
   }
 
   $async.Future<$0.QueryListCookbooksByCreatorResponse>
-      listCookbooksByCreator_Pre($grpc.ServiceCall call,
-          $async.Future<$0.QueryListCookbooksByCreatorRequest> request) async {
+  listCookbooksByCreator_Pre($grpc.ServiceCall call,
+      $async.Future<$0.QueryListCookbooksByCreatorRequest> request) async {
     return listCookbooksByCreator(call, await request);
   }
 
@@ -548,8 +548,8 @@ abstract class QueryServiceBase extends $grpc.Service {
   $async.Future<$0.QueryListItemByOwnerResponse> listItemByOwner(
       $grpc.ServiceCall call, $0.QueryListItemByOwnerRequest request);
   $async.Future<$0.QueryGetGoogleInAppPurchaseOrderResponse>
-      googleInAppPurchaseOrder($grpc.ServiceCall call,
-          $0.QueryGetGoogleInAppPurchaseOrderRequest request);
+  googleInAppPurchaseOrder($grpc.ServiceCall call,
+      $0.QueryGetGoogleInAppPurchaseOrderRequest request);
   $async.Future<$0.QueryListExecutionsByItemResponse> listExecutionsByItem(
       $grpc.ServiceCall call, $0.QueryListExecutionsByItemRequest request);
   $async.Future<$0.QueryListExecutionsByRecipeResponse> listExecutionsByRecipe(

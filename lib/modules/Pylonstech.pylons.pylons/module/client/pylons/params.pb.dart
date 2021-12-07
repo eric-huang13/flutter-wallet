@@ -7,11 +7,11 @@
 
 import 'dart:core' as $core;
 
+
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import '../cosmos/base/v1beta1/coin.pb.dart' as $2;
-
 class GoogleInAppPurchasePackage extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GoogleInAppPurchasePackage', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Pylonstech.pylons.pylons'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'packageName', protoName: 'packageName')
@@ -21,35 +21,18 @@ class GoogleInAppPurchasePackage extends $pb.GeneratedMessage {
   ;
 
   GoogleInAppPurchasePackage._() : super();
-  factory GoogleInAppPurchasePackage({
-    $core.String? packageName,
-    $core.String? productID,
-    $core.String? amount,
-  }) {
-    final _result = create();
-    if (packageName != null) {
-      _result.packageName = packageName;
-    }
-    if (productID != null) {
-      _result.productID = productID;
-    }
-    if (amount != null) {
-      _result.amount = amount;
-    }
-    return _result;
-  }
+  factory GoogleInAppPurchasePackage() => create();
   factory GoogleInAppPurchasePackage.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GoogleInAppPurchasePackage.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+      'Using this can add significant overhead to your binary. '
+          'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+          'Will be removed in next major version')
   GoogleInAppPurchasePackage clone() => GoogleInAppPurchasePackage()..mergeFromMessage(this);
   @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  GoogleInAppPurchasePackage copyWith(void Function(GoogleInAppPurchasePackage) updates) => super.copyWith((message) => updates(message as GoogleInAppPurchasePackage)) as GoogleInAppPurchasePackage; // ignore: deprecated_member_use
+      'Using this can add significant overhead to your binary. '
+          'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+          'Will be removed in next major version')
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static GoogleInAppPurchasePackage create() => GoogleInAppPurchasePackage._();
@@ -97,39 +80,18 @@ class CoinIssuer extends $pb.GeneratedMessage {
   ;
 
   CoinIssuer._() : super();
-  factory CoinIssuer({
-    $core.String? coinDenom,
-    $core.Iterable<GoogleInAppPurchasePackage>? packages,
-    $core.String? googleInAppPurchasePubKey,
-    $core.String? entityName,
-  }) {
-    final _result = create();
-    if (coinDenom != null) {
-      _result.coinDenom = coinDenom;
-    }
-    if (packages != null) {
-      _result.packages.addAll(packages);
-    }
-    if (googleInAppPurchasePubKey != null) {
-      _result.googleInAppPurchasePubKey = googleInAppPurchasePubKey;
-    }
-    if (entityName != null) {
-      _result.entityName = entityName;
-    }
-    return _result;
-  }
+  factory CoinIssuer() => create();
   factory CoinIssuer.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory CoinIssuer.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+      'Using this can add significant overhead to your binary. '
+          'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+          'Will be removed in next major version')
   CoinIssuer clone() => CoinIssuer()..mergeFromMessage(this);
   @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  CoinIssuer copyWith(void Function(CoinIssuer) updates) => super.copyWith((message) => updates(message as CoinIssuer)) as CoinIssuer; // ignore: deprecated_member_use
+      'Using this can add significant overhead to your binary. '
+          'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+          'Will be removed in next major version')
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static CoinIssuer create() => CoinIssuer._();
@@ -181,43 +143,18 @@ class PaymentProcessor extends $pb.GeneratedMessage {
   ;
 
   PaymentProcessor._() : super();
-  factory PaymentProcessor({
-    $core.String? coinDenom,
-    $core.String? pubKey,
-    $core.String? processorPercentage,
-    $core.String? validatorsPercentage,
-    $core.String? name,
-  }) {
-    final _result = create();
-    if (coinDenom != null) {
-      _result.coinDenom = coinDenom;
-    }
-    if (pubKey != null) {
-      _result.pubKey = pubKey;
-    }
-    if (processorPercentage != null) {
-      _result.processorPercentage = processorPercentage;
-    }
-    if (validatorsPercentage != null) {
-      _result.validatorsPercentage = validatorsPercentage;
-    }
-    if (name != null) {
-      _result.name = name;
-    }
-    return _result;
-  }
+  factory PaymentProcessor() => create();
   factory PaymentProcessor.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory PaymentProcessor.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+      'Using this can add significant overhead to your binary. '
+          'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+          'Will be removed in next major version')
   PaymentProcessor clone() => PaymentProcessor()..mergeFromMessage(this);
   @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  PaymentProcessor copyWith(void Function(PaymentProcessor) updates) => super.copyWith((message) => updates(message as PaymentProcessor)) as PaymentProcessor; // ignore: deprecated_member_use
+      'Using this can add significant overhead to your binary. '
+          'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+          'Will be removed in next major version')
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static PaymentProcessor create() => PaymentProcessor._();
@@ -289,63 +226,18 @@ class Params extends $pb.GeneratedMessage {
   ;
 
   Params._() : super();
-  factory Params({
-    $core.Iterable<CoinIssuer>? coinIssuers,
-    $core.Iterable<PaymentProcessor>? paymentProcessors,
-    $core.String? recipeFeePercentage,
-    $core.String? itemTransferFeePercentage,
-    $2.Coin? updateItemStringFee,
-    $core.String? minTransferFee,
-    $core.String? maxTransferFee,
-    $2.Coin? updateUsernameFee,
-    $core.String? distrEpochIdentifier,
-    $fixnum.Int64? engineVersion,
-  }) {
-    final _result = create();
-    if (coinIssuers != null) {
-      _result.coinIssuers.addAll(coinIssuers);
-    }
-    if (paymentProcessors != null) {
-      _result.paymentProcessors.addAll(paymentProcessors);
-    }
-    if (recipeFeePercentage != null) {
-      _result.recipeFeePercentage = recipeFeePercentage;
-    }
-    if (itemTransferFeePercentage != null) {
-      _result.itemTransferFeePercentage = itemTransferFeePercentage;
-    }
-    if (updateItemStringFee != null) {
-      _result.updateItemStringFee = updateItemStringFee;
-    }
-    if (minTransferFee != null) {
-      _result.minTransferFee = minTransferFee;
-    }
-    if (maxTransferFee != null) {
-      _result.maxTransferFee = maxTransferFee;
-    }
-    if (updateUsernameFee != null) {
-      _result.updateUsernameFee = updateUsernameFee;
-    }
-    if (distrEpochIdentifier != null) {
-      _result.distrEpochIdentifier = distrEpochIdentifier;
-    }
-    if (engineVersion != null) {
-      _result.engineVersion = engineVersion;
-    }
-    return _result;
-  }
+  factory Params() => create();
   factory Params.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Params.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+      'Using this can add significant overhead to your binary. '
+          'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+          'Will be removed in next major version')
   Params clone() => Params()..mergeFromMessage(this);
   @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  Params copyWith(void Function(Params) updates) => super.copyWith((message) => updates(message as Params)) as Params; // ignore: deprecated_member_use
+      'Using this can add significant overhead to your binary. '
+          'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+          'Will be removed in next major version')
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static Params create() => Params._();
