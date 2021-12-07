@@ -64,8 +64,6 @@ class WalletsStoreImp implements WalletsStore {
       (newWallets) => wallets.value = newWallets,
     );
 
-
-
     areWalletsLoadingObservable.value = false;
     _queryClient = pylons.QueryClient(baseEnv.networkInfo.gRPCChannel);
   }
@@ -115,7 +113,6 @@ class WalletsStoreImp implements WalletsStore {
       final info = creds.publicInfo;
 
       final msgObj = pylons.MsgCreateAccount.create()..mergeFromProto3Json({'creator': creatorAddress, 'username': userName});
-
 
       final walletLookupKey = createWalletLookUp(info);
 
@@ -508,5 +505,18 @@ class WalletsStoreImp implements WalletsStore {
     final response = getItemListEither.toOption().toNullable()!;
 
     return SDKIPCResponse.success(data: jsonEncode(response.map((item) => item.toProto3Json()).toList()), sender: '', transaction: '');
+  }
+
+  @override
+  Future<SDKIPCResponse> getExecutionBasedOnId({required String id}) async {
+    final getExecutionEither = await repository.getExecutionBasedOnId(id: id);
+
+    if (getExecutionEither.isLeft()) {
+      return SDKIPCResponse.failure(sender: '', error: getExecutionEither.swap().toOption().toNullable()!.message, errorCode: HandlerFactory.ERR_CANNOT_FETCH_ITEM, transaction: '');
+    }
+
+    final response = getExecutionEither.toOption().toNullable()!;
+
+    return SDKIPCResponse.success(data: jsonEncode(response.toProto3Json()), sender: '', transaction: '');
   }
 }

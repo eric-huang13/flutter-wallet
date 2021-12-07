@@ -148,8 +148,11 @@ const String MOCK_COOKBOOK_ID = 'cookbookLOUD';
 const String MOCK_ADDRESS  = 'pylo18238123823kjhgda7w1';
 const String MOCK_RECIPE_ID = 'recipeid';
 const String MOCK_ITEM_ID = 'itemId';
-
+const String MOCK_EXECUTION_ID = 'executionId';
 const String MOCK_ERROR = 'SOMETHING_WENT_WRONG';
+const String MOCK_RECIPE_VERSION = 'recipe version';
+const String MOCK_NODE_VERSION = 'node version';
+
 
 
 
@@ -161,4 +164,15 @@ Item MOCK_ITEM = Item(
   doubles: [],
   longs: [],
   strings: [],
+);
+
+
+Execution MOCK_EXECUTION = Execution(
+  creator: MOCK_ADDRESS,
+  iD: MOCK_EXECUTION_ID,
+  cookbookID: MOCK_COOKBOOK_ID,
+  recipeVersion: MOCK_RECIPE_VERSION,
+  nodeVersion: MOCK_NODE_VERSION,
+
+
 );

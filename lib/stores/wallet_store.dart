@@ -227,4 +227,10 @@ abstract class WalletsStore {
 
 
 
+
+  /// This method returns the execution based on id
+  /// Input : [id] the id of the execution
+  /// Output: [pylons.Execution] returns execution
+  Future<SDKIPCResponse> getExecutionBasedOnId({required String id});
+
 }
