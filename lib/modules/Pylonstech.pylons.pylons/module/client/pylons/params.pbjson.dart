@@ -51,19 +51,19 @@ final $typed_data.Uint8List paymentProcessorDescriptor = $convert.base64Decode('
 const Params$json = const {
   '1': 'Params',
   '2': const [
-    const {'1': 'minNameFieldLength', '3': 1, '4': 1, '5': 4, '8': const {}, '10': 'minNameFieldLength'},
-    const {'1': 'minDescriptionFieldLength', '3': 2, '4': 1, '5': 4, '8': const {}, '10': 'minDescriptionFieldLength'},
-    const {'1': 'coinIssuers', '3': 3, '4': 3, '5': 11, '6': '.Pylonstech.pylons.pylons.CoinIssuer', '8': const {}, '10': 'coinIssuers'},
-    const {'1': 'paymentProcessors', '3': 4, '4': 3, '5': 11, '6': '.Pylonstech.pylons.pylons.PaymentProcessor', '8': const {}, '10': 'paymentProcessors'},
-    const {'1': 'recipeFeePercentage', '3': 5, '4': 1, '5': 9, '8': const {}, '10': 'recipeFeePercentage'},
-    const {'1': 'itemTransferFeePercentage', '3': 6, '4': 1, '5': 9, '8': const {}, '10': 'itemTransferFeePercentage'},
-    const {'1': 'updateItemStringFee', '3': 7, '4': 1, '5': 11, '6': '.cosmos.base.v1beta1.Coin', '8': const {}, '10': 'updateItemStringFee'},
-    const {'1': 'minTransferFee', '3': 8, '4': 1, '5': 9, '8': const {}, '10': 'minTransferFee'},
-    const {'1': 'maxTransferFee', '3': 9, '4': 1, '5': 9, '8': const {}, '10': 'maxTransferFee'},
-    const {'1': 'updateUsernameFee', '3': 10, '4': 1, '5': 11, '6': '.cosmos.base.v1beta1.Coin', '8': const {}, '10': 'updateUsernameFee'},
+    const {'1': 'coinIssuers', '3': 1, '4': 3, '5': 11, '6': '.Pylonstech.pylons.pylons.CoinIssuer', '8': const {}, '10': 'coinIssuers'},
+    const {'1': 'paymentProcessors', '3': 2, '4': 3, '5': 11, '6': '.Pylonstech.pylons.pylons.PaymentProcessor', '8': const {}, '10': 'paymentProcessors'},
+    const {'1': 'recipeFeePercentage', '3': 3, '4': 1, '5': 9, '8': const {}, '10': 'recipeFeePercentage'},
+    const {'1': 'itemTransferFeePercentage', '3': 4, '4': 1, '5': 9, '8': const {}, '10': 'itemTransferFeePercentage'},
+    const {'1': 'updateItemStringFee', '3': 5, '4': 1, '5': 11, '6': '.cosmos.base.v1beta1.Coin', '8': const {}, '10': 'updateItemStringFee'},
+    const {'1': 'minTransferFee', '3': 6, '4': 1, '5': 9, '8': const {}, '10': 'minTransferFee'},
+    const {'1': 'maxTransferFee', '3': 7, '4': 1, '5': 9, '8': const {}, '10': 'maxTransferFee'},
+    const {'1': 'updateUsernameFee', '3': 8, '4': 1, '5': 11, '6': '.cosmos.base.v1beta1.Coin', '8': const {}, '10': 'updateUsernameFee'},
+    const {'1': 'distrEpochIdentifier', '3': 9, '4': 1, '5': 9, '8': const {}, '10': 'distrEpochIdentifier'},
+    const {'1': 'engineVersion', '3': 10, '4': 1, '5': 4, '8': const {}, '10': 'engineVersion'},
   ],
   '7': const {},
 };
 
 /// Descriptor for `Params`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List paramsDescriptor = $convert.base64Decode('CgZQYXJhbXMSUAoSbWluTmFtZUZpZWxkTGVuZ3RoGAEgASgEQiDy3h8ceWFtbDoibWluX25hbWVfZmllbGRfbGVuZ3RoIlISbWluTmFtZUZpZWxkTGVuZ3RoEmUKGW1pbkRlc2NyaXB0aW9uRmllbGRMZW5ndGgYAiABKARCJ/LeHyN5YW1sOiJtaW5fZGVzY3JpcHRpb25fZmllbGRfbGVuZ3RoIlIZbWluRGVzY3JpcHRpb25GaWVsZExlbmd0aBJjCgtjb2luSXNzdWVycxgDIAMoCzIkLlB5bG9uc3RlY2gucHlsb25zLnB5bG9ucy5Db2luSXNzdWVyQhvy3h8TeWFtbDoiY29pbl9pc3N1ZXJzIsjeHwBSC2NvaW5Jc3N1ZXJzEnsKEXBheW1lbnRQcm9jZXNzb3JzGAQgAygLMiouUHlsb25zdGVjaC5weWxvbnMucHlsb25zLlBheW1lbnRQcm9jZXNzb3JCIfLeHxl5YW1sOiJwYXltZW50X3Byb2Nlc3NvcnMiyN4fAFIRcGF5bWVudFByb2Nlc3NvcnMSgAEKE3JlY2lwZUZlZVBlcmNlbnRhZ2UYBSABKAlCTvLeHxx5YW1sOiJyZWNpcGVfZmVlX3BlcmNlbnRhZ2UiyN4fANreHyZnaXRodWIuY29tL2Nvc21vcy9jb3Ntb3Mtc2RrL3R5cGVzLkRlY1ITcmVjaXBlRmVlUGVyY2VudGFnZRKTAQoZaXRlbVRyYW5zZmVyRmVlUGVyY2VudGFnZRgGIAEoCUJV8t4fI3lhbWw6Iml0ZW1fdHJhbnNmZXJfZmVlX3BlcmNlbnRhZ2UiyN4fANreHyZnaXRodWIuY29tL2Nvc21vcy9jb3Ntb3Mtc2RrL3R5cGVzLkRlY1IZaXRlbVRyYW5zZmVyRmVlUGVyY2VudGFnZRJyChN1cGRhdGVJdGVtU3RyaW5nRmVlGAcgASgLMhkuY29zbW9zLmJhc2UudjFiZXRhMS5Db2luQiXy3h8deWFtbDoidXBkYXRlX2l0ZW1fc3RyaW5nX2ZlZSLI3h8AUhN1cGRhdGVJdGVtU3RyaW5nRmVlEnEKDm1pblRyYW5zZmVyRmVlGAggASgJQkny3h8XeWFtbDoibWluX3RyYW5zZmVyX2ZlZSLI3h8A2t4fJmdpdGh1Yi5jb20vY29zbW9zL2Nvc21vcy1zZGsvdHlwZXMuSW50Ug5taW5UcmFuc2ZlckZlZRJxCg5tYXhUcmFuc2ZlckZlZRgJIAEoCUJJ8t4fF3lhbWw6Im1heF90cmFuc2Zlcl9mZWUiyN4fANreHyZnaXRodWIuY29tL2Nvc21vcy9jb3Ntb3Mtc2RrL3R5cGVzLkludFIObWF4VHJhbnNmZXJGZWUSawoRdXBkYXRlVXNlcm5hbWVGZWUYCiABKAsyGS5jb3Ntb3MuYmFzZS52MWJldGExLkNvaW5CIvLeHxp5YW1sOiJ1cGRhdGVfdXNlcm5hbWVfZmVlIsjeHwBSEXVwZGF0ZVVzZXJuYW1lRmVlOgSYoB8A');
+final $typed_data.Uint8List paramsDescriptor = $convert.base64Decode('CgZQYXJhbXMSYwoLY29pbklzc3VlcnMYASADKAsyJC5QeWxvbnN0ZWNoLnB5bG9ucy5weWxvbnMuQ29pbklzc3VlckIb8t4fE3lhbWw6ImNvaW5faXNzdWVycyLI3h8AUgtjb2luSXNzdWVycxJ7ChFwYXltZW50UHJvY2Vzc29ycxgCIAMoCzIqLlB5bG9uc3RlY2gucHlsb25zLnB5bG9ucy5QYXltZW50UHJvY2Vzc29yQiHy3h8ZeWFtbDoicGF5bWVudF9wcm9jZXNzb3JzIsjeHwBSEXBheW1lbnRQcm9jZXNzb3JzEoABChNyZWNpcGVGZWVQZXJjZW50YWdlGAMgASgJQk7y3h8ceWFtbDoicmVjaXBlX2ZlZV9wZXJjZW50YWdlIsjeHwDa3h8mZ2l0aHViLmNvbS9jb3Ntb3MvY29zbW9zLXNkay90eXBlcy5EZWNSE3JlY2lwZUZlZVBlcmNlbnRhZ2USkwEKGWl0ZW1UcmFuc2ZlckZlZVBlcmNlbnRhZ2UYBCABKAlCVfLeHyN5YW1sOiJpdGVtX3RyYW5zZmVyX2ZlZV9wZXJjZW50YWdlIsjeHwDa3h8mZ2l0aHViLmNvbS9jb3Ntb3MvY29zbW9zLXNkay90eXBlcy5EZWNSGWl0ZW1UcmFuc2ZlckZlZVBlcmNlbnRhZ2UScgoTdXBkYXRlSXRlbVN0cmluZ0ZlZRgFIAEoCzIZLmNvc21vcy5iYXNlLnYxYmV0YTEuQ29pbkIl8t4fHXlhbWw6InVwZGF0ZV9pdGVtX3N0cmluZ19mZWUiyN4fAFITdXBkYXRlSXRlbVN0cmluZ0ZlZRJxCg5taW5UcmFuc2ZlckZlZRgGIAEoCUJJ8t4fF3lhbWw6Im1pbl90cmFuc2Zlcl9mZWUiyN4fANreHyZnaXRodWIuY29tL2Nvc21vcy9jb3Ntb3Mtc2RrL3R5cGVzLkludFIObWluVHJhbnNmZXJGZWUScQoObWF4VHJhbnNmZXJGZWUYByABKAlCSfLeHxd5YW1sOiJtYXhfdHJhbnNmZXJfZmVlIsjeHwDa3h8mZ2l0aHViLmNvbS9jb3Ntb3MvY29zbW9zLXNkay90eXBlcy5JbnRSDm1heFRyYW5zZmVyRmVlEmsKEXVwZGF0ZVVzZXJuYW1lRmVlGAggASgLMhkuY29zbW9zLmJhc2UudjFiZXRhMS5Db2luQiLy3h8aeWFtbDoidXBkYXRlX3VzZXJuYW1lX2ZlZSLI3h8AUhF1cGRhdGVVc2VybmFtZUZlZRJVChRkaXN0ckVwb2NoSWRlbnRpZmllchgJIAEoCUIh8t4fHXlhbWw6ImRpc3RyX2Vwb2NoX2lkZW50aWZpZXIiUhRkaXN0ckVwb2NoSWRlbnRpZmllchI/Cg1lbmdpbmVWZXJzaW9uGAogASgEQhny3h8VeWFtbDoiZW5naW5lX3ZlcnNpb24iUg1lbmdpbmVWZXJzaW9uOgSYoB8A');

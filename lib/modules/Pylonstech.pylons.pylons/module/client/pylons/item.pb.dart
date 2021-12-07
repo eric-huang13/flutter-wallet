@@ -200,7 +200,7 @@ class Item extends $pb.GeneratedMessage {
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'owner')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'cookbookID', protoName: 'cookbookID')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ID', protoName: 'ID')
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nodeVersion', protoName: 'nodeVersion')
+    ..a<$fixnum.Int64>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nodeVersion', $pb.PbFieldType.OU6, protoName: 'nodeVersion', defaultOrMaker: $fixnum.Int64.ZERO)
     ..pc<DoubleKeyValue>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'doubles', $pb.PbFieldType.PM, subBuilder: DoubleKeyValue.create)
     ..pc<LongKeyValue>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'longs', $pb.PbFieldType.PM, subBuilder: LongKeyValue.create)
     ..pc<StringKeyValue>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'strings', $pb.PbFieldType.PM, subBuilder: StringKeyValue.create)
@@ -217,7 +217,7 @@ class Item extends $pb.GeneratedMessage {
     $core.String? owner,
     $core.String? cookbookID,
     $core.String? iD,
-    $core.String? nodeVersion,
+    $fixnum.Int64? nodeVersion,
     $core.Iterable<DoubleKeyValue>? doubles,
     $core.Iterable<LongKeyValue>? longs,
     $core.Iterable<StringKeyValue>? strings,
@@ -315,9 +315,9 @@ class Item extends $pb.GeneratedMessage {
   void clearID() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.String get nodeVersion => $_getSZ(3);
+  $fixnum.Int64 get nodeVersion => $_getI64(3);
   @$pb.TagNumber(4)
-  set nodeVersion($core.String v) { $_setString(3, v); }
+  set nodeVersion($fixnum.Int64 v) { $_setInt64(3, v); }
   @$pb.TagNumber(4)
   $core.bool hasNodeVersion() => $_has(3);
   @$pb.TagNumber(4)

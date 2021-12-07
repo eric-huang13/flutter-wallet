@@ -43,18 +43,6 @@ const StringInputParam$json = const {
 
 /// Descriptor for `StringInputParam`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List stringInputParamDescriptor = $convert.base64Decode('ChBTdHJpbmdJbnB1dFBhcmFtEhAKA2tleRgBIAEoCVIDa2V5EhQKBXZhbHVlGAIgASgJUgV2YWx1ZQ==');
-@$core.Deprecated('Use conditionListDescriptor instead')
-const ConditionList$json = const {
-  '1': 'ConditionList',
-  '2': const [
-    const {'1': 'doubles', '3': 1, '4': 3, '5': 11, '6': '.Pylonstech.pylons.pylons.DoubleInputParam', '8': const {}, '10': 'doubles'},
-    const {'1': 'longs', '3': 2, '4': 3, '5': 11, '6': '.Pylonstech.pylons.pylons.LongInputParam', '8': const {}, '10': 'longs'},
-    const {'1': 'strings', '3': 3, '4': 3, '5': 11, '6': '.Pylonstech.pylons.pylons.StringInputParam', '8': const {}, '10': 'strings'},
-  ],
-};
-
-/// Descriptor for `ConditionList`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List conditionListDescriptor = $convert.base64Decode('Cg1Db25kaXRpb25MaXN0EkoKB2RvdWJsZXMYASADKAsyKi5QeWxvbnN0ZWNoLnB5bG9ucy5weWxvbnMuRG91YmxlSW5wdXRQYXJhbUIEyN4fAFIHZG91YmxlcxJECgVsb25ncxgCIAMoCzIoLlB5bG9uc3RlY2gucHlsb25zLnB5bG9ucy5Mb25nSW5wdXRQYXJhbUIEyN4fAFIFbG9uZ3MSSgoHc3RyaW5ncxgDIAMoCzIqLlB5bG9uc3RlY2gucHlsb25zLnB5bG9ucy5TdHJpbmdJbnB1dFBhcmFtQgTI3h8AUgdzdHJpbmdz');
 @$core.Deprecated('Use itemInputDescriptor instead')
 const ItemInput$json = const {
   '1': 'ItemInput',
@@ -63,12 +51,11 @@ const ItemInput$json = const {
     const {'1': 'doubles', '3': 2, '4': 3, '5': 11, '6': '.Pylonstech.pylons.pylons.DoubleInputParam', '8': const {}, '10': 'doubles'},
     const {'1': 'longs', '3': 3, '4': 3, '5': 11, '6': '.Pylonstech.pylons.pylons.LongInputParam', '8': const {}, '10': 'longs'},
     const {'1': 'strings', '3': 4, '4': 3, '5': 11, '6': '.Pylonstech.pylons.pylons.StringInputParam', '8': const {}, '10': 'strings'},
-    const {'1': 'conditions', '3': 5, '4': 1, '5': 11, '6': '.Pylonstech.pylons.pylons.ConditionList', '8': const {}, '10': 'conditions'},
   ],
 };
 
 /// Descriptor for `ItemInput`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List itemInputDescriptor = $convert.base64Decode('CglJdGVtSW5wdXQSDgoCSUQYASABKAlSAklEEkoKB2RvdWJsZXMYAiADKAsyKi5QeWxvbnN0ZWNoLnB5bG9ucy5weWxvbnMuRG91YmxlSW5wdXRQYXJhbUIEyN4fAFIHZG91YmxlcxJECgVsb25ncxgDIAMoCzIoLlB5bG9uc3RlY2gucHlsb25zLnB5bG9ucy5Mb25nSW5wdXRQYXJhbUIEyN4fAFIFbG9uZ3MSSgoHc3RyaW5ncxgEIAMoCzIqLlB5bG9uc3RlY2gucHlsb25zLnB5bG9ucy5TdHJpbmdJbnB1dFBhcmFtQgTI3h8AUgdzdHJpbmdzEk0KCmNvbmRpdGlvbnMYBSABKAsyJy5QeWxvbnN0ZWNoLnB5bG9ucy5weWxvbnMuQ29uZGl0aW9uTGlzdEIEyN4fAFIKY29uZGl0aW9ucw==');
+final $typed_data.Uint8List itemInputDescriptor = $convert.base64Decode('CglJdGVtSW5wdXQSDgoCSUQYASABKAlSAklEEkoKB2RvdWJsZXMYAiADKAsyKi5QeWxvbnN0ZWNoLnB5bG9ucy5weWxvbnMuRG91YmxlSW5wdXRQYXJhbUIEyN4fAFIHZG91YmxlcxJECgVsb25ncxgDIAMoCzIoLlB5bG9uc3RlY2gucHlsb25zLnB5bG9ucy5Mb25nSW5wdXRQYXJhbUIEyN4fAFIFbG9uZ3MSSgoHc3RyaW5ncxgEIAMoCzIqLlB5bG9uc3RlY2gucHlsb25zLnB5bG9ucy5TdHJpbmdJbnB1dFBhcmFtQgTI3h8AUgdzdHJpbmdz');
 @$core.Deprecated('Use doubleWeightRangeDescriptor instead')
 const DoubleWeightRange$json = const {
   '1': 'DoubleWeightRange',
@@ -219,7 +206,7 @@ const Recipe$json = const {
   '2': const [
     const {'1': 'cookbookID', '3': 1, '4': 1, '5': 9, '10': 'cookbookID'},
     const {'1': 'ID', '3': 2, '4': 1, '5': 9, '10': 'ID'},
-    const {'1': 'nodeVersion', '3': 3, '4': 1, '5': 9, '10': 'nodeVersion'},
+    const {'1': 'nodeVersion', '3': 3, '4': 1, '5': 4, '10': 'nodeVersion'},
     const {'1': 'name', '3': 4, '4': 1, '5': 9, '10': 'name'},
     const {'1': 'description', '3': 5, '4': 1, '5': 9, '10': 'description'},
     const {'1': 'version', '3': 6, '4': 1, '5': 9, '10': 'version'},
@@ -228,10 +215,11 @@ const Recipe$json = const {
     const {'1': 'entries', '3': 9, '4': 1, '5': 11, '6': '.Pylonstech.pylons.pylons.EntriesList', '8': const {}, '10': 'entries'},
     const {'1': 'outputs', '3': 10, '4': 3, '5': 11, '6': '.Pylonstech.pylons.pylons.WeightedOutputs', '8': const {}, '10': 'outputs'},
     const {'1': 'blockInterval', '3': 11, '4': 1, '5': 3, '10': 'blockInterval'},
-    const {'1': 'enabled', '3': 12, '4': 1, '5': 8, '10': 'enabled'},
-    const {'1': 'extraInfo', '3': 13, '4': 1, '5': 9, '10': 'extraInfo'},
+    const {'1': 'costPerBlock', '3': 12, '4': 1, '5': 11, '6': '.cosmos.base.v1beta1.Coin', '8': const {}, '10': 'costPerBlock'},
+    const {'1': 'enabled', '3': 13, '4': 1, '5': 8, '10': 'enabled'},
+    const {'1': 'extraInfo', '3': 14, '4': 1, '5': 9, '10': 'extraInfo'},
   ],
 };
 
 /// Descriptor for `Recipe`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List recipeDescriptor = $convert.base64Decode('CgZSZWNpcGUSHgoKY29va2Jvb2tJRBgBIAEoCVIKY29va2Jvb2tJRBIOCgJJRBgCIAEoCVICSUQSIAoLbm9kZVZlcnNpb24YAyABKAlSC25vZGVWZXJzaW9uEhIKBG5hbWUYBCABKAlSBG5hbWUSIAoLZGVzY3JpcHRpb24YBSABKAlSC2Rlc2NyaXB0aW9uEhgKB3ZlcnNpb24YBiABKAlSB3ZlcnNpb24SSQoKY29pbklucHV0cxgHIAMoCzIjLlB5bG9uc3RlY2gucHlsb25zLnB5bG9ucy5Db2luSW5wdXRCBMjeHwBSCmNvaW5JbnB1dHMSSQoKaXRlbUlucHV0cxgIIAMoCzIjLlB5bG9uc3RlY2gucHlsb25zLnB5bG9ucy5JdGVtSW5wdXRCBMjeHwBSCml0ZW1JbnB1dHMSRQoHZW50cmllcxgJIAEoCzIlLlB5bG9uc3RlY2gucHlsb25zLnB5bG9ucy5FbnRyaWVzTGlzdEIEyN4fAFIHZW50cmllcxJJCgdvdXRwdXRzGAogAygLMikuUHlsb25zdGVjaC5weWxvbnMucHlsb25zLldlaWdodGVkT3V0cHV0c0IEyN4fAFIHb3V0cHV0cxIkCg1ibG9ja0ludGVydmFsGAsgASgDUg1ibG9ja0ludGVydmFsEhgKB2VuYWJsZWQYDCABKAhSB2VuYWJsZWQSHAoJZXh0cmFJbmZvGA0gASgJUglleHRyYUluZm8=');
+final $typed_data.Uint8List recipeDescriptor = $convert.base64Decode('CgZSZWNpcGUSHgoKY29va2Jvb2tJRBgBIAEoCVIKY29va2Jvb2tJRBIOCgJJRBgCIAEoCVICSUQSIAoLbm9kZVZlcnNpb24YAyABKARSC25vZGVWZXJzaW9uEhIKBG5hbWUYBCABKAlSBG5hbWUSIAoLZGVzY3JpcHRpb24YBSABKAlSC2Rlc2NyaXB0aW9uEhgKB3ZlcnNpb24YBiABKAlSB3ZlcnNpb24SSQoKY29pbklucHV0cxgHIAMoCzIjLlB5bG9uc3RlY2gucHlsb25zLnB5bG9ucy5Db2luSW5wdXRCBMjeHwBSCmNvaW5JbnB1dHMSSQoKaXRlbUlucHV0cxgIIAMoCzIjLlB5bG9uc3RlY2gucHlsb25zLnB5bG9ucy5JdGVtSW5wdXRCBMjeHwBSCml0ZW1JbnB1dHMSRQoHZW50cmllcxgJIAEoCzIlLlB5bG9uc3RlY2gucHlsb25zLnB5bG9ucy5FbnRyaWVzTGlzdEIEyN4fAFIHZW50cmllcxJJCgdvdXRwdXRzGAogAygLMikuUHlsb25zdGVjaC5weWxvbnMucHlsb25zLldlaWdodGVkT3V0cHV0c0IEyN4fAFIHb3V0cHV0cxIkCg1ibG9ja0ludGVydmFsGAsgASgDUg1ibG9ja0ludGVydmFsEkMKDGNvc3RQZXJCbG9jaxgMIAEoCzIZLmNvc21vcy5iYXNlLnYxYmV0YTEuQ29pbkIEyN4fAFIMY29zdFBlckJsb2NrEhgKB2VuYWJsZWQYDSABKAhSB2VuYWJsZWQSHAoJZXh0cmFJbmZvGA4gASgJUglleHRyYUluZm8=');
