@@ -21,47 +21,18 @@ class PaymentInfo extends $pb.GeneratedMessage {
   ;
 
   PaymentInfo._() : super();
-  factory PaymentInfo({
-    $core.String? purchaseID,
-    $core.String? processorName,
-    $core.String? payerAddr,
-    $core.String? amount,
-    $core.String? productID,
-    $core.String? signature,
-  }) {
-    final _result = create();
-    if (purchaseID != null) {
-      _result.purchaseID = purchaseID;
-    }
-    if (processorName != null) {
-      _result.processorName = processorName;
-    }
-    if (payerAddr != null) {
-      _result.payerAddr = payerAddr;
-    }
-    if (amount != null) {
-      _result.amount = amount;
-    }
-    if (productID != null) {
-      _result.productID = productID;
-    }
-    if (signature != null) {
-      _result.signature = signature;
-    }
-    return _result;
-  }
+  factory PaymentInfo() => create();
   factory PaymentInfo.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory PaymentInfo.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+      'Using this can add significant overhead to your binary. '
+          'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+          'Will be removed in next major version')
   PaymentInfo clone() => PaymentInfo()..mergeFromMessage(this);
   @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  PaymentInfo copyWith(void Function(PaymentInfo) updates) => super.copyWith((message) => updates(message as PaymentInfo)) as PaymentInfo; // ignore: deprecated_member_use
+      'Using this can add significant overhead to your binary. '
+          'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+          'Will be removed in next major version')
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static PaymentInfo create() => PaymentInfo._();

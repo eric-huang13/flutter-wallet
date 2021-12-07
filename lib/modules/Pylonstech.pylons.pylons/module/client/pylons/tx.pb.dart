@@ -3,7 +3,7 @@
 //  source: pylons/tx.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
+// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields,
 
 import 'dart:core' as $core;
 
@@ -24,19 +24,7 @@ class MsgBurnDebtToken extends $pb.GeneratedMessage {
   ;
 
   MsgBurnDebtToken._() : super();
-  factory MsgBurnDebtToken({
-    $core.String? creator,
-    $5.RedeemInfo? redeemInfo,
-  }) {
-    final _result = create();
-    if (creator != null) {
-      _result.creator = creator;
-    }
-    if (redeemInfo != null) {
-      _result.redeemInfo = redeemInfo;
-    }
-    return _result;
-  }
+  factory MsgBurnDebtToken() => create();
   factory MsgBurnDebtToken.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgBurnDebtToken.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -48,7 +36,7 @@ class MsgBurnDebtToken extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgBurnDebtToken copyWith(void Function(MsgBurnDebtToken) updates) => super.copyWith((message) => updates(message as MsgBurnDebtToken)) as MsgBurnDebtToken; // ignore: deprecated_member_use
+
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgBurnDebtToken create() => MsgBurnDebtToken._();
@@ -97,7 +85,6 @@ class MsgBurnDebtTokenResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgBurnDebtTokenResponse copyWith(void Function(MsgBurnDebtTokenResponse) updates) => super.copyWith((message) => updates(message as MsgBurnDebtTokenResponse)) as MsgBurnDebtTokenResponse; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgBurnDebtTokenResponse create() => MsgBurnDebtTokenResponse._();
@@ -116,19 +103,7 @@ class MsgUpdateAccount extends $pb.GeneratedMessage {
   ;
 
   MsgUpdateAccount._() : super();
-  factory MsgUpdateAccount({
-    $core.String? creator,
-    $core.String? username,
-  }) {
-    final _result = create();
-    if (creator != null) {
-      _result.creator = creator;
-    }
-    if (username != null) {
-      _result.username = username;
-    }
-    return _result;
-  }
+  factory MsgUpdateAccount() => create();
   factory MsgUpdateAccount.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgUpdateAccount.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -140,7 +115,6 @@ class MsgUpdateAccount extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgUpdateAccount copyWith(void Function(MsgUpdateAccount) updates) => super.copyWith((message) => updates(message as MsgUpdateAccount)) as MsgUpdateAccount; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgUpdateAccount create() => MsgUpdateAccount._();
@@ -187,7 +161,6 @@ class MsgUpdateAccountResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgUpdateAccountResponse copyWith(void Function(MsgUpdateAccountResponse) updates) => super.copyWith((message) => updates(message as MsgUpdateAccountResponse)) as MsgUpdateAccountResponse; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgUpdateAccountResponse create() => MsgUpdateAccountResponse._();
@@ -206,19 +179,7 @@ class MsgCreateAccount extends $pb.GeneratedMessage {
   ;
 
   MsgCreateAccount._() : super();
-  factory MsgCreateAccount({
-    $core.String? creator,
-    $core.String? username,
-  }) {
-    final _result = create();
-    if (creator != null) {
-      _result.creator = creator;
-    }
-    if (username != null) {
-      _result.username = username;
-    }
-    return _result;
-  }
+  factory MsgCreateAccount() => create();
   factory MsgCreateAccount.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgCreateAccount.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -230,7 +191,6 @@ class MsgCreateAccount extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgCreateAccount copyWith(void Function(MsgCreateAccount) updates) => super.copyWith((message) => updates(message as MsgCreateAccount)) as MsgCreateAccount; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgCreateAccount create() => MsgCreateAccount._();
@@ -277,7 +237,6 @@ class MsgCreateAccountResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgCreateAccountResponse copyWith(void Function(MsgCreateAccountResponse) updates) => super.copyWith((message) => updates(message as MsgCreateAccountResponse)) as MsgCreateAccountResponse; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgCreateAccountResponse create() => MsgCreateAccountResponse._();
@@ -299,31 +258,7 @@ class MsgFulfillTrade extends $pb.GeneratedMessage {
   ;
 
   MsgFulfillTrade._() : super();
-  factory MsgFulfillTrade({
-    $core.String? creator,
-    $fixnum.Int64? iD,
-    $fixnum.Int64? coinInputsIndex,
-    $core.Iterable<$8.ItemRef>? items,
-    $core.Iterable<$7.PaymentInfo>? paymentInfos,
-  }) {
-    final _result = create();
-    if (creator != null) {
-      _result.creator = creator;
-    }
-    if (iD != null) {
-      _result.iD = iD;
-    }
-    if (coinInputsIndex != null) {
-      _result.coinInputsIndex = coinInputsIndex;
-    }
-    if (items != null) {
-      _result.items.addAll(items);
-    }
-    if (paymentInfos != null) {
-      _result.paymentInfos.addAll(paymentInfos);
-    }
-    return _result;
-  }
+  factory MsgFulfillTrade() => create();
   factory MsgFulfillTrade.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgFulfillTrade.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -335,7 +270,6 @@ class MsgFulfillTrade extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgFulfillTrade copyWith(void Function(MsgFulfillTrade) updates) => super.copyWith((message) => updates(message as MsgFulfillTrade)) as MsgFulfillTrade; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgFulfillTrade create() => MsgFulfillTrade._();
@@ -397,7 +331,6 @@ class MsgFulfillTradeResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgFulfillTradeResponse copyWith(void Function(MsgFulfillTradeResponse) updates) => super.copyWith((message) => updates(message as MsgFulfillTradeResponse)) as MsgFulfillTradeResponse; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgFulfillTradeResponse create() => MsgFulfillTradeResponse._();
@@ -405,7 +338,7 @@ class MsgFulfillTradeResponse extends $pb.GeneratedMessage {
   static $pb.PbList<MsgFulfillTradeResponse> createRepeated() => $pb.PbList<MsgFulfillTradeResponse>();
   @$core.pragma('dart2js:noInline')
   static MsgFulfillTradeResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MsgFulfillTradeResponse>(create);
-  static MsgFulfillTradeResponse? _defaultInstance;
+  static MsgFulfillTradeResponse?_defaultInstance;
 }
 
 class MsgCreateTrade extends $pb.GeneratedMessage {
@@ -420,35 +353,7 @@ class MsgCreateTrade extends $pb.GeneratedMessage {
   ;
 
   MsgCreateTrade._() : super();
-  factory MsgCreateTrade({
-    $core.String? creator,
-    $core.Iterable<$4.CoinInput>? coinInputs,
-    $core.Iterable<$4.ItemInput>? itemInputs,
-    $core.Iterable<$2.Coin>? coinOutputs,
-    $core.Iterable<$8.ItemRef>? itemOutputs,
-    $core.String? extraInfo,
-  }) {
-    final _result = create();
-    if (creator != null) {
-      _result.creator = creator;
-    }
-    if (coinInputs != null) {
-      _result.coinInputs.addAll(coinInputs);
-    }
-    if (itemInputs != null) {
-      _result.itemInputs.addAll(itemInputs);
-    }
-    if (coinOutputs != null) {
-      _result.coinOutputs.addAll(coinOutputs);
-    }
-    if (itemOutputs != null) {
-      _result.itemOutputs.addAll(itemOutputs);
-    }
-    if (extraInfo != null) {
-      _result.extraInfo = extraInfo;
-    }
-    return _result;
-  }
+  factory MsgCreateTrade() => create();
   factory MsgCreateTrade.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgCreateTrade.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -460,7 +365,6 @@ class MsgCreateTrade extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgCreateTrade copyWith(void Function(MsgCreateTrade) updates) => super.copyWith((message) => updates(message as MsgCreateTrade)) as MsgCreateTrade; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgCreateTrade create() => MsgCreateTrade._();
@@ -508,15 +412,7 @@ class MsgCreateTradeResponse extends $pb.GeneratedMessage {
   ;
 
   MsgCreateTradeResponse._() : super();
-  factory MsgCreateTradeResponse({
-    $fixnum.Int64? iD,
-  }) {
-    final _result = create();
-    if (iD != null) {
-      _result.iD = iD;
-    }
-    return _result;
-  }
+  factory MsgCreateTradeResponse() => create();
   factory MsgCreateTradeResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgCreateTradeResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -528,7 +424,6 @@ class MsgCreateTradeResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgCreateTradeResponse copyWith(void Function(MsgCreateTradeResponse) updates) => super.copyWith((message) => updates(message as MsgCreateTradeResponse)) as MsgCreateTradeResponse; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgCreateTradeResponse create() => MsgCreateTradeResponse._();
@@ -556,19 +451,7 @@ class MsgCancelTrade extends $pb.GeneratedMessage {
   ;
 
   MsgCancelTrade._() : super();
-  factory MsgCancelTrade({
-    $core.String? creator,
-    $fixnum.Int64? iD,
-  }) {
-    final _result = create();
-    if (creator != null) {
-      _result.creator = creator;
-    }
-    if (iD != null) {
-      _result.iD = iD;
-    }
-    return _result;
-  }
+  factory MsgCancelTrade() => create();
   factory MsgCancelTrade.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgCancelTrade.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -580,7 +463,6 @@ class MsgCancelTrade extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgCancelTrade copyWith(void Function(MsgCancelTrade) updates) => super.copyWith((message) => updates(message as MsgCancelTrade)) as MsgCancelTrade; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgCancelTrade create() => MsgCancelTrade._();
@@ -627,7 +509,6 @@ class MsgCancelTradeResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgCancelTradeResponse copyWith(void Function(MsgCancelTradeResponse) updates) => super.copyWith((message) => updates(message as MsgCancelTradeResponse)) as MsgCancelTradeResponse; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgCancelTradeResponse create() => MsgCancelTradeResponse._();
@@ -646,19 +527,7 @@ class MsgCompleteExecutionEarly extends $pb.GeneratedMessage {
   ;
 
   MsgCompleteExecutionEarly._() : super();
-  factory MsgCompleteExecutionEarly({
-    $core.String? creator,
-    $core.String? iD,
-  }) {
-    final _result = create();
-    if (creator != null) {
-      _result.creator = creator;
-    }
-    if (iD != null) {
-      _result.iD = iD;
-    }
-    return _result;
-  }
+  factory MsgCompleteExecutionEarly() => create();
   factory MsgCompleteExecutionEarly.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgCompleteExecutionEarly.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -670,7 +539,6 @@ class MsgCompleteExecutionEarly extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgCompleteExecutionEarly copyWith(void Function(MsgCompleteExecutionEarly) updates) => super.copyWith((message) => updates(message as MsgCompleteExecutionEarly)) as MsgCompleteExecutionEarly; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgCompleteExecutionEarly create() => MsgCompleteExecutionEarly._();
@@ -706,15 +574,7 @@ class MsgCompleteExecutionEarlyResponse extends $pb.GeneratedMessage {
   ;
 
   MsgCompleteExecutionEarlyResponse._() : super();
-  factory MsgCompleteExecutionEarlyResponse({
-    $core.String? iD,
-  }) {
-    final _result = create();
-    if (iD != null) {
-      _result.iD = iD;
-    }
-    return _result;
-  }
+  factory MsgCompleteExecutionEarlyResponse() => create();
   factory MsgCompleteExecutionEarlyResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgCompleteExecutionEarlyResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -726,7 +586,6 @@ class MsgCompleteExecutionEarlyResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgCompleteExecutionEarlyResponse copyWith(void Function(MsgCompleteExecutionEarlyResponse) updates) => super.copyWith((message) => updates(message as MsgCompleteExecutionEarlyResponse)) as MsgCompleteExecutionEarlyResponse; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgCompleteExecutionEarlyResponse create() => MsgCompleteExecutionEarlyResponse._();
@@ -755,23 +614,7 @@ class MsgTransferCookbook extends $pb.GeneratedMessage {
   ;
 
   MsgTransferCookbook._() : super();
-  factory MsgTransferCookbook({
-    $core.String? creator,
-    $core.String? iD,
-    $core.String? recipient,
-  }) {
-    final _result = create();
-    if (creator != null) {
-      _result.creator = creator;
-    }
-    if (iD != null) {
-      _result.iD = iD;
-    }
-    if (recipient != null) {
-      _result.recipient = recipient;
-    }
-    return _result;
-  }
+  factory MsgTransferCookbook() => create();
   factory MsgTransferCookbook.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgTransferCookbook.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -783,7 +626,6 @@ class MsgTransferCookbook extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgTransferCookbook copyWith(void Function(MsgTransferCookbook) updates) => super.copyWith((message) => updates(message as MsgTransferCookbook)) as MsgTransferCookbook; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgTransferCookbook create() => MsgTransferCookbook._();
@@ -839,7 +681,6 @@ class MsgTransferCookbookResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgTransferCookbookResponse copyWith(void Function(MsgTransferCookbookResponse) updates) => super.copyWith((message) => updates(message as MsgTransferCookbookResponse)) as MsgTransferCookbookResponse; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgTransferCookbookResponse create() => MsgTransferCookbookResponse._();
@@ -861,31 +702,7 @@ class MsgGoogleInAppPurchaseGetCoins extends $pb.GeneratedMessage {
   ;
 
   MsgGoogleInAppPurchaseGetCoins._() : super();
-  factory MsgGoogleInAppPurchaseGetCoins({
-    $core.String? creator,
-    $core.String? productID,
-    $core.String? purchaseToken,
-    $core.String? receiptDataBase64,
-    $core.String? signature,
-  }) {
-    final _result = create();
-    if (creator != null) {
-      _result.creator = creator;
-    }
-    if (productID != null) {
-      _result.productID = productID;
-    }
-    if (purchaseToken != null) {
-      _result.purchaseToken = purchaseToken;
-    }
-    if (receiptDataBase64 != null) {
-      _result.receiptDataBase64 = receiptDataBase64;
-    }
-    if (signature != null) {
-      _result.signature = signature;
-    }
-    return _result;
-  }
+  factory MsgGoogleInAppPurchaseGetCoins() => create();
   factory MsgGoogleInAppPurchaseGetCoins.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgGoogleInAppPurchaseGetCoins.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -897,7 +714,6 @@ class MsgGoogleInAppPurchaseGetCoins extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgGoogleInAppPurchaseGetCoins copyWith(void Function(MsgGoogleInAppPurchaseGetCoins) updates) => super.copyWith((message) => updates(message as MsgGoogleInAppPurchaseGetCoins)) as MsgGoogleInAppPurchaseGetCoins; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgGoogleInAppPurchaseGetCoins create() => MsgGoogleInAppPurchaseGetCoins._();
@@ -971,7 +787,6 @@ class MsgGoogleInAppPurchaseGetCoinsResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgGoogleInAppPurchaseGetCoinsResponse copyWith(void Function(MsgGoogleInAppPurchaseGetCoinsResponse) updates) => super.copyWith((message) => updates(message as MsgGoogleInAppPurchaseGetCoinsResponse)) as MsgGoogleInAppPurchaseGetCoinsResponse; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgGoogleInAppPurchaseGetCoinsResponse create() => MsgGoogleInAppPurchaseGetCoinsResponse._();
@@ -991,23 +806,7 @@ class MsgSendItems extends $pb.GeneratedMessage {
   ;
 
   MsgSendItems._() : super();
-  factory MsgSendItems({
-    $core.String? creator,
-    $core.String? receiver,
-    $core.Iterable<$8.ItemRef>? items,
-  }) {
-    final _result = create();
-    if (creator != null) {
-      _result.creator = creator;
-    }
-    if (receiver != null) {
-      _result.receiver = receiver;
-    }
-    if (items != null) {
-      _result.items.addAll(items);
-    }
-    return _result;
-  }
+  factory MsgSendItems() => create();
   factory MsgSendItems.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgSendItems.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -1019,7 +818,6 @@ class MsgSendItems extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgSendItems copyWith(void Function(MsgSendItems) updates) => super.copyWith((message) => updates(message as MsgSendItems)) as MsgSendItems; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgSendItems create() => MsgSendItems._();
@@ -1069,7 +867,6 @@ class MsgSendItemsResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgSendItemsResponse copyWith(void Function(MsgSendItemsResponse) updates) => super.copyWith((message) => updates(message as MsgSendItemsResponse)) as MsgSendItemsResponse; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgSendItemsResponse create() => MsgSendItemsResponse._();
@@ -1121,18 +918,20 @@ class MsgExecuteRecipe extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory MsgExecuteRecipe.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory MsgExecuteRecipe.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+  factory MsgExecuteRecipe.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory MsgExecuteRecipe.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
   MsgExecuteRecipe clone() => MsgExecuteRecipe()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgExecuteRecipe copyWith(void Function(MsgExecuteRecipe) updates) => super.copyWith((message) => updates(message as MsgExecuteRecipe)) as MsgExecuteRecipe; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgExecuteRecipe create() => MsgExecuteRecipe._();
@@ -1192,15 +991,7 @@ class MsgExecuteRecipeResponse extends $pb.GeneratedMessage {
   ;
 
   MsgExecuteRecipeResponse._() : super();
-  factory MsgExecuteRecipeResponse({
-    $core.String? iD,
-  }) {
-    final _result = create();
-    if (iD != null) {
-      _result.iD = iD;
-    }
-    return _result;
-  }
+  factory MsgExecuteRecipeResponse() => create();
   factory MsgExecuteRecipeResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgExecuteRecipeResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -1212,7 +1003,6 @@ class MsgExecuteRecipeResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgExecuteRecipeResponse copyWith(void Function(MsgExecuteRecipeResponse) updates) => super.copyWith((message) => updates(message as MsgExecuteRecipeResponse)) as MsgExecuteRecipeResponse; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgExecuteRecipeResponse create() => MsgExecuteRecipeResponse._();
@@ -1243,31 +1033,7 @@ class MsgSetItemString extends $pb.GeneratedMessage {
   ;
 
   MsgSetItemString._() : super();
-  factory MsgSetItemString({
-    $core.String? creator,
-    $core.String? cookbookID,
-    $core.String? iD,
-    $core.String? field_5,
-    $core.String? value,
-  }) {
-    final _result = create();
-    if (creator != null) {
-      _result.creator = creator;
-    }
-    if (cookbookID != null) {
-      _result.cookbookID = cookbookID;
-    }
-    if (iD != null) {
-      _result.iD = iD;
-    }
-    if (field_5 != null) {
-      _result.field_5 = field_5;
-    }
-    if (value != null) {
-      _result.value = value;
-    }
-    return _result;
-  }
+  factory MsgSetItemString() => create();
   factory MsgSetItemString.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgSetItemString.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -1279,7 +1045,6 @@ class MsgSetItemString extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgSetItemString copyWith(void Function(MsgSetItemString) updates) => super.copyWith((message) => updates(message as MsgSetItemString)) as MsgSetItemString; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgSetItemString create() => MsgSetItemString._();
@@ -1353,7 +1118,6 @@ class MsgSetItemStringResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgSetItemStringResponse copyWith(void Function(MsgSetItemStringResponse) updates) => super.copyWith((message) => updates(message as MsgSetItemStringResponse)) as MsgSetItemStringResponse; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgSetItemStringResponse create() => MsgSetItemStringResponse._();
@@ -1377,69 +1141,14 @@ class MsgCreateRecipe extends $pb.GeneratedMessage {
     ..aOM<$4.EntriesList>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'entries', subBuilder: $4.EntriesList.create)
     ..pc<$4.WeightedOutputs>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'outputs', $pb.PbFieldType.PM, subBuilder: $4.WeightedOutputs.create)
     ..aInt64(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'blockInterval', protoName: 'blockInterval')
-    ..aOB(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'enabled')
-    ..aOS(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'extraInfo', protoName: 'extraInfo')
+    ..aOM<$2.Coin>(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'costPerBlock', protoName: 'costPerBlock', subBuilder: $2.Coin.create)
+    ..aOB(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'enabled')
+    ..aOS(14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'extraInfo', protoName: 'extraInfo')
     ..hasRequiredFields = false
   ;
 
   MsgCreateRecipe._() : super();
-  factory MsgCreateRecipe({
-    $core.String? creator,
-    $core.String? cookbookID,
-    $core.String? iD,
-    $core.String? name,
-    $core.String? description,
-    $core.String? version,
-    $core.Iterable<$4.CoinInput>? coinInputs,
-    $core.Iterable<$4.ItemInput>? itemInputs,
-    $4.EntriesList? entries,
-    $core.Iterable<$4.WeightedOutputs>? outputs,
-    $fixnum.Int64? blockInterval,
-    $core.bool? enabled,
-    $core.String? extraInfo,
-  }) {
-    final _result = create();
-    if (creator != null) {
-      _result.creator = creator;
-    }
-    if (cookbookID != null) {
-      _result.cookbookID = cookbookID;
-    }
-    if (iD != null) {
-      _result.iD = iD;
-    }
-    if (name != null) {
-      _result.name = name;
-    }
-    if (description != null) {
-      _result.description = description;
-    }
-    if (version != null) {
-      _result.version = version;
-    }
-    if (coinInputs != null) {
-      _result.coinInputs.addAll(coinInputs);
-    }
-    if (itemInputs != null) {
-      _result.itemInputs.addAll(itemInputs);
-    }
-    if (entries != null) {
-      _result.entries = entries;
-    }
-    if (outputs != null) {
-      _result.outputs.addAll(outputs);
-    }
-    if (blockInterval != null) {
-      _result.blockInterval = blockInterval;
-    }
-    if (enabled != null) {
-      _result.enabled = enabled;
-    }
-    if (extraInfo != null) {
-      _result.extraInfo = extraInfo;
-    }
-    return _result;
-  }
+  factory MsgCreateRecipe() => create();
   factory MsgCreateRecipe.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgCreateRecipe.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -1451,7 +1160,6 @@ class MsgCreateRecipe extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgCreateRecipe copyWith(void Function(MsgCreateRecipe) updates) => super.copyWith((message) => updates(message as MsgCreateRecipe)) as MsgCreateRecipe; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgCreateRecipe create() => MsgCreateRecipe._();
@@ -1545,22 +1253,33 @@ class MsgCreateRecipe extends $pb.GeneratedMessage {
   void clearBlockInterval() => clearField(11);
 
   @$pb.TagNumber(12)
-  $core.bool get enabled => $_getBF(11);
+  $2.Coin get costPerBlock => $_getN(11);
   @$pb.TagNumber(12)
-  set enabled($core.bool v) { $_setBool(11, v); }
+  set costPerBlock($2.Coin v) { setField(12, v); }
   @$pb.TagNumber(12)
-  $core.bool hasEnabled() => $_has(11);
+  $core.bool hasCostPerBlock() => $_has(11);
   @$pb.TagNumber(12)
-  void clearEnabled() => clearField(12);
+  void clearCostPerBlock() => clearField(12);
+  @$pb.TagNumber(12)
+  $2.Coin ensureCostPerBlock() => $_ensure(11);
 
   @$pb.TagNumber(13)
-  $core.String get extraInfo => $_getSZ(12);
+  $core.bool get enabled => $_getBF(12);
   @$pb.TagNumber(13)
-  set extraInfo($core.String v) { $_setString(12, v); }
+  set enabled($core.bool v) { $_setBool(12, v); }
   @$pb.TagNumber(13)
-  $core.bool hasExtraInfo() => $_has(12);
+  $core.bool hasEnabled() => $_has(12);
   @$pb.TagNumber(13)
-  void clearExtraInfo() => clearField(13);
+  void clearEnabled() => clearField(13);
+
+  @$pb.TagNumber(14)
+  $core.String get extraInfo => $_getSZ(13);
+  @$pb.TagNumber(14)
+  set extraInfo($core.String v) { $_setString(13, v); }
+  @$pb.TagNumber(14)
+  $core.bool hasExtraInfo() => $_has(13);
+  @$pb.TagNumber(14)
+  void clearExtraInfo() => clearField(14);
 }
 
 class MsgCreateRecipeResponse extends $pb.GeneratedMessage {
@@ -1581,7 +1300,6 @@ class MsgCreateRecipeResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgCreateRecipeResponse copyWith(void Function(MsgCreateRecipeResponse) updates) => super.copyWith((message) => updates(message as MsgCreateRecipeResponse)) as MsgCreateRecipeResponse; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgCreateRecipeResponse create() => MsgCreateRecipeResponse._();
@@ -1605,69 +1323,14 @@ class MsgUpdateRecipe extends $pb.GeneratedMessage {
     ..aOM<$4.EntriesList>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'entries', subBuilder: $4.EntriesList.create)
     ..pc<$4.WeightedOutputs>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'outputs', $pb.PbFieldType.PM, subBuilder: $4.WeightedOutputs.create)
     ..aInt64(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'blockInterval', protoName: 'blockInterval')
-    ..aOB(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'enabled')
-    ..aOS(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'extraInfo', protoName: 'extraInfo')
+    ..aOM<$2.Coin>(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'costPerBlock', protoName: 'costPerBlock', subBuilder: $2.Coin.create)
+    ..aOB(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'enabled')
+    ..aOS(14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'extraInfo', protoName: 'extraInfo')
     ..hasRequiredFields = false
   ;
 
   MsgUpdateRecipe._() : super();
-  factory MsgUpdateRecipe({
-    $core.String? creator,
-    $core.String? cookbookID,
-    $core.String? iD,
-    $core.String? name,
-    $core.String? description,
-    $core.String? version,
-    $core.Iterable<$4.CoinInput>? coinInputs,
-    $core.Iterable<$4.ItemInput>? itemInputs,
-    $4.EntriesList? entries,
-    $core.Iterable<$4.WeightedOutputs>? outputs,
-    $fixnum.Int64? blockInterval,
-    $core.bool? enabled,
-    $core.String? extraInfo,
-  }) {
-    final _result = create();
-    if (creator != null) {
-      _result.creator = creator;
-    }
-    if (cookbookID != null) {
-      _result.cookbookID = cookbookID;
-    }
-    if (iD != null) {
-      _result.iD = iD;
-    }
-    if (name != null) {
-      _result.name = name;
-    }
-    if (description != null) {
-      _result.description = description;
-    }
-    if (version != null) {
-      _result.version = version;
-    }
-    if (coinInputs != null) {
-      _result.coinInputs.addAll(coinInputs);
-    }
-    if (itemInputs != null) {
-      _result.itemInputs.addAll(itemInputs);
-    }
-    if (entries != null) {
-      _result.entries = entries;
-    }
-    if (outputs != null) {
-      _result.outputs.addAll(outputs);
-    }
-    if (blockInterval != null) {
-      _result.blockInterval = blockInterval;
-    }
-    if (enabled != null) {
-      _result.enabled = enabled;
-    }
-    if (extraInfo != null) {
-      _result.extraInfo = extraInfo;
-    }
-    return _result;
-  }
+  factory MsgUpdateRecipe() => create();
   factory MsgUpdateRecipe.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgUpdateRecipe.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -1679,7 +1342,6 @@ class MsgUpdateRecipe extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgUpdateRecipe copyWith(void Function(MsgUpdateRecipe) updates) => super.copyWith((message) => updates(message as MsgUpdateRecipe)) as MsgUpdateRecipe; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgUpdateRecipe create() => MsgUpdateRecipe._();
@@ -1773,22 +1435,33 @@ class MsgUpdateRecipe extends $pb.GeneratedMessage {
   void clearBlockInterval() => clearField(11);
 
   @$pb.TagNumber(12)
-  $core.bool get enabled => $_getBF(11);
+  $2.Coin get costPerBlock => $_getN(11);
   @$pb.TagNumber(12)
-  set enabled($core.bool v) { $_setBool(11, v); }
+  set costPerBlock($2.Coin v) { setField(12, v); }
   @$pb.TagNumber(12)
-  $core.bool hasEnabled() => $_has(11);
+  $core.bool hasCostPerBlock() => $_has(11);
   @$pb.TagNumber(12)
-  void clearEnabled() => clearField(12);
+  void clearCostPerBlock() => clearField(12);
+  @$pb.TagNumber(12)
+  $2.Coin ensureCostPerBlock() => $_ensure(11);
 
   @$pb.TagNumber(13)
-  $core.String get extraInfo => $_getSZ(12);
+  $core.bool get enabled => $_getBF(12);
   @$pb.TagNumber(13)
-  set extraInfo($core.String v) { $_setString(12, v); }
+  set enabled($core.bool v) { $_setBool(12, v); }
   @$pb.TagNumber(13)
-  $core.bool hasExtraInfo() => $_has(12);
+  $core.bool hasEnabled() => $_has(12);
   @$pb.TagNumber(13)
-  void clearExtraInfo() => clearField(13);
+  void clearEnabled() => clearField(13);
+
+  @$pb.TagNumber(14)
+  $core.String get extraInfo => $_getSZ(13);
+  @$pb.TagNumber(14)
+  set extraInfo($core.String v) { $_setString(13, v); }
+  @$pb.TagNumber(14)
+  $core.bool hasExtraInfo() => $_has(13);
+  @$pb.TagNumber(14)
+  void clearExtraInfo() => clearField(14);
 }
 
 class MsgUpdateRecipeResponse extends $pb.GeneratedMessage {
@@ -1809,7 +1482,6 @@ class MsgUpdateRecipeResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgUpdateRecipeResponse copyWith(void Function(MsgUpdateRecipeResponse) updates) => super.copyWith((message) => updates(message as MsgUpdateRecipeResponse)) as MsgUpdateRecipeResponse; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgUpdateRecipeResponse create() => MsgUpdateRecipeResponse._();
@@ -1829,53 +1501,12 @@ class MsgCreateCookbook extends $pb.GeneratedMessage {
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'developer')
     ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'version')
     ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'supportEmail', protoName: 'supportEmail')
-    ..aOM<$2.Coin>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'costPerBlock', protoName: 'costPerBlock', subBuilder: $2.Coin.create)
-    ..aOB(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'enabled')
+    ..aOB(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'enabled')
     ..hasRequiredFields = false
   ;
 
   MsgCreateCookbook._() : super();
-  factory MsgCreateCookbook({
-    $core.String? creator,
-    $core.String? iD,
-    $core.String? name,
-    $core.String? description,
-    $core.String? developer,
-    $core.String? version,
-    $core.String? supportEmail,
-    $2.Coin? costPerBlock,
-    $core.bool? enabled,
-  }) {
-    final _result = create();
-    if (creator != null) {
-      _result.creator = creator;
-    }
-    if (iD != null) {
-      _result.iD = iD;
-    }
-    if (name != null) {
-      _result.name = name;
-    }
-    if (description != null) {
-      _result.description = description;
-    }
-    if (developer != null) {
-      _result.developer = developer;
-    }
-    if (version != null) {
-      _result.version = version;
-    }
-    if (supportEmail != null) {
-      _result.supportEmail = supportEmail;
-    }
-    if (costPerBlock != null) {
-      _result.costPerBlock = costPerBlock;
-    }
-    if (enabled != null) {
-      _result.enabled = enabled;
-    }
-    return _result;
-  }
+  factory MsgCreateCookbook() => create();
   factory MsgCreateCookbook.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgCreateCookbook.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -1887,7 +1518,6 @@ class MsgCreateCookbook extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgCreateCookbook copyWith(void Function(MsgCreateCookbook) updates) => super.copyWith((message) => updates(message as MsgCreateCookbook)) as MsgCreateCookbook; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgCreateCookbook create() => MsgCreateCookbook._();
@@ -1961,24 +1591,13 @@ class MsgCreateCookbook extends $pb.GeneratedMessage {
   void clearSupportEmail() => clearField(7);
 
   @$pb.TagNumber(8)
-  $2.Coin get costPerBlock => $_getN(7);
+  $core.bool get enabled => $_getBF(7);
   @$pb.TagNumber(8)
-  set costPerBlock($2.Coin v) { setField(8, v); }
+  set enabled($core.bool v) { $_setBool(7, v); }
   @$pb.TagNumber(8)
-  $core.bool hasCostPerBlock() => $_has(7);
+  $core.bool hasEnabled() => $_has(7);
   @$pb.TagNumber(8)
-  void clearCostPerBlock() => clearField(8);
-  @$pb.TagNumber(8)
-  $2.Coin ensureCostPerBlock() => $_ensure(7);
-
-  @$pb.TagNumber(9)
-  $core.bool get enabled => $_getBF(8);
-  @$pb.TagNumber(9)
-  set enabled($core.bool v) { $_setBool(8, v); }
-  @$pb.TagNumber(9)
-  $core.bool hasEnabled() => $_has(8);
-  @$pb.TagNumber(9)
-  void clearEnabled() => clearField(9);
+  void clearEnabled() => clearField(8);
 }
 
 class MsgCreateCookbookResponse extends $pb.GeneratedMessage {
@@ -1999,7 +1618,6 @@ class MsgCreateCookbookResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgCreateCookbookResponse copyWith(void Function(MsgCreateCookbookResponse) updates) => super.copyWith((message) => updates(message as MsgCreateCookbookResponse)) as MsgCreateCookbookResponse; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgCreateCookbookResponse create() => MsgCreateCookbookResponse._();
@@ -2019,53 +1637,12 @@ class MsgUpdateCookbook extends $pb.GeneratedMessage {
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'developer')
     ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'version')
     ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'supportEmail', protoName: 'supportEmail')
-    ..aOM<$2.Coin>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'costPerBlock', protoName: 'costPerBlock', subBuilder: $2.Coin.create)
-    ..aOB(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'enabled')
+    ..aOB(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'enabled')
     ..hasRequiredFields = false
   ;
 
   MsgUpdateCookbook._() : super();
-  factory MsgUpdateCookbook({
-    $core.String? creator,
-    $core.String? iD,
-    $core.String? name,
-    $core.String? description,
-    $core.String? developer,
-    $core.String? version,
-    $core.String? supportEmail,
-    $2.Coin? costPerBlock,
-    $core.bool? enabled,
-  }) {
-    final _result = create();
-    if (creator != null) {
-      _result.creator = creator;
-    }
-    if (iD != null) {
-      _result.iD = iD;
-    }
-    if (name != null) {
-      _result.name = name;
-    }
-    if (description != null) {
-      _result.description = description;
-    }
-    if (developer != null) {
-      _result.developer = developer;
-    }
-    if (version != null) {
-      _result.version = version;
-    }
-    if (supportEmail != null) {
-      _result.supportEmail = supportEmail;
-    }
-    if (costPerBlock != null) {
-      _result.costPerBlock = costPerBlock;
-    }
-    if (enabled != null) {
-      _result.enabled = enabled;
-    }
-    return _result;
-  }
+  factory MsgUpdateCookbook() => create();
   factory MsgUpdateCookbook.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MsgUpdateCookbook.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -2077,7 +1654,6 @@ class MsgUpdateCookbook extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgUpdateCookbook copyWith(void Function(MsgUpdateCookbook) updates) => super.copyWith((message) => updates(message as MsgUpdateCookbook)) as MsgUpdateCookbook; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgUpdateCookbook create() => MsgUpdateCookbook._();
@@ -2151,24 +1727,13 @@ class MsgUpdateCookbook extends $pb.GeneratedMessage {
   void clearSupportEmail() => clearField(7);
 
   @$pb.TagNumber(8)
-  $2.Coin get costPerBlock => $_getN(7);
+  $core.bool get enabled => $_getBF(7);
   @$pb.TagNumber(8)
-  set costPerBlock($2.Coin v) { setField(8, v); }
+  set enabled($core.bool v) { $_setBool(7, v); }
   @$pb.TagNumber(8)
-  $core.bool hasCostPerBlock() => $_has(7);
+  $core.bool hasEnabled() => $_has(7);
   @$pb.TagNumber(8)
-  void clearCostPerBlock() => clearField(8);
-  @$pb.TagNumber(8)
-  $2.Coin ensureCostPerBlock() => $_ensure(7);
-
-  @$pb.TagNumber(9)
-  $core.bool get enabled => $_getBF(8);
-  @$pb.TagNumber(9)
-  set enabled($core.bool v) { $_setBool(8, v); }
-  @$pb.TagNumber(9)
-  $core.bool hasEnabled() => $_has(8);
-  @$pb.TagNumber(9)
-  void clearEnabled() => clearField(9);
+  void clearEnabled() => clearField(8);
 }
 
 class MsgUpdateCookbookResponse extends $pb.GeneratedMessage {
@@ -2189,7 +1754,6 @@ class MsgUpdateCookbookResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MsgUpdateCookbookResponse copyWith(void Function(MsgUpdateCookbookResponse) updates) => super.copyWith((message) => updates(message as MsgUpdateCookbookResponse)) as MsgUpdateCookbookResponse; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MsgUpdateCookbookResponse create() => MsgUpdateCookbookResponse._();

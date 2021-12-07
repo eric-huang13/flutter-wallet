@@ -180,54 +180,12 @@ class StringInputParam extends $pb.GeneratedMessage {
   void clearValue() => clearField(2);
 }
 
-class ConditionList extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ConditionList', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Pylonstech.pylons.pylons'), createEmptyInstance: create)
-    ..pc<DoubleInputParam>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'doubles', $pb.PbFieldType.PM, subBuilder: DoubleInputParam.create)
-    ..pc<LongInputParam>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'longs', $pb.PbFieldType.PM, subBuilder: LongInputParam.create)
-    ..pc<StringInputParam>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'strings', $pb.PbFieldType.PM, subBuilder: StringInputParam.create)
-    ..hasRequiredFields = false
-  ;
-
-  ConditionList._() : super();
-  factory ConditionList() => create();
-  factory ConditionList.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory ConditionList.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  ConditionList clone() => ConditionList()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  ConditionList copyWith(void Function(ConditionList) updates) => super.copyWith((message) => updates(message as ConditionList)); // ignore: deprecated_member_use
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static ConditionList create() => ConditionList._();
-  ConditionList createEmptyInstance() => create();
-  static $pb.PbList<ConditionList> createRepeated() => $pb.PbList<ConditionList>();
-  @$core.pragma('dart2js:noInline')
-  static ConditionList getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ConditionList>(create);
-  static ConditionList _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.List<DoubleInputParam> get doubles => $_getList(0);
-
-  @$pb.TagNumber(2)
-  $core.List<LongInputParam> get longs => $_getList(1);
-
-  @$pb.TagNumber(3)
-  $core.List<StringInputParam> get strings => $_getList(2);
-}
-
 class ItemInput extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ItemInput', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Pylonstech.pylons.pylons'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ID', protoName: 'ID')
     ..pc<DoubleInputParam>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'doubles', $pb.PbFieldType.PM, subBuilder: DoubleInputParam.create)
     ..pc<LongInputParam>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'longs', $pb.PbFieldType.PM, subBuilder: LongInputParam.create)
     ..pc<StringInputParam>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'strings', $pb.PbFieldType.PM, subBuilder: StringInputParam.create)
-    ..aOM<ConditionList>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'conditions', subBuilder: ConditionList.create)
     ..hasRequiredFields = false
   ;
 
@@ -271,17 +229,6 @@ class ItemInput extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(4)
   $core.List<StringInputParam> get strings => $_getList(3);
-
-  @$pb.TagNumber(5)
-  ConditionList get conditions => $_getN(4);
-  @$pb.TagNumber(5)
-  set conditions(ConditionList v) { setField(5, v); }
-  @$pb.TagNumber(5)
-  $core.bool hasConditions() => $_has(4);
-  @$pb.TagNumber(5)
-  void clearConditions() => clearField(5);
-  @$pb.TagNumber(5)
-  ConditionList ensureConditions() => $_ensure(4);
 }
 
 class DoubleWeightRange extends $pb.GeneratedMessage {
@@ -966,8 +913,9 @@ class Recipe extends $pb.GeneratedMessage {
     ..aOM<EntriesList>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'entries', subBuilder: EntriesList.create)
     ..pc<WeightedOutputs>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'outputs', $pb.PbFieldType.PM, subBuilder: WeightedOutputs.create)
     ..aInt64(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'blockInterval', protoName: 'blockInterval')
-    ..aOB(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'enabled')
-    ..aOS(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'extraInfo', protoName: 'extraInfo')
+    ..aOM<$2.Coin>(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'costPerBlock', protoName: 'costPerBlock', subBuilder: $2.Coin.create)
+    ..aOB(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'enabled')
+    ..aOS(14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'extraInfo', protoName: 'extraInfo')
     ..hasRequiredFields = false
   ;
 
@@ -1078,21 +1026,32 @@ class Recipe extends $pb.GeneratedMessage {
   void clearBlockInterval() => clearField(11);
 
   @$pb.TagNumber(12)
-  $core.bool get enabled => $_getBF(11);
+  $2.Coin get costPerBlock => $_getN(11);
   @$pb.TagNumber(12)
-  set enabled($core.bool v) { $_setBool(11, v); }
+  set costPerBlock($2.Coin v) { setField(12, v); }
   @$pb.TagNumber(12)
-  $core.bool hasEnabled() => $_has(11);
+  $core.bool hasCostPerBlock() => $_has(11);
   @$pb.TagNumber(12)
-  void clearEnabled() => clearField(12);
+  void clearCostPerBlock() => clearField(12);
+  @$pb.TagNumber(12)
+  $2.Coin ensureCostPerBlock() => $_ensure(11);
 
   @$pb.TagNumber(13)
-  $core.String get extraInfo => $_getSZ(12);
+  $core.bool get enabled => $_getBF(12);
   @$pb.TagNumber(13)
-  set extraInfo($core.String v) { $_setString(12, v); }
+  set enabled($core.bool v) { $_setBool(12, v); }
   @$pb.TagNumber(13)
-  $core.bool hasExtraInfo() => $_has(12);
+  $core.bool hasEnabled() => $_has(12);
   @$pb.TagNumber(13)
-  void clearExtraInfo() => clearField(13);
+  void clearEnabled() => clearField(13);
+
+  @$pb.TagNumber(14)
+  $core.String get extraInfo => $_getSZ(13);
+  @$pb.TagNumber(14)
+  set extraInfo($core.String v) { $_setString(13, v); }
+  @$pb.TagNumber(14)
+  $core.bool hasExtraInfo() => $_has(13);
+  @$pb.TagNumber(14)
+  void clearExtraInfo() => clearField(14);
 }
 

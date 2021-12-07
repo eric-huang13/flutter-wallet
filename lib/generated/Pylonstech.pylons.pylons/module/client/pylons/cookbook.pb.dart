@@ -10,8 +10,6 @@ import 'dart:core' as $core;
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import '../cosmos/base/v1beta1/coin.pb.dart' as $2;
-
 class Cookbook extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Cookbook', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Pylonstech.pylons.pylons'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'creator')
@@ -22,8 +20,7 @@ class Cookbook extends $pb.GeneratedMessage {
     ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'developer')
     ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'version')
     ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'supportEmail', protoName: 'supportEmail')
-    ..aOM<$2.Coin>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'costPerBlock', protoName: 'costPerBlock', subBuilder: $2.Coin.create)
-    ..aOB(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'enabled')
+    ..aOB(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'enabled')
     ..hasRequiredFields = false
   ;
 
@@ -123,23 +120,12 @@ class Cookbook extends $pb.GeneratedMessage {
   void clearSupportEmail() => clearField(8);
 
   @$pb.TagNumber(9)
-  $2.Coin get costPerBlock => $_getN(8);
+  $core.bool get enabled => $_getBF(8);
   @$pb.TagNumber(9)
-  set costPerBlock($2.Coin v) { setField(9, v); }
+  set enabled($core.bool v) { $_setBool(8, v); }
   @$pb.TagNumber(9)
-  $core.bool hasCostPerBlock() => $_has(8);
+  $core.bool hasEnabled() => $_has(8);
   @$pb.TagNumber(9)
-  void clearCostPerBlock() => clearField(9);
-  @$pb.TagNumber(9)
-  $2.Coin ensureCostPerBlock() => $_ensure(8);
-
-  @$pb.TagNumber(10)
-  $core.bool get enabled => $_getBF(9);
-  @$pb.TagNumber(10)
-  set enabled($core.bool v) { $_setBool(9, v); }
-  @$pb.TagNumber(10)
-  $core.bool hasEnabled() => $_has(9);
-  @$pb.TagNumber(10)
-  void clearEnabled() => clearField(10);
+  void clearEnabled() => clearField(9);
 }
 

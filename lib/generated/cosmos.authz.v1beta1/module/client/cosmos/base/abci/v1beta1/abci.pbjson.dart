@@ -20,6 +20,7 @@ const TxResponse$json = const {
     const {'1': 'gas_used', '3': 10, '4': 1, '5': 3, '10': 'gasUsed'},
     const {'1': 'tx', '3': 11, '4': 1, '5': 11, '6': '.google.protobuf.Any', '10': 'tx'},
     const {'1': 'timestamp', '3': 12, '4': 1, '5': 9, '10': 'timestamp'},
+    const {'1': 'events', '3': 13, '4': 3, '5': 11, '6': '.tendermint.abci.Event', '8': const {}, '10': 'events'},
   ],
   '7': const {},
 };

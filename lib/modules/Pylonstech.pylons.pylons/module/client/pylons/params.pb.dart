@@ -7,11 +7,11 @@
 
 import 'dart:core' as $core;
 
+
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import '../cosmos/base/v1beta1/coin.pb.dart' as $2;
-
 class GoogleInAppPurchasePackage extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GoogleInAppPurchasePackage', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Pylonstech.pylons.pylons'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'packageName', protoName: 'packageName')
@@ -21,35 +21,18 @@ class GoogleInAppPurchasePackage extends $pb.GeneratedMessage {
   ;
 
   GoogleInAppPurchasePackage._() : super();
-  factory GoogleInAppPurchasePackage({
-    $core.String? packageName,
-    $core.String? productID,
-    $core.String? amount,
-  }) {
-    final _result = create();
-    if (packageName != null) {
-      _result.packageName = packageName;
-    }
-    if (productID != null) {
-      _result.productID = productID;
-    }
-    if (amount != null) {
-      _result.amount = amount;
-    }
-    return _result;
-  }
+  factory GoogleInAppPurchasePackage() => create();
   factory GoogleInAppPurchasePackage.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GoogleInAppPurchasePackage.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+      'Using this can add significant overhead to your binary. '
+          'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+          'Will be removed in next major version')
   GoogleInAppPurchasePackage clone() => GoogleInAppPurchasePackage()..mergeFromMessage(this);
   @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  GoogleInAppPurchasePackage copyWith(void Function(GoogleInAppPurchasePackage) updates) => super.copyWith((message) => updates(message as GoogleInAppPurchasePackage)) as GoogleInAppPurchasePackage; // ignore: deprecated_member_use
+      'Using this can add significant overhead to your binary. '
+          'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+          'Will be removed in next major version')
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static GoogleInAppPurchasePackage create() => GoogleInAppPurchasePackage._();
@@ -97,39 +80,18 @@ class CoinIssuer extends $pb.GeneratedMessage {
   ;
 
   CoinIssuer._() : super();
-  factory CoinIssuer({
-    $core.String? coinDenom,
-    $core.Iterable<GoogleInAppPurchasePackage>? packages,
-    $core.String? googleInAppPurchasePubKey,
-    $core.String? entityName,
-  }) {
-    final _result = create();
-    if (coinDenom != null) {
-      _result.coinDenom = coinDenom;
-    }
-    if (packages != null) {
-      _result.packages.addAll(packages);
-    }
-    if (googleInAppPurchasePubKey != null) {
-      _result.googleInAppPurchasePubKey = googleInAppPurchasePubKey;
-    }
-    if (entityName != null) {
-      _result.entityName = entityName;
-    }
-    return _result;
-  }
+  factory CoinIssuer() => create();
   factory CoinIssuer.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory CoinIssuer.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+      'Using this can add significant overhead to your binary. '
+          'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+          'Will be removed in next major version')
   CoinIssuer clone() => CoinIssuer()..mergeFromMessage(this);
   @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  CoinIssuer copyWith(void Function(CoinIssuer) updates) => super.copyWith((message) => updates(message as CoinIssuer)) as CoinIssuer; // ignore: deprecated_member_use
+      'Using this can add significant overhead to your binary. '
+          'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+          'Will be removed in next major version')
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static CoinIssuer create() => CoinIssuer._();
@@ -181,43 +143,18 @@ class PaymentProcessor extends $pb.GeneratedMessage {
   ;
 
   PaymentProcessor._() : super();
-  factory PaymentProcessor({
-    $core.String? coinDenom,
-    $core.String? pubKey,
-    $core.String? processorPercentage,
-    $core.String? validatorsPercentage,
-    $core.String? name,
-  }) {
-    final _result = create();
-    if (coinDenom != null) {
-      _result.coinDenom = coinDenom;
-    }
-    if (pubKey != null) {
-      _result.pubKey = pubKey;
-    }
-    if (processorPercentage != null) {
-      _result.processorPercentage = processorPercentage;
-    }
-    if (validatorsPercentage != null) {
-      _result.validatorsPercentage = validatorsPercentage;
-    }
-    if (name != null) {
-      _result.name = name;
-    }
-    return _result;
-  }
+  factory PaymentProcessor() => create();
   factory PaymentProcessor.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory PaymentProcessor.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+      'Using this can add significant overhead to your binary. '
+          'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+          'Will be removed in next major version')
   PaymentProcessor clone() => PaymentProcessor()..mergeFromMessage(this);
   @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  PaymentProcessor copyWith(void Function(PaymentProcessor) updates) => super.copyWith((message) => updates(message as PaymentProcessor)) as PaymentProcessor; // ignore: deprecated_member_use
+      'Using this can add significant overhead to your binary. '
+          'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+          'Will be removed in next major version')
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static PaymentProcessor create() => PaymentProcessor._();
@@ -275,77 +212,32 @@ class PaymentProcessor extends $pb.GeneratedMessage {
 
 class Params extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Params', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Pylonstech.pylons.pylons'), createEmptyInstance: create)
-    ..a<$fixnum.Int64>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'minNameFieldLength', $pb.PbFieldType.OU6, protoName: 'minNameFieldLength', defaultOrMaker: $fixnum.Int64.ZERO)
-    ..a<$fixnum.Int64>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'minDescriptionFieldLength', $pb.PbFieldType.OU6, protoName: 'minDescriptionFieldLength', defaultOrMaker: $fixnum.Int64.ZERO)
-    ..pc<CoinIssuer>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'coinIssuers', $pb.PbFieldType.PM, protoName: 'coinIssuers', subBuilder: CoinIssuer.create)
-    ..pc<PaymentProcessor>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'paymentProcessors', $pb.PbFieldType.PM, protoName: 'paymentProcessors', subBuilder: PaymentProcessor.create)
-    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'recipeFeePercentage', protoName: 'recipeFeePercentage')
-    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'itemTransferFeePercentage', protoName: 'itemTransferFeePercentage')
-    ..aOM<$2.Coin>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateItemStringFee', protoName: 'updateItemStringFee', subBuilder: $2.Coin.create)
-    ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'minTransferFee', protoName: 'minTransferFee')
-    ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'maxTransferFee', protoName: 'maxTransferFee')
-    ..aOM<$2.Coin>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateUsernameFee', protoName: 'updateUsernameFee', subBuilder: $2.Coin.create)
+    ..pc<CoinIssuer>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'coinIssuers', $pb.PbFieldType.PM, protoName: 'coinIssuers', subBuilder: CoinIssuer.create)
+    ..pc<PaymentProcessor>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'paymentProcessors', $pb.PbFieldType.PM, protoName: 'paymentProcessors', subBuilder: PaymentProcessor.create)
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'recipeFeePercentage', protoName: 'recipeFeePercentage')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'itemTransferFeePercentage', protoName: 'itemTransferFeePercentage')
+    ..aOM<$2.Coin>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateItemStringFee', protoName: 'updateItemStringFee', subBuilder: $2.Coin.create)
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'minTransferFee', protoName: 'minTransferFee')
+    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'maxTransferFee', protoName: 'maxTransferFee')
+    ..aOM<$2.Coin>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateUsernameFee', protoName: 'updateUsernameFee', subBuilder: $2.Coin.create)
+    ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'distrEpochIdentifier', protoName: 'distrEpochIdentifier')
+    ..a<$fixnum.Int64>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'engineVersion', $pb.PbFieldType.OU6, protoName: 'engineVersion', defaultOrMaker: $fixnum.Int64.ZERO)
     ..hasRequiredFields = false
   ;
 
   Params._() : super();
-  factory Params({
-    $fixnum.Int64? minNameFieldLength,
-    $fixnum.Int64? minDescriptionFieldLength,
-    $core.Iterable<CoinIssuer>? coinIssuers,
-    $core.Iterable<PaymentProcessor>? paymentProcessors,
-    $core.String? recipeFeePercentage,
-    $core.String? itemTransferFeePercentage,
-    $2.Coin? updateItemStringFee,
-    $core.String? minTransferFee,
-    $core.String? maxTransferFee,
-    $2.Coin? updateUsernameFee,
-  }) {
-    final _result = create();
-    if (minNameFieldLength != null) {
-      _result.minNameFieldLength = minNameFieldLength;
-    }
-    if (minDescriptionFieldLength != null) {
-      _result.minDescriptionFieldLength = minDescriptionFieldLength;
-    }
-    if (coinIssuers != null) {
-      _result.coinIssuers.addAll(coinIssuers);
-    }
-    if (paymentProcessors != null) {
-      _result.paymentProcessors.addAll(paymentProcessors);
-    }
-    if (recipeFeePercentage != null) {
-      _result.recipeFeePercentage = recipeFeePercentage;
-    }
-    if (itemTransferFeePercentage != null) {
-      _result.itemTransferFeePercentage = itemTransferFeePercentage;
-    }
-    if (updateItemStringFee != null) {
-      _result.updateItemStringFee = updateItemStringFee;
-    }
-    if (minTransferFee != null) {
-      _result.minTransferFee = minTransferFee;
-    }
-    if (maxTransferFee != null) {
-      _result.maxTransferFee = maxTransferFee;
-    }
-    if (updateUsernameFee != null) {
-      _result.updateUsernameFee = updateUsernameFee;
-    }
-    return _result;
-  }
+  factory Params() => create();
   factory Params.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Params.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+      'Using this can add significant overhead to your binary. '
+          'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+          'Will be removed in next major version')
   Params clone() => Params()..mergeFromMessage(this);
   @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  Params copyWith(void Function(Params) updates) => super.copyWith((message) => updates(message as Params)) as Params; // ignore: deprecated_member_use
+      'Using this can add significant overhead to your binary. '
+          'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+          'Will be removed in next major version')
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static Params create() => Params._();
@@ -356,85 +248,85 @@ class Params extends $pb.GeneratedMessage {
   static Params? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $fixnum.Int64 get minNameFieldLength => $_getI64(0);
-  @$pb.TagNumber(1)
-  set minNameFieldLength($fixnum.Int64 v) { $_setInt64(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasMinNameFieldLength() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearMinNameFieldLength() => clearField(1);
+  $core.List<CoinIssuer> get coinIssuers => $_getList(0);
 
   @$pb.TagNumber(2)
-  $fixnum.Int64 get minDescriptionFieldLength => $_getI64(1);
-  @$pb.TagNumber(2)
-  set minDescriptionFieldLength($fixnum.Int64 v) { $_setInt64(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasMinDescriptionFieldLength() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearMinDescriptionFieldLength() => clearField(2);
+  $core.List<PaymentProcessor> get paymentProcessors => $_getList(1);
 
   @$pb.TagNumber(3)
-  $core.List<CoinIssuer> get coinIssuers => $_getList(2);
+  $core.String get recipeFeePercentage => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set recipeFeePercentage($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasRecipeFeePercentage() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearRecipeFeePercentage() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.List<PaymentProcessor> get paymentProcessors => $_getList(3);
+  $core.String get itemTransferFeePercentage => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set itemTransferFeePercentage($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasItemTransferFeePercentage() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearItemTransferFeePercentage() => clearField(4);
 
   @$pb.TagNumber(5)
-  $core.String get recipeFeePercentage => $_getSZ(4);
+  $2.Coin get updateItemStringFee => $_getN(4);
   @$pb.TagNumber(5)
-  set recipeFeePercentage($core.String v) { $_setString(4, v); }
+  set updateItemStringFee($2.Coin v) { setField(5, v); }
   @$pb.TagNumber(5)
-  $core.bool hasRecipeFeePercentage() => $_has(4);
+  $core.bool hasUpdateItemStringFee() => $_has(4);
   @$pb.TagNumber(5)
-  void clearRecipeFeePercentage() => clearField(5);
+  void clearUpdateItemStringFee() => clearField(5);
+  @$pb.TagNumber(5)
+  $2.Coin ensureUpdateItemStringFee() => $_ensure(4);
 
   @$pb.TagNumber(6)
-  $core.String get itemTransferFeePercentage => $_getSZ(5);
+  $core.String get minTransferFee => $_getSZ(5);
   @$pb.TagNumber(6)
-  set itemTransferFeePercentage($core.String v) { $_setString(5, v); }
+  set minTransferFee($core.String v) { $_setString(5, v); }
   @$pb.TagNumber(6)
-  $core.bool hasItemTransferFeePercentage() => $_has(5);
+  $core.bool hasMinTransferFee() => $_has(5);
   @$pb.TagNumber(6)
-  void clearItemTransferFeePercentage() => clearField(6);
+  void clearMinTransferFee() => clearField(6);
 
   @$pb.TagNumber(7)
-  $2.Coin get updateItemStringFee => $_getN(6);
+  $core.String get maxTransferFee => $_getSZ(6);
   @$pb.TagNumber(7)
-  set updateItemStringFee($2.Coin v) { setField(7, v); }
+  set maxTransferFee($core.String v) { $_setString(6, v); }
   @$pb.TagNumber(7)
-  $core.bool hasUpdateItemStringFee() => $_has(6);
+  $core.bool hasMaxTransferFee() => $_has(6);
   @$pb.TagNumber(7)
-  void clearUpdateItemStringFee() => clearField(7);
-  @$pb.TagNumber(7)
-  $2.Coin ensureUpdateItemStringFee() => $_ensure(6);
+  void clearMaxTransferFee() => clearField(7);
 
   @$pb.TagNumber(8)
-  $core.String get minTransferFee => $_getSZ(7);
+  $2.Coin get updateUsernameFee => $_getN(7);
   @$pb.TagNumber(8)
-  set minTransferFee($core.String v) { $_setString(7, v); }
+  set updateUsernameFee($2.Coin v) { setField(8, v); }
   @$pb.TagNumber(8)
-  $core.bool hasMinTransferFee() => $_has(7);
+  $core.bool hasUpdateUsernameFee() => $_has(7);
   @$pb.TagNumber(8)
-  void clearMinTransferFee() => clearField(8);
+  void clearUpdateUsernameFee() => clearField(8);
+  @$pb.TagNumber(8)
+  $2.Coin ensureUpdateUsernameFee() => $_ensure(7);
 
   @$pb.TagNumber(9)
-  $core.String get maxTransferFee => $_getSZ(8);
+  $core.String get distrEpochIdentifier => $_getSZ(8);
   @$pb.TagNumber(9)
-  set maxTransferFee($core.String v) { $_setString(8, v); }
+  set distrEpochIdentifier($core.String v) { $_setString(8, v); }
   @$pb.TagNumber(9)
-  $core.bool hasMaxTransferFee() => $_has(8);
+  $core.bool hasDistrEpochIdentifier() => $_has(8);
   @$pb.TagNumber(9)
-  void clearMaxTransferFee() => clearField(9);
+  void clearDistrEpochIdentifier() => clearField(9);
 
   @$pb.TagNumber(10)
-  $2.Coin get updateUsernameFee => $_getN(9);
+  $fixnum.Int64 get engineVersion => $_getI64(9);
   @$pb.TagNumber(10)
-  set updateUsernameFee($2.Coin v) { setField(10, v); }
+  set engineVersion($fixnum.Int64 v) { $_setInt64(9, v); }
   @$pb.TagNumber(10)
-  $core.bool hasUpdateUsernameFee() => $_has(9);
+  $core.bool hasEngineVersion() => $_has(9);
   @$pb.TagNumber(10)
-  void clearUpdateUsernameFee() => clearField(10);
-  @$pb.TagNumber(10)
-  $2.Coin ensureUpdateUsernameFee() => $_ensure(9);
+  void clearEngineVersion() => clearField(10);
 }
 

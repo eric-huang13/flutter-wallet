@@ -8,7 +8,9 @@
 import 'dart:core' as $core;
 import 'dart:convert' as $convert;
 import 'dart:typed_data' as $typed_data;
-@$core.Deprecated('Use paymentInfoDescriptor instead')
+
+
+
 const PaymentInfo$json = const {
   '1': 'PaymentInfo',
   '2': const [
@@ -21,5 +23,3 @@ const PaymentInfo$json = const {
   ],
 };
 
-/// Descriptor for `PaymentInfo`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List paymentInfoDescriptor = $convert.base64Decode('CgtQYXltZW50SW5mbxIeCgpwdXJjaGFzZUlEGAEgASgJUgpwdXJjaGFzZUlEEiQKDXByb2Nlc3Nvck5hbWUYAiABKAlSDXByb2Nlc3Nvck5hbWUSHAoJcGF5ZXJBZGRyGAMgASgJUglwYXllckFkZHISRgoGYW1vdW50GAQgASgJQi7I3h8A2t4fJmdpdGh1Yi5jb20vY29zbW9zL2Nvc21vcy1zZGsvdHlwZXMuSW50UgZhbW91bnQSHAoJcHJvZHVjdElEGAUgASgJUglwcm9kdWN0SUQSHAoJc2lnbmF0dXJlGAYgASgJUglzaWduYXR1cmU=');

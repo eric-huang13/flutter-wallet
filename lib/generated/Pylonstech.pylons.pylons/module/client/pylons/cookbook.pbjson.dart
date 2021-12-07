@@ -16,8 +16,7 @@ const Cookbook$json = const {
     const {'1': 'developer', '3': 6, '4': 1, '5': 9, '10': 'developer'},
     const {'1': 'version', '3': 7, '4': 1, '5': 9, '10': 'version'},
     const {'1': 'supportEmail', '3': 8, '4': 1, '5': 9, '10': 'supportEmail'},
-    const {'1': 'costPerBlock', '3': 9, '4': 1, '5': 11, '6': '.cosmos.base.v1beta1.Coin', '8': const {}, '10': 'costPerBlock'},
-    const {'1': 'enabled', '3': 10, '4': 1, '5': 8, '10': 'enabled'},
+    const {'1': 'enabled', '3': 9, '4': 1, '5': 8, '10': 'enabled'},
   ],
 };
 

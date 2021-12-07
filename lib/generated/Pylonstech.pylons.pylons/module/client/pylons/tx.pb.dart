@@ -1133,8 +1133,9 @@ class MsgCreateRecipe extends $pb.GeneratedMessage {
     ..aOM<$4.EntriesList>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'entries', subBuilder: $4.EntriesList.create)
     ..pc<$4.WeightedOutputs>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'outputs', $pb.PbFieldType.PM, subBuilder: $4.WeightedOutputs.create)
     ..aInt64(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'blockInterval', protoName: 'blockInterval')
-    ..aOB(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'enabled')
-    ..aOS(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'extraInfo', protoName: 'extraInfo')
+    ..aOM<$2.Coin>(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'costPerBlock', protoName: 'costPerBlock', subBuilder: $2.Coin.create)
+    ..aOB(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'enabled')
+    ..aOS(14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'extraInfo', protoName: 'extraInfo')
     ..hasRequiredFields = false
   ;
 
@@ -1245,22 +1246,33 @@ class MsgCreateRecipe extends $pb.GeneratedMessage {
   void clearBlockInterval() => clearField(11);
 
   @$pb.TagNumber(12)
-  $core.bool get enabled => $_getBF(11);
+  $2.Coin get costPerBlock => $_getN(11);
   @$pb.TagNumber(12)
-  set enabled($core.bool v) { $_setBool(11, v); }
+  set costPerBlock($2.Coin v) { setField(12, v); }
   @$pb.TagNumber(12)
-  $core.bool hasEnabled() => $_has(11);
+  $core.bool hasCostPerBlock() => $_has(11);
   @$pb.TagNumber(12)
-  void clearEnabled() => clearField(12);
+  void clearCostPerBlock() => clearField(12);
+  @$pb.TagNumber(12)
+  $2.Coin ensureCostPerBlock() => $_ensure(11);
 
   @$pb.TagNumber(13)
-  $core.String get extraInfo => $_getSZ(12);
+  $core.bool get enabled => $_getBF(12);
   @$pb.TagNumber(13)
-  set extraInfo($core.String v) { $_setString(12, v); }
+  set enabled($core.bool v) { $_setBool(12, v); }
   @$pb.TagNumber(13)
-  $core.bool hasExtraInfo() => $_has(12);
+  $core.bool hasEnabled() => $_has(12);
   @$pb.TagNumber(13)
-  void clearExtraInfo() => clearField(13);
+  void clearEnabled() => clearField(13);
+
+  @$pb.TagNumber(14)
+  $core.String get extraInfo => $_getSZ(13);
+  @$pb.TagNumber(14)
+  set extraInfo($core.String v) { $_setString(13, v); }
+  @$pb.TagNumber(14)
+  $core.bool hasExtraInfo() => $_has(13);
+  @$pb.TagNumber(14)
+  void clearExtraInfo() => clearField(14);
 }
 
 class MsgCreateRecipeResponse extends $pb.GeneratedMessage {
@@ -1305,8 +1317,9 @@ class MsgUpdateRecipe extends $pb.GeneratedMessage {
     ..aOM<$4.EntriesList>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'entries', subBuilder: $4.EntriesList.create)
     ..pc<$4.WeightedOutputs>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'outputs', $pb.PbFieldType.PM, subBuilder: $4.WeightedOutputs.create)
     ..aInt64(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'blockInterval', protoName: 'blockInterval')
-    ..aOB(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'enabled')
-    ..aOS(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'extraInfo', protoName: 'extraInfo')
+    ..aOM<$2.Coin>(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'costPerBlock', protoName: 'costPerBlock', subBuilder: $2.Coin.create)
+    ..aOB(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'enabled')
+    ..aOS(14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'extraInfo', protoName: 'extraInfo')
     ..hasRequiredFields = false
   ;
 
@@ -1417,22 +1430,33 @@ class MsgUpdateRecipe extends $pb.GeneratedMessage {
   void clearBlockInterval() => clearField(11);
 
   @$pb.TagNumber(12)
-  $core.bool get enabled => $_getBF(11);
+  $2.Coin get costPerBlock => $_getN(11);
   @$pb.TagNumber(12)
-  set enabled($core.bool v) { $_setBool(11, v); }
+  set costPerBlock($2.Coin v) { setField(12, v); }
   @$pb.TagNumber(12)
-  $core.bool hasEnabled() => $_has(11);
+  $core.bool hasCostPerBlock() => $_has(11);
   @$pb.TagNumber(12)
-  void clearEnabled() => clearField(12);
+  void clearCostPerBlock() => clearField(12);
+  @$pb.TagNumber(12)
+  $2.Coin ensureCostPerBlock() => $_ensure(11);
 
   @$pb.TagNumber(13)
-  $core.String get extraInfo => $_getSZ(12);
+  $core.bool get enabled => $_getBF(12);
   @$pb.TagNumber(13)
-  set extraInfo($core.String v) { $_setString(12, v); }
+  set enabled($core.bool v) { $_setBool(12, v); }
   @$pb.TagNumber(13)
-  $core.bool hasExtraInfo() => $_has(12);
+  $core.bool hasEnabled() => $_has(12);
   @$pb.TagNumber(13)
-  void clearExtraInfo() => clearField(13);
+  void clearEnabled() => clearField(13);
+
+  @$pb.TagNumber(14)
+  $core.String get extraInfo => $_getSZ(13);
+  @$pb.TagNumber(14)
+  set extraInfo($core.String v) { $_setString(13, v); }
+  @$pb.TagNumber(14)
+  $core.bool hasExtraInfo() => $_has(13);
+  @$pb.TagNumber(14)
+  void clearExtraInfo() => clearField(14);
 }
 
 class MsgUpdateRecipeResponse extends $pb.GeneratedMessage {
@@ -1473,8 +1497,7 @@ class MsgCreateCookbook extends $pb.GeneratedMessage {
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'developer')
     ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'version')
     ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'supportEmail', protoName: 'supportEmail')
-    ..aOM<$2.Coin>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'costPerBlock', protoName: 'costPerBlock', subBuilder: $2.Coin.create)
-    ..aOB(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'enabled')
+    ..aOB(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'enabled')
     ..hasRequiredFields = false
   ;
 
@@ -1565,24 +1588,13 @@ class MsgCreateCookbook extends $pb.GeneratedMessage {
   void clearSupportEmail() => clearField(7);
 
   @$pb.TagNumber(8)
-  $2.Coin get costPerBlock => $_getN(7);
+  $core.bool get enabled => $_getBF(7);
   @$pb.TagNumber(8)
-  set costPerBlock($2.Coin v) { setField(8, v); }
+  set enabled($core.bool v) { $_setBool(7, v); }
   @$pb.TagNumber(8)
-  $core.bool hasCostPerBlock() => $_has(7);
+  $core.bool hasEnabled() => $_has(7);
   @$pb.TagNumber(8)
-  void clearCostPerBlock() => clearField(8);
-  @$pb.TagNumber(8)
-  $2.Coin ensureCostPerBlock() => $_ensure(7);
-
-  @$pb.TagNumber(9)
-  $core.bool get enabled => $_getBF(8);
-  @$pb.TagNumber(9)
-  set enabled($core.bool v) { $_setBool(8, v); }
-  @$pb.TagNumber(9)
-  $core.bool hasEnabled() => $_has(8);
-  @$pb.TagNumber(9)
-  void clearEnabled() => clearField(9);
+  void clearEnabled() => clearField(8);
 }
 
 class MsgCreateCookbookResponse extends $pb.GeneratedMessage {
@@ -1623,8 +1635,7 @@ class MsgUpdateCookbook extends $pb.GeneratedMessage {
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'developer')
     ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'version')
     ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'supportEmail', protoName: 'supportEmail')
-    ..aOM<$2.Coin>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'costPerBlock', protoName: 'costPerBlock', subBuilder: $2.Coin.create)
-    ..aOB(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'enabled')
+    ..aOB(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'enabled')
     ..hasRequiredFields = false
   ;
 
@@ -1715,24 +1726,13 @@ class MsgUpdateCookbook extends $pb.GeneratedMessage {
   void clearSupportEmail() => clearField(7);
 
   @$pb.TagNumber(8)
-  $2.Coin get costPerBlock => $_getN(7);
+  $core.bool get enabled => $_getBF(7);
   @$pb.TagNumber(8)
-  set costPerBlock($2.Coin v) { setField(8, v); }
+  set enabled($core.bool v) { $_setBool(7, v); }
   @$pb.TagNumber(8)
-  $core.bool hasCostPerBlock() => $_has(7);
+  $core.bool hasEnabled() => $_has(7);
   @$pb.TagNumber(8)
-  void clearCostPerBlock() => clearField(8);
-  @$pb.TagNumber(8)
-  $2.Coin ensureCostPerBlock() => $_ensure(7);
-
-  @$pb.TagNumber(9)
-  $core.bool get enabled => $_getBF(8);
-  @$pb.TagNumber(9)
-  set enabled($core.bool v) { $_setBool(8, v); }
-  @$pb.TagNumber(9)
-  $core.bool hasEnabled() => $_has(8);
-  @$pb.TagNumber(9)
-  void clearEnabled() => clearField(9);
+  void clearEnabled() => clearField(8);
 }
 
 class MsgUpdateCookbookResponse extends $pb.GeneratedMessage {

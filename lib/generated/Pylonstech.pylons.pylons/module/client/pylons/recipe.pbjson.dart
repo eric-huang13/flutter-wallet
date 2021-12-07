@@ -31,15 +31,6 @@ const StringInputParam$json = const {
   ],
 };
 
-const ConditionList$json = const {
-  '1': 'ConditionList',
-  '2': const [
-    const {'1': 'doubles', '3': 1, '4': 3, '5': 11, '6': '.Pylonstech.pylons.pylons.DoubleInputParam', '8': const {}, '10': 'doubles'},
-    const {'1': 'longs', '3': 2, '4': 3, '5': 11, '6': '.Pylonstech.pylons.pylons.LongInputParam', '8': const {}, '10': 'longs'},
-    const {'1': 'strings', '3': 3, '4': 3, '5': 11, '6': '.Pylonstech.pylons.pylons.StringInputParam', '8': const {}, '10': 'strings'},
-  ],
-};
-
 const ItemInput$json = const {
   '1': 'ItemInput',
   '2': const [
@@ -47,7 +38,6 @@ const ItemInput$json = const {
     const {'1': 'doubles', '3': 2, '4': 3, '5': 11, '6': '.Pylonstech.pylons.pylons.DoubleInputParam', '8': const {}, '10': 'doubles'},
     const {'1': 'longs', '3': 3, '4': 3, '5': 11, '6': '.Pylonstech.pylons.pylons.LongInputParam', '8': const {}, '10': 'longs'},
     const {'1': 'strings', '3': 4, '4': 3, '5': 11, '6': '.Pylonstech.pylons.pylons.StringInputParam', '8': const {}, '10': 'strings'},
-    const {'1': 'conditions', '3': 5, '4': 1, '5': 11, '6': '.Pylonstech.pylons.pylons.ConditionList', '8': const {}, '10': 'conditions'},
   ],
 };
 
@@ -176,8 +166,9 @@ const Recipe$json = const {
     const {'1': 'entries', '3': 9, '4': 1, '5': 11, '6': '.Pylonstech.pylons.pylons.EntriesList', '8': const {}, '10': 'entries'},
     const {'1': 'outputs', '3': 10, '4': 3, '5': 11, '6': '.Pylonstech.pylons.pylons.WeightedOutputs', '8': const {}, '10': 'outputs'},
     const {'1': 'blockInterval', '3': 11, '4': 1, '5': 3, '10': 'blockInterval'},
-    const {'1': 'enabled', '3': 12, '4': 1, '5': 8, '10': 'enabled'},
-    const {'1': 'extraInfo', '3': 13, '4': 1, '5': 9, '10': 'extraInfo'},
+    const {'1': 'costPerBlock', '3': 12, '4': 1, '5': 11, '6': '.cosmos.base.v1beta1.Coin', '8': const {}, '10': 'costPerBlock'},
+    const {'1': 'enabled', '3': 13, '4': 1, '5': 8, '10': 'enabled'},
+    const {'1': 'extraInfo', '3': 14, '4': 1, '5': 9, '10': 'extraInfo'},
   ],
 };
 
