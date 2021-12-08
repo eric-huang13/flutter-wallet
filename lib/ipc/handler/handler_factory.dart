@@ -5,6 +5,7 @@ import 'package:pylons_wallet/ipc/handler/handlers/create_cook_book_handler.dart
 import 'package:pylons_wallet/ipc/handler/handlers/create_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/execute_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/get_cookbook_handler.dart';
+import 'package:pylons_wallet/ipc/handler/handlers/get_execution_by_id_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/get_execution_by_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/get_list_by_owner_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/get_recipe_handler.dart';
@@ -25,6 +26,7 @@ class HandlerFactory {
   static const String GET_TRADES = 'getTrades';
   static const String GET_ITEM_BY_ID = 'getItemById';
   static const String GET_ITEMS_BY_OWNER = 'getItemsByOwner';
+  static const String GET_EXECUTION_BY_ID = 'getExecutionById';
   static const String TX_BUY_ITEMS = 'txBuyItem';
   static const String TX_BUY_PYLONS = 'txBuyPylons';
   static const String TX_CREATE_COOKBOOK = 'txCreateCookbook';
@@ -61,68 +63,33 @@ class HandlerFactory {
   static const String OWNER_ADDRESS = 'ownerAddress';
   static const String RECIPE_ID = 'recipeId';
   static const String ITEM_ID = 'itemId';
+  static const String EXECUTION_ID = 'executionId';
 
 
   BaseHandler getHandler(SDKIPCMessage sdkipcMessage) {
 
-    if (sdkipcMessage.action == TX_CREATE_COOKBOOK) {
-      return CreateCookBookHandler(sdkipcMessage);
+
+    final actionsHandler = <String, BaseHandler>{
+      TX_CREATE_COOKBOOK : CreateCookBookHandler(sdkipcMessage),
+      TX_UPDATE_COOKBOOK : UpdateCookBookHandler(sdkipcMessage),
+      TX_CREATE_RECIPE : CreateRecipeHandler(sdkipcMessage),
+      TX_EXECUTE_RECIPE : ExecuteRecipeHandler(sdkipcMessage),
+      TX_UPDATE_RECIPE : UpdateRecipeHandler(sdkipcMessage),
+      GET_PROFILE : GetProfileHandler(sdkipcMessage),
+      GET_RECIPES : GetRecipesHandler(sdkipcMessage),
+      GET_COOKBOOK: GetCookbookHandler(sdkipcMessage),
+      GET_RECIPE : GetRecipeHandler(sdkipcMessage),
+      GET_EXECUTION_BY_RECIPE_ID : GetExecutionByRecipe(sdkipcMessage),
+      GET_ITEM_BY_ID : GetItemByIdHandler(sdkipcMessage),
+      GET_ITEMS_BY_OWNER : GetItemsByOwnerHandler(sdkipcMessage),
+      GET_EXECUTION_BY_ID : GetExecutionByIdHandler(sdkipcMessage)
+    };
+
+    if(actionsHandler.containsKey(sdkipcMessage.action) ){
+      return actionsHandler[sdkipcMessage.action]!;
     }
 
-    if (sdkipcMessage.action == TX_UPDATE_COOKBOOK) {
-      return UpdateCookBookHandler(sdkipcMessage);
-    }
-
-    if (sdkipcMessage.action == TX_CREATE_RECIPE) {
-      return CreateRecipeHandler(sdkipcMessage);
-    }
-
-    if (sdkipcMessage.action == TX_EXECUTE_RECIPE) {
-      return ExecuteRecipeHandler(sdkipcMessage);
-    }
-
-    if (sdkipcMessage.action == TX_UPDATE_RECIPE) {
-      return UpdateRecipeHandler(sdkipcMessage);
-    }
-
-
-    if (sdkipcMessage.action == GET_PROFILE) {
-      return GetProfileHandler(sdkipcMessage);
-    }
-
-
-    if (sdkipcMessage.action == GET_RECIPES) {
-      return GetRecipesHandler(sdkipcMessage);
-    }
-
-
-    if (sdkipcMessage.action == GET_COOKBOOK) {
-      return GetCookbookHandler(sdkipcMessage);
-    }
-
-    if (sdkipcMessage.action == GET_RECIPE) {
-      return GetRecipeHandler(sdkipcMessage);
-    }
-
-
-
-    if (sdkipcMessage.action == GET_EXECUTION_BY_RECIPE_ID) {
-      return GetExecutionByRecipe(sdkipcMessage);
-    }
-
-
-    if (sdkipcMessage.action == GET_ITEM_BY_ID) {
-      return GetItemByIdHandler(sdkipcMessage);
-    }
-
-
-
-    if (sdkipcMessage.action == GET_ITEMS_BY_OWNER) {
-      return GetItemsByOwnerHandler(sdkipcMessage);
-    }
-
-
-    return CreateCookBookHandler(sdkipcMessage);
+    throw "Corresponding Action Not Found";
   }
 }
 

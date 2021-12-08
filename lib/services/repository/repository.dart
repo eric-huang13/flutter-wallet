@@ -66,6 +66,11 @@ abstract class Repository {
   /// Input : [owner] the id of the owner
   /// Output: [List][pylons.Item] returns the item list
   Future<Either<Failure, List<pylons.Item>>> getListItemByOwner({required String owner});
+
+  /// This method returns the execution based on id
+  /// Input : [id] the id of the execution
+  /// Output: [pylons.Execution] returns execution
+  Future<Either<Failure, pylons.Execution>> getExecutionBasedOnId({required String id});
 }
 
 class RepositoryImp implements Repository {
@@ -267,5 +272,21 @@ class RepositoryImp implements Repository {
     final response = await queryClient.listItemByOwner(queryListItemByOwner);
 
     return Right(response.items);
+  }
+
+  @override
+  Future<Either<Failure, pylons.Execution>> getExecutionBasedOnId({required String id}) async {
+    if (!await networkInfo.isConnected) {
+      return const Left(NoInternetFailure(NO_INTERNET));
+    }
+
+    final queryExecutionById = pylons.QueryGetExecutionRequest()..iD = id;
+
+    final response = await queryClient.execution(queryExecutionById);
+
+    if (!response.hasExecution()) {
+      return const Left(ItemNotFoundFailure(EXECUTION_NOT_FOUND));
+    }
+    return Right(response.execution);
   }
 }

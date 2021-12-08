@@ -209,4 +209,9 @@ abstract class WalletsStore {
   /// Input : [owner] the id of the owner
   /// Output: [SDKIPCResponse] returns the item list
   Future<SDKIPCResponse> getItemListByOwner({required String owner});
+
+  /// This method returns the execution based on id
+  /// Input : [id] the id of the execution
+  /// Output: [pylons.Execution] returns execution
+  Future<SDKIPCResponse> getExecutionBasedOnId({required String id});
 }

@@ -157,8 +157,7 @@ class WalletsStoreImp implements WalletsStore {
           sender: '',
           data: result.getOrElse(() => TransactionResponse.initial()).hash,
           transaction: '');
-    } catch (e) {
-    }
+    } catch (e) {}
     return SDKIPCResponse.failure(
         sender: '',
         error: 'Something went wrong while fetching wallets',
@@ -661,5 +660,23 @@ class WalletsStoreImp implements WalletsStore {
         data: jsonEncode(response.map((item) => item.toProto3Json()).toList()),
         sender: '',
         transaction: '');
+  }
+
+  @override
+  Future<SDKIPCResponse> getExecutionBasedOnId({required String id}) async {
+    final getExecutionEither = await repository.getExecutionBasedOnId(id: id);
+
+    if (getExecutionEither.isLeft()) {
+      return SDKIPCResponse.failure(
+          sender: '',
+          error: getExecutionEither.swap().toOption().toNullable()!.message,
+          errorCode: HandlerFactory.ERR_CANNOT_FETCH_ITEM,
+          transaction: '');
+    }
+
+    final response = getExecutionEither.toOption().toNullable()!;
+
+    return SDKIPCResponse.success(
+        data: jsonEncode(response.toProto3Json()), sender: '', transaction: '');
   }
 }
