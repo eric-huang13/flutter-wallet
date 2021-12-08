@@ -31,6 +31,7 @@ import 'package:transaction_signing_gateway/model/transaction_hash.dart';
 import 'package:transaction_signing_gateway/model/wallet_lookup_key.dart';
 import 'package:transaction_signing_gateway/model/wallet_public_info.dart';
 import 'package:transaction_signing_gateway/transaction_signing_gateway.dart';
+import 'package:pylons_wallet/entities/balance.dart';
 
 class WalletsStoreImp implements WalletsStore {
   final TransactionSigningGateway _transactionSigningGateway;
@@ -156,9 +157,7 @@ class WalletsStoreImp implements WalletsStore {
           sender: '',
           data: result.getOrElse(() => TransactionResponse.initial()).hash,
           transaction: '');
-      print(result);
     } catch (e) {
-      print(e);
     }
     return SDKIPCResponse.failure(
         sender: '',
@@ -180,7 +179,6 @@ class WalletsStoreImp implements WalletsStore {
   /// [toAddress] the address to which we want to send
   @override
   Future<void> sendCosmosMoney(
-    WalletPublicInfo info,
     Balance balance,
     String toAddress,
   ) async {
@@ -188,7 +186,7 @@ class WalletsStoreImp implements WalletsStore {
     isSendMoneyError.value = false;
     try {
       await TokenSender(_transactionSigningGateway).sendCosmosMoney(
-        info,
+        wallets.value.last,
         balance,
         toAddress,
       );
@@ -248,8 +246,6 @@ class WalletsStoreImp implements WalletsStore {
           transaction: '');
     }
 
-    print('broadcast Transaction');
-
     final response =
         await _customTransactionSigningGateway.broadcastTransaction(
       walletLookupKey: walletLookupKey,
@@ -308,9 +304,7 @@ class WalletsStoreImp implements WalletsStore {
   Future<SDKIPCResponse> createRecipe(Map json) async {
     final msgObj = pylons.MsgCreateRecipe.create()..mergeFromProto3Json(json);
     msgObj.creator = wallets.value.last.publicAddress;
-    print(msgObj);
     final response = await _signAndBroadcast(msgObj);
-    isStateUpdated.value = true;
     return response;
     //return SDKIPCResponse.failure(
     //    error: '', sender: '', errorCode: '', transaction: 'transaction');
@@ -327,9 +321,7 @@ class WalletsStoreImp implements WalletsStore {
   Future<SDKIPCResponse> executeRecipe(Map json) async {
     final msgObj = pylons.MsgExecuteRecipe.create()..mergeFromProto3Json(json);
     msgObj.creator = wallets.value.last.publicAddress;
-    print(msgObj.toProto3Json());
     final response = await _signAndBroadcast(msgObj);
-    isStateUpdated.value = true;
     return response;
   }
 
@@ -338,7 +330,6 @@ class WalletsStoreImp implements WalletsStore {
     final msgObj = pylons.MsgFulfillTrade.create()..mergeFromProto3Json(json);
     msgObj.creator = wallets.value.last.publicAddress;
     final response = await _signAndBroadcast(msgObj);
-    isStateUpdated.value = true;
     return response;
   }
 
@@ -419,7 +410,6 @@ class WalletsStoreImp implements WalletsStore {
     if (!result.isSuccessful) {
       return TxResponse();
     }
-    print(json.encode(result.value));
     return TxResponse.create()
       ..code = int.parse(result.value?["code"]?.toString() ?? "0")
       ..codespace = result.value?["codespace"]?.toString() ?? ""
@@ -628,8 +618,9 @@ class WalletsStoreImp implements WalletsStore {
   }
 
   @override
-  void setStateUpdatedFlag({bool flag = false}) {
+  void setStateUpdatedFlag(bool flag) {
     isStateUpdated.value = flag;
+    isStateUpdated.reportChanged();
   }
 
   @override

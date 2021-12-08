@@ -28,14 +28,12 @@ class QueryHelper {
   Future<RequestResult<Map<String, dynamic>>> queryGet(
       String url,
       ) async {
-    print(url);
     final data = await _httpClient.get(Uri.parse(url));
     if (data.statusCode != 200) {
       return RequestResult(
         error: 'Call to $url returned status code ${data.statusCode}',
       );
     }
-    print(utf8.decode(data.bodyBytes));
 
     return RequestResult(
       value: json.decode(utf8.decode(data.bodyBytes)) as Map<String, dynamic>,
@@ -56,7 +54,6 @@ class QueryHelper {
         error: 'Call to $url returned status code ${data.statusCode}',
       );
     }
-    print(utf8.decode(data.bodyBytes));
 
     return RequestResult(
       value: jsonDecode(utf8.decode(data.bodyBytes)) as Map<String, dynamic>,

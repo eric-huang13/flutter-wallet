@@ -66,7 +66,7 @@ class MockWalletStore implements WalletsStore {
 
   @override
   Future<void> sendCosmosMoney(
-      WalletPublicInfo info, Balance balance, String toAddress) {
+     Balance balance, String toAddress) {
     // TODO: implement sendCosmosMoney
     throw UnimplementedError();
   }
@@ -237,7 +237,7 @@ class MockWalletStore implements WalletsStore {
   }
 
   @override
-  void setStateUpdatedFlag({bool flag = false}) {
+  void setStateUpdatedFlag(bool flag) {
     // TODO: implement setStateUpdatedFlag
   }
   @override

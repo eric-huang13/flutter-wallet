@@ -74,7 +74,6 @@ class NFT extends Equatable {
 
   static Future<NFT> fromItem(Item item) async  {
     final walletsStore = GetIt.I.get<WalletsStore>();
-    print(item.owner);
     final owner = await walletsStore.getAccountNameByAddress(item.owner);
 
     return NFT(
@@ -99,9 +98,7 @@ class NFT extends Equatable {
     final cookbookID = trade.itemOutputs.first.cookbookID;
     final itemID = trade.itemOutputs.first.itemID;
     final item = await walletsStore.getItem(cookbookID, itemID) ?? Item.create();
-    print('owner ${cookbookID} ${itemID} ${trade.creator}');
     final owner = await walletsStore.getAccountNameByAddress(trade.creator);
-    //print('owner ${cookbookID} ${itemID} ${item.owner} ${owner}');
 
     return NFT(
       type: nftType.type_trade,

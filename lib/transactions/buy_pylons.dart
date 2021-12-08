@@ -21,10 +21,8 @@ class BuyPylons {
       }),
     );
     if (response.statusCode != 200) {
-      debugPrint("Error");
       return 0.0;
     }
-    debugPrint(response.body);
     return 0.0;
   }
 }

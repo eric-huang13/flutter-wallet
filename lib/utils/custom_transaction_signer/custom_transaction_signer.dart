@@ -41,7 +41,6 @@ class CustomTransactionSigner implements TransactionSigner {
       );
       return right(SignedAlanTransaction(signedTransaction: signedTrans));
     } catch (e, stack) {
-      debugPrint("$e\n$stack");
       return left(CustomTransactionSignerFailure(e));
     }
   }

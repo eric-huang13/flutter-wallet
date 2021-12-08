@@ -88,7 +88,6 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
       "cookbookID": widget.nftItem.cookbookID,
         "itemID": widget.nftItem.itemID}]};
     final response = await walletsStore.createTrade(json);
-    print(response);
 
     loading.dismiss();
     setState((){

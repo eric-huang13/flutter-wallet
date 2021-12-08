@@ -50,7 +50,6 @@ class _StripeScreenState extends State<StripeScreen>
               }),
         ].toSet(),
         navigationDelegate: (NavigationRequest request) {
-          print(request.url);
           if(request.url.contains(baseEnv.baseStripeCallbackUrl)){
             widget.onBack();
             return NavigationDecision.prevent;

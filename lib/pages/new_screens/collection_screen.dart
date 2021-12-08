@@ -7,6 +7,8 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/loading.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
+import 'package:pylons_wallet/entities/amount.dart';
+import 'package:pylons_wallet/entities/balance.dart';
 import 'package:pylons_wallet/entities/nft.dart';
 import 'package:pylons_wallet/pages/new_screens/asset_detail_view.dart';
 import 'package:pylons_wallet/pages/new_screens/purchase_item_screen.dart';
@@ -63,18 +65,19 @@ class _CollectionScreenState extends State<CollectionScreen>{
   void initState() {
     super.initState();
     Timer(
-        Duration(milliseconds: 100),  () async {
+      Duration(milliseconds: 100),  () async {
+      //await walletsStore.sendCosmosMoney(Balance(denom: "ustripeusd", amount: Amount.fromInt(1000000)) , "pylo172n0m9t6xg0j2l73rp9m852lm9c73jgy2j96qw");
+
       await loadData(colType);
 
-      walletsStore.getStateUpdatedFlag().observe((flag) async {
-        print('getStateUpdatedFlag ${flag.oldValue} ${flag.newValue}');
-        if(flag.newValue == true){
-          print('getStateUpdatedFlag');
-          await loadData(colType);
-          walletsStore.setStateUpdatedFlag();
-        }
-      }, fireImmediately: true);
-
+      if(!walletsStore.getStateUpdatedFlag().hasObservers){
+        walletsStore.getStateUpdatedFlag().observe((flag) async {
+          if(flag.newValue == true){
+            await loadData(colType);
+            walletsStore.setStateUpdatedFlag(false);
+          }
+        }, fireImmediately: true);
+      }
     });
   }
 
@@ -171,10 +174,14 @@ class _CollectionScreenState extends State<CollectionScreen>{
                         if(assets[index].type == nftType.type_recipe){
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (_) =>  PurchaseItemScreen(
-                                nft: assets[index],)));
+                                nft: assets[index],))).then((_) => {
+                            walletsStore.setStateUpdatedFlag(true)
+                          });
                         }else{
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (_) =>  AssetDetailViewScreen(nftItem: assets[index])));
+                              builder: (_) =>  AssetDetailViewScreen(nftItem: assets[index]))).then((_) => {
+                            walletsStore.setStateUpdatedFlag(true)
+                          });
                         }
                       },
                       child: ClipRRect(
@@ -204,7 +211,9 @@ class _CollectionScreenState extends State<CollectionScreen>{
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (_) =>  PurchaseItemScreen(
-                              nft: recipes[index],)));
+                              nft: recipes[index],))).then((_) => {
+                          walletsStore.setStateUpdatedFlag(true)
+                        });
                       },
                       child: ClipRRect(
                         borderRadius: const BorderRadius.all(Radius.circular(5)),

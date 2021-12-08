@@ -30,8 +30,5 @@ void main(){
 
 
   final encodedMessageWithComma = list.map((e) => base64Url.encode(utf8.encode(e))).join(',');
-  print(base64Url.encode(utf8.encode(encodedMessageWithComma)));
-
-
 
 }

@@ -17,7 +17,6 @@ class GetRecipe {
     try {
       final uri = Uri.parse(
         "${baseEnv.baseApiUrl}/pylons/recipe/$cookbookID/$recipeID",);
-      debugPrint(uri.toString());
       final response = await http.get(uri);
       if (response.statusCode == 200) {
         final recipeMap = jsonDecode(response.body) as Map<String, dynamic>;
@@ -27,7 +26,6 @@ class GetRecipe {
 
       return Left(Exception(response.reasonPhrase));
     }catch(e){
-      debugPrint(e.toString());
       return Left(Exception(e.toString()));
     }
   }
@@ -38,7 +36,6 @@ class GetRecipe {
     try {
       final uri = Uri.parse(
         "${baseEnv.baseApiUrl}/pylons/recipes/",);
-      debugPrint(uri.toString());
       final response = await http.get(uri);
       if (response.statusCode == 200) {
         final list = jsonDecode(response.body);
@@ -53,7 +50,6 @@ class GetRecipe {
 
       return Left(Exception(response.reasonPhrase));
     }catch(e){
-      debugPrint(e.toString());
       return Left(Exception(e.toString()));
     }
   }

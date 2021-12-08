@@ -326,7 +326,6 @@ class _WalletAddressTextInputWidget extends StatelessWidget {
         GestureDetector(
           behavior: HitTestBehavior.translucent,
           onTap: () {
-            debugPrint("main");
           },
           child: TextFormField(
             minLines: noOfLines,

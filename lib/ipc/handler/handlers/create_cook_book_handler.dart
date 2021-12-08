@@ -32,8 +32,6 @@ class CreateCookBookHandler implements BaseHandler {
       SnackbarToast.show("Recipe ${jsonMap['name']} error: ${response.error}");
     }
 
-    debugPrint('Response $response');
-
     return SynchronousFuture(response);
   }
 

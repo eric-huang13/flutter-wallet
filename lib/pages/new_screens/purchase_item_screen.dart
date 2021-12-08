@@ -483,7 +483,6 @@ class _PayByCardWidget extends StatelessWidget {
     final response = await stripeServices.CreatePaymentIntent(
         StripeCreatePaymentIntentRequest(productID: "trade/${nft.tradeID}", coinInputIndex: 0, address: walletsStore.getWallets().value.last.publicAddress)
     );
-    print('clientsecret ' + response.clientsecret);
     if(response.clientsecret != ""){
       try {
         final pi = await Stripe.instance.retrievePaymentIntent(response.clientsecret);
@@ -517,7 +516,6 @@ class _PayByCardWidget extends StatelessWidget {
         jsonMap["ID"] = recipe.tradeID;
         final paymentInfos = jsonMap["paymentInfos"] as List<dynamic>;
         paymentInfos.add(receipt.toJson());
-        print(jsonMap);
 
         final tradeResponse = await walletsStore.fulfillTrade(jsonMap);
 
@@ -527,7 +525,6 @@ class _PayByCardWidget extends StatelessWidget {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text("${tradeResponse.success ? "Successfully purchased this NFT." : tradeResponse.error}")));
       }catch(e){
-        print(e);
         Navigator.pop(context);
       }
     }
@@ -571,7 +568,6 @@ class _PayByCardWidget extends StatelessWidget {
     final response = await stripeServices.CreatePaymentIntent(
         StripeCreatePaymentIntentRequest(productID: "recipe/${nft.cookbookID}/${nft.recipeID}", coinInputIndex: 0, address: walletsStore.getWallets().value.last.publicAddress)
     );
-    print('clientsecret ' + response.clientsecret);
     if(response.clientsecret != ""){
       try {
         final pi = await Stripe.instance.retrievePaymentIntent(response.clientsecret);
@@ -587,8 +583,6 @@ class _PayByCardWidget extends StatelessWidget {
         ));
         Navigator.pop(context);
         await Stripe.instance.presentPaymentSheet();
-        
-        print('stripe payment done');
         
         final receipt = await stripeServices.GeneratePaymentReceipt(StripeGeneratePaymentReceiptRequest(paymentIntentID: pi.id, clientSecret: pi.clientSecret));
 
@@ -608,7 +602,6 @@ class _PayByCardWidget extends StatelessWidget {
 
         final paymentInfos = jsonMap["paymentInfos"] as List<dynamic>;
         paymentInfos.add(receipt.toJson());
-        print(jsonMap);
 
         _showLoading(context);
 
@@ -621,7 +614,6 @@ class _PayByCardWidget extends StatelessWidget {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text("${execution.success ? "Successfully purchased this NFT." : execution.error}")));
       }catch(e){
-        print(e);
         Navigator.pop(context);
       }
     }

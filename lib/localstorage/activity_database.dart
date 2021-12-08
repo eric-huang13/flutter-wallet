@@ -110,7 +110,6 @@ class ActivityDatabase {
 
   Future addActivity(Activity activity) async {
     var db = await _getDb();
-    print(db);
     await db.rawInsert(
         'INSERT INTO '
             '$tableName(${Activity.db_username}, ${Activity.db_action}, ${Activity.db_item_name}, ${Activity.db_item_url}, ${Activity.db_item_desc}, ${Activity.db_item_cookbookid}, ${Activity.db_item_recipeid}, ${Activity.db_item_id}, ${Activity.db_timestamp})'

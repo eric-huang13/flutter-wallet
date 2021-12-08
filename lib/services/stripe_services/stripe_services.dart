@@ -354,7 +354,6 @@ class StripeServicesImpl extends StripeServices {
     //{address:, productID:, coin_inputs_index:}
     final helper = QueryHelper(httpClient: _httpClient);
     final result = await helper.queryPost( "$stripeUrl/create-payment-intent", req.toJson());
-    print(result.value);
     return StripeCreatePaymentIntentResponse.from(result);
   }
 
@@ -384,7 +383,6 @@ class StripeServicesImpl extends StripeServices {
 
   @override
   Future<StripeRegisterAccountResponse> RegisterAccount(StripeRegisterAccountRequest req) async {
-    print(req.Signature);
     final helper = QueryHelper(httpClient: _httpClient);
     final result = await helper.queryPost( "$stripeUrl/register-account", req.toJson());
     return StripeRegisterAccountResponse.from(result);

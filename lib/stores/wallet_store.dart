@@ -39,7 +39,6 @@ abstract class WalletsStore {
   /// [balance] the amount that we want to send
   /// [toAddress] the address to which we want to send
   Future<void> sendCosmosMoney(
-    WalletPublicInfo info,
     Balance balance,
     String toAddress,
   );
@@ -186,7 +185,7 @@ abstract class WalletsStore {
 
   Observable<bool> getStateUpdatedFlag();
 
-  void setStateUpdatedFlag({bool flag});
+  void setStateUpdatedFlag(bool flag);
 
   /// This method returns the recipes based on cookbook
   /// Input: [cookbookId] the id of the cookbook that contains recipe, [recipeId] the id of the recipe whose list of execution you want

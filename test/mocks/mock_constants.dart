@@ -157,7 +157,7 @@ Item MOCK_ITEM = Item(
   owner: '',
   cookbookID: MOCK_COOKBOOK_ID,
   iD: MOCK_ITEM_ID,
-  nodeVersion: Int64.ZERO,
+  nodeVersion: 'v1.0.0',
   doubles: [],
   longs: [],
   strings: [],

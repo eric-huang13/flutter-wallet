@@ -77,7 +77,6 @@ class IPCEngine {
     if (initialLink == null) {
       return;
     }
-    print(initialLink);
 
     if (_isEaselUniLink(initialLink)) {
       _handleEaselLink(initialLink);
@@ -123,9 +122,6 @@ class IPCEngine {
       return;
     }
 
-
-    debugPrint(getMessage);
-
     await showApprovalDialog(sdkIPCMessage: sdkIPCMessage);
 
   }
@@ -155,7 +151,9 @@ class IPCEngine {
             nft: NFT.fromRecipe(recipeResult.toOption().toNullable()!),
           ),
         ),
-      );
+      ).then((value) {
+        walletsStore.setStateUpdatedFlag(true);
+      });
     }
   }
 
@@ -182,7 +180,9 @@ class IPCEngine {
         MaterialPageRoute(
           builder: (_) => PurchaseItemScreen(nft: item),
         ),
-      );
+      ).then((_) => {
+        walletsStore.setStateUpdatedFlag(true)
+      });
     }
   }
 
@@ -210,7 +210,9 @@ class IPCEngine {
         MaterialPageRoute(
           builder: (_) => AssetDetailViewScreen(nftItem: item),
         ),
-      );
+      ).then((_) => {
+        walletsStore.setStateUpdatedFlag(true)
+      });
     }
   }
 
@@ -242,7 +244,6 @@ class IPCEngine {
 
     if (whiteListedTransactions.contains(sdkIPCMessage.action)) {
       final handlerMessage = await GetIt.I.get<HandlerFactory>().getHandler(sdkIPCMessage).handle();
-      debugPrint("$handlerMessage");
       await dispatchUniLink(handlerMessage.createMessageLink(isAndroid: Platform.isAndroid));
       return;
     }
@@ -252,7 +253,6 @@ class IPCEngine {
         sdkipcMessage: sdkIPCMessage,
         onApproved: () async {
           final handlerMessage = await GetIt.I.get<HandlerFactory>().getHandler(sdkIPCMessage).handle();
-          debugPrint("$handlerMessage");
           await dispatchUniLink(handlerMessage.createMessageLink(isAndroid: Platform.isAndroid));
         },
         onCancel: () async {
