@@ -85,8 +85,6 @@ class StripeHandler {
     await dataSource.loadData();
     var token = '';
     var accountlink = "";
-    dataSource.StripeAccount = "";
-    dataSource.StripeToken = "";
 
     if(dataSource.StripeAccount != ""){
 

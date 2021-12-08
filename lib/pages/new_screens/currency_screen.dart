@@ -175,7 +175,7 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
 
   Future getPayout(BuildContext context, String amount) async {
     StripePayoutWidget(
-            context: context, amount: amount, onCallback: handleStripePayout)
+            context: context, amount:  amount, onCallback: handleStripePayout)
         .show();
   }
 
@@ -260,21 +260,21 @@ class _BalanceWidgetState extends State<_BalanceWidget> {
                       .copyWith(color: Colors.white, fontSize: 18),
                 ),
                 Spacer(),
-                if (widget.balance.denom != "ustripeusd")
-                  //ElevatedButton(
-                  //  onPressed: () {
-                  //    widget.onCallStripePayout();
-                  //  },
-                  //  style: ElevatedButton.styleFrom(
-                  //    primary: const Color(0xFFFFFFFF),
-                  //    maximumSize: Size(100, 20),
-                  //    minimumSize: Size(100, 20),
-                  //  ),
-                  //  child: Text("payout",
-                  //     style:
-                  //          TextStyle(color: Color(0xFF1212C4), fontSize: 15)),
-                  //)
-                //else
+                if (widget.balance.denom == "ustripeusd")
+                  ElevatedButton(
+                    onPressed: () {
+                      widget.onCallStripePayout();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: const Color(0xFFFFFFFF),
+                      maximumSize: Size(100, 20),
+                      minimumSize: Size(100, 20),
+                    ),
+                    child: Text("payout",
+                       style:
+                            TextStyle(color: Color(0xFF1212C4), fontSize: 15)),
+                  )
+                else
                   ElevatedButton(
                     onPressed: () {
                       widget.onCallFaucet();

@@ -26,21 +26,36 @@ class TokenSender {
         ..amount = balance.amount.value.toString(),
     );
 
+
     final unsignedTransaction = UnsignedAlanTransaction(messages: [message]);
 
-    final walletLookupKey = WalletLookupKey(
-      walletId: info.walletId,
-      chainId: info.chainId,
-      password: PylonsApp.password,
-    );
 
-    final signedAlanTransaction = await transactionSigningGateway.signTransaction(
-      transaction: unsignedTransaction,
-      walletLookupKey: walletLookupKey,
-    );
-    await signedAlanTransaction.fold<Future?>(
-      (fail) => null,
-      (signedTransaction) => transactionSigningGateway.broadcastTransaction(walletLookupKey: walletLookupKey, transaction: signedTransaction),
-    );
+
+    try{
+      final walletLookupKey = WalletLookupKey(
+        walletId: info.walletId,
+        chainId: info.chainId,
+        password: "",
+      );
+      final signedAlanTransaction = await transactionSigningGateway.signTransaction(
+        transaction: unsignedTransaction,
+        walletLookupKey: walletLookupKey,
+      );
+      signedAlanTransaction.fold((l){
+        print(l.toString());
+
+      }, (r){
+        print(r.toString());
+      });
+
+      await signedAlanTransaction.fold<Future?>(
+            (fail) => null,
+            (signedTransaction) => transactionSigningGateway.broadcastTransaction(walletLookupKey: walletLookupKey, transaction: signedTransaction),
+      );
+
+    }catch(e){
+      print(e.toString());
+
+    }
   }
 }

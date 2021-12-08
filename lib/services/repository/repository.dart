@@ -197,7 +197,7 @@ class RepositoryImp implements Repository {
     final response = await bankQueryClient.allBalances(queryAllBalancesRequest);
 
     final balances = <Balance>[];
-    if (response.balances.isEmpty) {
+    if (response.balances.isEmpty || response.balances.indexWhere((element) => element.denom == 'upylon') == -1) {
       balances.add(Balance(denom: "upylon", amount: Amount(Decimal.zero)));
     }
     for (final balance in response.balances) {
