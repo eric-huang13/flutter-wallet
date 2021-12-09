@@ -65,19 +65,29 @@ class _CollectionScreenState extends State<CollectionScreen>{
   void initState() {
     super.initState();
 
+    if(!walletsStore.getStateUpdatedFlag().hasObservers){
+      walletsStore.getStateUpdatedFlag().observe((flag) async {
+        if(flag.newValue == true){
+          Timer(Duration(milliseconds: 100),  () async {
+            await loadData(colType);
+            walletsStore.setStateUpdatedFlag(false);
+          });
+        }
+      }, fireImmediately: true);
+    }
+    else {
+      Timer(
+          Duration(milliseconds: 100),  () async {
+        await loadData(colType);
+      });
+    }
+
+
     Timer(
       Duration(milliseconds: 100),  () async {
 
       await loadData(colType);
 
-      if(!walletsStore.getStateUpdatedFlag().hasObservers){
-        walletsStore.getStateUpdatedFlag().observe((flag) async {
-          if(flag.newValue == true){
-            await loadData(colType);
-            walletsStore.setStateUpdatedFlag(false);
-          }
-        }, fireImmediately: true);
-      }
     });
   }
 
