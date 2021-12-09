@@ -124,10 +124,6 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
           },
           backgroundAsset:
               Constants.kCardBGList[index % Constants.kCardBGList.length],
-          //onCallFaucet: () {
-          //  getFaucet(context, assets[index].denom);
-          //},
-          //backgroundAsset: Constants.kCardBGList[index % Constants.kCardBGList.length],
         ),
       ),
     );

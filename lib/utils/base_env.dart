@@ -39,6 +39,7 @@ class BaseEnv {
           credentials: (dotenv.env['ENV']! == "local")
               ? const ChannelCredentials.insecure() :
               const ChannelCredentials.insecure(),
+              //For HTTPS
               //: ChannelCredentials.secure(
               //    onBadCertificate: (cert, host) {
               //      debugPrint("host: $host, cert: $cert");

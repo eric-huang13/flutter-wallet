@@ -67,7 +67,6 @@ class _CollectionScreenState extends State<CollectionScreen>{
 
     Timer(
       Duration(milliseconds: 100),  () async {
-      //await walletsStore.sendCosmosMoney(Balance(denom: "ustripeusd", amount: Amount.fromInt(1000000)) , "pylo172n0m9t6xg0j2l73rp9m852lm9c73jgy2j96qw");
 
       await loadData(colType);
 
@@ -111,7 +110,6 @@ class _CollectionScreenState extends State<CollectionScreen>{
                           colType = e.title;
                         });
                         loadData(colType);
-                        // navigatorKey.currentState!.push(MaterialPageRoute(builder: (_) => PurchaseItemScreen(recipe: null,)));
                       },
                     ),
                   ).toList()],

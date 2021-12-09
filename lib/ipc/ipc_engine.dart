@@ -48,7 +48,6 @@ class IPCEngine {
   /// This method setups the listener which receives
   void setUpListener() {
     _sub = linkStream.listen((String? link) {
-      print(link);
       if (link == null) {
         return;
       }

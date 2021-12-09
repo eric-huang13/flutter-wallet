@@ -465,12 +465,10 @@ class _PayByCardWidget extends StatelessWidget {
         ''';
     final jsonMap = jsonDecode(json) as Map;
     jsonMap["ID"] = recipe.tradeID;
-    // print(jsonMap);
     final response = await walletsStore.fulfillTrade(jsonMap);
 
     Navigator.pop(context);
 
-    debugPrint("${response.success ? response.data : response.error}");
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text("${response.success ? "Successfully purchased this NFT." : response.error}")));
   }
@@ -500,8 +498,6 @@ class _PayByCardWidget extends StatelessWidget {
 
         await Stripe.instance.presentPaymentSheet();
 
-        print('stripe payment done');
-
         final receipt = await stripeServices.GeneratePaymentReceipt(StripeGeneratePaymentReceiptRequest(paymentIntentID: pi.id, clientSecret: pi.clientSecret));
 
         _showLoading(context);
@@ -521,7 +517,6 @@ class _PayByCardWidget extends StatelessWidget {
 
         Navigator.pop(context);
 
-        debugPrint("${tradeResponse.success ? tradeResponse.data : tradeResponse.error}");
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text("${tradeResponse.success ? "Successfully purchased this NFT." : tradeResponse.error}")));
       }catch(e){
@@ -548,13 +543,11 @@ class _PayByCardWidget extends StatelessWidget {
 
     _showLoading(context);
 
-    // print(jsonMap);
     final response = await walletsStore.executeRecipe(jsonMap);
 
 
     Navigator.pop(context);
 
-    debugPrint("${response.success ? response.data : response.error}");
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text("${response.success ? "Successfully purchased this NFT." : response.error}")));
   }
@@ -610,7 +603,6 @@ class _PayByCardWidget extends StatelessWidget {
 
         Navigator.pop(context);
 
-        debugPrint("${execution.success ? execution.data : execution.error}");
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text("${execution.success ? "Successfully purchased this NFT." : execution.error}")));
       }catch(e){

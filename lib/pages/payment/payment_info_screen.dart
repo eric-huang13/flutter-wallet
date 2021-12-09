@@ -17,10 +17,6 @@ class _PaymentInfoScreenWidgetState extends State<PaymentInfoScreenWidget> with 
     super.initState();
   }
 
-  // void _tabSelect() {
-  //   setState(() {
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {

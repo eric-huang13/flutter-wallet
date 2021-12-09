@@ -22,9 +22,9 @@ class LocalDataSourceImp implements LocalDataSource {
 
   @override
   Future<void> saveData() async {
-// obtain shared preferences
+    // obtain shared preferences
     final prefs = await SharedPreferences.getInstance();
-// set value
+    // set value
     prefs.setString('StripeToken', StripeToken);
     prefs.setString('StripeAccount', StripeAccount);
     prefs.setBool('StripeAccountRegistered', StripeAccountRegistered);

@@ -6,9 +6,6 @@ extension ScaffoldHelper on BuildContext? {
       return;
     }
 
-
-
-
     ScaffoldMessenger.maybeOf(this!)
       ?..hideCurrentSnackBar()
       ..showSnackBar(SnackBar(

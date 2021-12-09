@@ -9,6 +9,7 @@ import 'package:pylons_wallet/utils/dependency_injection/dependency_injection.da
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  //for HTTPS
   //HttpOverrides.global = MyHttpOverrides();
   await EasyLocalization.ensureInitialized();
   // Read the values from .env file

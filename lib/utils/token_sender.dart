@@ -41,12 +41,6 @@ class TokenSender {
         transaction: unsignedTransaction,
         walletLookupKey: walletLookupKey,
       );
-      signedAlanTransaction.fold((l){
-        print(l.toString());
-
-      }, (r){
-        print(r.toString());
-      });
 
       await signedAlanTransaction.fold<Future?>(
             (fail) => null,
@@ -54,7 +48,6 @@ class TokenSender {
       );
 
     }catch(e){
-      print(e.toString());
 
     }
   }

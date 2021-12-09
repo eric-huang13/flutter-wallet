@@ -353,7 +353,6 @@ class StripeServicesImpl extends StripeServices {
     //POST
     //{address:, productID:, coin_inputs_index:}
     final helper = QueryHelper(httpClient: _httpClient);
-    print("$stripeUrl/create-payment-intent");
     final result = await helper.queryPost( "$stripeUrl/create-payment-intent", req.toJson());
     return StripeCreatePaymentIntentResponse.from(result);
   }
@@ -377,7 +376,6 @@ class StripeServicesImpl extends StripeServices {
   @override
   Future<StripeGenerateRegistrationTokenResponse> GenerateRegistrationToken(String address) async {
     final helper = QueryHelper(httpClient: _httpClient);
-    print("$stripeUrl/generate-registration-token?address=${address}");
     final result = await helper.queryGet( "$stripeUrl/generate-registration-token?address=${address}");
     return StripeGenerateRegistrationTokenResponse.from(result);
   }
@@ -433,14 +431,4 @@ class StripeServicesImpl extends StripeServices {
     final result = await helper.queryPost( "$stripeUrl/accountlink", req.toJson());
     return StripeAccountLinkResponse.from(result);
   }
-/*
-  Future<StripeWebhooksResponse> StripeWebhooks(StripeWebhooksRequest req) async {
-    final helper = QueryHelper(httpClient: _httpClient);
-    final result = await helper.queryPost( "$stripeUrl/stripe/webhooks", req.toJson());
-    if(result.isSuccessful) {
-      return StripeWebhooksResponse.from(result.value);
-    }
-    return StripeWebhooksResponse();
-  }
- */
 }
