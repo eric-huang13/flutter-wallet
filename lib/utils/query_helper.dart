@@ -29,6 +29,7 @@ class QueryHelper {
       String url,
       ) async {
     final data = await _httpClient.get(Uri.parse(url));
+
     if (data.statusCode != 200) {
       return RequestResult(
         error: 'Call to $url returned status code ${data.statusCode}',

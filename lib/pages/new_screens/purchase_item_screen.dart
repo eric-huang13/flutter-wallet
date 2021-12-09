@@ -561,6 +561,8 @@ class _PayByCardWidget extends StatelessWidget {
     final response = await stripeServices.CreatePaymentIntent(
         StripeCreatePaymentIntentRequest(productID: "recipe/${nft.cookbookID}/${nft.recipeID}", coinInputIndex: 0, address: walletsStore.getWallets().value.last.publicAddress)
     );
+
+
     if(response.clientsecret != ""){
       try {
         final pi = await Stripe.instance.retrievePaymentIntent(response.clientsecret);
