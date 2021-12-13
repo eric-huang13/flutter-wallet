@@ -107,5 +107,6 @@ Future<void> init() async {
       networkInfo: sl(),
       queryClient: sl(),
       bankQueryClient: sl(),
-      queryHelper: sl()));
+      queryHelper: sl(),
+      baseEnv: sl()));
 }

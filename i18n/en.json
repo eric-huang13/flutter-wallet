@@ -121,6 +121,12 @@
   "stripe_payout_request_failed": "Stripe Payout Request Failed",
   "stripe_payout_token_failed": "Generate Stripe Payout Token failed",
   "wallet_copied": "Your wallet address copied to clipboard",
-  "user_name_already_exists": "User name already exists"
-
+  "user_name_already_exists": "User name already exists",
+  "enter_mnemonic" : "Enter Mnemonic",
+  "user_name_empty" : "User Name is Empty",
+  "mnemonic_is_empty" : "Mnemonic is Empty",
+  "user_name_doesnt_exists" : "Username Doesn't exists",
+  "mnemonic_copied" : "Mnemonic Copied",
+  "user_name_invalid" : "Username is invalid",
+  "invalid_input" : "Invalid Input"
 }

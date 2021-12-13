@@ -4,6 +4,7 @@ import 'package:alan/alan.dart' as alan;
 import 'package:cosmos_utils/extensions.dart';
 import 'package:cosmos_utils/future_either.dart';
 import 'package:dartz/dartz.dart';
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobx/mobx.dart';
@@ -454,12 +455,12 @@ class WalletsStoreImp implements WalletsStore {
 
   @override
   Future<bool> isAccountExists(String username) async {
-    final accountExistResult = await repository.isAccountExists(username);
+    final accountExistResult = await repository.getAddressBasedOnUsername(username);
 
     return accountExistResult.fold((failure) {
       return false;
     }, (value) {
-      return value;
+      return value.isNotEmpty;
     });
   }
 
@@ -678,5 +679,53 @@ class WalletsStoreImp implements WalletsStore {
 
     return SDKIPCResponse.success(
         data: jsonEncode(response.toProto3Json()), sender: '', transaction: '');
+  }
+
+  @override
+  Future<SDKIPCResponse> getTradesForSDK({required String creator}) async {
+    final tradesEither = await repository.getTradesBasedOnCreator(creator: creator);
+
+    if (tradesEither.isLeft()) {
+      return SDKIPCResponse.failure(sender: '', error: tradesEither.swap().toOption().toNullable()!.message, errorCode: HandlerFactory.ERR_CANNOT_FETCH_TRADES, transaction: '');
+    }
+
+    return SDKIPCResponse.success(data: jsonEncode(tradesEither.getOrElse(() => []).map((trade) => trade.toProto3Json()).toList()), sender: '', transaction: '');
+  }
+
+  @override
+  Future<Either<Failure, WalletPublicInfo>> importPylonsAccount({required String mnemonic, required String username}) async {
+    final privateCredentialsEither = await repository.getPrivateCredentials(mnemonic: mnemonic, username: username);
+
+    if (privateCredentialsEither.isLeft()) {
+      return Left(privateCredentialsEither.swap().toOption().toNullable()!);
+    }
+
+    final credentials = privateCredentialsEither.toOption().toNullable()!;
+
+    final getAddressBasedOnUserNameEither = await repository.getAddressBasedOnUsername(username);
+
+    if (getAddressBasedOnUserNameEither.isLeft()) {
+      return Left(getAddressBasedOnUserNameEither.swap().toOption().toNullable()!);
+    }
+
+    final userNameAddress = getAddressBasedOnUserNameEither.getOrElse(() => '');
+
+    if (userNameAddress.isEmpty) {
+      return Left(UsernameAddressFoundFailure('user_name_invalid'.tr()));
+    }
+
+    if (userNameAddress != credentials.publicInfo.publicAddress) {
+      return Left(InvalidInputFailure('invalid_input'.tr()));
+    }
+
+
+    await _transactionSigningGateway.storeWalletCredentials(
+      credentials: credentials,
+      password: '',
+    );
+
+    wallets.value.add(credentials.publicInfo);
+
+    return Right(credentials.publicInfo);
   }
 }

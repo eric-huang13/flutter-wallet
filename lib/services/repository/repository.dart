@@ -1,5 +1,6 @@
 import 'package:alan/proto/cosmos/bank/v1beta1/export.dart' as bank;
 import 'package:dartz/dartz.dart';
+import 'package:alan/alan.dart' as alan;
 import 'package:decimal/decimal.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/entities/amount.dart';
@@ -7,9 +8,12 @@ import 'package:pylons_wallet/entities/balance.dart';
 import 'package:pylons_wallet/model/execution_list_by_recipe_response.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart' as pylons;
 import 'package:pylons_wallet/services/third_party_services/network_info.dart';
+import 'package:pylons_wallet/utils/base_env.dart';
 import 'package:pylons_wallet/utils/failure/failure.dart';
 import 'package:pylons_wallet/utils/query_helper.dart';
 import 'package:http/http.dart' as http;
+import 'package:transaction_signing_gateway/model/private_wallet_credentials.dart';
+import 'package:transaction_signing_gateway/transaction_signing_gateway.dart';
 
 abstract class Repository {
   /// This method returns the recipe based on cookbook id and recipe Id
@@ -38,9 +42,9 @@ abstract class Repository {
 
   /// check if account with username exists
   /// Input:[String] username
-  /// Output: [bool] if exists true, else false
+  /// Output: [String] if exists returns the address
   /// will return error in form of failure
-  Future<Either<Failure, bool>> isAccountExists(String username);
+  Future<Either<Failure, String>> getAddressBasedOnUsername(String username);
 
   /// THis method returns list of balances against an address
   /// Input:[address] public address of the user
@@ -71,6 +75,18 @@ abstract class Repository {
   /// Input : [id] the id of the execution
   /// Output: [pylons.Execution] returns execution
   Future<Either<Failure, pylons.Execution>> getExecutionBasedOnId({required String id});
+
+  /// Get all current trades against the given creator
+  /// Input : [creator] the id of the creator
+  /// Output: [List<pylons.Trade>] returns a list of trades
+  Future<Either<Failure, List<pylons.Trade>>> getTradesBasedOnCreator({required String creator});
+
+  /// This method returns the private credentials based on the mnemonics
+  /// Input : [mnemonic] mnemonics of the imported account, [username] user name of the user
+  /// Output: [PrivateWalletCredentials] of the user account
+  /// else will give [Failure]
+  Future<Either<Failure, PrivateWalletCredentials>> getPrivateCredentials({required String mnemonic, required String username});
+
 }
 
 class RepositoryImp implements Repository {
@@ -80,9 +96,11 @@ class RepositoryImp implements Repository {
 
   final bank.QueryClient bankQueryClient;
 
+  final BaseEnv baseEnv;
+
   final QueryHelper queryHelper;
 
-  RepositoryImp({required this.networkInfo, required this.queryClient, required this.bankQueryClient, required this.queryHelper});
+  RepositoryImp({required this.networkInfo, required this.queryClient, required this.bankQueryClient, required this.queryHelper, required this.baseEnv});
 
   @override
   Future<Either<Failure, pylons.Recipe>> getRecipe({required String cookBookId, required String recipeId}) async {
@@ -166,7 +184,7 @@ class RepositoryImp implements Repository {
   }
 
   @override
-  Future<Either<Failure, bool>> isAccountExists(String username) async {
+  Future<Either<Failure, String>> getAddressBasedOnUsername(String username) async {
     if (!await networkInfo.isConnected) {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
@@ -180,7 +198,7 @@ class RepositoryImp implements Repository {
         return const Left(RecipeNotFoundFailure(USERNAME_NOT_FOUND));
       }
 
-      return Right(response.hasAddress());
+      return Right(response.address.value);
     } on Exception catch (_) {
       return const Left(RecipeNotFoundFailure(USERNAME_NOT_FOUND));
     }
@@ -289,4 +307,51 @@ class RepositoryImp implements Repository {
     }
     return Right(response.execution);
   }
+
+  @override
+  Future<Either<Failure, List<pylons.Trade>>> getTradesBasedOnCreator({required String creator}) async {
+    if (!await networkInfo.isConnected) {
+      return const Left(NoInternetFailure(NO_INTERNET));
+    }
+
+    try {
+      final request = pylons.QueryListTradesByCreatorRequest.create()..creator = creator;
+
+      final response = await queryClient.listTradesByCreator(request);
+
+      if (response.trades.isEmpty) {
+        return const Left(TradeNotFoundFailure(TRADE_NOT_FOUND));
+      }
+
+      return Right(response.trades);
+    } on Exception catch (_) {
+      return const Left(TradeNotFoundFailure(TRADE_NOT_FOUND));
+    }
+  }
+
+  @override
+  Future<Either<Failure, PrivateWalletCredentials>> getPrivateCredentials({required String mnemonic, required String username}) async {
+    if (!await networkInfo.isConnected) {
+      return const Left(NoInternetFailure(NO_INTERNET));
+    }
+
+    try {
+      final wallet = alan.Wallet.derive(mnemonic.split(" "), baseEnv.networkInfo);
+      final creds = AlanPrivateWalletCredentials(
+        publicInfo: WalletPublicInfo(
+          chainId: 'pylons',
+          walletId: username,
+          name: username,
+          publicAddress: wallet.bech32Address,
+        ),
+        mnemonic: mnemonic,
+      );
+
+      return Right(creds);
+    } on Exception catch (_) {
+      return const Left(TradeNotFoundFailure(TRADE_NOT_FOUND));
+    }
+  }
+
+
 }

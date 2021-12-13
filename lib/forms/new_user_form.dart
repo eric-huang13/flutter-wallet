@@ -2,6 +2,7 @@ import 'package:cosmos_utils/mnemonic.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:flutter/services.dart';
 import 'package:pylons_wallet/components/alert.dart';
 import 'package:pylons_wallet/components/buttons/pylons_blue_button_with_loader.dart';
 import 'package:pylons_wallet/components/pylons_text_input_widget.dart';
@@ -107,7 +108,14 @@ class NewUserFormState extends State<NewUserForm> {
     isLoadingNotifier.value = false;
     result.fold((failure) {
       Alert.SnackbarAlert(context, failure.message);
-    }, (walletInfo) {
+
+    }, (walletInfo) async {
+
+
+      await Clipboard.setData(ClipboardData(text: _mnemonic));
+
+      Alert.SnackbarAlert(context, "${'mnemonic_copied'.tr()}!");
+
       PylonsApp.currentWallet = walletInfo;
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (_) => const NewHomeScreen()),
