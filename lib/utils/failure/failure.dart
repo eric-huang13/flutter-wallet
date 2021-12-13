@@ -27,6 +27,13 @@ class NoInternetFailure extends Failure {
   List<Object?> get props => [message];
 }
 
+
+class StripeFailure extends Failure {
+  const StripeFailure(String message) : super(message);
+  @override
+  List<Object?> get props => [message];
+}
+
 class WalletCreationFailure extends Failure {
   const WalletCreationFailure(String message) : super(message);
 
@@ -34,11 +41,6 @@ class WalletCreationFailure extends Failure {
   List<Object?> get props => [message];
 }
 
-class WalletCreationFailure extends Failure {
-  const WalletCreationFailure(String message) : super(message);
-  @override
-  List<Object?> get props => [message];
-}
 
 class ExecutionNotFoundFailure extends Failure {
   const ExecutionNotFoundFailure(String message) : super(message);

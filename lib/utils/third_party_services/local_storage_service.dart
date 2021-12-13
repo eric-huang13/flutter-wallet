@@ -46,6 +46,7 @@ class LocalDataSourceImp implements LocalDataSource {
   @override
   String StripeAccount = '';
 
+  @override
   Future<void> clearDataOnIosUnInstall() async {
     if (Platform.isAndroid) {
       return SynchronousFuture('');

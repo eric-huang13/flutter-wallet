@@ -16,4 +16,10 @@ class MockLocalDataSource extends LocalDataSource {
   Future<void> saveData() async {
   }
 
+  @override
+  Future<void> clearDataOnIosUnInstall() {
+    // TODO: implement clearDataOnIosUnInstall
+    throw UnimplementedError();
+  }
+
 }
