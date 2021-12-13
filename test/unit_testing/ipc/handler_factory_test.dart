@@ -10,6 +10,7 @@ import 'package:pylons_wallet/ipc/handler/handlers/get_item_by_id_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/get_list_by_owner_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/get_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/get_recipes_handler.dart';
+import 'package:pylons_wallet/ipc/handler/handlers/get_trades_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/update_cookbook_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/update_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_message.dart';
@@ -100,5 +101,10 @@ void main(){
     expect(true, handler is GetExecutionByIdHandler);
   });
 
+
+  test('should return GetTradesHandler based on GET_TRADES action', (){
+    final handler = HandlerFactory().getHandler(SDKIPCMessage(json: '', action: HandlerFactory.GET_TRADES, sender: ''));
+    expect(true, handler is GetTradesHandler);
+  });
 
 }

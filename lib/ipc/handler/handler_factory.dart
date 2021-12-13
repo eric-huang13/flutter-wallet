@@ -10,6 +10,7 @@ import 'package:pylons_wallet/ipc/handler/handlers/get_execution_by_recipe_handl
 import 'package:pylons_wallet/ipc/handler/handlers/get_list_by_owner_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/get_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/get_recipes_handler.dart';
+import 'package:pylons_wallet/ipc/handler/handlers/get_trades_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/update_cookbook_handler.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/update_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_message.dart';
@@ -59,11 +60,13 @@ class HandlerFactory {
   static const String ERR_CANNOT_FETCH_RECIPES = 'cannotFetchRecipes';
   static const String ERR_CANNOT_FETCH_ITEM = 'cannotFetchItem';
   static const String ERR_CANNOT_FETCH_COOKBOOK = 'cannotFetchCookbook';
+  static const String ERR_CANNOT_FETCH_TRADES = 'cannotFetchTrades';
   static const String COOKBOOK_ID = 'cookbookId';
   static const String OWNER_ADDRESS = 'ownerAddress';
   static const String RECIPE_ID = 'recipeId';
   static const String ITEM_ID = 'itemId';
   static const String EXECUTION_ID = 'executionId';
+  static const String CREATOR = 'creator';
 
 
   BaseHandler getHandler(SDKIPCMessage sdkipcMessage) {
@@ -82,7 +85,8 @@ class HandlerFactory {
       GET_EXECUTION_BY_RECIPE_ID : GetExecutionByRecipe(sdkipcMessage),
       GET_ITEM_BY_ID : GetItemByIdHandler(sdkipcMessage),
       GET_ITEMS_BY_OWNER : GetItemsByOwnerHandler(sdkipcMessage),
-      GET_EXECUTION_BY_ID : GetExecutionByIdHandler(sdkipcMessage)
+      GET_EXECUTION_BY_ID : GetExecutionByIdHandler(sdkipcMessage),
+      GET_TRADES: GetTradesHandler(sdkipcMessage)
     };
 
     if(actionsHandler.containsKey(sdkipcMessage.action) ){

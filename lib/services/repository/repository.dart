@@ -71,6 +71,11 @@ abstract class Repository {
   /// Input : [id] the id of the execution
   /// Output: [pylons.Execution] returns execution
   Future<Either<Failure, pylons.Execution>> getExecutionBasedOnId({required String id});
+
+  /// Get all current trades against the given creator
+  /// Input : [creator] the id of the creator
+  /// Output: [List<pylons.Trade>] returns a list of trades
+  Future<Either<Failure, List<pylons.Trade>>> getTradesBasedOnCreator({required String creator});
 }
 
 class RepositoryImp implements Repository {
@@ -284,5 +289,27 @@ class RepositoryImp implements Repository {
       return const Left(ItemNotFoundFailure(EXECUTION_NOT_FOUND));
     }
     return Right(response.execution);
+  }
+
+  @override
+  Future<Either<Failure, List<pylons.Trade>>> getTradesBasedOnCreator({required String creator}) async {
+    if (!await networkInfo.isConnected) {
+      return const Left(NoInternetFailure(NO_INTERNET));
+    }
+
+    try {
+      final request = pylons.QueryListTradesByCreatorRequest.create()..creator = creator;
+
+      final response = await queryClient.listTradesByCreator(request);
+
+      if (response.trades.isEmpty) {
+        return const Left(TradeNotFoundFailure(TRADE_NOT_FOUND));
+      }
+
+      return Right(response.trades);
+
+    } on Exception catch (_) {
+      return const Left(TradeNotFoundFailure(TRADE_NOT_FOUND));
+    }
   }
 }

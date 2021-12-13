@@ -233,4 +233,9 @@ abstract class WalletsStore {
   /// Output: [pylons.Execution] returns execution
   Future<SDKIPCResponse> getExecutionBasedOnId({required String id});
 
+
+  /// Get all current trades based on the given [creator]
+  /// Input : [creator] the id of the creator
+  /// Output: [List<pylons.Trade>] returns a list of trades
+  Future<SDKIPCResponse> getTradesForSDK({required String creator});
 }

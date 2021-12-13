@@ -519,4 +519,15 @@ class WalletsStoreImp implements WalletsStore {
 
     return SDKIPCResponse.success(data: jsonEncode(response.toProto3Json()), sender: '', transaction: '');
   }
+
+  @override
+  Future<SDKIPCResponse> getTradesForSDK({required String creator}) async {
+    final tradesEither = await repository.getTradesBasedOnCreator(creator: creator);
+
+    if (tradesEither.isLeft()) {
+      return SDKIPCResponse.failure(sender: '', error: tradesEither.swap().toOption().toNullable()!.message, errorCode: HandlerFactory.ERR_CANNOT_FETCH_TRADES, transaction: '');
+    }
+
+    return SDKIPCResponse.success(data: jsonEncode(tradesEither.getOrElse(() => []).map((trade) => trade.toProto3Json()).toList()), sender: '', transaction: '');
+  }
 }

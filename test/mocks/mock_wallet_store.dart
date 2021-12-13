@@ -249,4 +249,13 @@ class MockWalletStore implements WalletsStore {
 
     return SDKIPCResponse.success(data: jsonEncode(MOCK_EXECUTION.toProto3Json()), sender: '', transaction: '');
   }
+
+  @override
+  Future<SDKIPCResponse> getTradesForSDK({required String creator}) async {
+    if (creator != MOCK_ADDRESS) {
+      throw MOCK_ERROR;
+    }
+
+    return SDKIPCResponse.success(data: [], sender: '', transaction: '');
+  }
 }
