@@ -2,15 +2,12 @@ import 'package:dartz/dartz.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:mobx/mobx.dart';
 import 'package:pylons_wallet/entities/balance.dart';
+import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart';
 import 'package:pylons_wallet/modules/cosmos.authz.v1beta1/module/export.dart';
-import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
-import 'package:pylons_wallet/stores/models/transaction_response.dart';
 import 'package:pylons_wallet/utils/failure/failure.dart';
-import 'package:transaction_signing_gateway/gateway/transaction_signing_gateway.dart';
 import 'package:transaction_signing_gateway/model/credentials_storage_failure.dart';
 import 'package:transaction_signing_gateway/model/transaction_hash.dart';
-import 'package:transaction_signing_gateway/model/wallet_public_info.dart';
 import 'package:transaction_signing_gateway/transaction_signing_gateway.dart';
 
 abstract class WalletsStore {
@@ -161,6 +158,14 @@ abstract class WalletsStore {
 
   Observable<CredentialsStorageFailure?> getLoadWalletsFailure();
 
+
+
+
+  /// This method imports the pylons wallet based on mnemonic and username
+  /// Input : [username] the username associated with the account. [mnemonic] the mnemonic associated with the account
+  /// Output: [WalletPublicInfo] returns the wallet public info about the account
+  /// else returns failure
+  Future<Either<Failure, WalletPublicInfo>> importPylonsAccount({required String mnemonic, required String username});
 
 
   /// This method updates the cookbook in the block chain

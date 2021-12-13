@@ -18,16 +18,10 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:pylons_wallet/components/loading.dart';
 import 'package:pylons_wallet/components/alert.dart';
 
-
 PageController _controller = PageController();
 
 class PresentingOnboardPage extends StatelessWidget {
-
-
   WalletsStore get walletsStore => GetIt.I.get();
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -55,25 +49,31 @@ class PresentingOnboardPage extends StatelessWidget {
           PylonsWhiteButton(
             onTap: () {
               showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30.0),
-                      topRight: Radius.circular(30.0),
-                    ),
+                context: context,
+                isScrollControlled: true,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30.0),
+                    topRight: Radius.circular(30.0),
                   ),
-                  builder: (context) => Wrap(children: const [ImportFromGoogleForm()]),);
+                ),
+                builder: (context) => Wrap(children: [
+                  ImportFromGoogleForm(
+                    walletStore: walletsStore,
+                  )
+                ]),
+              );
             },
             text: "import_an_account".tr(),
           ),
           const VerticalSpace(10),
           PylonsBlueButton(
             onTap: () {
-
-              final createAccountBottomSheet  = CreateAccountBottomSheet(context: context, walletsStore: walletsStore, );
+              final createAccountBottomSheet = CreateAccountBottomSheet(
+                context: context,
+                walletsStore: walletsStore,
+              );
               createAccountBottomSheet.show();
-
             },
             text: "create_an_account".tr(),
           ),
@@ -129,7 +129,7 @@ class _OnboardingPageViewState extends State<OnboardingPageView> {
   void dispose() {
     _controller.dispose();
     super.dispose();
-    if(timer != null){
+    if (timer != null) {
       timer?.cancel();
     }
   }

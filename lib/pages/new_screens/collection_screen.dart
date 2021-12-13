@@ -24,9 +24,8 @@ class Collection {
     required this.icon,
     required this.title,
     required this.type,
-    this.app_name="",
+    this.app_name = "",
   });
-
 }
 
 class CollectionScreen extends StatefulWidget {
@@ -37,31 +36,31 @@ class CollectionScreen extends StatefulWidget {
 }
 
 List<Collection> collectionType = [
-  Collection(title: "art".tr(), icon: "art" ,type: 'cookbook', ),
-  Collection(title: "tickets".tr(), icon: "tickets" ,type: 'cookbook'),
-  Collection(title: "transfer".tr(), icon: "transfer" ,type: 'cookbook'),
+  Collection(
+    title: "art".tr(),
+    icon: "art",
+    type: 'cookbook',
+  ),
+  Collection(title: "tickets".tr(), icon: "tickets", type: 'cookbook'),
+  Collection(title: "transfer".tr(), icon: "transfer", type: 'cookbook'),
   Collection(title: "Easel", icon: "pylons", type: 'app', app_name: "easel"),
   Collection(title: "Avatar", icon: "pylons", type: 'app', app_name: "avatar"),
 ];
 
-class _CollectionScreenState extends State<CollectionScreen>{
+class _CollectionScreenState extends State<CollectionScreen> {
   final walletsStore = GetIt.I.get<WalletsStore>();
-  List<NFT> assets =[];
+  List<NFT> assets = [];
   //big issue - should replace or unify into one
   List<NFT> recipes = [];
 
   String colType = collectionType[0].title;
 
-
-
   @override
   void initState() {
     super.initState();
-    Timer(
-        Duration(milliseconds: 100), (){
+    Timer(const Duration(milliseconds: 100), () {
       loadData(colType);
-    }
-    );
+    });
   }
 
   @override
@@ -83,38 +82,41 @@ class _CollectionScreenState extends State<CollectionScreen>{
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-                ...<Widget>[...collectionType.where((col) => col.type == 'cookbook').map((e) =>
-                    _CardWidget(
-                      text: e.title,
-                      icon: e.icon,
-                      selected: colType == e.title,
-                      onTap: () {
-                        setState((){
-                          colType = e.title;
-                        });
-                        loadData(colType);
-                        // navigatorKey.currentState!.push(MaterialPageRoute(builder: (_) => PurchaseItemScreen(recipe: null,)));
-                      },
-                    ),
-                  ).toList()],
+              ...<Widget>[
+                ...collectionType
+                    .where((col) => col.type == 'cookbook')
+                    .map(
+                      (e) => _CardWidget(
+                        text: e.title,
+                        icon: e.icon,
+                        selected: colType == e.title,
+                        onTap: () {
+                          setState(() {
+                            colType = e.title;
+                          });
+                          loadData(colType);
+                          // navigatorKey.currentState!.push(MaterialPageRoute(builder: (_) => PurchaseItemScreen(recipe: null,)));
+                        },
+                      ),
+                    )
+                    .toList()
+              ],
             ],
           ),
           const VerticalSpace(20),
           Text(
             "your_pylons_app".tr(),
-            style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                color: const Color(0xffA9A6A6), fontWeight: FontWeight.w500),
+            style: Theme.of(context).textTheme.bodyText1!.copyWith(color: const Color(0xffA9A6A6), fontWeight: FontWeight.w500),
           ),
           const VerticalSpace(6),
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               _CardWidget(
                 text: "Easel",
                 selected: colType == 'Easel',
                 icon: "pylons",
                 onTap: () {
-                  setState((){
+                  setState(() {
                     colType = 'Easel';
                   });
                   loadData(colType);
@@ -126,7 +128,7 @@ class _CollectionScreenState extends State<CollectionScreen>{
                 selected: colType == 'Avatar',
                 icon: "pylons",
                 onTap: () {
-                  setState((){
+                  setState(() {
                     colType = 'Avatar';
                   });
                   loadData(colType);
@@ -135,7 +137,7 @@ class _CollectionScreenState extends State<CollectionScreen>{
             ],
           ),
           const VerticalSpace(20),
-          if(assets.length > 0)
+          if (assets.length > 0)
             Expanded(
               child: StaggeredGridView.countBuilder(
                   crossAxisCount: 3,
@@ -146,18 +148,19 @@ class _CollectionScreenState extends State<CollectionScreen>{
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                        if(assets[index].type == nftType.type_recipe){
+                        if (assets[index].type == nftType.type_recipe) {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (_) =>  PurchaseItemScreen(
-                                nft: assets[index],)));
-                        }else{
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (_) =>  AssetDetailViewScreen(nftItem: assets[index])));
+                              builder: (_) => PurchaseItemScreen(
+                                    nft: assets[index],
+                                  )));
+                        } else {
+                          Navigator.of(context).push(MaterialPageRoute(builder: (_) => AssetDetailViewScreen(nftItem: assets[index])));
                         }
                       },
                       child: ClipRRect(
                         borderRadius: const BorderRadius.all(Radius.circular(5)),
                         child: CachedNetworkImage(
+                            placeholder: (context, url) => const CircularProgressIndicator.adaptive(),
                             //imageUrl: _getImage(index),
                             imageUrl: assets[index].url,
                             fit: BoxFit.cover),
@@ -165,11 +168,10 @@ class _CollectionScreenState extends State<CollectionScreen>{
                     );
                   },
                   staggeredTileBuilder: (index) {
-                    return StaggeredTile.count((index == 1 || index == 6) ? 2 : 1,
-                        (index == 1 || index == 6) ? 2 : 1);
+                    return StaggeredTile.count((index == 1 || index == 6) ? 2 : 1, (index == 1 || index == 6) ? 2 : 1);
                   }),
             ),
-          if(recipes.length > 0)
+          if (recipes.length > 0)
             Expanded(
               child: StaggeredGridView.countBuilder(
                   crossAxisCount: 3,
@@ -181,21 +183,21 @@ class _CollectionScreenState extends State<CollectionScreen>{
                     return GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (_) =>  PurchaseItemScreen(
-                              nft: recipes[index],)));
+                            builder: (_) => PurchaseItemScreen(
+                                  nft: recipes[index],
+                                )));
                       },
                       child: ClipRRect(
                         borderRadius: const BorderRadius.all(Radius.circular(5)),
                         child: CachedNetworkImage(
-                          //imageUrl: _getImage(index),
+                            //imageUrl: _getImage(index),
                             imageUrl: recipes[index].url,
                             fit: BoxFit.cover),
                       ),
                     );
                   },
                   staggeredTileBuilder: (index) {
-                    return StaggeredTile.count((index == 1 || index == 6) ? 2 : 1,
-                        (index == 1 || index == 6) ? 2 : 1);
+                    return StaggeredTile.count((index == 1 || index == 6) ? 2 : 1, (index == 1 || index == 6) ? 2 : 1);
                   }),
             )
         ],
@@ -204,104 +206,108 @@ class _CollectionScreenState extends State<CollectionScreen>{
   }
 
   Future loadData(String _colType) async {
+
     final loading = Loading()..showLoading();
-    assets.clear();
-    recipes.clear();
 
-    if(_colType == collectionType[0].title){ //Art
-      final items = await walletsStore.getItemsByOwner(PylonsApp.currentWallet.publicAddress);
-      items.forEach((e) async {
-        final nft = await NFT.fromItem(e);
-        setState((){
-          assets.add(nft);
-        });
-      });
+    try {
+      assets.clear();
+      recipes.clear();
 
-      final trades = await walletsStore.getTrades(PylonsApp.currentWallet.publicAddress);
-      trades.forEach((trade) async {
-        final nft = await NFT.fromTrade(trade);
-        setState((){
-          assets.add(nft);
-        });
-      });
-    }else if(_colType == collectionType[1].title) { //ticket
-    }else if(_colType == collectionType[2].title) { //transfer
-    }else if(_colType == collectionType[3].title){ // easel
-      final cookbooks = await walletsStore.getCookbooksByCreator(PylonsApp.currentWallet.publicAddress);
-
-      final recipeList = await walletsStore.getRecipes();
-      recipeList.forEach((element) {
-        final nft = NFT.fromRecipe(element);
-
-        if(nft.appType.toLowerCase() == "easel"
-            && cookbooks.any((e) => e.iD == nft.cookbookID)
-        ){
-          setState((){
-            assets.add(nft);
-          });
-        }
-      });
-      final items = await walletsStore.getItemsByOwner(PylonsApp.currentWallet.publicAddress);
-      items.forEach((e) async {
-        final nft = await NFT.fromItem(e);
-        if(nft.appType.toLowerCase() == "easel"
-            && cookbooks.any((e) => e.iD == nft.cookbookID)
-        ) {
-          setState((){
-            assets.add(nft);
-          });
-        }
-      });
-
-      final trades = await walletsStore.getTrades(PylonsApp.currentWallet.publicAddress);
-      trades.forEach((trade) async {
-        final nft = await NFT.fromTrade(trade);
-        if(nft.appType.toLowerCase() == "easel"
-            && cookbooks.any((e) => e.iD == nft.cookbookID)
-        ) {
+      if (_colType == collectionType[0].title) {
+        //Art
+        final items = await walletsStore.getItemsByOwner(PylonsApp.currentWallet.publicAddress);
+        items.forEach((e) async {
+          final nft = await NFT.fromItem(e);
           setState(() {
             assets.add(nft);
           });
-        }
-      });
+        });
 
-
-    }else if(_colType == collectionType[4].title){ // avatar
-      final cookbooks = await walletsStore.getCookbooksByCreator(PylonsApp.currentWallet.publicAddress);
-
-      final recipeList = await walletsStore.getRecipes();
-
-      recipeList.forEach((element) {
-        final nft = NFT.fromRecipe(element);
-        if(nft.appType.toLowerCase() == "avatar" && cookbooks.any((e) => e.iD == nft.cookbookID)){
-          setState((){
-            assets.add(nft);
-          });
-        }
-      });
-
-      final items = await walletsStore.getItemsByOwner(PylonsApp.currentWallet.publicAddress);
-      items.forEach((e) async {
-        final nft = await NFT.fromItem(e);
-        if(nft.appType.toLowerCase() == "avatar" && cookbooks.any((e) => e.iD == nft.cookbookID)) {
-          setState((){
-            assets.add(nft);
-          });
-        }
-      });
-
-      final trades = await walletsStore.getTrades(PylonsApp.currentWallet.publicAddress);
-      trades.forEach((trade) async {
-        final nft = await NFT.fromTrade(trade);
-        if(nft.appType.toLowerCase() == "avatar" && cookbooks.any((e) => e.iD == nft.cookbookID)) {
+        final trades = await walletsStore.getTrades(PylonsApp.currentWallet.publicAddress);
+        trades.forEach((trade) async {
+          final nft = await NFT.fromTrade(trade);
           setState(() {
             assets.add(nft);
           });
-        }
-      });
+        });
+      } else if (_colType == collectionType[1].title) {
+        //ticket
+      } else if (_colType == collectionType[2].title) {
+        //transfer
+      } else if (_colType == collectionType[3].title) {
+        // easel
+        final cookbooks = await walletsStore.getCookbooksByCreator(PylonsApp.currentWallet.publicAddress);
 
+        final recipeList = await walletsStore.getRecipes();
+        recipeList.forEach((element) {
+          final nft = NFT.fromRecipe(element);
+
+          if (nft.appType.toLowerCase() == "easel" && cookbooks.any((e) => e.iD == nft.cookbookID)) {
+            setState(() {
+              assets.add(nft);
+            });
+          }
+        });
+        final items = await walletsStore.getItemsByOwner(PylonsApp.currentWallet.publicAddress);
+        items.forEach((e) async {
+          final nft = await NFT.fromItem(e);
+          if (nft.appType.toLowerCase() == "easel" && cookbooks.any((e) => e.iD == nft.cookbookID)) {
+            setState(() {
+              assets.add(nft);
+            });
+          }
+        });
+
+        final trades = await walletsStore.getTrades(PylonsApp.currentWallet.publicAddress);
+        trades.forEach((trade) async {
+          final nft = await NFT.fromTrade(trade);
+          if (nft.appType.toLowerCase() == "easel" && cookbooks.any((e) => e.iD == nft.cookbookID)) {
+            setState(() {
+              assets.add(nft);
+            });
+          }
+        });
+      } else if (_colType == collectionType[4].title) {
+        // avatar
+        final cookbooks = await walletsStore.getCookbooksByCreator(PylonsApp.currentWallet.publicAddress);
+
+        final recipeList = await walletsStore.getRecipes();
+
+        recipeList.forEach((element) {
+          final nft = NFT.fromRecipe(element);
+          if (nft.appType.toLowerCase() == "avatar" && cookbooks.any((e) => e.iD == nft.cookbookID)) {
+            setState(() {
+              assets.add(nft);
+            });
+          }
+        });
+
+        final items = await walletsStore.getItemsByOwner(PylonsApp.currentWallet.publicAddress);
+        items.forEach((e) async {
+          final nft = await NFT.fromItem(e);
+          if (nft.appType.toLowerCase() == "avatar" && cookbooks.any((e) => e.iD == nft.cookbookID)) {
+            setState(() {
+              assets.add(nft);
+            });
+          }
+        });
+
+        final trades = await walletsStore.getTrades(PylonsApp.currentWallet.publicAddress);
+        trades.forEach((trade) async {
+          final nft = await NFT.fromTrade(trade);
+          if (nft.appType.toLowerCase() == "avatar" && cookbooks.any((e) => e.iD == nft.cookbookID)) {
+            setState(() {
+              assets.add(nft);
+            });
+          }
+        });
+      }
+    } on Exception catch (e){
+      print(e);
+    } finally{
+      loading.dismiss();
     }
-    loading.dismiss();
+
   }
 }
 
@@ -330,7 +336,7 @@ class _CardWidget extends StatelessWidget {
             height: screenSize.width(percent: 0.3),
             padding: const EdgeInsets.all(30),
             decoration: BoxDecoration(
-              color: selected? Color(0x401212C4) : Color(0x80C4C4C4), // const Color(0xFFC4C4C4).withOpacity(selected ? 0.5: 0.25),
+              color: selected ? const Color(0x401212C4) : const Color(0x80C4C4C4), // const Color(0xFFC4C4C4).withOpacity(selected ? 0.5: 0.25),
             ),
             child: Image.asset(
               "assets/icons/$icon.png",
@@ -343,10 +349,7 @@ class _CardWidget extends StatelessWidget {
         const VerticalSpace(6),
         Text(
           text,
-          style: Theme.of(context)
-              .textTheme
-              .bodyText1!
-              .copyWith(fontSize: 16, fontWeight: FontWeight.w500),
+          style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 16, fontWeight: FontWeight.w500),
         )
       ],
     );

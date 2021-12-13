@@ -68,3 +68,22 @@ class TradeNotFoundFailure extends Failure {
   @override
   List<Object?> get props => [message];
 }
+
+
+
+
+class UsernameAddressFoundFailure extends Failure {
+  const UsernameAddressFoundFailure(String message) : super(message);
+
+  @override
+  List<Object?> get props => [message];
+}
+
+
+
+class InvalidInputFailure extends Failure {
+  const InvalidInputFailure(String message) : super(message);
+
+  @override
+  List<Object?> get props => [message];
+}

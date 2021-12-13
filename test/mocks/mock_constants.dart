@@ -152,6 +152,7 @@ const String MOCK_EXECUTION_ID = 'executionId';
 const String MOCK_ERROR = 'SOMETHING_WENT_WRONG';
 const String MOCK_RECIPE_VERSION = 'recipe version';
 const String MOCK_NODE_VERSION = 'node version';
+const String MOCK_MNEMONIC = 'badge major relax fine life payment monkey glow arrive logic token genuine disagree spice scrub ripple interest pottery fire okay gather measure race ill';
 
 
 

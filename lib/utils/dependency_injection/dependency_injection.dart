@@ -97,5 +97,5 @@ Future<void> init() async {
   sl.registerLazySingleton<bank.QueryClient>(() => bank.QueryClient(sl.get<BaseEnv>().networkInfo.gRPCChannel));
 
   /// Repository
-  sl.registerLazySingleton<Repository>(() => RepositoryImp(networkInfo: sl(), queryClient: sl(), bankQueryClient: sl(), queryHelper: sl()));
+  sl.registerLazySingleton<Repository>(() => RepositoryImp(networkInfo: sl(), queryClient: sl(), bankQueryClient: sl(), queryHelper: sl(), baseEnv: sl()));
 }

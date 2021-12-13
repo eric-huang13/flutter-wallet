@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:mobx/src/core.dart';
+import 'package:mockito/annotations.dart';
 import 'package:pylons_wallet/entities/balance.dart';
 import 'package:pylons_wallet/ipc/handler/handlers/get_execution_by_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
@@ -17,6 +18,7 @@ import 'package:transaction_signing_gateway/model/credentials_storage_failure.da
 import 'package:transaction_signing_gateway/model/wallet_public_info.dart';
 
 import 'mock_constants.dart';
+import 'mock_wallet_public_info.dart';
 
 class MockWalletStore implements WalletsStore {
   @override
@@ -257,5 +259,14 @@ class MockWalletStore implements WalletsStore {
     }
 
     return SDKIPCResponse.success(data: [], sender: '', transaction: '');
+  }
+
+  @override
+  Future<Either<Failure, WalletPublicInfo>> importPylonsAccount({required String mnemonic, required String username}) async {
+    if (mnemonic != MOCK_MNEMONIC && username != MOCK_USERNAME) {
+      throw MOCK_ERROR;
+    }
+
+    return Right(MockWalletPublicInfo());
   }
 }

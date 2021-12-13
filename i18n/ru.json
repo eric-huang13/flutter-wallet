@@ -111,5 +111,12 @@
   "would_like_to": "хотел бы",
   "dont_allow": "Не позволять",
   "ok": "Ok",
-  "user_name_already_exists": "Имя пользователя уже занято"
+  "user_name_already_exists": "Имя пользователя уже занято",
+  "enter_mnemonic" : "Входить Mnemonic",
+  "user_name_empty" : "Имя пользователя пусто",
+  "mnemonic_is_empty" : "Мнемоника пуста",
+  "user_name_doesnt_exists" : "Имя пользователя не существует",
+  "mnemonic_copied" : "Мнемоника скопирована",
+  "user_name_invalid" : "Имя пользователя недействительно",
+  "invalid_input" : "Некорректный ввод"
 }
