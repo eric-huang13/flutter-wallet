@@ -118,7 +118,6 @@ class IPCEngine {
     try {
       sdkIPCMessage = SDKIPCMessage.fromIPCMessage(getMessage);
     } catch (e) {
-      debugPrint('Something went wrong in parsing');
       return;
     }
 
@@ -232,7 +231,6 @@ class IPCEngine {
         return true;
       }
     } catch (e) {
-      print("$e Something went wrong.");
       return true;
     }
   }

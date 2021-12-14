@@ -46,7 +46,6 @@ class _StripeScreenState extends State<StripeScreen>
           JavascriptChannel(
               name: 'Print',
               onMessageReceived: (JavascriptMessage message) {
-                print('Message: ${message.message}');
               }),
         ].toSet(),
         navigationDelegate: (NavigationRequest request) {
@@ -54,14 +53,11 @@ class _StripeScreenState extends State<StripeScreen>
             widget.onBack();
             return NavigationDecision.prevent;
           }
-          print('allowing navigation to $request');
           return NavigationDecision.navigate;
         },
         onPageStarted: (String url) {
-          print('Page started loading: $url');
         },
         onPageFinished: (String url) {
-          print('Page finished loading: $url');
         },
         gestureNavigationEnabled: true,
     );

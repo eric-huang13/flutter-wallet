@@ -59,7 +59,6 @@ void main() {
   //       ),
   //     );
   //
-  //     print(result.fold((l) => throw l, (r) => print(r.toString())));
   //   });
   //
   //   setUp(() {

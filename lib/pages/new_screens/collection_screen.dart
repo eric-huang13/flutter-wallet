@@ -349,7 +349,6 @@ class _CollectionScreenState extends State<CollectionScreen> {
         });
       }
     } on Exception catch (e){
-      print(e);
     } finally{
       loading.dismiss();
     }

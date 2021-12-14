@@ -42,7 +42,6 @@ class BaseEnv {
               //For HTTPS
               //: ChannelCredentials.secure(
               //    onBadCertificate: (cert, host) {
-              //      debugPrint("host: $host, cert: $cert");
               //      return true;
               //    },
               //  )
