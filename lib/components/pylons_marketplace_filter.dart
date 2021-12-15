@@ -1,13 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:parent_child_checkbox/parent_child_checkbox.dart';
+import 'package:pylons_wallet/constants/constants.dart';
 
 class PylonsMarketplaceFilterBox extends StatefulWidget {
   @override
-  _PylonsMarketplaceFilterBoxState createState() => _PylonsMarketplaceFilterBoxState();
+  _PylonsMarketplaceFilterBoxState createState() =>
+      _PylonsMarketplaceFilterBoxState();
 }
 
-class _PylonsMarketplaceFilterBoxState extends State<PylonsMarketplaceFilterBox> {
+class _PylonsMarketplaceFilterBoxState
+    extends State<PylonsMarketplaceFilterBox> {
   List<Map<String, Object>> filter_strings = [
     {"name": "Purchase", 'checked': true},
     {"name": "Mint", "checked": false},
@@ -32,17 +35,19 @@ class _PylonsMarketplaceFilterBoxState extends State<PylonsMarketplaceFilterBox>
     return Stack(
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 16),
+          padding:
+              const EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               ListTile(
-                trailing: const Icon(Icons.search, color: Color(0xFFC4C4C4), size: 20),
+                trailing: const Icon(Icons.search,
+                    color: kUnselectedIcon, size: 20),
                 title: TextField(
                     decoration: InputDecoration(
                         hintText: 'search'.tr(),
                         hintStyle: const TextStyle(
-                          color: Color(0xFFC4C4C4),
+                          color: kUnselectedIcon,
                           fontSize: 18,
                         ))),
               ),
@@ -54,7 +59,9 @@ class _PylonsMarketplaceFilterBoxState extends State<PylonsMarketplaceFilterBox>
                   Text('Animated GIF'),
                 ],
               ),
-              ParentChildCheckbox(parent: Text('sound'.tr()), children: const [Text('Music'), Text('Sound Effect')])
+              ParentChildCheckbox(
+                  parent: Text('sound'.tr()),
+                  children: const [Text('Music'), Text('Sound Effect')])
             ],
           ),
         ),

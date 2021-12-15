@@ -7,10 +7,12 @@ class PaymentResultScreenWidget extends StatefulWidget {
   const PaymentResultScreenWidget({Key? key}) : super(key: key);
 
   @override
-  State<PaymentResultScreenWidget> createState() => _PaymentResultScreenWidgetState();
+  State<PaymentResultScreenWidget> createState() =>
+      _PaymentResultScreenWidgetState();
 }
 
-class _PaymentResultScreenWidgetState extends State<PaymentResultScreenWidget> with SingleTickerProviderStateMixin {
+class _PaymentResultScreenWidgetState extends State<PaymentResultScreenWidget>
+    with SingleTickerProviderStateMixin {
   bool isExpanded = false;
 
   static List<String> tags = ['#3D', '#Photography', '#Sculpture'];
@@ -32,7 +34,8 @@ class _PaymentResultScreenWidgetState extends State<PaymentResultScreenWidget> w
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: const ImageIcon(AssetImage('assets/images/icon/close.png'), size: kIconSize, color: kSelectedIcon)),
+              icon: const ImageIcon(AssetImage('assets/images/icon/close.png'),
+                  size: kIconSize, color: kSelectedIcon)),
         ),
         SliverList(
             delegate: SliverChildListDelegate([
@@ -40,7 +43,10 @@ class _PaymentResultScreenWidgetState extends State<PaymentResultScreenWidget> w
           Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
-              decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/purchase_done.png'), fit: BoxFit.cover)),
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/purchase_done.png'),
+                      fit: BoxFit.cover)),
               child: Stack(
                 alignment: Alignment.center,
                 children: <Widget>[
@@ -48,8 +54,16 @@ class _PaymentResultScreenWidgetState extends State<PaymentResultScreenWidget> w
                       bottom: 70,
                       child: Column(
                         children: [
-                          Text('congratulations'.tr(), style: const TextStyle(color: Color(0xFF1212C4), fontSize: 20, fontWeight: FontWeight.w700)),
-                          Text('successfully_bought_the_item'.tr(), style: const TextStyle(color: Color(0xFF616161), fontSize: 16, fontWeight: FontWeight.w500))
+                          Text('congratulations'.tr(),
+                              style: const TextStyle(
+                                  color: kBlue,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w700)),
+                          Text('successfully_bought_the_item'.tr(),
+                              style: const TextStyle(
+                                  color: kSelectedIcon,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500))
                         ],
                       )),
                   Positioned(
@@ -64,16 +78,34 @@ class _PaymentResultScreenWidgetState extends State<PaymentResultScreenWidget> w
                               child: ExpandablePanel(
                                 theme: const ExpandableThemeData(),
                                 header: Padding(
-                                    padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
-                                    child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                                      Text('product_name'.tr(), style: const TextStyle(color: Color(0xFF616161), fontSize: 16, fontWeight: FontWeight.w500)),
-                                      const Spacer(),
-                                      Text('title_of_artwork'.tr(), style: const TextStyle(color: Color(0xFF201D1D), fontSize: 16, fontWeight: FontWeight.w500))
-                                    ])),
+                                    padding: const EdgeInsets.only(
+                                        left: 10, top: 10, bottom: 10),
+                                    child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text('product_name'.tr(),
+                                              style: const TextStyle(
+                                                  color: kSelectedIcon,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500)),
+                                          const Spacer(),
+                                          Text('title_of_artwork'.tr(),
+                                              style: const TextStyle(
+                                                  color: kTextColor,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500))
+                                        ])),
                                 expanded: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Image(image: const AssetImage(kImage2), width: MediaQuery.of(context).size.width * 0.8, height: 300, fit: BoxFit.cover),
+                                    Image(
+                                        image: const AssetImage(kImage2),
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.8,
+                                        height: 300,
+                                        fit: BoxFit.cover),
                                     Align(
                                       alignment: Alignment.topLeft,
                                       child: Wrap(
@@ -81,7 +113,7 @@ class _PaymentResultScreenWidgetState extends State<PaymentResultScreenWidget> w
                                           runSpacing: 5,
                                           children: tags
                                               .map((tag) => Chip(
-                                                    backgroundColor: const Color(0xFFED8864),
+                                                    backgroundColor: kPeachDark,
                                                     label: Text(tag),
                                                   ))
                                               .toList()),
@@ -98,11 +130,22 @@ class _PaymentResultScreenWidgetState extends State<PaymentResultScreenWidget> w
                                     Column(children: [
                                       const Divider(),
                                       Padding(
-                                          padding: const EdgeInsets.fromLTRB(10, 15, 10, 20),
+                                          padding: const EdgeInsets.fromLTRB(
+                                              10, 15, 10, 20),
                                           child: Row(children: [
-                                            Text('price'.tr(), style: const TextStyle(color: Color(0xFF616161), fontSize: 16, fontWeight: FontWeight.w500)),
+                                            Text('price'.tr(),
+                                                style: const TextStyle(
+                                                    color: kSelectedIcon,
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.w500)),
                                             const Spacer(),
-                                            const Text('\$82.00', style: TextStyle(color: Color(0xFF201D1D), fontSize: 16, fontWeight: FontWeight.w500))
+                                            const Text('\$82.00',
+                                                style: TextStyle(
+                                                    color: kTextColor,
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.w500))
                                           ]))
                                     ])
                                   ],
@@ -110,11 +153,20 @@ class _PaymentResultScreenWidgetState extends State<PaymentResultScreenWidget> w
                                 collapsed: Column(children: [
                                   const Divider(),
                                   Padding(
-                                      padding: const EdgeInsets.fromLTRB(10, 15, 10, 20),
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 15, 10, 20),
                                       child: Row(children: [
-                                        Text('price'.tr(), style: const TextStyle(color: Color(0xFF616161), fontSize: 16, fontWeight: FontWeight.w500)),
+                                        Text('price'.tr(),
+                                            style: const TextStyle(
+                                                color: kSelectedIcon,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500)),
                                         const Spacer(),
-                                        const Text('\$82.00', style: TextStyle(color: Color(0xFF201D1D), fontSize: 16, fontWeight: FontWeight.w500))
+                                        const Text('\$82.00',
+                                            style: TextStyle(
+                                                color: kTextColor,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500))
                                       ]))
                                 ]),
                               ),
@@ -134,11 +186,13 @@ class _PaymentResultScreenWidgetState extends State<PaymentResultScreenWidget> w
           child: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                primary: const Color(0xFF1212C4),
+                primary: kBlue,
                 padding: const EdgeInsets.fromLTRB(50, 10, 50, 10),
-                minimumSize: const Size(double.infinity, 30), // double.infinity is the width and 30 is the height
+                minimumSize: const Size(double.infinity,
+                    30), // double.infinity is the width and 30 is the height
               ),
-              child: Text('continue'.tr(), style: const TextStyle(color: Colors.white)))),
+              child: Text('continue'.tr(),
+                  style: const TextStyle(color: Colors.white)))),
     );
   }
 }

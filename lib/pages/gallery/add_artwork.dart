@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pylons_wallet/components/pylons_blue_button.dart';
 import 'package:pylons_wallet/components/pylons_grey_button.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
+import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/pages/gallery/add_artwork_grid.dart';
 
 class AddArtworkWidget extends StatefulWidget {
@@ -44,10 +45,10 @@ class _AddArtworkWidgetState extends State<AddArtworkWidget> {
             child: Row(children: [
               const Icon(
                 Icons.add,
-                color: Color(0xFF616161),
+                color: kSelectedIcon,
                 size: 16,
               ),
-              Text('add_artwork'.tr(), style: const TextStyle(color: Color(0xFF616161), fontSize: 14, fontWeight: FontWeight.w600))
+              Text('add_artwork'.tr(), style: const TextStyle(color: kSelectedIcon, fontSize: 14, fontWeight: FontWeight.w600))
             ]),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (_) => const AddArtworkGridWidget()));
@@ -57,17 +58,17 @@ class _AddArtworkWidgetState extends State<AddArtworkWidget> {
           Row(children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(5),
-              child: Container(width: tileWidth, height: tileWidth, decoration: const BoxDecoration(color: Color(0xFFC4C4C4))),
+              child: Container(width: tileWidth, height: tileWidth, decoration: const BoxDecoration(color: kUnselectedIcon)),
             ),
             const VerticalSpace(12),
             ClipRRect(
               borderRadius: BorderRadius.circular(5),
-              child: Container(width: tileWidth, height: tileWidth, decoration: const BoxDecoration(color: Color(0xFFC4C4C4))),
+              child: Container(width: tileWidth, height: tileWidth, decoration: const BoxDecoration(color: kUnselectedIcon)),
             ),
             const VerticalSpace(12),
             ClipRRect(
               borderRadius: BorderRadius.circular(5),
-              child: Container(width: tileWidth, height: tileWidth, decoration: const BoxDecoration(color: Color(0xFFC4C4C4))),
+              child: Container(width: tileWidth, height: tileWidth, decoration: const BoxDecoration(color: kUnselectedIcon)),
             ),
             const VerticalSpace(12),
             ClipRRect(
@@ -75,8 +76,8 @@ class _AddArtworkWidgetState extends State<AddArtworkWidget> {
               child: Container(
                   width: tileWidth,
                   height: tileWidth,
-                  decoration: const BoxDecoration(color: Color(0xFFC4C4C4)),
-                  child: const Center(child: CircleAvatar(backgroundColor: Colors.white, child: Center(child: Text('+6', style: TextStyle(color: Color(0xFF616161))))))),
+                  decoration: const BoxDecoration(color: kUnselectedIcon),
+                  child: const Center(child: CircleAvatar(backgroundColor: Colors.white, child: Center(child: Text('+6', style: TextStyle(color: kSelectedIcon)))))),
             )
           ]),
           const VerticalSpace(16),

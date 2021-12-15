@@ -78,7 +78,6 @@ class _CollectionsScreenState extends State<CollectionsScreen> with SingleTicker
                         IconButton(icon: const Icon(Icons.add, color: Colors.white), onPressed: () {}),
                         IconButton(icon: const Icon(Icons.more_vert, color: Colors.white), onPressed: () {})
                       ]),
-                      /** Staggered View */
                     ]))),
           ]),
         ),

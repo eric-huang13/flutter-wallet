@@ -83,8 +83,6 @@ class NewUserFormState extends State<NewUserForm> {
   }
 
   Future<void> onStartPylonsPressed() async {
-    final walletsStore = GetIt.I.get<WalletsStore>();
-
     if (_formKey.currentState!.validate()) {
       _registerNewUser(usernameController.value.text);
     }

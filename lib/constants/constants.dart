@@ -11,6 +11,8 @@ const Color kPeach = Color(0xFFFFB094);
 const Color kPeachDark = Color(0xFFED8864);
 const Color kWhite = Color(0xFFFFFFFF);
 
+const Color kDarkGrey = Color(0xFF333333);
+
 const double kIconSize = 24.0;
 const double kSmallIconSize = 18.0;
 const double kAppBarSize = 100.0;
@@ -24,14 +26,19 @@ const List<String> kImageList = [kImage, kImage1, kImage2, kImage3];
 
 //image card
 
-class Constants {
-  static String kCardBG1 = "assets/icons/purple_card.png";
-  static String kCardBG2 = "assets/icons/orange_card.png";
-  static String kCardBG3 = "assets/icons/black_card.png";
-  static String kCardBG4 = "assets/icons/grey_card.png";
-  static List<String> kCardBGList = [kCardBG1, kCardBG2, kCardBG3, kCardBG4];
+const String kCardBG1 = "assets/icons/purple_card.png";
+const String kCardBG2 = "assets/icons/orange_card.png";
+const String kCardBG3 = "assets/icons/black_card.png";
+const String kCardBG4 = "assets/icons/grey_card.png";
+const List<String> kCardBGList = [kCardBG1, kCardBG2, kCardBG3, kCardBG4];
 
-  static Map<String, dynamic> kCoinDenom = {
+const String kPylonDenom = "upylon";
+const String kPylonCoinName = "pylon";
+const String kUSDDenom = "ustripeusd";
+const String kUSDCoinName = "usd";
+const int kBigIntBase = 1000000;
+
+const Map<String, dynamic> kCoinDenom = {
     'upylon': {
       "name": "Pylon",
       "denom": "upylon",
@@ -54,8 +61,16 @@ class Constants {
       "icon": "assets/icons/ico_usd.png"
     }
   };
-}
 
+const String kUnilinkUrl = "https://wallet.pylons.tech";
+const String kUnilinkUrl2 = "http://wallet.pylons.tech";
+const String kUnilinkUrl3 = "pylons://";
+const String kUnilinkSender = "wallet";
+const String kUnilinkPurchaseTrade = "%s?action=purchase_trade&trade_id=%s";
+const String kUnilinkPurchaseNftView = "%s?action=nft_view&cookbook_id=%s&item_id=%s";
+
+const String kStripeMerchantCountry = "US";
+const String kStripeMerchantDisplayName = 'Pylons';
 
 
 const String NO_INTERNET = 'No internet';
@@ -66,3 +81,14 @@ const String WALLET_CREATION_FAILED = 'Wallet creation failed';
 const String EXECUTION_NOT_FOUND = 'Execution not found';
 const String ITEM_NOT_FOUND = 'Item not found';
 const String TRADE_NOT_FOUND = 'Trade not found';
+
+//STRIPE ERROR STRING
+const String CREATE_PAYMENTINTENT_FAILED = 'Stripe PaymentIntent Creation Failed';
+const String GEN_PAYMENTRECEIPT_FAILED = 'Stripe Payment Receipt Generation Failed';
+const String GEN_PAYOUTTOKEN_FAILED = 'Stripe Payout Token Generation Failed';
+const String GEN_REGISTRATIONTOKEN_FAILED = 'Stripe Regitration Token Generation Failed';
+const String GEN_UPDATETOKEN_FAILED = 'Stripe Update Token Generation Failed';
+const String GET_ACCOUNTLINK_FAILED = 'Stripe Get Connected Account Link Failed';
+const String PAYOUT_FAILED = 'Stripe Payout Request Failed';
+const String REGISTERACCOUNT_FAILED = 'Stripe Register Connected Account Failed';
+const String UPDATEACCOUNT_FAILED = 'Stripe Update Account Failed';

@@ -63,7 +63,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   runSpacing: 5,
                   children: chips
                       .map((tag) => Chip(
-                            backgroundColor: const Color(0xFFED8864),
+                            backgroundColor: kPeachDark,
                             label: Text(tag.toString()),
                           ))
                       .toList())),

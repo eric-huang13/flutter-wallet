@@ -119,7 +119,7 @@ class EditProfileScreen extends StatelessWidget {
                     ),
                   ),
                   const Divider(
-                    color: Color(0xffF1F1F2),
+                    color: kDarkBG,
                     thickness: 1,
                   ),
                   GestureDetector(
@@ -142,7 +142,7 @@ class EditProfileScreen extends StatelessWidget {
                     ),
                   ),
                   const Divider(
-                    color: Color(0xffF1F1F2),
+                    color: kDarkBG,
                     thickness: 1,
                   ),
                   GestureDetector(
@@ -284,20 +284,20 @@ class _TextInputWidget extends StatelessWidget {
           decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(6),
-                borderSide: const BorderSide(color: Color(0xffC4C4C4)),
+                borderSide: const BorderSide(color: kUnselectedIcon),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5),
-                borderSide: const BorderSide(color: Color(0xffC4C4C4)),
+                borderSide: const BorderSide(color: kUnselectedIcon),
               ),
               disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5),
-                borderSide: const BorderSide(color: Color(0xffC4C4C4)),
+                borderSide: const BorderSide(color: kUnselectedIcon),
               ),
               contentPadding: const EdgeInsets.all(16),
               filled: true,
               hintText: hint,
-              hintStyle: const TextStyle(color: Color(0xffC4C4C4), fontWeight: FontWeight.w500),
+              hintStyle: const TextStyle(color: kUnselectedIcon, fontWeight: FontWeight.w500),
               fillColor: const Color(0xffFBFBFB)),
         ),
       ],
@@ -332,19 +332,19 @@ class _WalletAddressTextInputWidget extends StatelessWidget {
             maxLines: noOfLines,
             controller: controller,
             enabled: false,
-            style: const TextStyle(color: Color(0xffC4C4C4)),
+            style: const TextStyle(color: kUnselectedIcon),
             decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(6),
-                  borderSide: const BorderSide(color: Color(0xffC4C4C4)),
+                  borderSide: const BorderSide(color: kUnselectedIcon),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5),
-                  borderSide: const BorderSide(color: Color(0xffC4C4C4)),
+                  borderSide: const BorderSide(color: kUnselectedIcon),
                 ),
                 disabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5),
-                  borderSide: const BorderSide(color: Color(0xffC4C4C4)),
+                  borderSide: const BorderSide(color: kUnselectedIcon),
                 ),
                 contentPadding: const EdgeInsets.only(left: 10, right: 10),
                 filled: true,
@@ -355,7 +355,7 @@ class _WalletAddressTextInputWidget extends StatelessWidget {
                   decoration: const BoxDecoration(
                       color: Colors.transparent,
                       // borderRadius: BorderRadius.only(topLeft: Radius.circular(4), bottomLeft: Radius.circular(4)),
-                      border: Border(right: BorderSide(color: Color(0xffC4C4C4)))),
+                      border: Border(right: BorderSide(color: kUnselectedIcon))),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -379,7 +379,7 @@ class _WalletAddressTextInputWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-                hintStyle: const TextStyle(color: Color(0xffC4C4C4), fontWeight: FontWeight.w500),
+                hintStyle: const TextStyle(color: kUnselectedIcon, fontWeight: FontWeight.w500),
                 fillColor: const Color(0xffFBFBFB)),
           ),
         ),

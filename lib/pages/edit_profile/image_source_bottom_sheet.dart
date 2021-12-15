@@ -60,7 +60,7 @@ class ImageSourceBottomSheet extends StatelessWidget {
       if (_image != null) {
         return _cropImage(_image.path);
       }
-    } catch (e) {
+    } catch (error) {
     }
     return null;
   }
@@ -77,8 +77,7 @@ class ImageSourceBottomSheet extends StatelessWidget {
       if (_image != null) {
         return _cropImage(_image.path);
       }
-    } catch (e) {
-      // showMessage(e.toString());
+    } catch (error) {
     }
 
     return null;

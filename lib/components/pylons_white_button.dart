@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pylons_wallet/constants/constants.dart';
 
 class PylonsWhiteButton extends StatelessWidget {
   final VoidCallback onTap;
@@ -14,9 +15,9 @@ class PylonsWhiteButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFFFFFFFF),
+        color: kWhite,
         borderRadius: BorderRadius.circular(4),
-        border: Border.all(color: const Color(0xFF1212C4)),
+        border: Border.all(color: kBlue),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.25),
@@ -27,13 +28,13 @@ class PylonsWhiteButton extends StatelessWidget {
       ),
       child: ElevatedButton(
         onPressed: onTap,
-        style: ElevatedButton.styleFrom(primary: const Color(0xFFFFFFFF), elevation: 0),
+        style: ElevatedButton.styleFrom(primary: kWhite, elevation: 0),
         child: SizedBox(
           height: 43,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(text, style: const TextStyle(fontFamily: 'Inter', fontSize: 16, fontWeight: FontWeight.w600, color: Color(0xFF1212C4))),
+              Text(text, style: const TextStyle(fontFamily: 'Inter', fontSize: 16, fontWeight: FontWeight.w600, color: kBlue)),
             ],
           ),
         ),

@@ -8,15 +8,16 @@ class PaymentInfoScreenWidget extends StatefulWidget {
   const PaymentInfoScreenWidget({Key? key}) : super(key: key);
 
   @override
-  State<PaymentInfoScreenWidget> createState() => _PaymentInfoScreenWidgetState();
+  State<PaymentInfoScreenWidget> createState() =>
+      _PaymentInfoScreenWidgetState();
 }
 
-class _PaymentInfoScreenWidgetState extends State<PaymentInfoScreenWidget> with SingleTickerProviderStateMixin {
+class _PaymentInfoScreenWidgetState extends State<PaymentInfoScreenWidget>
+    with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,8 @@ class _PaymentInfoScreenWidgetState extends State<PaymentInfoScreenWidget> with 
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: const ImageIcon(AssetImage('assets/images/icon/before.png'), size: kIconSize, color: kSelectedIcon)),
+              icon: const ImageIcon(AssetImage('assets/images/icon/before.png'),
+                  size: kIconSize, color: kSelectedIcon)),
         ),
         SliverList(
             delegate: SliverChildListDelegate([
@@ -52,14 +54,17 @@ class _PaymentInfoScreenWidgetState extends State<PaymentInfoScreenWidget> with 
           width: MediaQuery.of(context).size.width,
           child: ElevatedButton(
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (_) => const PaymentResultScreenWidget()));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (_) => const PaymentResultScreenWidget()));
               },
               style: ElevatedButton.styleFrom(
-                primary: const Color(0xFF1212C4),
+                primary: kBlue,
                 padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
-                minimumSize: const Size(double.infinity, 30), // double.infinity is the width and 30 is the height
+                minimumSize: const Size(double.infinity,
+                    30), // double.infinity is the width and 30 is the height
               ),
-              child: Text('${'pay'.tr()} \$82.00', style: const TextStyle(color: Colors.white)))),
+              child: Text('${'pay'.tr()} \$82.00',
+                  style: const TextStyle(color: Colors.white)))),
     );
   }
 }

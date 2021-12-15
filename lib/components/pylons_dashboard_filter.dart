@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pylons_wallet/components/pylons_app_theme.dart';
 import 'package:pylons_wallet/components/pylons_blue_button.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
+import 'package:pylons_wallet/constants/constants.dart';
 
 class PylonsDashboardFilterBox extends StatefulWidget {
   @override
@@ -39,7 +40,7 @@ class _PylonsDashboardFilterBoxState extends State<PylonsDashboardFilterBox> {
         children: <Widget>[
           Row(
             children: [
-              const ImageIcon(AssetImage('assets/icons/filter.png'), size: 20, color: Color(0xFF616161)),
+              const ImageIcon(AssetImage('assets/icons/filter.png'), size: 20, color: kSelectedIcon),
               Text(
                 'filter'.tr(),
                 style: const TextStyle(fontWeight: FontWeight.w500),
@@ -117,7 +118,7 @@ class _PylonsGreyButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onTap,
       style: ElevatedButton.styleFrom(
-        primary: const Color(0xFFC4C4C4),
+        primary: kUnselectedIcon,
       ),
       child: SizedBox(
         height: 43,

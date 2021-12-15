@@ -82,7 +82,7 @@ class PylonsHistoryCard extends StatelessWidget {
     return ElevatedButton(
       onPressed: onTap,
       style: ElevatedButton.styleFrom(
-        primary: const Color(0xFF1212C4),
+        primary: const kBlue,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

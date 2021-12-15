@@ -125,9 +125,9 @@ class _GalleryScreenState extends State<GalleryScreen> with SingleTickerProvider
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w500,
-                                color: Color(0xFF201D1D),
+                                color: kTextColor,
                               )),
-                          subtitle: const Text('Media Artist (3D, Motiongraphics, Collecting NFT)', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Color(0xFF616161))),
+                          subtitle: const Text('Media Artist (3D, Motiongraphics, Collecting NFT)', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: kSelectedIcon)),
                           onTap: () {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => const AccountScreenWidget()));
                           },
@@ -139,37 +139,6 @@ class _GalleryScreenState extends State<GalleryScreen> with SingleTickerProvider
                         ButtonBar(
                           alignment: MainAxisAlignment.center,
                           children: [
-                            // SizedBox(
-                            //     height: 30,
-                            //     width: 138,
-                            //     child: PylonsBlueButton(
-                            //         onTap: () {}, text: 'follow'.tr())),
-                            // SizedBox(
-                            //   height: 30,
-                            //   width: 30,
-                            //   child: OutlinedButton(
-                            //     onPressed: () {
-                            //       setExandMode();
-                            //     },
-                            //     style: ElevatedButton.styleFrom(
-                            //       alignment: Alignment.center,
-                            //       primary: Colors.white,
-                            //       padding: const EdgeInsets.all(0),
-                            //       shape: RoundedRectangleBorder(
-                            //         borderRadius:
-                            //             BorderRadius.circular(5), // <-- Radius
-                            //       ),
-                            //     ),
-                            //     child: Center(
-                            //       child: Icon(
-                            //         isExpanded
-                            //             ? Icons.keyboard_arrow_up
-                            //             : Icons.keyboard_arrow_down,
-                            //         color: const Color(0xFF616161),
-                            //       ),
-                            //     ),
-                            //   ),
-                            // ),
                             SizedBox(
                               height: 30,
                               child: ElevatedButton(
@@ -187,37 +156,11 @@ class _GalleryScreenState extends State<GalleryScreen> with SingleTickerProvider
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: const [
-                                    Text("Edit Profile", style: TextStyle(fontSize: 15, color: Color(0xff616161))),
+                                    Text("Edit Profile", style: TextStyle(fontSize: 15, color: kSelectedIcon)),
                                   ],
                                 ),
                               ),
                             ),
-
-                            //),
-                            // SizedBox(
-                            //   height: 30,
-                            //   width: 30,
-                            //   child: OutlinedButton(
-                            //     onPressed: () {
-                            //       this.setExandMode();
-                            //     },
-                            //     style: ElevatedButton.styleFrom(
-                            //       alignment:Alignment.center,
-                            //       primary: Colors.white,
-                            //       padding: EdgeInsets.all(0),
-                            //       shape: RoundedRectangleBorder(
-                            //         borderRadius: BorderRadius.circular(5), // <-- Radius
-                            //       ),
-                            //     ),
-                            //
-                            //     child: Center(
-                            //       child: Icon(
-                            //         (isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down),
-                            //         color: Color(0xFF616161),
-                            //      ),
-                            //     ),
-                            //   ),
-                            // )
                           ],
                         ),
                         if (isExpanded)
@@ -228,10 +171,10 @@ class _GalleryScreenState extends State<GalleryScreen> with SingleTickerProvider
                               TextButton(
                                 onPressed: () {},
                                 child: Row(children: [
-                                  Text('see_all'.tr(), style: const TextStyle(color: Color(0xFF616161))),
+                                  Text('see_all'.tr(), style: const TextStyle(color: kSelectedIcon)),
                                   const Icon(
                                     Icons.chevron_right,
-                                    color: Color(0xFF616161),
+                                    color: kSelectedIcon,
                                   )
                                 ]),
                               ),
@@ -257,10 +200,10 @@ class _GalleryScreenState extends State<GalleryScreen> with SingleTickerProvider
                           indicatorPadding: const EdgeInsets.only(left: 10, right: 10),
                           isScrollable: true,
                           controller: _tabController,
-                          labelColor: const Color(0xFF1212C4),
+                          labelColor: kBlue,
                           unselectedLabelColor: Colors.grey[700],
                           indicatorSize: TabBarIndicatorSize.label,
-                          indicatorColor: const Color(0xFF1212C4),
+                          indicatorColor: kBlue,
                           tabs: myTabs,
                           labelPadding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
                         )),

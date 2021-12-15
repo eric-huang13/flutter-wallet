@@ -32,7 +32,7 @@ class _AccountScreenWidgetState extends State<AccountScreenWidget> with SingleTi
                 Navigator.pop(context);
               },
               icon: const ImageIcon(AssetImage('assets/images/icon/close.png'), size: kIconSize, color: kSelectedIcon)),
-          title: Text('pylons_account'.tr(), style: const TextStyle(color: Color(0xFF080830))),
+          title: Text('pylons_account'.tr(), style: const TextStyle(color: kTextBlackColor)),
         ),
         SliverList(
             delegate: SliverChildListDelegate([
@@ -49,9 +49,9 @@ class _AccountScreenWidgetState extends State<AccountScreenWidget> with SingleTi
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
-                    color: Color(0xFF201D1D),
+                    color: kTextColor,
                   )),
-              subtitle: const Text('Media Artist (3D, Motiongraphics, Collecting NFT)', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Color(0xFF616161))),
+              subtitle: const Text('Media Artist (3D, Motiongraphics, Collecting NFT)', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: kSelectedIcon)),
               onTap: () {},
               trailing: IconButton(icon: const ImageIcon(AssetImage('assets/images/icon/dots.png'), size: 24, color: kSelectedIcon), onPressed: () {}),
             ),

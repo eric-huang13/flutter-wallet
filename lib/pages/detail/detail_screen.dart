@@ -106,15 +106,15 @@ class _DetailScreenWidgetState extends State<DetailScreenWidget> with SingleTick
 
           final recipe = recipeResponse.toOption().toNullable()!;
           setState((){
-            itemName = recipe.entries.itemOutputs.first.strings.firstWhere((e) => e.key == "Name").value;
+            itemName = recipe.entries.itemOutputs.first.strings.firstWhere((stKeyVal) => stKeyVal.key == "Name").value;
 
-            itemUrl = recipe.entries.itemOutputs.first.strings.firstWhere((e) => e.key == "NFT_URL").value;
+            itemUrl = recipe.entries.itemOutputs.first.strings.firstWhere((stKeyVal) => stKeyVal.key == "NFT_URL").value;
 
-            itemDescription = recipe.entries.itemOutputs.first.strings.firstWhere((e) => e.key == "Description").value;
+            itemDescription = recipe.entries.itemOutputs.first.strings.firstWhere((stKeyVal) => stKeyVal.key == "Description").value;
 
-            imageWidth = recipe.entries.itemOutputs.first.longs.firstWhere((e) => e.key == "Width").weightRanges.first.upper.toInt();
+            imageWidth = recipe.entries.itemOutputs.first.longs.firstWhere((longKeyVal) => longKeyVal.key == "Width").weightRanges.first.upper.toInt();
 
-            imageHeight = recipe.entries.itemOutputs.first.longs.firstWhere((e) => e.key == "Height").weightRanges.first.upper.toInt();
+            imageHeight = recipe.entries.itemOutputs.first.longs.firstWhere((longKeyVal) => longKeyVal.key == "Height").weightRanges.first.upper.toInt();
 
             itemPrice = recipe.coinInputs.first.coins.first.amount.toString();
 
@@ -269,7 +269,7 @@ class _DetailScreenWidgetState extends State<DetailScreenWidget> with SingleTick
                   labelColor: Colors.black,
                   unselectedLabelColor: Colors.grey[700],
                   indicatorSize: TabBarIndicatorSize.label,
-                  indicatorColor: const Color(0xFFED8864),
+                  indicatorColor: kPeachDark,
                   tabs: myTabs,
                   labelPadding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
                 )),
@@ -287,33 +287,15 @@ class _DetailScreenWidgetState extends State<DetailScreenWidget> with SingleTick
           child: Column(
             children: [
               Row(children: [
-                Text("${itemPrice} ${itemCurrency}", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xFF201D1D), fontFamily: 'Inter')),
+                Text("${itemPrice} ${itemCurrency}", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: kTextColor, fontFamily: 'Inter')),
                 const Spacer(),
                 ElevatedButton(
                     onPressed: () {
                       onPressPurchase(context);
                     },
-                    style: ElevatedButton.styleFrom(primary: const Color(0xFF1212C4), padding: const EdgeInsets.fromLTRB(50, 0, 50, 0)),
+                    style: ElevatedButton.styleFrom(primary: kBlue, padding: const EdgeInsets.fromLTRB(50, 0, 50, 0)),
                     child: Text(!isOwner ? 'purchase'.tr() : 'resell_nft'.tr(), style: const TextStyle(color: Colors.white)))
               ]),
-              /*
-              Row(
-                  children: [
-                    Text('\$ 82.00', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xFF201D1D), fontFamily: 'Inter')),
-                    Spacer(),
-                    ElevatedButton(
-                        onPressed: (){
-                          onDeleteTrade();
-                        },
-                        style: ElevatedButton.styleFrom(
-                            primary: const Color(0xFF080830),
-                            padding: EdgeInsets.fromLTRB(50, 0, 50, 0)
-                        ),
-                        child: Text('Delete Trade', style: TextStyle(color: Colors.white))
-                    )
-                  ]
-              )
-               */
             ],
           )),
     );

@@ -54,7 +54,7 @@ class _DetailTabWorkWidgetState extends State<DetailTabWorkWidget> {
               Row(
                 children: [
                   Flexible(
-                    child:Text(widget.itemName.tr(), style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 20, color: Color(0xFF080830))),
+                    child:Text(widget.itemName.tr(), style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 20, color: kTextBlackColor)),
                   ),
                   FavoriteButton(onTap: () {}),
                   ShareButton(onTap: () {})
@@ -67,7 +67,7 @@ class _DetailTabWorkWidgetState extends State<DetailTabWorkWidget> {
                       runSpacing: 5,
                       children: tags
                           .map((tag) => Chip(
-                                backgroundColor: const Color(0xFFED8864),
+                                backgroundColor: kPeachDark,
                                 label: Text(tag),
                               ))
                           .toList())),
@@ -91,7 +91,7 @@ class _DetailTabWorkWidgetState extends State<DetailTabWorkWidget> {
                           style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
                         ),
                         subtitle: Text('Really Love the artwork!', style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w400)),
-                        trailing: Text('10 min', style: TextStyle(color: Color(0xFFC4C4C4), fontSize: 16, fontWeight: FontWeight.w400)),
+                        trailing: Text('10 min', style: TextStyle(color: kUnselectedIcon, fontSize: 16, fontWeight: FontWeight.w400)),
                       ),
                   separatorBuilder: (_, index) => const Divider(),
                   itemCount: 5),
