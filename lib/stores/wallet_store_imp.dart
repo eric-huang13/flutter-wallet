@@ -158,7 +158,7 @@ class WalletsStoreImp implements WalletsStore {
           sender: '',
           data: result.getOrElse(() => TransactionResponse.initial()).hash,
           transaction: '');
-    } catch (e) {}
+    } catch (error) {}
     return SDKIPCResponse.failure(
         sender: '',
         error: 'Something went wrong while fetching wallets',
@@ -399,9 +399,6 @@ class WalletsStoreImp implements WalletsStore {
     return response.trades;
   }
 
-  /**
-   * Please think around to retrieve TxResponse
-   */
   @override
   Future<TxResponse> getTxs(String txHash) async {
     final url = "${this.baseEnv.baseApiUrl}/txs/$txHash";

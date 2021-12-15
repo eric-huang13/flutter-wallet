@@ -29,6 +29,6 @@ void main(){
   ];
 
 
-  final encodedMessageWithComma = list.map((e) => base64Url.encode(utf8.encode(e))).join(',');
+  final encodedMessageWithComma = list.map((element) => base64Url.encode(utf8.encode(element))).join(',');
 
 }

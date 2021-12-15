@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:pylons_wallet/model/recipe_json.dart';
 import 'package:pylons_wallet/utils/base_env.dart';
@@ -18,15 +18,15 @@ class GetRecipe {
       final uri = Uri.parse(
         "${baseEnv.baseApiUrl}/pylons/recipe/$cookbookID/$recipeID",);
       final response = await http.get(uri);
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         final recipeMap = jsonDecode(response.body) as Map<String, dynamic>;
         final recipeJson = RecipeJson.fromJson(recipeMap);
         return Right(recipeJson);
       }
 
       return Left(Exception(response.reasonPhrase));
-    }catch(e){
-      return Left(Exception(e.toString()));
+    }catch(error){
+      return Left(Exception(error.toString()));
     }
   }
 
@@ -37,7 +37,7 @@ class GetRecipe {
       final uri = Uri.parse(
         "${baseEnv.baseApiUrl}/pylons/recipes/",);
       final response = await http.get(uri);
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         final list = jsonDecode(response.body);
         final recipes = list["Recipes"] as List;
         final recipeJsons = <RecipeJson>[];
@@ -49,8 +49,8 @@ class GetRecipe {
       }
 
       return Left(Exception(response.reasonPhrase));
-    }catch(e){
-      return Left(Exception(e.toString()));
+    }catch(error){
+      return Left(Exception(error.toString()));
     }
   }
 }

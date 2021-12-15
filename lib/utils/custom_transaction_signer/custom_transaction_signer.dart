@@ -40,8 +40,8 @@ class CustomTransactionSigner implements TransactionSigner {
         fee: transaction.fee,
       );
       return right(SignedAlanTransaction(signedTransaction: signedTrans));
-    } catch (e, stack) {
-      return left(CustomTransactionSignerFailure(e));
+    } catch (error, stack) {
+      return left(CustomTransactionSignerFailure(error));
     }
   }
 }

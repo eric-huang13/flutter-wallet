@@ -88,6 +88,7 @@ dependencies:
   webview_flutter: ^2.3.1
   flutter_svg: ^0.23.0+1
   device_apps: ^2.1.1
+  sprintf: ^6.0.0
 
 dev_dependencies:
   flutter_test:

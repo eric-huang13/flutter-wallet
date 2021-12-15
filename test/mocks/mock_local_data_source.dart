@@ -3,8 +3,7 @@ import 'package:pylons_wallet/utils/third_party_services/local_storage_service.d
 class MockLocalDataSource extends LocalDataSource {
   @override
   String StripeToken = '';
-  @override
-  bool StripeAccountRegistered = false;
+
   @override
   String StripeAccount = '';
 

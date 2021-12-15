@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/pylons_app.dart';
+import 'package:pylons_wallet/utils/base_env.dart';
 import 'package:pylons_wallet/utils/dependency_injection/dependency_injection.dart'
     as di;
 import 'package:pylons_wallet/utils/dependency_injection/dependency_injection.dart';
@@ -20,7 +22,7 @@ Future<void> main() async {
   await di.init();
   await GetIt.I.allReady();
   await sl<LocalDataSource>().clearDataOnIosUnInstall();
-
+  Stripe.publishableKey = sl<BaseEnv>().baseStripPubKey;
   runApp(
     EasyLocalization(
         supportedLocales: const [Locale('en'), Locale('ru')],

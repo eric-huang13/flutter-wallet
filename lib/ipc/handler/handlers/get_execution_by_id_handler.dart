@@ -18,10 +18,10 @@ class GetExecutionByIdHandler implements BaseHandler {
   Future<SDKIPCResponse> handle() async {
     final jsonMap = jsonDecode(sdkipcMessage.json) as Map;
     final executionId = jsonMap[HandlerFactory.EXECUTION_ID].toString();
+    final walletsStore = GetIt.I.get<WalletsStore>();
 
     jsonMap.remove('nodeVersion');
 
-    final walletsStore = GetIt.I.get<WalletsStore>();
 
     final response = await walletsStore.getExecutionBasedOnId(id: executionId);
     response.sender = sdkipcMessage.sender;

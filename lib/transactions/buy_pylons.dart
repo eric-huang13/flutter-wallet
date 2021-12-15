@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -19,7 +20,7 @@ class BuyPylons {
         "coins": ["100pylon"]
       }),
     );
-    if (response.statusCode != 200) {
+    if (response.statusCode != HttpStatus.ok ) {
       return 0.0;
     }
     return 0.0;

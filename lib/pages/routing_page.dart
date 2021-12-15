@@ -3,7 +3,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/constants/constants.dart';
-import 'package:pylons_wallet/pages/dashboard/dashboard_main.dart';
 import 'package:pylons_wallet/pages/new_screens/new_home.dart';
 import 'package:pylons_wallet/pages/presenting_onboard_page/presenting_onboard_page.dart';
 import 'package:pylons_wallet/pylons_app.dart';
@@ -17,11 +16,7 @@ class RoutingPage extends StatefulWidget {
 }
 
 class _RoutingPageState extends State<RoutingPage> {
-
-
   WalletsStore get walletsStore => GetIt.I.get();
-
-
 
   @override
   void initState() {
@@ -33,15 +28,14 @@ class _RoutingPageState extends State<RoutingPage> {
     await walletsStore.loadWallets();
     if (walletsStore.getWallets().value.isEmpty) {
       //Loads the last used wallet.
-      Navigator.of(context).push(MaterialPageRoute(builder: (_) => PresentingOnboardPage()));
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (_) => PresentingOnboardPage()));
     } else {
-
       // Assigning the latest wallet to the app.
       PylonsApp.currentWallet = walletsStore.getWallets().value.last;
-      Navigator.of(context).push(MaterialPageRoute(builder: (_) => NewHomeScreen()));
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (_) => NewHomeScreen()));
     }
-
-
   }
 
   @override

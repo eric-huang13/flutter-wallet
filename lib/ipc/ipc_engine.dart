@@ -93,7 +93,7 @@ class IPCEngine {
   /// Input]  [msg] is the string received from the wallet
   /// Output : [List] contains the decoded response
   String encodeMessage(List<String> msg) {
-    final encodedMessageWithComma = msg.map((e) => base64Url.encode(utf8.encode(e))).join(',');
+    final encodedMessageWithComma = msg.map((element) => base64Url.encode(utf8.encode(element))).join(',');
     return base64Url.encode(utf8.encode(encodedMessageWithComma));
   }
 
@@ -102,7 +102,7 @@ class IPCEngine {
   /// Output : [List] contains the decoded response
   List<String> decodeMessage(String msg) {
     final decoded = utf8.decode(base64Url.decode(msg));
-    return decoded.split(',').map((e) => utf8.decode(base64Url.decode(e))).toList();
+    return decoded.split(',').map((element) => utf8.decode(base64Url.decode(element))).toList();
   }
 
   /// This method handles the link that the wallet received from the 3rd Party apps
@@ -117,7 +117,7 @@ class IPCEngine {
 
     try {
       sdkIPCMessage = SDKIPCMessage.fromIPCMessage(getMessage);
-    } catch (e) {
+    } catch (error) {
       return;
     }
 
@@ -230,7 +230,7 @@ class IPCEngine {
         await launch(uniLink);
         return true;
       }
-    } catch (e) {
+    } catch (error) {
       return true;
     }
   }

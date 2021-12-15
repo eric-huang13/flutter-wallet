@@ -5,8 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:sprintf/sprintf.dart';
+
 import 'package:pylons_wallet/components/loading.dart';
-import 'package:pylons_wallet/constants/constants.dart';
+import 'package:pylons_wallet/constants/constants.dart' as Constants;
 import 'package:pylons_wallet/entities/amount.dart';
 import 'package:pylons_wallet/entities/balance.dart';
 import 'package:pylons_wallet/pages/new_screens/stripe_screen.dart';
@@ -14,13 +17,9 @@ import 'package:pylons_wallet/pylons_app.dart';
 import 'package:pylons_wallet/services/stripe_services/stripe_handler.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/stripe/stripe_payout_widget.dart';
-import 'package:pylons_wallet/transactions/pylons_balance.dart';
 import 'package:pylons_wallet/utils/formatter.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
-import 'package:pylons_wallet/components/loading.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:pylons_wallet/services/repository/repository.dart';
-import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/extension.dart';
 import 'package:pylons_wallet/utils/failure/failure.dart';
 
@@ -53,7 +52,7 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
     payout_response.fold(
         (fail) => {SnackbarToast.show(fail.message)},
         (payout_transfer_id) => {
-              SnackbarToast.show("Payout Request Success. $payout_transfer_id")
+              SnackbarToast.show(sprintf("payout_request_success".tr(), [payout_transfer_id]))
             });
 
     await _buildAssetsList();
@@ -80,7 +79,6 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //super.build(context);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -95,7 +93,7 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
           IconButton(
             icon: const Icon(
               Icons.content_copy_outlined,
-              color: kBlue,
+              color: Constants.kBlue,
             ),
             onPressed: () {
               copyClipboard();
@@ -104,7 +102,7 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
           IconButton(
             icon: const Icon(
               Icons.cached_outlined,
-              color: kBlue,
+              color: Constants.kBlue,
             ),
             onPressed: () {
               _buildAssetsList();
@@ -157,12 +155,11 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
     final walletsStore = GetIt.I.get<WalletsStore>();
     final faucetEither = await walletsStore.getFaucetCoin(denom: denom);
     diag.dismiss();
-    faucetEither.fold((failure){
+    faucetEither.fold((failure) {
       SnackbarToast.show(faucetEither.swap().toOption().toNullable()!.message);
-    }, (success)
-    {
+    }, (success) {
       SnackbarToast.show(
-          "faucet ${faucetEither.getOrElse(() => 0).toString().UvalToVal()} ${denom.UdenomToDenom()} added.");
+        sprintf("faucet_added".tr(), [faucetEither.getOrElse(() => 0).toString().UvalToVal(), denom.UdenomToDenom()] ));
       Timer(const Duration(milliseconds: 400), () {
         _buildAssetsList();
       });
@@ -171,7 +168,7 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
 
   Future getPayout(BuildContext context, String amount) async {
     StripePayoutWidget(
-            context: context, amount:  amount, onCallback: handleStripePayout)
+            context: context, amount: amount, onCallback: handleStripePayout)
         .show();
   }
 
@@ -256,31 +253,17 @@ class _BalanceWidgetState extends State<_BalanceWidget> {
                       .copyWith(color: Colors.white, fontSize: 18),
                 ),
                 Spacer(),
-                if (widget.balance.denom != "ustripeusd")
-                  //ElevatedButton(
-                  //  onPressed: () {
-                  //    widget.onCallStripePayout();
-                  //  },
-                  //  style: ElevatedButton.styleFrom(
-                  //    primary: const Color(0xFFFFFFFF),
-                  //    maximumSize: Size(100, 20),
-                  //    minimumSize: Size(100, 20),
-                  //  ),
-                  //  child: Text("payout",
-                  //     style:
-                  //          TextStyle(color: Color(0xFF1212C4), fontSize: 15)),
-                  //)
-                //else
+                if (widget.balance.denom != Constants.kUSDDenom)
                   ElevatedButton(
                     onPressed: () {
                       widget.onCallFaucet();
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: const Color(0xFFFFFFFF),
+                      primary: Constants.kWhite,
                       maximumSize: const Size(100, 20),
                       minimumSize: const Size(100, 20),
                     ),
-                    child: Text("faucet",
+                    child: Text("faucet".tr(),
                         style: Theme.of(context).textTheme.headline5),
                   )
               ]),

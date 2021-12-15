@@ -1,7 +1,6 @@
 import 'package:alan/alan.dart' as alan;
 import 'package:alan/proto/cosmos/bank/v1beta1/export.dart' as bank;
 import 'package:pylons_wallet/entities/balance.dart';
-import 'package:pylons_wallet/pylons_app.dart';
 import 'package:transaction_signing_gateway/alan/alan_transaction.dart';
 import 'package:transaction_signing_gateway/gateway/transaction_signing_gateway.dart';
 import 'package:transaction_signing_gateway/model/wallet_lookup_key.dart';
@@ -26,29 +25,25 @@ class TokenSender {
         ..amount = balance.amount.value.toString(),
     );
 
-
     final unsignedTransaction = UnsignedAlanTransaction(messages: [message]);
 
-
-
-    try{
+    try {
       final walletLookupKey = WalletLookupKey(
         walletId: info.walletId,
         chainId: info.chainId,
         password: "",
       );
-      final signedAlanTransaction = await transactionSigningGateway.signTransaction(
+      final signedAlanTransaction =
+          await transactionSigningGateway.signTransaction(
         transaction: unsignedTransaction,
         walletLookupKey: walletLookupKey,
       );
 
       await signedAlanTransaction.fold<Future?>(
-            (fail) => null,
-            (signedTransaction) => transactionSigningGateway.broadcastTransaction(walletLookupKey: walletLookupKey, transaction: signedTransaction),
+        (fail) => null,
+        (signedTransaction) => transactionSigningGateway.broadcastTransaction(
+            walletLookupKey: walletLookupKey, transaction: signedTransaction),
       );
-
-    }catch(e){
-
-    }
+    } catch (error) {}
   }
 }

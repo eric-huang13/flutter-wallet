@@ -1,7 +1,8 @@
 import 'dart:convert';
-
+import 'dart:io';
 import 'package:equatable/equatable.dart';
 import 'package:http/http.dart' as http;
+
 /// Contains the data returned when performing a chain query.
 class RequestResult<T> extends Equatable {
   final T? value;
@@ -24,13 +25,15 @@ class QueryHelper {
 
   QueryHelper({required http.Client httpClient}) : _httpClient = httpClient;
 
-  /// Queries the chain at the given [url].
+  /// GET Queries the chain at the given [url].
+  /// params [url]
+  /// return [RequestResult<Map<String, dynamic>>]
   Future<RequestResult<Map<String, dynamic>>> queryGet(
-      String url,
-      ) async {
+    String url,
+  ) async {
     final data = await _httpClient.get(Uri.parse(url));
 
-    if (data.statusCode != 200) {
+    if (data.statusCode != HttpStatus.ok) {
       return RequestResult(
         error: 'Call to $url returned status code ${data.statusCode}',
       );
@@ -40,17 +43,15 @@ class QueryHelper {
       value: json.decode(utf8.decode(data.bodyBytes)) as Map<String, dynamic>,
     );
   }
-  /// Queries the chain at the given [url].
+
+  /// POST Queries the chain at the given [url].
+  /// params [url, json]
+  /// return [RequestResult<Map<String, dynamic>>]
   Future<RequestResult<Map<String, dynamic>>> queryPost(
-      String url,
-      Map json
-      ) async {
-    final data = await _httpClient.post(
-      Uri.parse(url),
-      headers: {"Content-type":"application/json"},
-      body: jsonEncode(json)
-    );
-    if (data.statusCode != 200) {
+      String url, Map json) async {
+    final data = await _httpClient.post(Uri.parse(url),
+        headers: {"Content-type": "application/json"}, body: jsonEncode(json));
+    if (data.statusCode != HttpStatus.ok) {
       return RequestResult(
         error: 'Call to $url returned status code ${data.statusCode}',
       );
@@ -60,5 +61,4 @@ class QueryHelper {
       value: jsonDecode(utf8.decode(data.bodyBytes)) as Map<String, dynamic>,
     );
   }
-
 }
