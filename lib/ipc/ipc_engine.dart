@@ -144,15 +144,14 @@ class IPCEngine {
         ),
       );
     } else {
-      navigatorKey.currentState!.push(
+      await navigatorKey.currentState!.push(
         MaterialPageRoute(
           builder: (_) => PurchaseItemScreen(
             nft: NFT.fromRecipe(recipeResult.toOption().toNullable()!),
           ),
         ),
-      ).then((value) {
-        walletsStore.setStateUpdatedFlag(true);
-      });
+      );
+      walletsStore.setStateUpdatedFlag(true);
     }
   }
 
@@ -175,14 +174,12 @@ class IPCEngine {
       );
     } else {
       final item = await NFT.fromTrade(recipeResult);
-      navigatorKey.currentState!.push(
+      await navigatorKey.currentState!.push(
         MaterialPageRoute(
           builder: (_) => PurchaseItemScreen(nft: item),
         ),
-      ).then((_) => {
-
-        walletsStore.setStateUpdatedFlag(true)
-      });
+      );
+      walletsStore.setStateUpdatedFlag(true);
     }
   }
 
@@ -206,13 +203,13 @@ class IPCEngine {
       );
     } else {
       final item = await NFT.fromItem(recipeResult);
-      navigatorKey.currentState!.push(
+      await navigatorKey.currentState!.push(
         MaterialPageRoute(
           builder: (_) => AssetDetailViewScreen(nftItem: item),
         ),
-      ).then((_) => {
-        walletsStore.setStateUpdatedFlag(true)
-      });
+      );
+      walletsStore.setStateUpdatedFlag(true);
+
     }
   }
 

@@ -25,7 +25,7 @@ const String kImage3 = "https://images.unsplash.com/photo-1632687222219-93f0ecb7
 const List<String> kImageList = [kImage, kImage1, kImage2, kImage3];
 
 //image card
-
+const String kStripeIcon = 'assets/icons/stripe_logo.png';
 const String kCardBG1 = "assets/icons/purple_card.png";
 const String kCardBG2 = "assets/icons/orange_card.png";
 const String kCardBG3 = "assets/icons/black_card.png";
