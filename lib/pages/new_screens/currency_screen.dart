@@ -85,7 +85,7 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
         backgroundColor: Colors.white,
         actions: [
           IconButton(
-              icon: Image.asset('assets/icons/stripe_logo.png',
+              icon: Image.asset(Constants.kStripeIcon,
                   width: 24, height: 24),
               onPressed: () {
                 handleStripeAccountLink();
