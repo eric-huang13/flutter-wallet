@@ -13,9 +13,6 @@ void main() {
 
     final list = <String>[sender,key,MOCK_COOKBOOK];
     var result = IPCEngine().encodeMessage(list);
-
-    print(result);
-
   });
 }
 

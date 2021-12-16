@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/pages/dashboard/dashboard_assets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../pylons_app.dart';
@@ -48,7 +49,7 @@ class PylonsAppDrawerState extends State<PylonsAppDrawer> {
               accountName: Row(
                   children: [
                     Text(accountName, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, fontFamily: 'Inter')),
-                    Icon(Icons.check_circle_rounded, size: 14, color: Color(0xFFFFB094)),
+                    Icon(Icons.check_circle_rounded, size: 14, color: kPeach),
                 ],
               ),
               accountEmail: Row(
@@ -57,7 +58,7 @@ class PylonsAppDrawerState extends State<PylonsAppDrawer> {
                   child: Text(walletAddress),
                 ),
                   IconButton(
-                    icon: ImageIcon(AssetImage('assets/icons/copy.png'), size: 20, color: Color(0xFF616161)),
+                    icon: ImageIcon(AssetImage('assets/icons/copy.png'), size: 20, color: kSelectedIcon),
                     onPressed: ()=>{
                       copyToClipboard()
                     },
@@ -68,20 +69,6 @@ class PylonsAppDrawerState extends State<PylonsAppDrawer> {
                 child: FlutterLogo(size: 42.0),
               )
             ),
-            /*ListTile(
-              title: const Text('qwerqwerqwer'),
-              leading: const Icon(Icons.favorite),
-              onTap: () {
-                //Navigator.pop(context);
-              },
-            ),
-            ListTile(
-                title: const Text('qwerqwerqwer'),
-                leading: const Icon(Icons.comment),
-                onTap: () {
-                  //Navigator.pop(context);
-                }),
-             */
             ListTile(
                 title: const Text('Balances'),
                 leading: const Icon(Icons.account_balance_wallet),

@@ -22,7 +22,10 @@ import 'mock_wallet_public_info.dart';
 
 class MockWalletStore implements WalletsStore {
   @override
-  Future<SDKIPCResponse> broadcastWalletCreationMessageOnBlockchain(AlanPrivateWalletCredentials creds, String creatorAddress, String userName) {
+  Future<SDKIPCResponse> broadcastWalletCreationMessageOnBlockchain(
+      AlanPrivateWalletCredentials creds,
+      String creatorAddress,
+      String userName) {
     // TODO: implement broadcastWalletCreationMessageOnBlockchain
     throw UnimplementedError();
   }
@@ -41,12 +44,18 @@ class MockWalletStore implements WalletsStore {
 
   @override
   Observable<List<WalletPublicInfo>> getWallets() {
-    // TODO: implement getWallets
-    throw UnimplementedError();
+    return Observable([
+      WalletPublicInfo(
+          name: 'test',
+          walletId: '0',
+          publicAddress: 'pylo1e5s74e92q3gunldrpqdnrlc8jg9l3xw6s7hea9',
+          chainId: 'pylons-devtestnet')
+    ]);
   }
 
   @override
-  Future<Either<Failure, WalletPublicInfo>> importAlanWallet(String mnemonic, String userName) {
+  Future<Either<Failure, WalletPublicInfo>> importAlanWallet(
+      String mnemonic, String userName) {
     // TODO: implement importAlanWallet
     throw UnimplementedError();
   }
@@ -58,14 +67,16 @@ class MockWalletStore implements WalletsStore {
   }
 
   @override
-  Future<void> sendCosmosMoney(WalletPublicInfo info, Balance balance, String toAddress) {
+  Future<void> sendCosmosMoney(
+     Balance balance, String toAddress) {
     // TODO: implement sendCosmosMoney
     throw UnimplementedError();
   }
 
   @override
   Future<SDKIPCResponse> createRecipe(Map json) async {
-    return SDKIPCResponse.success(data: MOCK_TRANSACTION.txHash, sender: '', transaction: '');
+    return SDKIPCResponse.success(
+        data: MOCK_TRANSACTION.txHash, sender: '', transaction: '');
   }
 
   @override
@@ -147,14 +158,16 @@ class MockWalletStore implements WalletsStore {
   }
 
   @override
-  Future<List<Execution>> getRecipeEexecutions(String cookbookID, String recipeID) {
+  Future<List<Execution>> getRecipeEexecutions(
+      String cookbookID, String recipeID) {
     // TODO: implement getRecipeEexecutions
     throw UnimplementedError();
   }
 
   @override
   Future<SDKIPCResponse> createCookBook(Map json) async {
-    return SDKIPCResponse.success(data: MOCK_TRANSACTION.txHash, sender: '', transaction: '');
+    return SDKIPCResponse.success(
+        data: MOCK_TRANSACTION.txHash, sender: '', transaction: '');
   }
 
   @override
@@ -177,28 +190,40 @@ class MockWalletStore implements WalletsStore {
 
   @override
   Future<SDKIPCResponse> updateCookBook(Map<dynamic, dynamic> jsonMap) async {
-    return SDKIPCResponse.success(data: MOCK_TRANSACTION.txHash, sender: '', transaction: '');
+    return SDKIPCResponse.success(
+        data: MOCK_TRANSACTION.txHash, sender: '', transaction: '');
   }
 
   @override
-  Future<Either<Failure, Recipe>> getRecipe(String cookbookID, String recipeID) {
+  Future<Either<Failure, Recipe>> getRecipe(
+      String cookbookID, String recipeID) {
     // TODO: implement getRecipe
     throw UnimplementedError();
   }
 
   @override
   Future<SDKIPCResponse> getProfile() async {
-    return SDKIPCResponse.success(data: {"username": MOCK_USERNAME}, sender: '', transaction: '');
+    return SDKIPCResponse.success(
+        data: {"username": MOCK_USERNAME}, sender: '', transaction: '');
   }
 
   @override
-  Future<SDKIPCResponse> getAllRecipesByCookBookId({required String cookbookId}) async {
+  Future<String> signPureMessage(String message) {
+    // TODO: implement signPureMessage
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<SDKIPCResponse> getAllRecipesByCookBookId(
+      {required String cookbookId}) async {
     return SDKIPCResponse.success(data: [], sender: '', transaction: '');
   }
 
   @override
-  Future<SDKIPCResponse> getCookbookByIdForSDK({required String cookbookId}) async {
-    return SDKIPCResponse.success(data: MOCK_COOKBOOK, sender: '', transaction: '');
+  Future<SDKIPCResponse> getCookbookByIdForSDK(
+      {required String cookbookId}) async {
+    return SDKIPCResponse.success(
+        data: MOCK_COOKBOOK, sender: '', transaction: '');
   }
 
   @override
@@ -208,30 +233,56 @@ class MockWalletStore implements WalletsStore {
   }
 
   @override
-  Future<SDKIPCResponse> getRecipeByIdForSDK({required String cookbookId, required String recipeId}) async {
+  Observable<bool> getStateUpdatedFlag() {
+    // TODO: implement getStateUpdatedFlag
+    throw UnimplementedError();
+  }
+
+  @override
+  void setStateUpdatedFlag(bool flag) {
+    // TODO: implement setStateUpdatedFlag
+  }
+  @override
+  Future<SDKIPCResponse> getRecipeByIdForSDK(
+      {required String cookbookId, required String recipeId}) async {
     if (cookbookId != MOCK_COOKBOOK_ID && recipeId != MOCK_RECIPE_ID) {
       throw MOCK_ERROR;
     }
 
-    return SDKIPCResponse.success(data: MOCK_RECIPE, sender: '', transaction: '');
+    return SDKIPCResponse.success(
+        data: MOCK_RECIPE, sender: '', transaction: '');
   }
 
   @override
-  Future<SDKIPCResponse> getExecutionByRecipeId({required String cookbookId, required String recipeId}) async {
+  Future<SDKIPCResponse> getExecutionByRecipeId(
+      {required String cookbookId, required String recipeId}) async {
     if (cookbookId != MOCK_COOKBOOK_ID && recipeId != MOCK_RECIPE_ID) {
       throw MOCK_ERROR;
     }
 
-    return SDKIPCResponse.success(data: ExecutionListByRecipeResponse.empty(), sender: '', transaction: '');
+    return SDKIPCResponse.success(
+        data: ExecutionListByRecipeResponse.empty(),
+        sender: '',
+        transaction: '');
   }
 
   @override
-  Future<SDKIPCResponse> getItemByIdForSDK({required String cookBookId, required String itemId}) async {
+  Future<List<Recipe>> getRecipesByCookbookID(String cookbookID) {
+    // TODO: implement getRecipesByCookbookID
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<SDKIPCResponse> getItemByIdForSDK(
+      {required String cookBookId, required String itemId}) async {
     if (cookBookId != MOCK_COOKBOOK_ID && itemId != MOCK_ITEM_ID) {
       throw MOCK_ERROR;
     }
 
-    return SDKIPCResponse.success(data: jsonEncode(MOCK_ITEM.toProto3Json()), sender: '', transaction: '');
+    return SDKIPCResponse.success(
+        data: jsonEncode(MOCK_ITEM.toProto3Json()),
+        sender: '',
+        transaction: '');
   }
 
   @override

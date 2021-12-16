@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
+import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/pages/account/account.dart';
 
 class CustomCardWidget extends StatelessWidget {
@@ -30,9 +31,9 @@ class CustomCardWidget extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
-                    color: Color(0xFF201D1D),
+                    color: kTextColor,
                   )),
-              subtitle: const Text('Media Artist (3D, Motiongraphics, Collecting NFT)', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Color(0xFF616161))),
+              subtitle: const Text('Media Artist (3D, Motiongraphics, Collecting NFT)', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: kSelectedIcon)),
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => const AccountScreenWidget()));
               },

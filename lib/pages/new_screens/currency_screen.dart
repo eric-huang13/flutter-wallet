@@ -5,17 +5,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:sprintf/sprintf.dart';
+
 import 'package:pylons_wallet/components/loading.dart';
-import 'package:pylons_wallet/constants/constants.dart';
+import 'package:pylons_wallet/constants/constants.dart' as Constants;
 import 'package:pylons_wallet/entities/amount.dart';
 import 'package:pylons_wallet/entities/balance.dart';
+import 'package:pylons_wallet/pages/new_screens/stripe_screen.dart';
 import 'package:pylons_wallet/pylons_app.dart';
-import 'package:pylons_wallet/services/repository/repository.dart';
+import 'package:pylons_wallet/services/stripe_services/stripe_handler.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
-import 'package:pylons_wallet/utils/extension.dart';
-import 'package:pylons_wallet/utils/failure/failure.dart';
+import 'package:pylons_wallet/stripe/stripe_payout_widget.dart';
 import 'package:pylons_wallet/utils/formatter.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
+import 'package:pylons_wallet/services/repository/repository.dart';
+import 'package:pylons_wallet/utils/extension.dart';
+import 'package:pylons_wallet/utils/failure/failure.dart';
 
 class CurrencyScreen extends StatefulWidget {
   const CurrencyScreen({Key? key}) : super(key: key);
@@ -36,18 +42,58 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
 
   List<Balance> assets = <Balance>[];
 
+  Future<void> handleStripePayout(String amount) async {
+    navigatorKey.currentState!.pop();
+
+    final loading = Loading()..showLoading();
+
+    final payout_response = await StripeHandler().handleStripePayout(amount);
+    loading.dismiss();
+    payout_response.fold(
+        (fail) => {SnackbarToast.show(fail.message)},
+        (payout_transfer_id) => {
+              SnackbarToast.show(sprintf("payout_request_success".tr(), [payout_transfer_id]))
+            });
+
+    await _buildAssetsList();
+  }
+
+  Future<void> handleStripeAccountLink() async {
+    final loading = Loading()..showLoading();
+    final account_response = await StripeHandler().handleStripeAccountLink();
+    loading.dismiss();
+    account_response.fold(
+        (fail) => {SnackbarToast.show(fail.message)},
+        (accountlink) => {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return StripeScreen(
+                        url: accountlink,
+                        onBack: () {
+                          navigatorKey.currentState!.pop();
+                        });
+                  })
+            });
+  }
+
   @override
   Widget build(BuildContext context) {
-    //super.build(context);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
         actions: [
           IconButton(
+              icon: Image.asset('assets/icons/stripe_logo.png',
+                  width: 24, height: 24),
+              onPressed: () {
+                handleStripeAccountLink();
+              }),
+          IconButton(
             icon: const Icon(
               Icons.content_copy_outlined,
-              color: kBlue,
+              color: Constants.kBlue,
             ),
             onPressed: () {
               copyClipboard();
@@ -56,7 +102,7 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
           IconButton(
             icon: const Icon(
               Icons.cached_outlined,
-              color: kBlue,
+              color: Constants.kBlue,
             ),
             onPressed: () {
               _buildAssetsList();
@@ -71,7 +117,11 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
           onCallFaucet: () {
             getFaucet(context, assets[index].denom);
           },
-          backgroundAsset: Constants.kCardBGList[index % Constants.kCardBGList.length],
+          onCallStripePayout: () {
+            getPayout(context, assets[index].amount.value.toString());
+          },
+          backgroundAsset:
+              Constants.kCardBGList[index % Constants.kCardBGList.length],
         ),
       ),
     );
@@ -80,7 +130,9 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
   Future<void> _buildAssetsList() async {
     assets.clear();
 
-    final response = await GetIt.I.get<Repository>().getBalance(PylonsApp.currentWallet.publicAddress);
+    final response = await GetIt.I
+        .get<Repository>()
+        .getBalance(PylonsApp.currentWallet.publicAddress);
 
     if (response.isLeft()) {
       showErrorMessageToUser(response);
@@ -92,9 +144,9 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
   }
 
   Future copyClipboard() async {
-    var msg = PylonsApp.currentWallet.publicAddress;
-    Clipboard.setData(ClipboardData(text: msg)).then((_) {
-      SnackbarToast.show("Your wallet address copied to clipboard");
+    var msg = "${PylonsApp.currentWallet.publicAddress}";
+    Clipboard.setData(new ClipboardData(text: msg)).then((_) {
+      SnackbarToast.show("wallet_copied".tr());
     });
   }
 
@@ -102,18 +154,22 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
     final diag = Loading()..showLoading();
     final walletsStore = GetIt.I.get<WalletsStore>();
     final faucetEither = await walletsStore.getFaucetCoin(denom: denom);
-
-    if (faucetEither.isLeft()) {
+    diag.dismiss();
+    faucetEither.fold((failure) {
       SnackbarToast.show(faucetEither.swap().toOption().toNullable()!.message);
-    }
-
-    SnackbarToast.show("faucet ${faucetEither.getOrElse(() => 0).toString().UvalToVal()} ${denom.UdenomToDenom()} added.");
-
-    Timer(const Duration(milliseconds: 400), () {
-      _buildAssetsList();
-
-      diag.dismiss();
+    }, (success) {
+      SnackbarToast.show(
+        sprintf("faucet_added".tr(), [faucetEither.getOrElse(() => 0).toString().UvalToVal(), denom.UdenomToDenom()] ));
+      Timer(const Duration(milliseconds: 400), () {
+        _buildAssetsList();
+      });
     });
+  }
+
+  Future getPayout(BuildContext context, String amount) async {
+    StripePayoutWidget(
+            context: context, amount: amount, onCallback: handleStripePayout)
+        .show();
   }
 
   void showErrorMessageToUser(Dz.Either<Failure, List<Balance>> response) {
@@ -125,12 +181,18 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
 }
 
 class _BalanceWidget extends StatefulWidget {
+  const _BalanceWidget(
+      {Key? key,
+      required this.balance,
+      required this.onCallFaucet,
+      required this.onCallStripePayout,
+      required this.backgroundAsset})
+      : super(key: key);
+
   final Balance balance;
   final Function onCallFaucet;
+  final Function onCallStripePayout;
   final String backgroundAsset;
-
-  const _BalanceWidget({Key? key, required this.balance, required this.onCallFaucet, required this.backgroundAsset}) : super(key: key);
-
   @override
   State<_BalanceWidget> createState() => _BalanceWidgetState();
 }
@@ -146,7 +208,13 @@ class _BalanceWidgetState extends State<_BalanceWidget> {
     final screenSize = ScreenSizeUtil(context);
     final coinMeta = Constants.kCoinDenom.keys.contains(widget.balance.denom)
         ? Constants.kCoinDenom[widget.balance.denom]
-        : {"name": widget.balance.denom, "icon": "", "denom": widget.balance.denom, "short": widget.balance.denom, "faucet": false};
+        : {
+            "name": widget.balance.denom,
+            "icon": "",
+            "denom": widget.balance.denom,
+            "short": widget.balance.denom,
+            "faucet": false
+          };
 
     return Card(
         shape: RoundedRectangleBorder(
@@ -160,7 +228,8 @@ class _BalanceWidgetState extends State<_BalanceWidget> {
           width: screenSize.width(),
           height: screenSize.width(percent: 0.35),
           decoration: BoxDecoration(
-            image: DecorationImage(image: AssetImage(widget.backgroundAsset), fit: BoxFit.fill),
+            image: DecorationImage(
+                image: AssetImage(widget.backgroundAsset), fit: BoxFit.fill),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -169,27 +238,33 @@ class _BalanceWidgetState extends State<_BalanceWidget> {
               Row(children: [
                 if (coinMeta["icon"] != "") ...[
                   if (coinMeta["icon"].toString().contains(".svg"))
-                    SvgPicture.asset(coinMeta["icon"].toString(), width: 30, height: 30)
+                    SvgPicture.asset(coinMeta["icon"].toString(),
+                        width: 30, height: 30)
                   else
-                    Image.asset(coinMeta["icon"].toString(), width: 30, height: 30),
+                    Image.asset(coinMeta["icon"].toString(),
+                        width: 30, height: 30),
                   const SizedBox(width: 10),
                 ],
                 Text(
                   "${coinMeta["name"]}",
-                  style: Theme.of(context).textTheme.subtitle1!.copyWith(color: Colors.white, fontSize: 18),
+                  style: Theme.of(context)
+                      .textTheme
+                      .subtitle1!
+                      .copyWith(color: Colors.white, fontSize: 18),
                 ),
-                const Spacer(),
-                if (coinMeta["faucet"] as bool)
+                Spacer(),
+                if (widget.balance.denom != Constants.kUSDDenom)
                   ElevatedButton(
                     onPressed: () {
                       widget.onCallFaucet();
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: const Color(0xFFFFFFFF),
+                      primary: Constants.kWhite,
                       maximumSize: const Size(100, 20),
                       minimumSize: const Size(100, 20),
                     ),
-                    child: Text("faucet", style: Theme.of(context).textTheme.headline5),
+                    child: Text("faucet".tr(),
+                        style: Theme.of(context).textTheme.headline5),
                   )
               ]),
               Align(

@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 
 class PylonsTextInput extends StatelessWidget {
-  const PylonsTextInput({
+  PylonsTextInput({
     Key? key,
     required this.controller,
     required this.label,
     this.disabled = false,
+    this.inputType = TextInputType.text,
+    this.errorText
   }) : super(key: key);
 
   final TextEditingController controller;
   final String label;
   final bool disabled;
+  final TextInputType inputType;
+  String? Function(String?)? errorText;
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +41,12 @@ class PylonsTextInput extends StatelessWidget {
             ),
           ),
 
-          // filled: true,
-          // labelText: "Username",
-          hintStyle: TextStyle(color: Colors.grey[800]),
-          fillColor: Colors.white70),
+      // filled: true,
+      // labelText: "Username",
+      hintStyle: TextStyle(color: Colors.grey[800]),
+      fillColor: Colors.white70),
+      keyboardType: inputType,
+      validator: errorText,
     );
   }
 }

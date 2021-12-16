@@ -1,7 +1,3 @@
-
-/// entryIDs : ["title_title"]
-/// weight : "1"
-
 class Outputs {
   late List<String> entryIDs;
   late String weight;

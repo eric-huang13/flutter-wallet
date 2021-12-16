@@ -9,6 +9,10 @@ class BaseEnv {
   late String _baseEthUrl;
   late String _baseFaucetUrl;
   late String _baseWsUrl;
+  late String _stripeUrl;
+  late String _stripePubKey;
+  late bool _stripeTestEnv;
+  late String _stripeCallbackUrl;
 
   void setEnv({
     required String lcdUrl,
@@ -20,6 +24,11 @@ class BaseEnv {
     required String tendermintPort,
     String? faucetUrl,
     String? faucetPort,
+    String? stripeUrl,
+    String? stripePubKey,
+    bool? stripeTestEnv,
+    String? stripeCallbackUrl,
+
   }) {
     _networkInfo = NetworkInfo(
       bech32Hrp: 'pylo',
@@ -30,9 +39,9 @@ class BaseEnv {
           credentials: (dotenv.env['ENV']! == "local")
               ? const ChannelCredentials.insecure() :
               const ChannelCredentials.insecure(),
+              //For HTTPS
               //: ChannelCredentials.secure(
               //    onBadCertificate: (cert, host) {
-              //      debugPrint("host: $host, cert: $cert");
               //      return true;
               //    },
               //  )
@@ -42,6 +51,10 @@ class BaseEnv {
     _baseEthUrl = ethUrl;
     _baseFaucetUrl = "$faucetUrl:$faucetPort";
     _baseWsUrl = "$wsUrl:$tendermintPort";
+    _stripeUrl = stripeUrl ?? "";
+    _stripePubKey = stripePubKey ?? "";
+    _stripeTestEnv = stripeTestEnv ?? true;
+    _stripeCallbackUrl = stripeCallbackUrl ?? "";
   }
 
   NetworkInfo get networkInfo => _networkInfo;
@@ -53,4 +66,12 @@ class BaseEnv {
   String get baseFaucetUrl => _baseFaucetUrl;
 
   String get baseWsUrl => _baseWsUrl;
+
+  String get baseStripeUrl => _stripeUrl;
+
+  String get baseStripPubKey => _stripePubKey;
+
+  bool get baseStripeTestEnv => _stripeTestEnv;
+
+  String get baseStripeCallbackUrl => _stripeCallbackUrl;
 }

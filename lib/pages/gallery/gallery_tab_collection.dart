@@ -62,7 +62,7 @@ class _CollectionWidget extends StatelessWidget {
               child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 Text('photo_collection'.tr()),
                 IconButton(
-                    icon: const Icon(Icons.more_vert, size: 24, color: Color(0xFF616161)),
+                    icon: const Icon(Icons.more_vert, size: 24, color: kSelectedIcon),
                     onPressed: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const CollectionsScreen()));
                     }),

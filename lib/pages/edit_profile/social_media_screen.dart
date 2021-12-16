@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pylons_wallet/components/pylons_blue_button.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
+import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
 
 class SocialMediaScreen extends StatelessWidget {
@@ -95,7 +96,7 @@ class _SocialCard extends StatelessWidget {
                   onPressed: () {},
                   icon: const Icon(
                     Icons.more_vert,
-                    color: Color(0xFFC4C4C4),
+                    color: kUnselectedIcon,
                   ))),
           Align(
             child: Padding(

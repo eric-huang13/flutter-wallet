@@ -76,7 +76,6 @@ class CustomTxSigner {
       final secp256Key = secp256.PubKey.create()..key = wallet.publicKey;
      var pubKey = Codec.serialize(secp256Key);
 
-
     // For SIGN_MODE_DIRECT, calling SetSignatures calls setSignerInfos on
     // TxBuilder under the hood, and SignerInfos is needed to generated the
     // sign bytes. This is the reason for setting SetSignatures here, with a

@@ -37,7 +37,7 @@ class _LikeWidget extends StatelessWidget {
       margin: const EdgeInsets.fromLTRB(16, 5, 16, 5),
       decoration: BoxDecoration(
         border: Border.all(
-          color: const Color(0xFFF1F1F2), // red as border color
+          color: kDarkBG, // red as border color
         ),
       ),
       child: ListTile(
@@ -52,7 +52,7 @@ class _LikeWidget extends StatelessWidget {
             ],
           ),
         ),
-        subtitle: Text(date, style: const TextStyle(color: Color(0xFFC4C4C4))),
+        subtitle: Text(date, style: const TextStyle(color: kUnselectedIcon)),
         trailing: NextButton(onTap: () {}),
       ),
     );

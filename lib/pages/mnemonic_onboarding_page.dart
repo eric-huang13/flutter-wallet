@@ -25,7 +25,8 @@ class _MnemonicOnboardingPageState extends State<MnemonicOnboardingPage> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: CosmosAppTheme.spacingM),
+          padding:
+              const EdgeInsets.symmetric(horizontal: CosmosAppTheme.spacingM),
           child: ContentStateSwitcher(
             isEmpty: mnemonic.isEmpty,
             emptyChild: Center(
@@ -55,7 +56,8 @@ class _MnemonicOnboardingPageState extends State<MnemonicOnboardingPage> {
     );
   }
 
-  void _generateMnemonicClicked() => setState(() async => mnemonic = await generateMnemonic());
+  void _generateMnemonicClicked() =>
+      setState(() async => mnemonic = await generateMnemonic());
 
   void _proceedClicked() => notImplemented(context);
 }

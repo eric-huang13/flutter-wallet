@@ -3,7 +3,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:pylons_wallet/ipc/handler/handler_factory.dart';
-import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart' as pylons;
+import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart'
+    as pylons;
 import 'package:pylons_wallet/services/repository/repository.dart';
 import 'package:pylons_wallet/services/third_party_services/network_info.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
@@ -36,18 +37,13 @@ Future<void> init() async {
     () => LocalDataSourceImp(sl()),
   );
 
-  sl.registerLazySingleton<QueryHelper>( () => QueryHelper(httpClient: sl()));
-
+  sl.registerLazySingleton<QueryHelper>(() => QueryHelper(httpClient: sl()));
 
   /// External Dependencies
-  sl.registerSingletonAsync<SharedPreferences>(() => SharedPreferences.getInstance());
+  sl.registerSingletonAsync<SharedPreferences>(
+      () => SharedPreferences.getInstance());
 
-
-
-
-  sl.registerLazySingleton<http.Client>( () => http.Client());
-
-
+  sl.registerLazySingleton<http.Client>(() => http.Client());
 
   sl.registerLazySingleton(() => BaseEnv()
     ..setEnv(
@@ -59,7 +55,11 @@ Future<void> init() async {
         tendermintPort: dotenv.env['TENDERMINT_PORT']!,
         faucetUrl: dotenv.env['FAUCET_URL'],
         faucetPort: dotenv.env['FAUCET_PORT'],
-        wsUrl: dotenv.env['WS_URL']!));
+        wsUrl: dotenv.env['WS_URL']!,
+        stripeUrl: dotenv.env['STRIPE_SERVER'],
+        stripePubKey: dotenv.env['STRIPE_PUB_KEY'],
+        stripeTestEnv: dotenv.env['STRIPE_TEST_ENV'] == 'true' ? true : false,
+        stripeCallbackUrl: dotenv.env['STRIPE_CALLBACK_URL'] ?? ""));
 
   sl.registerLazySingleton(() => TransactionSigningGateway(
         transactionSummaryUI: NoOpTransactionSummaryUI(),
@@ -87,15 +87,23 @@ Future<void> init() async {
         ),
       ));
 
-
-  sl.registerLazySingleton<WalletsStore>(() => WalletsStoreImp(sl(), sl(), sl(), repository: sl()));
+  sl.registerLazySingleton<WalletsStore>(
+      () => WalletsStoreImp(sl(), sl(), sl(), repository: sl()));
 
   /// Services
-  sl.registerLazySingleton<InternetConnectionChecker>(() => InternetConnectionChecker());
+  sl.registerLazySingleton<InternetConnectionChecker>(
+      () => InternetConnectionChecker());
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
-  sl.registerLazySingleton<pylons.QueryClient>(() => pylons.QueryClient(sl.get<BaseEnv>().networkInfo.gRPCChannel));
-  sl.registerLazySingleton<bank.QueryClient>(() => bank.QueryClient(sl.get<BaseEnv>().networkInfo.gRPCChannel));
+  sl.registerLazySingleton<pylons.QueryClient>(
+      () => pylons.QueryClient(sl.get<BaseEnv>().networkInfo.gRPCChannel));
+  sl.registerLazySingleton<bank.QueryClient>(
+      () => bank.QueryClient(sl.get<BaseEnv>().networkInfo.gRPCChannel));
 
   /// Repository
-  sl.registerLazySingleton<Repository>(() => RepositoryImp(networkInfo: sl(), queryClient: sl(), bankQueryClient: sl(), queryHelper: sl(), baseEnv: sl()));
+  sl.registerLazySingleton<Repository>(() => RepositoryImp(
+      networkInfo: sl(),
+      queryClient: sl(),
+      bankQueryClient: sl(),
+      queryHelper: sl(),
+      baseEnv: sl()));
 }

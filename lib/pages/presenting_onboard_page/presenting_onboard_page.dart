@@ -7,6 +7,7 @@ import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/pylons_blue_button.dart';
 import 'package:pylons_wallet/components/pylons_white_button.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
+import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/forms/import_from_google_form.dart';
 import 'package:pylons_wallet/forms/new_user_form.dart';
 import 'package:pylons_wallet/pages/new_screens/new_home.dart';
@@ -86,7 +87,7 @@ class PresentingOnboardPage extends StatelessWidget {
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
                     // decoration: TextDecoration.underline,
-                    color: Color(0xff1212C4))),
+                    color: kBlue)),
           )
         ]),
       )),
@@ -166,9 +167,16 @@ class Page1 extends StatelessWidget {
       ),
       Text(
         "manage_your_nft".tr(),
-        style: Theme.of(context).textTheme.headline2!.copyWith(color: const Color(0xFF333333)),
+        style: Theme.of(context)
+            .textTheme
+            .headline2!
+            .copyWith(color: kDarkGrey),
       ),
-      Text("pylons_infrastructure".tr(), style: Theme.of(context).textTheme.bodyText1!.copyWith(color: const Color(0xFF616161))),
+      Text("pylons_infrastructure".tr(),
+          style: Theme.of(context)
+              .textTheme
+              .bodyText1!
+              .copyWith(color: kSelectedIcon)),
       const SizedBox(
         height: 38,
       ),
@@ -188,9 +196,21 @@ class Page2 extends StatelessWidget {
       const SizedBox(
         height: 29,
       ),
-      Text("sell_and_buy_artworks".tr(), style: Theme.of(context).textTheme.headline2!.copyWith(color: const Color(0xFF333333))),
-      Text("transactions_free".tr(), style: Theme.of(context).textTheme.bodyText1!.copyWith(color: const Color(0xFF616161))),
-      Text("easy_for_everyone".tr(), style: Theme.of(context).textTheme.bodyText1!.copyWith(color: const Color(0xFF616161))),
+      Text("sell_and_buy_artworks".tr(),
+          style: Theme.of(context)
+              .textTheme
+              .headline2!
+              .copyWith(color: kDarkGrey)),
+      Text("transactions_free".tr(),
+          style: Theme.of(context)
+              .textTheme
+              .bodyText1!
+              .copyWith(color: kSelectedIcon)),
+      Text("easy_for_everyone".tr(),
+          style: Theme.of(context)
+              .textTheme
+              .bodyText1!
+              .copyWith(color: kSelectedIcon)),
       const SizedBox(
         height: 19,
       ),
@@ -212,7 +232,12 @@ class Page3 extends StatelessWidget {
       const SizedBox(
         height: 29,
       ),
-      Text("it_stores_in_blockchain".tr(), textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline2!.copyWith(color: const Color(0xFF333333))),
+      Text("it_stores_in_blockchain".tr(),
+          textAlign: TextAlign.center,
+          style: Theme.of(context)
+              .textTheme
+              .headline2!
+              .copyWith(color: kDarkGrey)),
       SizedBox(
         height: screenSize.height(percent: 0.077),
       ),

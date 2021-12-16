@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:getwidget/components/search_bar/gf_search_bar.dart';
 import 'package:pylons_wallet/components/pylons_marketplace_card.dart';
 import 'package:pylons_wallet/components/pylons_marketplace_filter.dart';
+import 'package:pylons_wallet/constants/constants.dart';
 
 class MarketplaceScreen extends StatefulWidget {
   const MarketplaceScreen({Key? key}) : super(key: key);
@@ -70,7 +71,7 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
                             items: list.map<DropdownMenuItem<String>>((value) {
                               return DropdownMenuItem<String>(
                                 value: value.toString(),
-                                child: Text("$value", style: const TextStyle(color: Color(0xFF616161))),
+                                child: Text("$value", style: const TextStyle(color: kSelectedIcon)),
                               );
                             }).toList(),
                           ),

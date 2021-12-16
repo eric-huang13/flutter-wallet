@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/pages/new_screens/collection_screen.dart';
 import 'package:pylons_wallet/pages/new_screens/currency_screen.dart';
@@ -20,15 +19,22 @@ class _NewHomeScreenState extends State<NewHomeScreen>
   final List<Widget> myTabs = <Widget>[
     Padding(
       padding: const EdgeInsets.all(4.0),
-      child: Text('nft_collection'.tr(), style: TextStyle(fontFamily: 'Inter', fontSize: 15, fontWeight: FontWeight.w500)),
+      child: Text('nft_collection'.tr(),
+          style: TextStyle(
+              fontFamily: 'Inter', fontSize: 15, fontWeight: FontWeight.w500)),
     ),
     Padding(
       padding: const EdgeInsets.all(4.0),
-      child: Text('currency'.tr(), style: TextStyle(fontFamily: 'Inter', fontSize: 15, fontWeight: FontWeight.w500)),
+      child: Text('currency'.tr(),
+          style: TextStyle(
+              fontFamily: 'Inter', fontSize: 15, fontWeight: FontWeight.w500)),
     ),
   ];
 
-  final List<Widget> _pages = <Widget>[const CollectionScreen(), const CurrencyScreen()];
+  final List<Widget> _pages = <Widget>[
+    const CollectionScreen(),
+    const CurrencyScreen()
+  ];
 
   @override
   void initState() {
@@ -55,29 +61,27 @@ class _NewHomeScreenState extends State<NewHomeScreen>
     return Container(
       color: Colors.white,
       child: SafeArea(
-        child: WillPopScope(
+          child: WillPopScope(
         onWillPop: () async => false,
-          child:DefaultTabController(
-            length: 2,
-            initialIndex: tabIndex,
-            child: Scaffold(
-              appBar: TabBar(
-                labelColor: Colors.black,
-                unselectedLabelColor: Colors.grey[700],
-                indicatorSize: TabBarIndicatorSize.tab,
-                indicatorColor: kPeachDark,
-                labelStyle: const TextStyle(fontSize: 16),
-                tabs: myTabs,
-                padding: const EdgeInsets.only(top: 20),
-              ),
-              body: TabBarView(
-                // physics: NeverScrollableScrollPhysics(),
-                children: _pages,
-              ),
+        child: DefaultTabController(
+          length: 2,
+          initialIndex: tabIndex,
+          child: Scaffold(
+            appBar: TabBar(
+              labelColor: Colors.black,
+              unselectedLabelColor: Colors.grey[700],
+              indicatorSize: TabBarIndicatorSize.tab,
+              indicatorColor: kPeachDark,
+              labelStyle: const TextStyle(fontSize: 16),
+              tabs: myTabs,
+              padding: const EdgeInsets.only(top: 20),
+            ),
+            body: TabBarView(
+              children: _pages,
             ),
           ),
-        )
-      ),
+        ),
+      )),
     );
   }
 }

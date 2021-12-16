@@ -106,7 +106,7 @@ class CardInfoFormState extends State<CardInfoForm> {
                       icon: const ImageIcon(AssetImage('assets/images/icon/chevron-down.png'), size: 24, color: kSelectedIcon),
                       elevation: 16,
                       underline: const SizedBox(),
-                      focusColor: const Color(0xFF1212C4),
+                      focusColor: kBlue,
                       style: const TextStyle(color: kSelectedIcon, fontSize: 14),
                       onChanged: (String? data) {
                         setState(() {

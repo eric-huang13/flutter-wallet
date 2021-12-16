@@ -5,7 +5,6 @@ import 'package:pylons_wallet/ipc/ipc_engine.dart';
 import 'package:pylons_wallet/pages/routing_page.dart';
 import 'package:transaction_signing_gateway/model/wallet_public_info.dart';
 
-
 GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
 class PylonsApp extends StatefulWidget {

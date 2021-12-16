@@ -1,5 +1,3 @@
-
-
 /// key : "Name"
 /// rate : "0.000000000000000001"
 /// value : "title title"

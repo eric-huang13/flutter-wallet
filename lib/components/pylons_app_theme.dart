@@ -1,5 +1,6 @@
 import 'package:cosmos_ui_components/cosmos_app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:pylons_wallet/constants/constants.dart';
 
 class PylonsAppTheme extends CosmosAppTheme {
   static const TextStyle HOME_TITLE = TextStyle(fontFamily: 'Inter', fontSize: 22);
@@ -14,11 +15,11 @@ class PylonsAppTheme extends CosmosAppTheme {
         disabledColor: Colors.grey,
         dividerColor: Colors.grey,
         primarySwatch: Colors.blue,
-        primaryColor: const Color(0xFF1212C4),
+        primaryColor: kBlue,
         fontFamily: 'Inter',
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            primary: const Color(0xFF1212C4),
+            primary: kBlue,
         ),
         ),
         inputDecorationTheme: const InputDecorationTheme(
@@ -30,7 +31,7 @@ class PylonsAppTheme extends CosmosAppTheme {
           subtitle1: TextStyle(fontSize: 26, fontWeight: FontWeight.w600, fontFamily: 'Inter'),
           subtitle2: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, fontFamily: 'Inter'),
           bodyText1: TextStyle(fontSize: 14, fontWeight: FontWeight.normal, fontFamily: 'Inter'),
-          headline5: TextStyle(fontSize: 15, fontWeight: FontWeight.normal, fontFamily: 'Inter', color: Color(0xFF1212C4))
+          headline5: TextStyle(fontSize: 15, fontWeight: FontWeight.normal, fontFamily: 'Inter', color: kBlue)
         ));
   }
 }

@@ -17,7 +17,6 @@ class GetItemsByOwnerHandler implements BaseHandler {
 
   @override
   Future<SDKIPCResponse> handle() async {
-    print(sdkipcMessage);
     final walletsStore = GetIt.I.get<WalletsStore>();
     final jsonMap = jsonDecode(sdkipcMessage.json) as Map;
     final owner =  jsonMap[HandlerFactory.OWNER_ADDRESS].toString();

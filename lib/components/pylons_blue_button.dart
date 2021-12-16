@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pylons_wallet/constants/constants.dart';
 
 class PylonsBlueButton extends StatelessWidget {
   final VoidCallback onTap;
@@ -15,7 +16,7 @@ class PylonsBlueButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onTap,
       style: ElevatedButton.styleFrom(
-        primary: const Color(0xFF1212C4),
+        primary: kBlue,
       ),
       child: SizedBox(
         // height: 43,

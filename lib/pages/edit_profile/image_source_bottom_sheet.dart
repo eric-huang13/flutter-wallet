@@ -20,7 +20,6 @@ class ImageSourceBottomSheet extends StatelessWidget {
             _MenuButtonWidget(
               onTap: () {
                 _pickImageFromCamera().then((file) {
-                  debugPrint(file!.path);
                   Navigator.pop(context);
                 });
               },
@@ -31,7 +30,6 @@ class ImageSourceBottomSheet extends StatelessWidget {
               title: "Choose from ${Platform.isAndroid ? "Gallery" : "Photos"}",
               onTap: () {
                 _pickImageFromGallery().then((file) {
-                  debugPrint(file!.path);
                   Navigator.pop(context);
                 });
               },
@@ -62,8 +60,7 @@ class ImageSourceBottomSheet extends StatelessWidget {
       if (_image != null) {
         return _cropImage(_image.path);
       }
-    } catch (e) {
-      debugPrint("$e");
+    } catch (error) {
     }
     return null;
   }
@@ -80,9 +77,7 @@ class ImageSourceBottomSheet extends StatelessWidget {
       if (_image != null) {
         return _cropImage(_image.path);
       }
-    } catch (e) {
-      // showMessage(e.toString());
-      debugPrint("$e");
+    } catch (error) {
     }
 
     return null;

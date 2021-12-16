@@ -4,8 +4,6 @@ import 'coininputs_json.dart';
 import 'entries_json.dart';
 import 'outputs_json.dart';
 
-/// Recipe : {"cookbookID":"Easel_autocookbook_pylo149haucpqld30pksrzqyff67prswul9vmmle27v","ID":"pylo149haucpqld30pksrzqyff67prswul9vmmle27v_2021_10_18_11_40_28","nodeVersion":"","name":"title title","description":"aaaaaaaaassasssssssssss\n","version":"v1.0.0","coinInputs":[{"coins":[{"denom":"pylon","amount":"12"}]}],"itemInputs":[],"entries":{"coinOutputs":[],"itemOutputs":[{"ID":"title_title","doubles":[{"key":"Residual","rate":"0.000000000000000001","weightRanges":[{"lower":"2000000000000000000.000000000000000000","upper":"2000000000000000000.000000000000000000","weight":"1"}],"program":"1"}],"longs":[{"key":"Quantity","rate":"0.000000000000000001","weightRanges":[{"lower":"23","upper":"23","weight":"1"}],"program":"1"},{"key":"Width","rate":"0.000000000000000001","weightRanges":[{"lower":"1920","upper":"1920","weight":"1"}],"program":""},{"key":"Height","rate":"0.000000000000000001","weightRanges":[{"lower":"1288","upper":"1288","weight":"1"}],"program":"1"}],"strings":[{"key":"Name","rate":"0.000000000000000001","value":"title title","program":""},{"key":"NFT_URL","rate":"0.000000000000000001","value":"https://www.imagesource.com/wp-content/uploads/2019/06/Rio.jpg","program":""},{"key":"Description","rate":"0.000000000000000001","value":"aaaaaaaaassasssssssssss\n","program":""},{"key":"Currency","rate":"0.000000000000000001","value":"pylon","program":""},{"key":"Price","rate":"0.000000000000000001","value":"12","program":"1"}],"mutableStrings":[],"transferFee":[],"tradePercentage":"0.000000000000000001","quantity":"23","amountMinted":"2","tradeable":true}],"itemModifyOutputs":[]},"outputs":[{"entryIDs":["title_title"],"weight":"1"}],"blockInterval":"1","enabled":true,"extraInfo":"\"\""}
-
 class RecipeJson {
   late Recipe recipe;
 
@@ -22,17 +20,18 @@ class RecipeJson {
   }
 }
 
-/// cookbookID : "Easel_autocookbook_pylo149haucpqld30pksrzqyff67prswul9vmmle27v"
-/// ID : "pylo149haucpqld30pksrzqyff67prswul9vmmle27v_2021_10_18_11_40_28"
+/// Test Recipe Format
+/// cookbookID : ""
+/// ID : ""
 /// nodeVersion : ""
-/// name : "title title"
-/// description : "aaaaaaaaassasssssssssss\n"
-/// version : "v1.0.0"
-/// coinInputs : [{"coins":[{"denom":"pylon","amount":"12"}]}]
+/// name : ""
+/// description : ""
+/// version : "
+/// coinInputs : [{"coins":[{"denom":"","amount":""}]}]
 /// itemInputs : []
-/// entries : {"coinOutputs":[],"itemOutputs":[{"ID":"title_title","doubles":[{"key":"Residual","rate":"0.000000000000000001","weightRanges":[{"lower":"2000000000000000000.000000000000000000","upper":"2000000000000000000.000000000000000000","weight":"1"}],"program":"1"}],"longs":[{"key":"Quantity","rate":"0.000000000000000001","weightRanges":[{"lower":"23","upper":"23","weight":"1"}],"program":"1"},{"key":"Width","rate":"0.000000000000000001","weightRanges":[{"lower":"1920","upper":"1920","weight":"1"}],"program":""},{"key":"Height","rate":"0.000000000000000001","weightRanges":[{"lower":"1288","upper":"1288","weight":"1"}],"program":"1"}],"strings":[{"key":"Name","rate":"0.000000000000000001","value":"title title","program":""},{"key":"NFT_URL","rate":"0.000000000000000001","value":"https://www.imagesource.com/wp-content/uploads/2019/06/Rio.jpg","program":""},{"key":"Description","rate":"0.000000000000000001","value":"aaaaaaaaassasssssssssss\n","program":""},{"key":"Currency","rate":"0.000000000000000001","value":"pylon","program":""},{"key":"Price","rate":"0.000000000000000001","value":"12","program":"1"}],"mutableStrings":[],"transferFee":[],"tradePercentage":"0.000000000000000001","quantity":"23","amountMinted":"2","tradeable":true}],"itemModifyOutputs":[]}
-/// outputs : [{"entryIDs":["title_title"],"weight":"1"}]
-/// blockInterval : "1"
+/// entries : {"coinOutputs":[],"itemOutputs":[{"ID":"","doubles":[{"key":"","rate":"","weightRanges":[{"lower":"","upper":"","weight":"1"}],"program":"1"}],"longs":[{"key":"Quantity","rate":"0.000000000000000001","weightRanges":[{"lower":"23","upper":"23","weight":"1"}],"program":"1"},{"key":"Width","rate":"0.000000000000000001","weightRanges":[{"lower":"1920","upper":"1920","weight":"1"}],"program":""},{"key":"Height","rate":"0.000000000000000001","weightRanges":[{"lower":"1288","upper":"1288","weight":"1"}],"program":"1"}],"strings":[{"key":"Name","rate":"0.000000000000000001","value":"title title","program":""},{"key":"NFT_URL","rate":"0.000000000000000001","value":"https://www.imagesource.com/wp-content/uploads/2019/06/Rio.jpg","program":""},{"key":"Description","rate":"0.000000000000000001","value":"aaaaaaaaassasssssssssss\n","program":""},{"key":"Currency","rate":"0.000000000000000001","value":"pylon","program":""},{"key":"Price","rate":"0.000000000000000001","value":"12","program":"1"}],"mutableStrings":[],"transferFee":[],"tradePercentage":"0.000000000000000001","quantity":"23","amountMinted":"2","tradeable":true}],"itemModifyOutputs":[]}
+/// outputs : [{"entryIDs":[""],"weight":""}]
+/// blockInterval : ""
 /// enabled : true
 /// extraInfo : "\"\""
 
@@ -120,48 +119,48 @@ class Recipe {
 
 extension RecipeValues on RecipeJson {
   String get name => recipe.entries.itemOutputs.first.strings
-      .firstWhere((e) => e.key == "Name",
+      .firstWhere((strKeyVal) => strKeyVal.key == "Name",
           orElse: () => Strings(key: "", value: "", program: ""))
       .value;
 
   String get nftUrl => recipe.entries.itemOutputs.first.strings
-      .firstWhere((e) => e.key == "NFT_URL",
+      .firstWhere((strKeyVal) => strKeyVal.key == "NFT_URL",
           orElse: () => Strings(key: "", value: "", program: ""))
       .value;
 
   String get description => recipe.entries.itemOutputs.first.strings
-      .firstWhere((e) => e.key == "Description",
+      .firstWhere((strKeyVal) => strKeyVal.key == "Description",
           orElse: () => Strings(key: "", value: "", program: ""))
       .value;
 
   String get currency => recipe.entries.itemOutputs.first.strings
-      .firstWhere((e) => e.key == "Currency",
+      .firstWhere((strKeyVal) => strKeyVal.key == "Currency",
           orElse: () => Strings(key: "", value: "", program: ""))
       .value;
 
   String get price => recipe.entries.itemOutputs.first.strings
-      .firstWhere((e) => e.key == "Price",
+      .firstWhere((strKeyVal) => strKeyVal.key == "Price",
           orElse: () => Strings(key: "", value: "", program: ""))
       .value;
 
   String get creator => recipe.entries.itemOutputs.first.strings
-      .firstWhere((e) => e.key == "Creator",
+      .firstWhere((strKeyVal) => strKeyVal.key == "Creator",
       orElse: () => Strings(key: "", value: "", program: ""))
       .value;
 
   String get appType => recipe.entries.itemOutputs.first.strings
-      .firstWhere((e) => e.key == "App_Type",
+      .firstWhere((strKeyVal) => strKeyVal.key == "App_Type",
       orElse: () => Strings(key: "", value: "", program: ""))
       .value;
 
   String get width => recipe.entries.itemOutputs.first.longs
-      .firstWhere((e) => e.key == "Width")
+      .firstWhere((longKeyVal) => longKeyVal.key == "Width")
       .weightRanges
       .first
       .upper;
 
   String get height => recipe.entries.itemOutputs.first.longs
-      .firstWhere((e) => e.key == "Height")
+      .firstWhere((longKeyVal) => longKeyVal.key == "Height")
       .weightRanges
       .first
       .upper;
@@ -174,5 +173,5 @@ extension RecipeValues on RecipeJson {
   String get tradePercentage => recipe.entries.itemOutputs.first.tradePercentage;
 
   List<String> get itemIDs =>
-      recipe.entries.itemOutputs.map((e) => e.id).toList();
+      recipe.entries.itemOutputs.map((itemOutput) => itemOutput.id).toList();
 }

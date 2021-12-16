@@ -31,9 +31,6 @@ class _HomeActivityWidgetState extends State<HomeActivityWidget> {
     )).then((value) => {
       ActivityDatabase.get().getAllActivities().then((value) => {
         value.forEach((element) {
-          print(element.username);
-          print(element.cookbookID);
-          print(element.recipeID);
         })
       })
     });
@@ -62,10 +59,6 @@ class _HomeActivityWidgetState extends State<HomeActivityWidget> {
     ActivityDatabase.get().getAllActivities().then((elems)=>
       setState((){
         elems.forEach((element) {
-          print(element.username);
-          print(element.cookbookID);
-          print(element.recipeID);
-          activities.add(element);
         });
       })
     );

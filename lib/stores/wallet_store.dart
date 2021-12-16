@@ -36,7 +36,6 @@ abstract class WalletsStore {
   /// [balance] the amount that we want to send
   /// [toAddress] the address to which we want to send
   Future<void> sendCosmosMoney(
-    WalletPublicInfo info,
     Balance balance,
     String toAddress,
   );
@@ -100,8 +99,7 @@ abstract class WalletsStore {
   /// Input : [cookbookID, recipeID]
   /// Output : [Recipe] return Recipe of cookbookID, recipeID,
   /// else throws error
-  Future<Either<Failure,  Recipe>> getRecipe(String cookbookID, String recipeID);
-
+  Future<Either<Failure, Recipe>> getRecipe(String cookbookID, String recipeID);
 
   /// This method is for getting all Recipes in the chain
   Future<List<Recipe>> getRecipes();
@@ -134,9 +132,6 @@ abstract class WalletsStore {
   Future<List<Execution>> getRecipeEexecutions(
       String cookbookID, String recipeID);
 
-
-
-
   /// This method is used for giving faucet token to the user based on the current wallet address
   /// Input : [denom] coin denomination
   /// Output : [int] the amount that the user has in its wallet
@@ -158,86 +153,71 @@ abstract class WalletsStore {
 
   Observable<CredentialsStorageFailure?> getLoadWalletsFailure();
 
-
-
-
   /// This method imports the pylons wallet based on mnemonic and username
   /// Input : [username] the username associated with the account. [mnemonic] the mnemonic associated with the account
   /// Output: [WalletPublicInfo] returns the wallet public info about the account
   /// else returns failure
-  Future<Either<Failure, WalletPublicInfo>> importPylonsAccount({required String mnemonic, required String username});
-
+  Future<Either<Failure, WalletPublicInfo>> importPylonsAccount(
+      {required String mnemonic, required String username});
 
   /// This method updates the cookbook in the block chain
   /// Input : [Map] containing the info related to the updation of cookbook
   /// Output : [SDKIPCResponse] response
   Future<SDKIPCResponse> updateCookBook(Map<dynamic, dynamic> jsonMap);
 
-
-
-
   /// This method returns the user profile
   /// Output : [SDKIPCResponse] contains the info related to the profile.
   Future<SDKIPCResponse> getProfile();
 
-
-
+  Future<String> signPureMessage(String message);
 
   /// This method returns the recipes based on cookbook
   /// Input : [cookbookId] id of the cookbook
   /// Output : [SDKIPCResponse] returns the recipes
-  Future<SDKIPCResponse> getAllRecipesByCookBookId({required String cookbookId});
+  Future<List<Recipe>> getRecipesByCookbookID(String cookbookID);
 
-
+  /// This method returns the recipes based on cookbook
+  /// Input : [cookbookId] id of the cookbook
+  /// Output : [SDKIPCResponse] returns the recipes
+  Future<SDKIPCResponse> getAllRecipesByCookBookId(
+      {required String cookbookId});
 
   /// This method returns the recipes based on cookbook
   /// Input : [cookbookId] id of the cookbook
   /// Output : [SDKIPCResponse] returns the cookbook
   Future<SDKIPCResponse> getCookbookByIdForSDK({required String cookbookId});
 
+  Observable<bool> getStateUpdatedFlag();
 
-
-
+  void setStateUpdatedFlag(bool flag);
 
   /// This method returns the recipes based on cookbook
   /// Input: [cookbookId] the id of the cookbook that contains recipe, [recipeId] the id of the recipe whose list of execution you want
   /// Output : [SDKIPCResponse] returns the cookbook
-  Future<SDKIPCResponse> getExecutionByRecipeId({required String cookbookId, required String recipeId});
-
-
+  Future<SDKIPCResponse> getExecutionByRecipeId(
+      {required String cookbookId, required String recipeId});
 
   /// This method returns the recipes based on cookbook
   /// Input : [cookbookId] the id of the cookbook which contains the recipe, [recipeId] the id of the recipe
   /// Output : [SDKIPCResponse] returns the recipe with the specified id
-  Future<SDKIPCResponse> getRecipeByIdForSDK({required String cookbookId, required String recipeId});
-
-
-
-
+  Future<SDKIPCResponse> getRecipeByIdForSDK(
+      {required String cookbookId, required String recipeId});
 
   /// This method returns the Item based on id
   /// Input : [cookBookId] the id of the cookbook which contains the cookbook, [itemId] the id of the item
   /// Output: [SDKIPCResponse] returns the item
-  Future<SDKIPCResponse> getItemByIdForSDK({required String cookBookId, required String itemId});
-
-
-
-
-
+  Future<SDKIPCResponse> getItemByIdForSDK(
+      {required String cookBookId, required String itemId});
 
   /// This method returns the list of item based on it
   /// Input : [owner] the id of the owner
   /// Output: [SDKIPCResponse] returns the item list
   Future<SDKIPCResponse> getItemListByOwner({required String owner});
 
-
-
-
   /// This method returns the execution based on id
   /// Input : [id] the id of the execution
   /// Output: [pylons.Execution] returns execution
   Future<SDKIPCResponse> getExecutionBasedOnId({required String id});
-
 
   /// Get all current trades based on the given [creator]
   /// Input : [creator] the id of the creator

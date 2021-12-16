@@ -7,12 +7,16 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/loading.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
+import 'package:pylons_wallet/entities/amount.dart';
+import 'package:pylons_wallet/entities/balance.dart';
 import 'package:pylons_wallet/entities/nft.dart';
 import 'package:pylons_wallet/pages/new_screens/asset_detail_view.dart';
 import 'package:pylons_wallet/pages/new_screens/purchase_item_screen.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
-
+import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart';
+import 'package:device_apps/device_apps.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../pylons_app.dart';
 
 class Collection {
@@ -56,10 +60,31 @@ class _CollectionScreenState extends State<CollectionScreen> {
   String colType = collectionType[0].title;
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
-    Timer(const Duration(milliseconds: 100), () {
-      loadData(colType);
+
+    if (!walletsStore.getStateUpdatedFlag().hasObservers) {
+      walletsStore.getStateUpdatedFlag().observe((flag) async {
+        if (flag.newValue == true) {
+
+          Timer(Duration(milliseconds: 300), () async {
+            await loadData(colType);
+            walletsStore.setStateUpdatedFlag(false);
+          });
+        }
+      }, fireImmediately: true);
+    } else {
+      Timer(Duration(milliseconds: 300), () async {
+        await loadData(colType);
+      });
+    }
+    Timer(Duration(milliseconds: 300), () async {
+      await loadData(colType);
     });
   }
 
@@ -86,16 +111,15 @@ class _CollectionScreenState extends State<CollectionScreen> {
                 ...collectionType
                     .where((col) => col.type == 'cookbook')
                     .map(
-                      (e) => _CardWidget(
-                        text: e.title,
-                        icon: e.icon,
-                        selected: colType == e.title,
+                      (collection) => _CardWidget(
+                        text: collection.title,
+                        icon: collection.icon,
+                        selected: colType == collection.title,
                         onTap: () {
                           setState(() {
-                            colType = e.title;
+                            colType = collection.title;
                           });
                           loadData(colType);
-                          // navigatorKey.currentState!.push(MaterialPageRoute(builder: (_) => PurchaseItemScreen(recipe: null,)));
                         },
                       ),
                     )
@@ -106,7 +130,8 @@ class _CollectionScreenState extends State<CollectionScreen> {
           const VerticalSpace(20),
           Text(
             "your_pylons_app".tr(),
-            style: Theme.of(context).textTheme.bodyText1!.copyWith(color: const Color(0xffA9A6A6), fontWeight: FontWeight.w500),
+            style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                color: const Color(0xffA9A6A6), fontWeight: FontWeight.w500),
           ),
           const VerticalSpace(6),
           Row(
@@ -116,10 +141,18 @@ class _CollectionScreenState extends State<CollectionScreen> {
                 selected: colType == 'Easel',
                 icon: "pylons",
                 onTap: () {
-                  setState(() {
-                    colType = 'Easel';
+                  //https://play.google.com/store/apps/details?id=tech.pylons.easel
+                  DeviceApps.isAppInstalled('tech.pylons.easel')
+                      .then((installed) async {
+                    setState(() {
+                      colType = 'Easel';
+                    });
+                    await loadData(colType);
+
+                    if (!installed) {
+                      launch("market://details?id=tech.pylons.easel");
+                    }
                   });
-                  loadData(colType);
                 },
               ),
               const SizedBox(width: 10),
@@ -148,19 +181,29 @@ class _CollectionScreenState extends State<CollectionScreen> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                        if (assets[index].type == nftType.type_recipe) {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (_) => PurchaseItemScreen(
-                                    nft: assets[index],
-                                  )));
+                        if (assets[index].type == NftType.TYPE_RECIPE) {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(
+                                  builder: (_) => PurchaseItemScreen(
+                                        nft: assets[index],
+                                      )))
+                              .then((_) =>
+                                  {walletsStore.setStateUpdatedFlag(true)});
                         } else {
-                          Navigator.of(context).push(MaterialPageRoute(builder: (_) => AssetDetailViewScreen(nftItem: assets[index])));
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(
+                                  builder: (_) => AssetDetailViewScreen(
+                                      nftItem: assets[index])))
+                              .then((_) =>
+                                  {walletsStore.setStateUpdatedFlag(true)});
                         }
                       },
                       child: ClipRRect(
-                        borderRadius: const BorderRadius.all(Radius.circular(5)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5)),
                         child: CachedNetworkImage(
-                            placeholder: (context, url) => const CircularProgressIndicator.adaptive(),
+                            placeholder: (context, url) =>
+                                const CircularProgressIndicator.adaptive(),
                             //imageUrl: _getImage(index),
                             imageUrl: assets[index].url,
                             fit: BoxFit.cover),
@@ -168,7 +211,9 @@ class _CollectionScreenState extends State<CollectionScreen> {
                     );
                   },
                   staggeredTileBuilder: (index) {
-                    return StaggeredTile.count((index == 1 || index == 6) ? 2 : 1, (index == 1 || index == 6) ? 2 : 1);
+                    return StaggeredTile.count(
+                        (index == 1 || index == 6) ? 2 : 1,
+                        (index == 1 || index == 6) ? 2 : 1);
                   }),
             ),
           if (recipes.length > 0)
@@ -182,13 +227,17 @@ class _CollectionScreenState extends State<CollectionScreen> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (_) => PurchaseItemScreen(
-                                  nft: recipes[index],
-                                )));
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(
+                                builder: (_) => PurchaseItemScreen(
+                                      nft: recipes[index],
+                                    )))
+                            .then((_) =>
+                                {walletsStore.setStateUpdatedFlag(true)});
                       },
                       child: ClipRRect(
-                        borderRadius: const BorderRadius.all(Radius.circular(5)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5)),
                         child: CachedNetworkImage(
                             //imageUrl: _getImage(index),
                             imageUrl: recipes[index].url,
@@ -197,7 +246,9 @@ class _CollectionScreenState extends State<CollectionScreen> {
                     );
                   },
                   staggeredTileBuilder: (index) {
-                    return StaggeredTile.count((index == 1 || index == 6) ? 2 : 1, (index == 1 || index == 6) ? 2 : 1);
+                    return StaggeredTile.count(
+                        (index == 1 || index == 6) ? 2 : 1,
+                        (index == 1 || index == 6) ? 2 : 1);
                   }),
             )
         ],
@@ -206,24 +257,26 @@ class _CollectionScreenState extends State<CollectionScreen> {
   }
 
   Future loadData(String _colType) async {
-
     final loading = Loading()..showLoading();
-
     try {
       assets.clear();
       recipes.clear();
 
       if (_colType == collectionType[0].title) {
         //Art
-        final items = await walletsStore.getItemsByOwner(PylonsApp.currentWallet.publicAddress);
-        items.forEach((e) async {
-          final nft = await NFT.fromItem(e);
+        final items = await walletsStore
+            .getItemsByOwner(PylonsApp.currentWallet.publicAddress);
+
+        items.forEach((item) async {
+          final nft = await NFT.fromItem(item);
           setState(() {
             assets.add(nft);
           });
         });
 
-        final trades = await walletsStore.getTrades(PylonsApp.currentWallet.publicAddress);
+        final trades =
+            await walletsStore.getTrades(PylonsApp.currentWallet.publicAddress);
+
         trades.forEach((trade) async {
           final nft = await NFT.fromTrade(trade);
           setState(() {
@@ -236,32 +289,41 @@ class _CollectionScreenState extends State<CollectionScreen> {
         //transfer
       } else if (_colType == collectionType[3].title) {
         // easel
-        final cookbooks = await walletsStore.getCookbooksByCreator(PylonsApp.currentWallet.publicAddress);
+        final cookbooks = await walletsStore
+            .getCookbooksByCreator(PylonsApp.currentWallet.publicAddress);
 
-        final recipeList = await walletsStore.getRecipes();
-        recipeList.forEach((element) {
-          final nft = NFT.fromRecipe(element);
+        cookbooks.forEach((element) async {
+          final recipes = await walletsStore.getRecipesByCookbookID(element.iD);
+          recipes.forEach((recipe) {
+            final nft = NFT.fromRecipe(recipe);
 
-          if (nft.appType.toLowerCase() == "easel" && cookbooks.any((e) => e.iD == nft.cookbookID)) {
+            if (nft.appType.toLowerCase() == "easel" &&
+                cookbooks.any((cookbook) => cookbook.iD == nft.cookbookID)) {
+              setState(() {
+                assets.add(nft);
+              });
+            }
+          });
+        });
+
+        //final recipeList = await walletsStore.getRecipes();
+
+        final items = await walletsStore
+            .getItemsByOwner(PylonsApp.currentWallet.publicAddress);
+        items.forEach((item) async {
+          final nft = await NFT.fromItem(item);
+          if (nft.appType.toLowerCase() == "easel") {
             setState(() {
               assets.add(nft);
             });
           }
         });
-        final items = await walletsStore.getItemsByOwner(PylonsApp.currentWallet.publicAddress);
-        items.forEach((e) async {
-          final nft = await NFT.fromItem(e);
-          if (nft.appType.toLowerCase() == "easel" && cookbooks.any((e) => e.iD == nft.cookbookID)) {
-            setState(() {
-              assets.add(nft);
-            });
-          }
-        });
 
-        final trades = await walletsStore.getTrades(PylonsApp.currentWallet.publicAddress);
+        final trades =
+            await walletsStore.getTrades(PylonsApp.currentWallet.publicAddress);
         trades.forEach((trade) async {
           final nft = await NFT.fromTrade(trade);
-          if (nft.appType.toLowerCase() == "easel" && cookbooks.any((e) => e.iD == nft.cookbookID)) {
+          if (nft.appType.toLowerCase() == "easel") {
             setState(() {
               assets.add(nft);
             });
@@ -269,45 +331,49 @@ class _CollectionScreenState extends State<CollectionScreen> {
         });
       } else if (_colType == collectionType[4].title) {
         // avatar
-        final cookbooks = await walletsStore.getCookbooksByCreator(PylonsApp.currentWallet.publicAddress);
+        final cookbooks = await walletsStore
+            .getCookbooksByCreator(PylonsApp.currentWallet.publicAddress);
+        cookbooks.forEach((element) async {
+          final recipes = await walletsStore.getRecipesByCookbookID(element.iD);
+          recipes.forEach((recipe) {
+            final nft = NFT.fromRecipe(recipe);
 
-        final recipeList = await walletsStore.getRecipes();
+            if (nft.appType.toLowerCase() == "avatar" &&
+                cookbooks.any((cookbook) => cookbook.iD == nft.cookbookID)) {
+              setState(() {
+                assets.add(nft);
+              });
+            }
+          });
+        });
 
-        recipeList.forEach((element) {
-          final nft = NFT.fromRecipe(element);
-          if (nft.appType.toLowerCase() == "avatar" && cookbooks.any((e) => e.iD == nft.cookbookID)) {
+        final items = await walletsStore
+            .getItemsByOwner(PylonsApp.currentWallet.publicAddress);
+        items.forEach((item) async {
+          final nft = await NFT.fromItem(item);
+          if (nft.appType.toLowerCase() == "avatar") {
             setState(() {
               assets.add(nft);
             });
           }
         });
 
-        final items = await walletsStore.getItemsByOwner(PylonsApp.currentWallet.publicAddress);
-        items.forEach((e) async {
-          final nft = await NFT.fromItem(e);
-          if (nft.appType.toLowerCase() == "avatar" && cookbooks.any((e) => e.iD == nft.cookbookID)) {
-            setState(() {
-              assets.add(nft);
-            });
-          }
-        });
-
-        final trades = await walletsStore.getTrades(PylonsApp.currentWallet.publicAddress);
+        final trades =
+            await walletsStore.getTrades(PylonsApp.currentWallet.publicAddress);
         trades.forEach((trade) async {
           final nft = await NFT.fromTrade(trade);
-          if (nft.appType.toLowerCase() == "avatar" && cookbooks.any((e) => e.iD == nft.cookbookID)) {
+          if (nft.appType.toLowerCase() == "avatar") {
             setState(() {
               assets.add(nft);
             });
           }
         });
       }
-    } on Exception catch (e){
-      print(e);
-    } finally{
+    } on Exception catch (error) {
+      SnackbarToast.show("Error ${error.toString()}");
+    } finally {
       loading.dismiss();
     }
-
   }
 }
 
@@ -336,7 +402,10 @@ class _CardWidget extends StatelessWidget {
             height: screenSize.width(percent: 0.3),
             padding: const EdgeInsets.all(30),
             decoration: BoxDecoration(
-              color: selected ? const Color(0x401212C4) : const Color(0x80C4C4C4), // const Color(0xFFC4C4C4).withOpacity(selected ? 0.5: 0.25),
+              color: selected
+                  ? const Color(0x401212C4)
+                  : const Color(
+                      0x80C4C4C4), // const kUnselectedIcon.withOpacity(selected ? 0.5: 0.25),
             ),
             child: Image.asset(
               "assets/icons/$icon.png",
@@ -349,7 +418,10 @@ class _CardWidget extends StatelessWidget {
         const VerticalSpace(6),
         Text(
           text,
-          style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 16, fontWeight: FontWeight.w500),
+          style: Theme.of(context)
+              .textTheme
+              .bodyText1!
+              .copyWith(fontSize: 16, fontWeight: FontWeight.w500),
         )
       ],
     );

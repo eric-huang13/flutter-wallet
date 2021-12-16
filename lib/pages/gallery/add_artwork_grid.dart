@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:pylons_wallet/constants/constants.dart';
 
 class AddArtworkGridWidget extends StatefulWidget {
   const AddArtworkGridWidget({
@@ -104,7 +105,7 @@ class _AddArtworkGridWidgetState extends State<AddArtworkGridWidget> with Single
                     itemBuilder: (context, index) => Padding(
                         padding: const EdgeInsets.fromLTRB(0, 10, 20, 10),
                         child: Stack(children: [
-                          Card(child: ClipRRect(borderRadius: BorderRadius.circular(5), child: Container(color: const Color(0xFFC4C4C4), width: 60, height: 68))),
+                          Card(child: ClipRRect(borderRadius: BorderRadius.circular(5), child: Container(color: kUnselectedIcon, width: 60, height: 68))),
                           const Positioned(
                               // will be positioned in the top right of the container
                               top: 0,
@@ -132,7 +133,7 @@ class _AddArtworkGridWidgetState extends State<AddArtworkGridWidget> with Single
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(5),
                             child: Container(
-                                decoration: BoxDecoration(border: listTitlestatus[index] ? (Border.all(color: const Color(0xFF1212C4), width: 3)) : (null)),
+                                decoration: BoxDecoration(border: listTitlestatus[index] ? (Border.all(color: kBlue, width: 3)) : (null)),
                                 width: tileWidth,
                                 height: tileWidth,
                                 child: InkWell(
@@ -155,14 +156,14 @@ class _AddArtworkGridWidgetState extends State<AddArtworkGridWidget> with Single
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             border: Border.all(
-                              color: listTitlestatus[index] ? const Color(0xFFC4C4C4) : const Color(0x80201D1D),
+                              color: listTitlestatus[index] ? kUnselectedIcon : const Color(0x80201D1D),
                               width: 2.0,
                             ),
                           ),
                           child: CircleAvatar(
                               radius: 10,
                               backgroundColor: listTitlestatus[index] ? const Color(0x801212C4) : const Color(0x80000000),
-                              child: Text(listTitlestatus[index] ? (index.toString()) : '', style: const TextStyle(color: Color(0xFFFFFFFF), fontSize: 10))
+                              child: Text(listTitlestatus[index] ? (index.toString()) : '', style: const TextStyle(color: kWhite, fontSize: 10))
                               /*
                                 child:Text(indx.toString(), style: TextStyle()),
                                  */

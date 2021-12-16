@@ -1,12 +1,12 @@
+import 'package:fixnum/fixnum.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart';
 import 'package:transaction_signing_gateway/model/transaction_hash.dart';
 
-TransactionHash MOCK_TRANSACTION = TransactionHash(txHash: '64CFE19786363B8C6AB10D865A5C570C3999AB0B95E5723BE584F574FC58F99E');
-
+TransactionHash MOCK_TRANSACTION = TransactionHash(
+    txHash: '64CFE19786363B8C6AB10D865A5C570C3999AB0B95E5723BE584F574FC58F99E');
 
 String MOCK_USERNAME = "Jawad";
 String SENDER_APP = 'Sending app';
-
 
 var MOCK_COOKBOOK = """
 {
@@ -21,7 +21,6 @@ var MOCK_COOKBOOK = """
   "costPerBlock": {"denom":  "upylon", "amount":  "1000000"},
   "enabled": true
 }""";
-
 
 var MOCK_RECIPE = """
 {
@@ -145,7 +144,10 @@ var MOCK_RECIPE = """
 }""";
 
 const String MOCK_COOKBOOK_ID = 'cookbookLOUD';
-const String MOCK_ADDRESS  = 'pylo18238123823kjhgda7w1';
+
+const String MOCK_STRIPEURL = '';
+const String MOCK_STRIPEPUBKEY = '';
+const String MOCK_ADDRESS = 'pylo18238123823kjhgda7w1';
 const String MOCK_RECIPE_ID = 'recipeid';
 const String MOCK_ITEM_ID = 'itemId';
 const String MOCK_EXECUTION_ID = 'executionId';
@@ -155,13 +157,11 @@ const String MOCK_NODE_VERSION = 'node version';
 const String MOCK_MNEMONIC = 'badge major relax fine life payment monkey glow arrive logic token genuine disagree spice scrub ripple interest pottery fire okay gather measure race ill';
 
 
-
-
 Item MOCK_ITEM = Item(
   owner: '',
   cookbookID: MOCK_COOKBOOK_ID,
   iD: MOCK_ITEM_ID,
-  nodeVersion: 'v0.1.3',
+  nodeVersion: 'v1.0.0',
   doubles: [],
   longs: [],
   strings: [],

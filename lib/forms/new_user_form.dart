@@ -1,6 +1,7 @@
 import 'package:cosmos_utils/mnemonic.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:flutter/services.dart';
 import 'package:pylons_wallet/components/alert.dart';
 import 'package:pylons_wallet/components/buttons/pylons_blue_button_with_loader.dart';
@@ -56,7 +57,9 @@ class NewUserFormState extends State<NewUserForm> {
                     height: 100,
                   ),
                   PylonsTextInput(
-                      controller: usernameController, label: "user_name".tr()),
+                      controller: usernameController,
+                      label: "user_name".tr(),
+                      errorText: validateUsername),
                   const VerticalSpace(50),
                   PylonsBlueButtonLoading(
                     onTap: onStartPylonsPressed,
@@ -71,39 +74,37 @@ class NewUserFormState extends State<NewUserForm> {
     );
   }
 
-  void onStartPylonsPressed() {
-    final username = usernameController.text;
-    if (usernameController.text.isEmpty) {
-      ScaffoldMessenger.of(context)
-        ..hideCurrentSnackBar()
-        ..showSnackBar(const SnackBar(
-          content: Text('User name is Empty'),
-        ));
-      Navigator.of(context).pop();
-      return;
+  String? validateUsername(String? username) {
+    if (username == null || username.isEmpty) {
+      return 'User name is Empty';
     }
 
-    _registerNewUser(usernameController.value.text);
+    return null;
+  }
+
+  Future<void> onStartPylonsPressed() async {
+    if (_formKey.currentState!.validate()) {
+      _registerNewUser(usernameController.value.text);
+    }
   }
 
   /// Create the new wallet and associate the chosen username with it.
   Future _registerNewUser(String userName) async {
     isLoadingNotifier.value = true;
 
-
     final isAccountExists = await widget.walletsStore.isAccountExists(userName);
 
-    if(isAccountExists){
+    if (isAccountExists) {
       isLoadingNotifier.value = false;
       Alert.SnackbarAlert(context, "${'user_name_already_exists'.tr()}!");
       return;
     }
     final _mnemonic = await generateMnemonic();
-    final result = await widget.walletsStore.importAlanWallet(_mnemonic, userName);
+    final result =
+        await widget.walletsStore.importAlanWallet(_mnemonic, userName);
 
     isLoadingNotifier.value = false;
-    result.fold((failure){
-
+    result.fold((failure) {
       Alert.SnackbarAlert(context, failure.message);
 
     }, (walletInfo) async {
@@ -116,9 +117,7 @@ class NewUserFormState extends State<NewUserForm> {
       PylonsApp.currentWallet = walletInfo;
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (_) => const NewHomeScreen()),
-              (route) => true);
+          (route) => true);
     });
-
-
   }
 }

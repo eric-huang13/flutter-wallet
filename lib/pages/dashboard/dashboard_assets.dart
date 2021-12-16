@@ -92,7 +92,6 @@ class _DashboardAssetsState extends State<DashboardAssets> {
       return;
     }
 
-
     final amount = result.getOrElse(() => 0);
 
     if (amount > 0) {

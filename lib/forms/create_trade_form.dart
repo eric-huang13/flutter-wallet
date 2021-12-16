@@ -66,8 +66,8 @@ class CreateTradeFormState extends State<CreateTradeForm> {
                                       icon: const Icon(Icons.keyboard_arrow_down, size: 16, color: kSelectedIcon),
                                       elevation: 16,
                                       underline: const SizedBox(),
-                                      focusColor: const Color(0xFF1212C4),
-                                      style: const TextStyle(color: Color(0xFF1212C4), fontSize: 14, fontWeight: FontWeight.w500),
+                                      focusColor: kBlue,
+                                      style: const TextStyle(color: kBlue, fontSize: 14, fontWeight: FontWeight.w500),
                                       onChanged: (String? data) {
                                         setState(() {
                                           dropdownValue = data!;
@@ -115,7 +115,7 @@ class CreateTradeFormState extends State<CreateTradeForm> {
                               filled: true,
                               hintText: 'title_of_artwork'.tr(),
                               hintStyle: TextStyle(color: Colors.grey[800], fontWeight: FontWeight.bold),
-                              fillColor: const Color(0xffF1F1F2)),
+                              fillColor: kDarkBG),
                         ),
                         const VerticalSpace(20),
                         Align(
@@ -140,7 +140,7 @@ class CreateTradeFormState extends State<CreateTradeForm> {
                               filled: true,
                               hintText: 'artwork_description'.tr(),
                               hintStyle: TextStyle(color: Colors.grey[800], fontWeight: FontWeight.bold),
-                              fillColor: const Color(0xffF1F1F2)),
+                              fillColor: kDarkBG),
                         ),
                         const VerticalSpace(20),
                         Align(
@@ -165,7 +165,7 @@ class CreateTradeFormState extends State<CreateTradeForm> {
                               filled: true,
                               hintText: 'cosmosxxx',
                               hintStyle: TextStyle(color: Colors.grey[800], fontWeight: FontWeight.bold),
-                              fillColor: const Color(0xffF1F1F2)),
+                              fillColor: kDarkBG),
                         ),
                         const VerticalSpace(40),
                         PylonsBlueButton(

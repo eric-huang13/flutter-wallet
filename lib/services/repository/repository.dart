@@ -6,7 +6,8 @@ import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/entities/amount.dart';
 import 'package:pylons_wallet/entities/balance.dart';
 import 'package:pylons_wallet/model/execution_list_by_recipe_response.dart';
-import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart' as pylons;
+import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart'
+    as pylons;
 import 'package:pylons_wallet/services/third_party_services/network_info.dart';
 import 'package:pylons_wallet/utils/base_env.dart';
 import 'package:pylons_wallet/utils/failure/failure.dart';
@@ -15,12 +16,14 @@ import 'package:http/http.dart' as http;
 import 'package:transaction_signing_gateway/model/private_wallet_credentials.dart';
 import 'package:transaction_signing_gateway/transaction_signing_gateway.dart';
 
+import 'package:pylons_wallet/model/export.dart';
 abstract class Repository {
   /// This method returns the recipe based on cookbook id and recipe Id
   /// Input : [cookBookId] id of the cookbook that contains recipe, [recipeId] id of the recipe
   /// Output: if successful the output will be [pylons.Recipe] recipe else
   /// will return error in the form of failure
-  Future<Either<Failure, pylons.Recipe>> getRecipe({required String cookBookId, required String recipeId});
+  Future<Either<Failure, pylons.Recipe>> getRecipe(
+      {required String cookBookId, required String recipeId});
 
   /// This method returns the user name associated with the id
   /// Input : [address] address of the user
@@ -32,13 +35,15 @@ abstract class Repository {
   /// Input : [cookBookId] id of the cookbook
   /// Output: if successful the output will be the list of [pylons.Recipe]
   /// will return error in the form of failure
-  Future<Either<Failure, List<pylons.Recipe>>> getRecipesBasedOnCookBookId({required String cookBookId});
+  Future<Either<Failure, List<pylons.Recipe>>> getRecipesBasedOnCookBookId(
+      {required String cookBookId});
 
   /// This method returns the cookbook
   /// Input : [cookBookId] id of the cookbook
   /// Output: if successful the output will be  [pylons.Cookbook]
   /// will return error in the form of failure
-  Future<Either<Failure, pylons.Cookbook>> getCookbookBasedOnId({required String cookBookId});
+  Future<Either<Failure, pylons.Cookbook>> getCookbookBasedOnId(
+      {required String cookBookId});
 
   /// check if account with username exists
   /// Input:[String] username
@@ -54,39 +59,95 @@ abstract class Repository {
   /// THis method returns execution based on the recipe id
   /// Input:[cookBookId] the id of the cookbook that contains recipe, [recipeId] the id of the recipe whose list of execution you want
   /// Output : returns the [ExecutionListByRecipeResponse] else throws an error
-  Future<Either<Failure, ExecutionListByRecipeResponse>> getExecutionsByRecipeId({required String cookBookId, required String recipeId});
+  Future<Either<Failure, ExecutionListByRecipeResponse>>
+      getExecutionsByRecipeId(
+          {required String cookBookId, required String recipeId});
 
   /// This method returns list of balances against an address
   /// Input:[address] to which amount is to sent, [denom] tells denomination of the fetch coins
   /// Output : returns new balance in case of success else failure
-  Future<Either<Failure, int>> getFaucetCoin({required String address, String? denom});
+  Future<Either<Failure, int>> getFaucetCoin(
+      {required String address, String? denom});
 
   /// This method returns the Item based on id
   /// Input : [cookBookId] the id of the cookbook which contains the cookbook, [itemId] the id of the item
   /// Output: [pylons.Item] returns the item
-  Future<Either<Failure, pylons.Item>> getItem({required String cookBookId, required String itemId});
+  Future<Either<Failure, pylons.Item>> getItem(
+      {required String cookBookId, required String itemId});
 
   /// This method returns the list of items based on id
   /// Input : [owner] the id of the owner
   /// Output: [List][pylons.Item] returns the item list
-  Future<Either<Failure, List<pylons.Item>>> getListItemByOwner({required String owner});
+  Future<Either<Failure, List<pylons.Item>>> getListItemByOwner(
+      {required String owner});
 
   /// This method returns the execution based on id
   /// Input : [id] the id of the execution
   /// Output: [pylons.Execution] returns execution
-  Future<Either<Failure, pylons.Execution>> getExecutionBasedOnId({required String id});
+  Future<Either<Failure, pylons.Execution>> getExecutionBasedOnId(
+      {required String id});
 
   /// Get all current trades against the given creator
   /// Input : [creator] the id of the creator
   /// Output: [List<pylons.Trade>] returns a list of trades
-  Future<Either<Failure, List<pylons.Trade>>> getTradesBasedOnCreator({required String creator});
+  Future<Either<Failure, List<pylons.Trade>>> getTradesBasedOnCreator(
+      {required String creator});
 
   /// This method returns the private credentials based on the mnemonics
   /// Input : [mnemonic] mnemonics of the imported account, [username] user name of the user
   /// Output: [PrivateWalletCredentials] of the user account
   /// else will give [Failure]
-  Future<Either<Failure, PrivateWalletCredentials>> getPrivateCredentials({required String mnemonic, required String username});
+  Future<Either<Failure, PrivateWalletCredentials>> getPrivateCredentials(
+      {required String mnemonic, required String username});
 
+  /// Stripe Backend API to Create PaymentIntent
+  /// Input: [StripeCreatePaymentIntentRequest]
+  /// return [StripeCreatePaymentIntentResponse]
+  Future<Either<Failure, StripeCreatePaymentIntentResponse>> CreatePaymentIntent(
+      StripeCreatePaymentIntentRequest req);
+
+  /// Stripe Backend API to Generate Payment Receipt
+  /// Input: [StripeGeneratePaymentReceiptRequest]
+  /// return [StripeGeneratePaymentReceiptResponse]
+  Future<Either<Failure,StripeGeneratePaymentReceiptResponse>> GeneratePaymentReceipt(
+      StripeGeneratePaymentReceiptRequest req);
+
+  /// Stripe Backend API to Generate Registration Token
+  /// Input: [address]
+  /// return [StripeGenerateRegistrationTokenResponse]
+  Future<Either<Failure, StripeGenerateRegistrationTokenResponse>> GenerateRegistrationToken(
+      String address);
+
+  /// Stripe Backend API to Register Stripe connected Account
+  /// Input: [StripeRegisterAccountRequest]
+  /// return [StripeRegisterAccountResponse]
+  Future<Either<Failure, StripeRegisterAccountResponse>> RegisterAccount(
+      StripeRegisterAccountRequest req);
+
+  /// Stripe Backend API to Generate Updated Token for Connected Account
+  /// Input: [address]
+  /// return [StripeGenerateUpdateTokenResponse]
+  Future<Either<Failure, StripeGenerateUpdateTokenResponse>> GenerateUpdateToken(String address);
+
+  /// Stripe Backend API to Update Stripe Connected Account
+  /// Input: [address]
+  /// return [StripeGenerateUpdateTokenResponse]
+  Future<Either<Failure, StripeUpdateAccountResponse>> UpdateAccount(
+      StripeUpdateAccountRequest req);
+
+  /// Stripe Backend API to Generate Payout Token
+  /// Input: [StripeGeneratePayoutTokenRequest]
+  /// return [StripeGeneratePayoutTokenResponse]
+  Future<Either<Failure, StripeGeneratePayoutTokenResponse>> GeneratePayoutToken(
+      StripeGeneratePayoutTokenRequest req);
+
+  /// Stripe Backend API to Payout request
+  /// Input: [StripePayoutRequest]
+  /// return [StripePayoutResponse]
+  Future<Either<Failure, StripePayoutResponse>> Payout(StripePayoutRequest req);
+
+  Future<Either<Failure, StripeAccountLinkResponse>> GetAccountLink(
+      StripeAccountLinkRequest req);
 }
 
 class RepositoryImp implements Repository {
@@ -100,10 +161,16 @@ class RepositoryImp implements Repository {
 
   final QueryHelper queryHelper;
 
-  RepositoryImp({required this.networkInfo, required this.queryClient, required this.bankQueryClient, required this.queryHelper, required this.baseEnv});
+  RepositoryImp(
+      {required this.networkInfo,
+      required this.queryClient,
+      required this.bankQueryClient,
+      required this.queryHelper,
+      required this.baseEnv});
 
   @override
-  Future<Either<Failure, pylons.Recipe>> getRecipe({required String cookBookId, required String recipeId}) async {
+  Future<Either<Failure, pylons.Recipe>> getRecipe(
+      {required String cookBookId, required String recipeId}) async {
     if (!await networkInfo.isConnected) {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
@@ -132,7 +199,8 @@ class RepositoryImp implements Repository {
     }
 
     try {
-      final request = pylons.QueryGetUsernameByAddressRequest.create()..address = address;
+      final request = pylons.QueryGetUsernameByAddressRequest.create()
+        ..address = address;
 
       final response = await queryClient.usernameByAddress(request);
 
@@ -147,13 +215,15 @@ class RepositoryImp implements Repository {
   }
 
   @override
-  Future<Either<Failure, List<pylons.Recipe>>> getRecipesBasedOnCookBookId({required String cookBookId}) async {
+  Future<Either<Failure, List<pylons.Recipe>>> getRecipesBasedOnCookBookId(
+      {required String cookBookId}) async {
     if (!await networkInfo.isConnected) {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
 
     try {
-      final request = pylons.QueryListRecipesByCookbookRequest.create()..cookbookID = cookBookId;
+      final request = pylons.QueryListRecipesByCookbookRequest.create()
+        ..cookbookID = cookBookId;
 
       final response = await queryClient.listRecipesByCookbook(request);
 
@@ -164,7 +234,8 @@ class RepositoryImp implements Repository {
   }
 
   @override
-  Future<Either<Failure, pylons.Cookbook>> getCookbookBasedOnId({required String cookBookId}) async {
+  Future<Either<Failure, pylons.Cookbook>> getCookbookBasedOnId(
+      {required String cookBookId}) async {
     if (!await networkInfo.isConnected) {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
@@ -184,13 +255,15 @@ class RepositoryImp implements Repository {
   }
 
   @override
-  Future<Either<Failure, String>> getAddressBasedOnUsername(String username) async {
+  Future<Either<Failure, String>> getAddressBasedOnUsername(
+      String username) async {
     if (!await networkInfo.isConnected) {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
 
     try {
-      final request = pylons.QueryGetAddressByUsernameRequest.create()..username = username;
+      final request = pylons.QueryGetAddressByUsernameRequest.create()
+        ..username = username;
 
       final response = await queryClient.addressByUsername(request);
 
@@ -205,41 +278,53 @@ class RepositoryImp implements Repository {
   }
 
   @override
-  Future<Either<Failure, List<Balance>>> getBalance(String walletAddress) async {
+  Future<Either<Failure, List<Balance>>> getBalance(
+      String walletAddress) async {
     if (!await networkInfo.isConnected) {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
 
-    final queryAllBalancesRequest = bank.QueryAllBalancesRequest.create()..address = walletAddress;
+    final queryAllBalancesRequest = bank.QueryAllBalancesRequest.create()
+      ..address = walletAddress;
 
     final response = await bankQueryClient.allBalances(queryAllBalancesRequest);
 
     final balances = <Balance>[];
-    if (response.balances.isEmpty) {
+    if (response.balances.isEmpty ||
+        response.balances.indexWhere((element) => element.denom == 'upylon') ==
+            -1) {
       balances.add(Balance(denom: "upylon", amount: Amount(Decimal.zero)));
     }
     for (final balance in response.balances) {
-      balances.add(Balance(denom: balance.denom, amount: Amount(Decimal.parse(balance.amount))));
+      balances.add(Balance(
+          denom: balance.denom, amount: Amount(Decimal.parse(balance.amount))));
     }
     return Right(balances);
   }
 
   @override
-  Future<Either<Failure, ExecutionListByRecipeResponse>> getExecutionsByRecipeId({required String cookBookId, required String recipeId}) async {
+  Future<Either<Failure, ExecutionListByRecipeResponse>>
+      getExecutionsByRecipeId(
+          {required String cookBookId, required String recipeId}) async {
     if (!await networkInfo.isConnected) {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
 
-    final queryExecutionListByRecipe = pylons.QueryListExecutionsByRecipeRequest()
-      ..cookbookID = cookBookId
-      ..recipeID = recipeId;
-    final response = await queryClient.listExecutionsByRecipe(queryExecutionListByRecipe);
+    final queryExecutionListByRecipe =
+        pylons.QueryListExecutionsByRecipeRequest()
+          ..cookbookID = cookBookId
+          ..recipeID = recipeId;
+    final response =
+        await queryClient.listExecutionsByRecipe(queryExecutionListByRecipe);
 
-    return Right(ExecutionListByRecipeResponse(completedExecutions: response.completedExecutions, pendingExecutions: response.pendingExecutions));
+    return Right(ExecutionListByRecipeResponse(
+        completedExecutions: response.completedExecutions,
+        pendingExecutions: response.pendingExecutions));
   }
 
   @override
-  Future<Either<Failure, int>> getFaucetCoin({required String address, String? denom}) async {
+  Future<Either<Failure, int>> getFaucetCoin(
+      {required String address, String? denom}) async {
     if (!await networkInfo.isConnected) {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
@@ -252,12 +337,17 @@ class RepositoryImp implements Repository {
       return Left(FaucetServerFailure(result.error ?? ''));
     }
 
+    if (result.value!['success'] == false) {
+      return Left(FaucetServerFailure(result.value!['error'] as String));
+    }
+
     const amount = 1000000;
     return const Right(amount);
   }
 
   @override
-  Future<Either<Failure, pylons.Item>> getItem({required String cookBookId, required String itemId}) async {
+  Future<Either<Failure, pylons.Item>> getItem(
+      {required String cookBookId, required String itemId}) async {
     if (!await networkInfo.isConnected) {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
@@ -276,12 +366,14 @@ class RepositoryImp implements Repository {
   }
 
   @override
-  Future<Either<Failure, List<pylons.Item>>> getListItemByOwner({required String owner}) async {
+  Future<Either<Failure, List<pylons.Item>>> getListItemByOwner(
+      {required String owner}) async {
     if (!await networkInfo.isConnected) {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
 
-    final queryListItemByOwner = pylons.QueryListItemByOwnerRequest()..owner = owner;
+    final queryListItemByOwner = pylons.QueryListItemByOwnerRequest()
+      ..owner = owner;
 
     final response = await queryClient.listItemByOwner(queryListItemByOwner);
 
@@ -289,7 +381,8 @@ class RepositoryImp implements Repository {
   }
 
   @override
-  Future<Either<Failure, pylons.Execution>> getExecutionBasedOnId({required String id}) async {
+  Future<Either<Failure, pylons.Execution>> getExecutionBasedOnId(
+      {required String id}) async {
     if (!await networkInfo.isConnected) {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
@@ -305,13 +398,15 @@ class RepositoryImp implements Repository {
   }
 
   @override
-  Future<Either<Failure, List<pylons.Trade>>> getTradesBasedOnCreator({required String creator}) async {
+  Future<Either<Failure, List<pylons.Trade>>> getTradesBasedOnCreator(
+      {required String creator}) async {
     if (!await networkInfo.isConnected) {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
 
     try {
-      final request = pylons.QueryListTradesByCreatorRequest.create()..creator = creator;
+      final request = pylons.QueryListTradesByCreatorRequest.create()
+        ..creator = creator;
 
       final response = await queryClient.listTradesByCreator(request);
 
@@ -326,13 +421,15 @@ class RepositoryImp implements Repository {
   }
 
   @override
-  Future<Either<Failure, PrivateWalletCredentials>> getPrivateCredentials({required String mnemonic, required String username}) async {
+  Future<Either<Failure, PrivateWalletCredentials>> getPrivateCredentials(
+      {required String mnemonic, required String username}) async {
     if (!await networkInfo.isConnected) {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
 
     try {
-      final wallet = alan.Wallet.derive(mnemonic.split(" "), baseEnv.networkInfo);
+      final wallet =
+          alan.Wallet.derive(mnemonic.split(" "), baseEnv.networkInfo);
       final creds = AlanPrivateWalletCredentials(
         publicInfo: WalletPublicInfo(
           chainId: 'pylons',
@@ -348,6 +445,173 @@ class RepositoryImp implements Repository {
       return const Left(TradeNotFoundFailure(TRADE_NOT_FOUND));
     }
   }
+  /// Stripe Backend API to Payout request
+  /// Input: [StripeCreatePaymentIntentRequest] {address:, productID:, coin_inputs_index:}
+  /// return [StripeCreatePaymentIntentResponse] {client_secret}
+  @override
+  Future<Either<Failure, StripeCreatePaymentIntentResponse>> CreatePaymentIntent(StripeCreatePaymentIntentRequest req) async {
+    if (!await networkInfo.isConnected) {
+      return const Left(NoInternetFailure(NO_INTERNET));
+    }
+
+    try{
+      final result = await queryHelper.queryPost(
+          "${baseEnv.baseStripeUrl}/create-payment-intent", req.toJson());
+      return Right(StripeCreatePaymentIntentResponse.from(result));
+
+    } on Exception catch (_) {
+      return const Left(StripeFailure(CREATE_PAYMENTINTENT_FAILED));
+    }
+  }
+
+  /// Stripe Backend API to Generate Payment Receipt
+  /// Input: [StripeGeneratePaymentReceiptRequest] {pament_intent_id:, client_secret}
+  /// return [StripeGeneratePaymentReceiptResponse]
+  /// response: {
+  ///    purchaseID: String,
+  ///    processorName: String
+  ///    payerAddr: String
+  ///    amount: String
+  ///    productID: String,
+  ///    signature: String
+  /// }
+  @override
+  Future<Either<Failure, StripeGeneratePaymentReceiptResponse>> GeneratePaymentReceipt(StripeGeneratePaymentReceiptRequest req) async {
+    if (!await networkInfo.isConnected) {
+      return const Left(NoInternetFailure(NO_INTERNET));
+    }
+
+    try {
+      final result = await queryHelper.queryPost(
+          "${baseEnv.baseStripeUrl}/generate-payment-receipt", req.toJson());
+      return Right(StripeGeneratePaymentReceiptResponse.from(result));
+
+    } on Exception catch (_) {
+      return const Left(StripeFailure(GEN_PAYMENTRECEIPT_FAILED));
+    }
+  }
 
 
+  /// Stripe Backend API to Generate payout token
+  /// Input: [StripeGeneratePayoutTokenRequest] {address: String, amount: int}
+  /// return [StripeGeneratePayoutTokenResponse] {token: String, RedeemAmount: int64}
+  @override
+  Future<Either<Failure, StripeGeneratePayoutTokenResponse>> GeneratePayoutToken(StripeGeneratePayoutTokenRequest req) async {
+    if (!await networkInfo.isConnected) {
+      return const Left(NoInternetFailure(NO_INTERNET));
+    }
+
+    try {
+      final result = await queryHelper.queryGet(
+          "${baseEnv.baseStripeUrl}/generate-payout-token?address=${req.address}&amount=${req.amount}");
+      return Right(StripeGeneratePayoutTokenResponse.from(result));
+
+    } on Exception catch (_) {
+      return const Left(StripeFailure(GEN_PAYOUTTOKEN_FAILED));
+    }
+  }
+
+  /// Stripe Backend API to Generate Payment Receipt
+  /// Input: [address] wallet address
+  /// return [StripeGenerateRegistrationTokenResponse]
+  @override
+  Future<Either<Failure, StripeGenerateRegistrationTokenResponse>> GenerateRegistrationToken(String address) async {
+    if (!await networkInfo.isConnected) {
+      return const Left(NoInternetFailure(NO_INTERNET));
+    }
+
+    try {
+      final result = await queryHelper
+          .queryGet("${baseEnv.baseStripeUrl}/generate-registration-token?address=${address}");
+      return Right(StripeGenerateRegistrationTokenResponse.from(result));
+    } on Exception catch (_) {
+      return const Left(StripeFailure(GEN_REGISTRATIONTOKEN_FAILED));
+    }
+  }
+
+  /// Stripe Backend API to Generate UpdatedToken for ConnectedAccount
+  /// Input: [address] wallet address
+  /// return [StripeGenerateUpdateTokenResponse]
+  @override
+  Future<Either<Failure, StripeGenerateUpdateTokenResponse>> GenerateUpdateToken(String address) async {
+    if (!await networkInfo.isConnected) {
+      return const Left(NoInternetFailure(NO_INTERNET));
+    }
+
+    try {
+      final result = await queryHelper
+          .queryGet("${baseEnv.baseStripeUrl}/generate-update-token?address=${address}");
+      return Right(StripeGenerateUpdateTokenResponse.from(result));
+    } on Exception catch (_) {
+      return const Left(StripeFailure(GEN_UPDATETOKEN_FAILED));
+    }
+  }
+
+  /// Stripe Backend API to Get Stripe Connected Account Link
+  /// Input: [StripeAccountLinkRequest]
+  /// return [StripeAccountLinkResponse]
+  @override
+  Future<Either<Failure, StripeAccountLinkResponse>> GetAccountLink(StripeAccountLinkRequest req) async {
+    if (!await networkInfo.isConnected) {
+      return const Left(NoInternetFailure(NO_INTERNET));
+    }
+    try {
+      final result =
+      await queryHelper.queryPost("${baseEnv.baseStripeUrl}/accountlink", req.toJson());
+      return Right(StripeAccountLinkResponse.from(result));
+    } on Exception catch (_) {
+      return const Left(StripeFailure(GET_ACCOUNTLINK_FAILED));
+    }
+  }
+
+  /// Stripe Backend API to Payout Request
+  /// Input: [StripePayoutRequest] {address:String, token:String, signature:String, amount:int}
+  /// return [StripePayoutResponse] {transfer_id:String}
+  @override
+  Future<Either<Failure, StripePayoutResponse>> Payout(StripePayoutRequest req) async {
+    if (!await networkInfo.isConnected) {
+      return const Left(NoInternetFailure(NO_INTERNET));
+    }
+    try {
+      final result = await queryHelper.queryPost("${baseEnv.baseStripeUrl}/payout", req.toJson());
+      return Right(StripePayoutResponse.from(result));
+    } on Exception catch(_) {
+      return const Left(StripeFailure(PAYOUT_FAILED));
+    }
+  }
+
+  /// Stripe Backend API to Register Stripe connected account
+  /// Input: [StripeRegisterAccountRequest]
+  /// return [StripeRegisterAccountResponse]
+  @override
+  Future<Either<Failure, StripeRegisterAccountResponse>> RegisterAccount(StripeRegisterAccountRequest req) async {
+    if (!await networkInfo.isConnected) {
+      return const Left(NoInternetFailure(NO_INTERNET));
+    }
+    try {
+      final result =
+      await queryHelper.queryPost("${baseEnv.baseStripeUrl}/register-account", req.toJson());
+      return Right(StripeRegisterAccountResponse.from(result));
+    } on Exception catch(_) {
+      return const Left(StripeFailure(REGISTERACCOUNT_FAILED));
+    }
+  }
+
+  /// Stripe Backend API to Update Stripe update account
+  /// Input: [StripeUpdateAccountRequest] {address:String, token: String, signature: String}
+  /// return [StripeUpdateAccountResponse] redirectURL
+  @override
+  Future<Either<Failure, StripeUpdateAccountResponse>> UpdateAccount(StripeUpdateAccountRequest req) async {
+    if (!await networkInfo.isConnected) {
+      return const Left(NoInternetFailure(NO_INTERNET));
+    }
+
+    try {
+      final result =
+      await queryHelper.queryPost("${baseEnv.baseStripeUrl}/update-account", req.toJson());
+      return Right(StripeUpdateAccountResponse.from(result));
+    } on Exception catch(_) {
+      return const Left(StripeFailure(UPDATEACCOUNT_FAILED));
+    }
+  }
 }

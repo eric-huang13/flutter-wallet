@@ -35,13 +35,13 @@ class _EditCoverScreenState extends State<EditCoverScreen> {
         elevation: 0,
         title: Text(
           'edit_cover'.tr(),
-          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xFF080830), fontFamily: 'Inter'),
+          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: kTextBlackColor, fontFamily: 'Inter'),
         ),
         centerTitle: false,
         leading: IconButton(
           icon: const Icon(
             Icons.close,
-            color: Color(0xFF616161),
+            color: kSelectedIcon,
           ),
           onPressed: () => Navigator.of(context).pop(),
         ),
@@ -50,7 +50,7 @@ class _EditCoverScreenState extends State<EditCoverScreen> {
               onPressed: null,
               child: Text(
                 'Save',
-                style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16, color: Color(0xFF1212C4), fontFamily: 'Inter'),
+                style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16, color: kBlue, fontFamily: 'Inter'),
               ))
         ],
       ),
@@ -85,9 +85,9 @@ class _EditCoverScreenState extends State<EditCoverScreen> {
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w500,
-                                  color: Color(0xFF201D1D),
+                                  color: kTextColor,
                                 )),
-                            subtitle: const Text('Media Artist (3D, Motiongraphics, Collecting NFT)', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Color(0xFF616161))),
+                            subtitle: const Text('Media Artist (3D, Motiongraphics, Collecting NFT)', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: kSelectedIcon)),
                             onTap: () {
                               Navigator.push(context, MaterialPageRoute(builder: (context) => const AccountScreenWidget()));
                             },
@@ -116,37 +116,11 @@ class _EditCoverScreenState extends State<EditCoverScreen> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: const [
-                                      Text("Edit Profile", style: TextStyle(fontSize: 15, color: Color(0xff616161))),
+                                      Text("Edit Profile", style: TextStyle(fontSize: 15, color: kSelectedIcon)),
                                     ],
                                   ),
                                 ),
                               ),
-
-                              //),
-                              // SizedBox(
-                              //   height: 30,
-                              //   width: 30,
-                              //   child: OutlinedButton(
-                              //     onPressed: () {
-                              //       this.setExandMode();
-                              //     },
-                              //     style: ElevatedButton.styleFrom(
-                              //       alignment:Alignment.center,
-                              //       primary: Colors.white,
-                              //       padding: EdgeInsets.all(0),
-                              //       shape: RoundedRectangleBorder(
-                              //         borderRadius: BorderRadius.circular(5), // <-- Radius
-                              //       ),
-                              //     ),
-                              //
-                              //     child: Center(
-                              //       child: Icon(
-                              //         (isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down),
-                              //         color: Color(0xFF616161),
-                              //      ),
-                              //     ),
-                              //   ),
-                              // )
                             ],
                           ),
                         ],
@@ -162,7 +136,7 @@ class _EditCoverScreenState extends State<EditCoverScreen> {
                       icon: const ImageIcon(AssetImage('assets/images/icon/chevron-down.png'), size: 24, color: kSelectedIcon),
                       elevation: 16,
                       underline: const SizedBox(),
-                      focusColor: const Color(0xFF1212C4),
+                      focusColor: kBlue,
                       style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 20, color: Colors.black, fontFamily: 'Inter'),
                       onChanged: (String? data) {
                         setState(() {
