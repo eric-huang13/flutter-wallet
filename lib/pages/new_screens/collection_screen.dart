@@ -71,19 +71,19 @@ class _CollectionScreenState extends State<CollectionScreen> {
     if (!walletsStore.getStateUpdatedFlag().hasObservers) {
       walletsStore.getStateUpdatedFlag().observe((flag) async {
         if (flag.newValue == true) {
-          Timer(Duration(milliseconds: 100), () async {
+
+          Timer(Duration(milliseconds: 300), () async {
             await loadData(colType);
             walletsStore.setStateUpdatedFlag(false);
           });
         }
       }, fireImmediately: true);
     } else {
-      Timer(Duration(milliseconds: 100), () async {
+      Timer(Duration(milliseconds: 300), () async {
         await loadData(colType);
       });
     }
-
-    Timer(Duration(milliseconds: 100), () async {
+    Timer(Duration(milliseconds: 300), () async {
       await loadData(colType);
     });
   }
@@ -370,6 +370,7 @@ class _CollectionScreenState extends State<CollectionScreen> {
         });
       }
     } on Exception catch (error) {
+      SnackbarToast.show("Error ${error.toString()}");
     } finally {
       loading.dismiss();
     }

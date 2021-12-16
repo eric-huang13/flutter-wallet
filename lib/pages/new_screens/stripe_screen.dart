@@ -26,6 +26,8 @@ class _StripeScreenState extends State<StripeScreen> {
   @override
   void initState() {
     super.initState();
+    if(Platform.isAndroid)
+      WebView.platform = SurfaceAndroidWebView();
     //if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
   }
 

@@ -1,6 +1,6 @@
 {
-  "cookbookID": "cookbook_for_test_stripe_4",
-  "ID": "cookbook_for_test_stripe_4",
+  "cookbookID": "cookbook_for_test_stripe_34",
+  "ID": "cookbook_for_test_stripe_3",
   "name": "Test NFT Stripe",
   "description": " A simple test recipe to be executed",
   "version": "v1.0.0",
@@ -8,8 +8,8 @@
     {
       "coins": [
         {
-          "denom": "ustripeusd",
-          "amount": "3500000"
+          "denom": "upylon",
+          "amount": "5000000"
         }
       ]
     }
@@ -97,7 +97,7 @@
         "mutableStrings": [],
         "transferFee": [
           {
-            "denom": "ustripeusd",
+            "denom": "upylon",
             "amount": "1000000"
           }
         ],
@@ -117,6 +117,10 @@
       "weight": 1
     }
   ],
+  "costPerBlock": {
+    "denom": "upylon",
+    "amount": "0"
+  },
   "blockInterval": 1,
   "enabled": true
 }

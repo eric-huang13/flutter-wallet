@@ -180,6 +180,7 @@ class IPCEngine {
           builder: (_) => PurchaseItemScreen(nft: item),
         ),
       ).then((_) => {
+
         walletsStore.setStateUpdatedFlag(true)
       });
     }

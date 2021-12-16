@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:alan/alan.dart' as alan;
@@ -616,8 +617,10 @@ class WalletsStoreImp implements WalletsStore {
 
   @override
   void setStateUpdatedFlag(bool flag) {
-    isStateUpdated.value = flag;
-    isStateUpdated.reportChanged();
+    Timer(Duration(milliseconds: 2000), () async {
+      isStateUpdated.value = flag;
+      isStateUpdated.reportChanged();
+    });
   }
 
   @override
