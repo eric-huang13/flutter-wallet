@@ -20,6 +20,7 @@ import 'package:transaction_signing_gateway/model/wallet_public_info.dart';
 import 'mock_constants.dart';
 import 'mock_wallet_public_info.dart';
 
+
 class MockWalletStore implements WalletsStore {
   @override
   Future<SDKIPCResponse> broadcastWalletCreationMessageOnBlockchain(
@@ -45,7 +46,7 @@ class MockWalletStore implements WalletsStore {
   @override
   Observable<List<WalletPublicInfo>> getWallets() {
     return Observable([
-      WalletPublicInfo(
+      const WalletPublicInfo(
           name: 'test',
           walletId: '0',
           publicAddress: 'pylo1e5s74e92q3gunldrpqdnrlc8jg9l3xw6s7hea9',

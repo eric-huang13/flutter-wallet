@@ -1,5 +1,6 @@
 import 'package:fixnum/fixnum.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart';
+import 'package:pylons_wallet/utils/base_env.dart';
 import 'package:transaction_signing_gateway/model/transaction_hash.dart';
 
 TransactionHash MOCK_TRANSACTION = TransactionHash(
@@ -174,6 +175,7 @@ Execution MOCK_EXECUTION = Execution(
   cookbookID: MOCK_COOKBOOK_ID,
   recipeVersion: MOCK_RECIPE_VERSION,
   nodeVersion: MOCK_NODE_VERSION,
-
-
 );
+
+
+BaseEnv MOCK_BASE_ENV = BaseEnv();

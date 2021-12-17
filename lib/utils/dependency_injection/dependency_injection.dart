@@ -19,9 +19,11 @@ import 'package:transaction_signing_gateway/alan/alan_credentials_serializer.dar
 import 'package:transaction_signing_gateway/alan/alan_transaction_broadcaster.dart';
 import 'package:transaction_signing_gateway/alan/alan_transaction_signer.dart';
 import 'package:transaction_signing_gateway/gateway/transaction_signing_gateway.dart';
-import 'package:transaction_signing_gateway/mobile/mobile_key_info_storage.dart';
 import 'package:transaction_signing_gateway/mobile/no_op_transaction_summary_ui.dart';
 import 'package:http/http.dart' as http;
+import 'package:transaction_signing_gateway/storage/cosmos_key_info_storage.dart';
+import 'package:transaction_signing_gateway/storage/flutter_secure_storage_data_store.dart';
+import 'package:transaction_signing_gateway/storage/shared_prefs_plain_data_store.dart';
 
 import '../query_helper.dart';
 
@@ -69,9 +71,13 @@ Future<void> init() async {
         broadcasters: [
           AlanTransactionBroadcaster(sl.get<BaseEnv>().networkInfo),
         ],
-        infoStorage: MobileKeyInfoStorage(
+        infoStorage:
+        CosmosKeyInfoStorage(
           serializers: [AlanCredentialsSerializer()],
+          plainDataStore: SharedPrefsPlainDataStore(),
+          secureDataStore: FlutterSecureStorageDataStore(),
         ),
+
       ));
 
   sl.registerLazySingleton(() => CustomTransactionSigningGateway(
@@ -82,8 +88,10 @@ Future<void> init() async {
         broadcasters: [
           CustomTransactionBroadcasterImp(sl.get<BaseEnv>().networkInfo),
         ],
-        infoStorage: MobileKeyInfoStorage(
+        infoStorage:  CosmosKeyInfoStorage(
           serializers: [AlanCredentialsSerializer()],
+          plainDataStore: SharedPrefsPlainDataStore(),
+          secureDataStore: FlutterSecureStorageDataStore(),
         ),
       ));
 
