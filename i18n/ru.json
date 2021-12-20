@@ -135,11 +135,10 @@
   "trade_create_success": "Сделка на этом NFT успешно создана.",
   "trade_create_fail": "Произошла ошибка при создании сделки.\n%s",
   "item_on_trade": "Этот товар выставлен на продажу",
-  "current_price": "Текущая цена: %s %s",
+
   "size_x": "Размер: %s x %s",
   "details": "Подробности",
-  "price": "Цена",
-  "expecting_price": "Ожидаемая цена",
+
   "list_nft": "Список NFT",
   "price_is_empty": "Цена пуста!",
   "currency_is_empty": "Валюта пуста!",
@@ -149,6 +148,6 @@
   "current_price":  "Текущая цена: %s %s",
   "number_of_editions":  "Количество редакций: %d / %d",
   "royalty": "%s %",
-  "pay": "Платить",
-  "loading": "Загрузка..."
+  "loading": "Загрузка...",
+  "create_profile_before_using" : "Создать профиль в кошельке"
 }

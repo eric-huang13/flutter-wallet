@@ -27,13 +27,11 @@ import 'package:pylons_wallet/utils/custom_transaction_signing_gateaway/custom_t
 import 'package:pylons_wallet/utils/failure/failure.dart';
 import 'package:pylons_wallet/utils/query_helper.dart';
 import 'package:pylons_wallet/utils/token_sender.dart';
-import 'package:transaction_signing_gateway/gateway/transaction_signing_gateway.dart';
 import 'package:transaction_signing_gateway/model/credentials_storage_failure.dart';
 import 'package:transaction_signing_gateway/model/transaction_hash.dart';
 import 'package:transaction_signing_gateway/model/wallet_lookup_key.dart';
-import 'package:transaction_signing_gateway/model/wallet_public_info.dart';
 import 'package:transaction_signing_gateway/transaction_signing_gateway.dart';
-import 'package:pylons_wallet/entities/balance.dart';
+
 
 class WalletsStoreImp implements WalletsStore {
   final TransactionSigningGateway _transactionSigningGateway;
@@ -493,6 +491,16 @@ class WalletsStoreImp implements WalletsStore {
 
   @override
   Future<SDKIPCResponse> getProfile() async {
+
+    if(wallets.value.isEmpty){
+      return SDKIPCResponse.failure(
+          sender: '',
+          error: 'create_profile_before_using'.tr(),
+          errorCode: HandlerFactory.ERR_PROFILE_DOES_NOT_EXIST,
+          transaction: '');
+    }
+
+
     final publicAddress = wallets.value.last.publicAddress;
 
     final userNameEither = await repository.getUsername(address: publicAddress);

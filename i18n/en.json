@@ -134,11 +134,9 @@
   "trade_create_success": "Trade on this NFT successfully created.",
   "trade_create_fail": "Error occured while creating Trade.\n%s",
   "item_on_trade": "This Item is on Trade",
-  "current_price": "Current Price: %s %s",
+
   "size_x": "Size: %s x %s",
   "details": "Details",
-  "price": "Price",
-  "expecting_price": "Expecting Price",
   "list_nft": "List NFT",
   "price_is_empty": "Price is Empty!",
   "currency_is_empty": "Currency is Empty!",
@@ -148,6 +146,6 @@
   "current_price":  "Current Price: %s %s",
   "number_of_editions":  "Number of Editions: %d / %d",
   "royalty": "%s %",
-  "pay": "Pay",
-  "loading": "Loading..."
+  "loading": "Loading...",
+  "create_profile_before_using" : "Create profile in wallet"
 }
