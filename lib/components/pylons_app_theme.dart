@@ -1,8 +1,9 @@
 import 'package:cosmos_ui_components/cosmos_app_theme.dart';
+import 'package:cosmos_ui_components/cosmos_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 
-class PylonsAppTheme extends CosmosAppTheme {
+class PylonsAppTheme extends CosmosThemeData {
   static const TextStyle HOME_TITLE = TextStyle(fontFamily: 'Inter', fontSize: 22);
   static const TextStyle HOME_LABEL = TextStyle(fontFamily: 'Inter', fontSize: 14, color: Colors.grey);
 
