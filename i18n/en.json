@@ -147,5 +147,6 @@
   "number_of_editions":  "Number of Editions: %d / %d",
   "royalty": "%s %",
   "loading": "Loading...",
-  "create_profile_before_using" : "Create profile in wallet"
+  "create_profile_before_using" : "Create profile in wallet",
+  "blob_type_not_supported": "Blob file download not supported"
 }

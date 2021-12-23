@@ -52,7 +52,8 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
     payout_response.fold(
         (fail) => {SnackbarToast.show(fail.message)},
         (payout_transfer_id) => {
-              SnackbarToast.show(sprintf("payout_request_success".tr(), [payout_transfer_id]))
+              SnackbarToast.show(
+                  sprintf("payout_request_success".tr(), [payout_transfer_id]))
             });
 
     await _buildAssetsList();
@@ -85,8 +86,7 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
         backgroundColor: Colors.white,
         actions: [
           IconButton(
-              icon: Image.asset(Constants.kStripeIcon,
-                  width: 24, height: 24),
+              icon: Image.asset(Constants.kStripeIcon, width: 24, height: 24),
               onPressed: () {
                 handleStripeAccountLink();
               }),
@@ -158,8 +158,10 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
     faucetEither.fold((failure) {
       SnackbarToast.show(faucetEither.swap().toOption().toNullable()!.message);
     }, (success) {
-      SnackbarToast.show(
-        sprintf("faucet_added".tr(), [faucetEither.getOrElse(() => 0).toString().UvalToVal(), denom.UdenomToDenom()] ));
+      SnackbarToast.show(sprintf("faucet_added".tr(), [
+        faucetEither.getOrElse(() => 0).toString().UvalToVal(),
+        denom.UdenomToDenom()
+      ]));
       Timer(const Duration(milliseconds: 400), () {
         _buildAssetsList();
       });

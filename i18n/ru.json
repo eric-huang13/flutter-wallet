@@ -149,5 +149,6 @@
   "number_of_editions":  "Количество редакций: %d / %d",
   "royalty": "%s %",
   "loading": "Загрузка...",
-  "create_profile_before_using" : "Создать профиль в кошельке"
+  "create_profile_before_using" : "Создать профиль в кошельке",
+  "blob_type_not_supported": "Blob file download not supported"
 }
