@@ -35,7 +35,7 @@ class QueryHelper {
 
     if (data.statusCode != HttpStatus.ok) {
       return RequestResult(
-        error: 'Call to $url returned status code ${data.statusCode}',
+        error: 'Call to $url returned status code: ${data.statusCode} msg: ${data.body}',
       );
     }
 
@@ -53,7 +53,7 @@ class QueryHelper {
         headers: {"Content-type": "application/json"}, body: jsonEncode(json));
     if (data.statusCode != HttpStatus.ok) {
       return RequestResult(
-        error: 'Call to $url returned status code ${data.statusCode}',
+        error: 'Call to $url returned status code: ${data.statusCode} msg:${data.body}',
       );
     }
 

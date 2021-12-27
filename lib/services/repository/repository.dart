@@ -148,6 +148,9 @@ abstract class Repository {
   /// return [StripePayoutResponse]
   Future<Either<Failure, StripePayoutResponse>> Payout(StripePayoutRequest req);
 
+  /// Stripe Backend API to Get Connected Account Link matched to the wallet address
+  /// Input: [StripeAccountLinkRequest] wallet account
+  /// return [StripeAccountLinkResponse] accountLink matchedto wallet account
   Future<Either<Failure, StripeAccountLinkResponse>> GetAccountLink(
       StripeAccountLinkRequest req);
 
@@ -470,6 +473,9 @@ class RepositoryImp implements Repository {
     try{
       final result = await queryHelper.queryPost(
           "${baseEnv.baseStripeUrl}/create-payment-intent", req.toJson());
+      if(!result.isSuccessful){
+        return Left(StripeFailure(result.error ?? CREATE_PAYMENTINTENT_FAILED));
+      }
       return Right(StripeCreatePaymentIntentResponse.from(result));
 
     } on Exception catch (_) {
@@ -497,6 +503,9 @@ class RepositoryImp implements Repository {
     try {
       final result = await queryHelper.queryPost(
           "${baseEnv.baseStripeUrl}/generate-payment-receipt", req.toJson());
+      if(!result.isSuccessful){
+        return Left(StripeFailure(result.error ?? GEN_PAYMENTRECEIPT_FAILED));
+      }
       return Right(StripeGeneratePaymentReceiptResponse.from(result));
 
     } on Exception catch (_) {
@@ -517,6 +526,9 @@ class RepositoryImp implements Repository {
     try {
       final result = await queryHelper.queryGet(
           "${baseEnv.baseStripeUrl}/generate-payout-token?address=${req.address}&amount=${req.amount}");
+      if(!result.isSuccessful){
+        return Left(StripeFailure(result.error ?? GEN_PAYOUTTOKEN_FAILED));
+      }
       return Right(StripeGeneratePayoutTokenResponse.from(result));
 
     } on Exception catch (_) {
@@ -536,6 +548,9 @@ class RepositoryImp implements Repository {
     try {
       final result = await queryHelper
           .queryGet("${baseEnv.baseStripeUrl}/generate-registration-token?address=${address}");
+      if(!result.isSuccessful){
+        return Left(StripeFailure(result.error ?? GEN_REGISTRATIONTOKEN_FAILED));
+      }
       return Right(StripeGenerateRegistrationTokenResponse.from(result));
     } on Exception catch (_) {
       return const Left(StripeFailure(GEN_REGISTRATIONTOKEN_FAILED));
@@ -554,6 +569,9 @@ class RepositoryImp implements Repository {
     try {
       final result = await queryHelper
           .queryGet("${baseEnv.baseStripeUrl}/generate-update-token?address=${address}");
+      if(!result.isSuccessful){
+        return Left(StripeFailure(result.error ?? GEN_UPDATETOKEN_FAILED));
+      }
       return Right(StripeGenerateUpdateTokenResponse.from(result));
     } on Exception catch (_) {
       return const Left(StripeFailure(GEN_UPDATETOKEN_FAILED));
@@ -571,8 +589,11 @@ class RepositoryImp implements Repository {
     try {
       final result =
       await queryHelper.queryPost("${baseEnv.baseStripeUrl}/accountlink", req.toJson());
+      if(!result.isSuccessful){
+        return Left(StripeFailure(result.error ?? GET_ACCOUNTLINK_FAILED));
+      }
       return Right(StripeAccountLinkResponse.from(result));
-    } on Exception catch (_) {
+    } on Exception catch (error) {
       return const Left(StripeFailure(GET_ACCOUNTLINK_FAILED));
     }
   }
@@ -587,6 +608,9 @@ class RepositoryImp implements Repository {
     }
     try {
       final result = await queryHelper.queryPost("${baseEnv.baseStripeUrl}/payout", req.toJson());
+      if(!result.isSuccessful){
+        return Left(StripeFailure(result.error ?? PAYOUT_FAILED));
+      }
       return Right(StripePayoutResponse.from(result));
     } on Exception catch(_) {
       return const Left(StripeFailure(PAYOUT_FAILED));
@@ -604,6 +628,9 @@ class RepositoryImp implements Repository {
     try {
       final result =
       await queryHelper.queryPost("${baseEnv.baseStripeUrl}/register-account", req.toJson());
+      if(!result.isSuccessful){
+        return Left(StripeFailure(result.error ?? REGISTERACCOUNT_FAILED));
+      }
       return Right(StripeRegisterAccountResponse.from(result));
     } on Exception catch(_) {
       return const Left(StripeFailure(REGISTERACCOUNT_FAILED));
@@ -622,6 +649,9 @@ class RepositoryImp implements Repository {
     try {
       final result =
       await queryHelper.queryPost("${baseEnv.baseStripeUrl}/update-account", req.toJson());
+      if(!result.isSuccessful){
+        return Left(StripeFailure(result.error ?? UPDATEACCOUNT_FAILED));
+      }
       return Right(StripeUpdateAccountResponse.from(result));
     } on Exception catch(_) {
       return const Left(StripeFailure(UPDATEACCOUNT_FAILED));
@@ -639,6 +669,9 @@ class RepositoryImp implements Repository {
     try {
       final result =
       await queryHelper.queryPost("${baseEnv.baseStripeUrl}/loginlink", req.toJson());
+      if(!result.isSuccessful){
+        return Left(StripeFailure(result.error ?? GET_LOGINLINK_FAILED));
+      }
       return Right(StripeLoginLinkResponse.from(result));
     } on Exception catch (_) {
       return const Left(StripeFailure(GET_LOGINLINK_FAILED));

@@ -83,6 +83,7 @@ const String ITEM_NOT_FOUND = 'Item not found';
 const String TRADE_NOT_FOUND = 'Trade not found';
 
 //STRIPE ERROR STRING
+const String UNKNOWN_EXCEPTION = 'Unknown Exception';
 const String CREATE_PAYMENTINTENT_FAILED = 'Stripe PaymentIntent Creation Failed';
 const String GEN_PAYMENTRECEIPT_FAILED = 'Stripe Payment Receipt Generation Failed';
 const String GEN_PAYOUTTOKEN_FAILED = 'Stripe Payout Token Generation Failed';

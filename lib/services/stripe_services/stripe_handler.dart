@@ -116,13 +116,6 @@ class StripeHandler {
 
     if(dataSource.StripeAccount != ""){
 
-      //get accountlink only
-
-      //final accountlink_response = await repository.GetAccountLink(StripeAccountLinkRequest(
-      //    Signature: await walletsStore.signPureMessage(dataSource.StripeToken),
-      //    Account: dataSource.StripeAccount
-      //));
-
       final accountlink_response = await repository.StripeGetLoginLink(StripeLoginLinkRequest(
           Account: dataSource.StripeAccount,
           Signature: await walletsStore.signPureMessage(dataSource.StripeToken)));
