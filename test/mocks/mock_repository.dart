@@ -3,6 +3,8 @@ import 'package:dartz/dartz.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:pylons_wallet/entities/balance.dart';
 import 'package:pylons_wallet/model/execution_list_by_recipe_response.dart';
+import 'package:pylons_wallet/model/stripe_loginlink_request.dart';
+import 'package:pylons_wallet/model/stripe_loginlink_response.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/client/pylons/cookbook.pb.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/client/pylons/execution.pb.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/client/pylons/item.pb.dart';
@@ -144,6 +146,12 @@ class MockRepository extends Repository {
   @override
   Future<Either<Failure, String>> getUsername({required String address}) {
     // TODO: implement getUsername
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, StripeLoginLinkResponse>> StripeGetLoginLink(StripeLoginLinkRequest req) {
+    // TODO: implement StripeGetLoginLink
     throw UnimplementedError();
   }
 
