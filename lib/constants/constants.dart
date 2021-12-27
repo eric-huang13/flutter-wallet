@@ -25,7 +25,7 @@ const String kImage3 = "https://images.unsplash.com/photo-1632687222219-93f0ecb7
 const List<String> kImageList = [kImage, kImage1, kImage2, kImage3];
 
 //image card
-const String kStripeIcon = 'assets/icons/stripe_logo.png';
+const String kStripeIcon = 'assets/icons/stripe.png';
 const String kCardBG1 = "assets/icons/purple_card.png";
 const String kCardBG2 = "assets/icons/orange_card.png";
 const String kCardBG3 = "assets/icons/black_card.png";
@@ -83,12 +83,14 @@ const String ITEM_NOT_FOUND = 'Item not found';
 const String TRADE_NOT_FOUND = 'Trade not found';
 
 //STRIPE ERROR STRING
+const String UNKNOWN_EXCEPTION = 'Unknown Exception';
 const String CREATE_PAYMENTINTENT_FAILED = 'Stripe PaymentIntent Creation Failed';
 const String GEN_PAYMENTRECEIPT_FAILED = 'Stripe Payment Receipt Generation Failed';
 const String GEN_PAYOUTTOKEN_FAILED = 'Stripe Payout Token Generation Failed';
 const String GEN_REGISTRATIONTOKEN_FAILED = 'Stripe Regitration Token Generation Failed';
 const String GEN_UPDATETOKEN_FAILED = 'Stripe Update Token Generation Failed';
 const String GET_ACCOUNTLINK_FAILED = 'Stripe Get Connected Account Link Failed';
+const String GET_LOGINLINK_FAILED = 'Stripe Get Connected Account LOGIN Link Failed';
 const String PAYOUT_FAILED = 'Stripe Payout Request Failed';
 const String REGISTERACCOUNT_FAILED = 'Stripe Register Connected Account Failed';
 const String UPDATEACCOUNT_FAILED = 'Stripe Update Account Failed';
