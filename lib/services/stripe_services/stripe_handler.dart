@@ -4,6 +4,8 @@ import 'package:equatable/equatable.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/model/export.dart';
+import 'package:pylons_wallet/model/stripe_loginlink_request.dart';
+import 'package:pylons_wallet/model/stripe_loginlink_response.dart';
 import 'package:pylons_wallet/services/repository/repository.dart';
 import 'package:pylons_wallet/utils/failure/failure.dart';
 import 'package:pylons_wallet/utils/formatter.dart';
@@ -115,14 +117,19 @@ class StripeHandler {
     if(dataSource.StripeAccount != ""){
 
       //get accountlink only
-      final accountlink_response = await repository.GetAccountLink(StripeAccountLinkRequest(
-          Signature: await walletsStore.signPureMessage(dataSource.StripeToken),
-          Account: dataSource.StripeAccount
-      ));
+
+      //final accountlink_response = await repository.GetAccountLink(StripeAccountLinkRequest(
+      //    Signature: await walletsStore.signPureMessage(dataSource.StripeToken),
+      //    Account: dataSource.StripeAccount
+      //));
+
+      final accountlink_response = await repository.StripeGetLoginLink(StripeLoginLinkRequest(
+          Account: dataSource.StripeAccount,
+          Signature: await walletsStore.signPureMessage(dataSource.StripeToken)));
       if(accountlink_response.isLeft())
         return left(StripeFailure("stripe_account_link_failed".tr()));
 
-      final accountlink_info = accountlink_response.getOrElse(() => StripeAccountLinkResponse());
+      final accountlink_info = accountlink_response.getOrElse(() => StripeLoginLinkResponse());
       if(accountlink_info.accountlink == ""){
         return left(StripeFailure("stripe_account_link_failed".tr()));
       }

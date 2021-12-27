@@ -6,6 +6,8 @@ import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/entities/amount.dart';
 import 'package:pylons_wallet/entities/balance.dart';
 import 'package:pylons_wallet/model/execution_list_by_recipe_response.dart';
+import 'package:pylons_wallet/model/stripe_loginlink_request.dart';
+import 'package:pylons_wallet/model/stripe_loginlink_response.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart'
     as pylons;
 import 'package:pylons_wallet/services/third_party_services/network_info.dart';
@@ -148,7 +150,13 @@ abstract class Repository {
 
   Future<Either<Failure, StripeAccountLinkResponse>> GetAccountLink(
       StripeAccountLinkRequest req);
-}
+
+  /// Stripe Backend API to Get Stripe Connected Account Login Link
+  /// Input: [StripeLoginLinkRequest]
+  /// return [StripeLoginLinkResponse]
+  Future<Either<Failure, StripeLoginLinkResponse>> StripeGetLoginLink(StripeLoginLinkRequest req);
+
+  }
 
 class RepositoryImp implements Repository {
   final NetworkInfo networkInfo;
@@ -294,6 +302,11 @@ class RepositoryImp implements Repository {
         response.balances.indexWhere((element) => element.denom == 'upylon') ==
             -1) {
       balances.add(Balance(denom: "upylon", amount: Amount(Decimal.zero)));
+    }
+
+    if(response.balances.indexWhere((element) => element.denom == 'ustripeusd') ==
+        -1) {
+      balances.add(Balance(denom: "ustripeusd", amount: Amount(Decimal.zero)));
     }
     for (final balance in response.balances) {
       balances.add(Balance(
@@ -612,6 +625,23 @@ class RepositoryImp implements Repository {
       return Right(StripeUpdateAccountResponse.from(result));
     } on Exception catch(_) {
       return const Left(StripeFailure(UPDATEACCOUNT_FAILED));
+    }
+  }
+
+  /// Stripe Backend API to Get Stripe Connected Account Login Link
+  /// Input: [StripeLoginLinkRequest]
+  /// return [StripeLoginLinkResponse]
+  @override
+  Future<Either<Failure, StripeLoginLinkResponse>> StripeGetLoginLink(StripeLoginLinkRequest req) async {
+    if (!await networkInfo.isConnected) {
+      return const Left(NoInternetFailure(NO_INTERNET));
+    }
+    try {
+      final result =
+      await queryHelper.queryPost("${baseEnv.baseStripeUrl}/loginlink", req.toJson());
+      return Right(StripeLoginLinkResponse.from(result));
+    } on Exception catch (_) {
+      return const Left(StripeFailure(GET_LOGINLINK_FAILED));
     }
   }
 }

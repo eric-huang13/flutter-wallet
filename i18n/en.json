@@ -148,5 +148,6 @@
   "royalty": "%s %",
   "loading": "Loading...",
   "create_profile_before_using" : "Create profile in wallet",
-  "blob_type_not_supported": "Blob file download not supported"
+  "blob_type_not_supported": "Blob file download not supported",
+  "return_to_pylons": "Return to Pylons"
 }

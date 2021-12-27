@@ -85,11 +85,12 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
         elevation: 0,
         backgroundColor: Colors.white,
         actions: [
-          IconButton(
-              icon: Image.asset(Constants.kStripeIcon, width: 24, height: 24),
-              onPressed: () {
-                handleStripeAccountLink();
-              }),
+          GestureDetector(
+            onTap: () {
+              handleStripeAccountLink();
+            },
+            child: Image.asset(Constants.kStripeIcon, width: 40,),
+          ),
           IconButton(
             icon: const Icon(
               Icons.content_copy_outlined,

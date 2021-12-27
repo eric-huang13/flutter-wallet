@@ -3,7 +3,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:pylons_wallet/components/loading.dart';
+import 'package:pylons_wallet/constants/constants.dart';
+import 'package:pylons_wallet/services/stripe_services/stripe_handler.dart';
 import 'package:pylons_wallet/utils/base_env.dart';
+import 'package:pylons_wallet/utils/third_party_services/local_storage_service.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -19,12 +23,16 @@ class StripeScreen extends StatefulWidget {
 
 class _StripeScreenState extends State<StripeScreen> {
   late WebViewController _controller;
+  Completer<WebViewController> controller = Completer();
   final baseEnv = GetIt.I.get<BaseEnv>();
+
+  final dataSource = GetIt.I.get<LocalDataSource>();
 
   @override
   void initState() {
     super.initState();
-    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+    if (Platform.isAndroid)
+      WebView.platform = SurfaceAndroidWebView();
   }
 
   Future<bool> backHistory(BuildContext context) async {
@@ -36,11 +44,22 @@ class _StripeScreenState extends State<StripeScreen> {
     }
   }
 
+  Future<bool> loadLoginLink() async {
+    final loading = Loading()..showLoading();
+    final account_response = await StripeHandler().handleStripeAccountLink();
+    loading.dismiss();
+    account_response.fold(
+            (fail) => {SnackbarToast.show(fail.message)},
+            (accountlink) => {
+              _controller.loadUrl(accountlink)
+        });
+
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => backHistory(context),
-      child: SafeArea(
+    return SafeArea(
           child: Scaffold(
               resizeToAvoidBottomInset: true,
               body: WebView(
@@ -50,6 +69,8 @@ class _StripeScreenState extends State<StripeScreen> {
                 //userAgent: 'Mozilla/5.0 (Linux; Android 5.1.1; Nexus 5 Build/LMY48B; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/43.0.2357.65 Mobile Safari/537.36',
                 onWebViewCreated: (WebViewController webViewController) {
                   _controller = webViewController;
+                  controller.complete(_controller);
+
                 },
                 javascriptChannels: [
                   JavascriptChannel(
@@ -58,6 +79,11 @@ class _StripeScreenState extends State<StripeScreen> {
                 ].toSet(),
                 navigationDelegate: (NavigationRequest request) {
                   if (request.url.contains(baseEnv.baseStripeCallbackUrl)) {
+                    //loadLoginLink();
+                    widget.onBack();
+                    return NavigationDecision.prevent;
+                  }
+                  if(request.url.contains(baseEnv.baseStripeCallbackRefreshUrl)) {
                     widget.onBack();
                     return NavigationDecision.prevent;
                   }
@@ -72,10 +98,31 @@ class _StripeScreenState extends State<StripeScreen> {
                   return NavigationDecision.navigate;
                 },
 
-                onPageStarted: (String url) {},
-                onPageFinished: (String url) {},
+                onPageStarted: (String url) {
+                },
+                onPageFinished: (String url) {
+
+                },
                 gestureNavigationEnabled: true,
-              ))),
+              ),
+            floatingActionButton: FutureBuilder<WebViewController>(
+                future: controller.future,
+                builder: (BuildContext context, AsyncSnapshot<WebViewController> controller) {
+                  if (controller.hasData) {
+                    return FloatingActionButton.extended(
+                      backgroundColor: kBlue,
+                      onPressed: (){
+                        widget.onBack();
+                      },
+                      icon: Icon(Icons.arrow_back_ios, size: 14 ),
+                      label: Text("return_to_pylons".tr(), style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: .1, fontFamily: 'Inter')),
+                    );
+                  }
+                  return Container();
+                }),
+
+
+    ),
     );
   }
 }

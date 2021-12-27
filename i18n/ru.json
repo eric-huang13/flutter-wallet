@@ -150,5 +150,6 @@
   "royalty": "%s %",
   "loading": "Загрузка...",
   "create_profile_before_using" : "Создать профиль в кошельке",
-  "blob_type_not_supported": "Blob file download not supported"
+  "blob_type_not_supported": "Загрузка файла BLOB-объекта не поддерживается",
+  "return_to_pylons": "Вернуться к Pylons"
 }
