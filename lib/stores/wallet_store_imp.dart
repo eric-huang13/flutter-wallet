@@ -118,10 +118,10 @@ class WalletsStoreImp implements WalletsStore {
       String creatorAddress,
       String userName) async {
     try {
-      await _transactionSigningGateway.storeWalletCredentials(
+      print(await _transactionSigningGateway.storeWalletCredentials(
         credentials: creds,
         password: '',
-      );
+      ));
 
       final info = creds.publicInfo;
 

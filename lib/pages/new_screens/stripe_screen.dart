@@ -7,6 +7,7 @@ import 'package:pylons_wallet/components/loading.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/services/stripe_services/stripe_handler.dart';
 import 'package:pylons_wallet/utils/base_env.dart';
+import 'package:pylons_wallet/utils/third_party_services/local_storage_service.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -26,11 +27,12 @@ class _StripeScreenState extends State<StripeScreen> {
   Completer<WebViewController> controller = Completer();
   final baseEnv = GetIt.I.get<BaseEnv>();
 
+  final dataSource = GetIt.I.get<LocalDataSource>();
+
   @override
   void initState() {
     super.initState();
-    if (Platform.isAndroid)
-      WebView.platform = SurfaceAndroidWebView();
+    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
   }
 
   Future<bool> backHistory(BuildContext context) async {
@@ -42,7 +44,6 @@ class _StripeScreenState extends State<StripeScreen> {
     }
   }
 
-
   Future<bool> loadLoginLink() async {
     final loading = Loading()..showLoading();
     final account_response = await StripeHandler().handleStripeAccountLink();
@@ -52,6 +53,7 @@ class _StripeScreenState extends State<StripeScreen> {
 
     return true;
   }
+
   JavascriptChannel _extractDataJSChannel(BuildContext context) {
     return JavascriptChannel(
       name: 'Flutter',
@@ -111,8 +113,8 @@ class _StripeScreenState extends State<StripeScreen> {
 
             onPageStarted: (String url) {},
             onPageFinished: (String url) {
-
-              _controller.evaluateJavascript("(function(){Flutter.postMessage(window.document.body.outerHTML)})();");
+              _controller.evaluateJavascript(
+                  "(function(){Flutter.postMessage(window.document.body.outerHTML)})();");
 
               if (url.contains('https://connect.stripe.com/express/') &&
                   !url.contains(

@@ -91,7 +91,10 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
               onTap: () {
                 handleStripeAccountLink();
               },
-              child: Image.asset(Constants.kStripeIcon, width: 40,),
+              child: Image.asset(
+                Constants.kStripeIcon,
+                width: 40,
+              ),
             ),
           ),
           IconButton(

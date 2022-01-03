@@ -53,12 +53,12 @@ class LocalDataSourceImp implements LocalDataSource {
       return SynchronousFuture('');
     }
 
-    if (sharedPreferences.getBool('first_run') ?? true) {
+    if ((sharedPreferences.getString('first_run') ?? "true") == "true") {
       const storage = FlutterSecureStorage();
 
       await storage.deleteAll();
 
-      sharedPreferences.setBool('first_run', false);
+      sharedPreferences.setString('first_run', "false");
     }
   }
 }
