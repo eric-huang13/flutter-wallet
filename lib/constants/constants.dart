@@ -72,6 +72,9 @@ const String kUnilinkPurchaseNftView = "%s?action=nft_view&cookbook_id=%s&item_i
 const String kStripeMerchantCountry = "US";
 const String kStripeMerchantDisplayName = 'Pylons';
 
+const String kStripeLoginLinkPrefix = "https://connect.stripe.com/express/";
+const String kStripeAccountLinkPrefix = "https://connect.stripe.com/express/onboarding/";
+const String kStripeEditSuffix = "/edit";
 
 const String NO_INTERNET = 'No internet';
 const String RECIPE_NOT_FOUND = 'Recipe not found';

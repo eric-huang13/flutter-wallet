@@ -32,7 +32,8 @@ class _StripeScreenState extends State<StripeScreen> {
   @override
   void initState() {
     super.initState();
-    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+    if (Platform.isAndroid)
+      WebView.platform = SurfaceAndroidWebView();
   }
 
   Future<bool> backHistory(BuildContext context) async {
@@ -59,7 +60,6 @@ class _StripeScreenState extends State<StripeScreen> {
       name: 'Flutter',
       onMessageReceived: (JavascriptMessage message) {
         String pageBody = message.message;
-        print('page body: $pageBody');
       },
     );
   }
@@ -91,7 +91,6 @@ class _StripeScreenState extends State<StripeScreen> {
             navigationDelegate: (NavigationRequest request) {
               print('request.url' + request.url);
               if (request.url.contains(baseEnv.baseStripeCallbackUrl)) {
-                //loadLoginLink();
                 widget.onBack();
                 return NavigationDecision.prevent;
               }
@@ -113,13 +112,9 @@ class _StripeScreenState extends State<StripeScreen> {
 
             onPageStarted: (String url) {},
             onPageFinished: (String url) {
-              _controller.evaluateJavascript(
-                  "(function(){Flutter.postMessage(window.document.body.outerHTML)})();");
-
-              if (url.contains('https://connect.stripe.com/express/') &&
-                  !url.contains(
-                      'https://connect.stripe.com/express/onboarding/') &&
-                  !url.contains('/edit')) {
+              if (url.contains(kStripeLoginLinkPrefix) &&
+                  !url.contains(kStripeAccountLinkPrefix) &&
+                  !url.contains(kStripeEditSuffix)) {
                 setState(() {
                   showReturnBtn = true;
                 });
