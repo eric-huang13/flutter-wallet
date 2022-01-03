@@ -52,8 +52,8 @@ LCD_PORT=1317
 GRPC_PORT=9090
 #LCD_URL=http://api.testnet.pylons.tech
 LCD_URL=http://api.testnet.pylons.tech
-GRPC_URL=http://46.166.140.172
-#grpc.testnet.pylons.tech
+RPC_URL=http://194.163.154.64
+#http://grpc.testnet.pylons.tech
 ETH_URL=http://127.0.0.1:7545
 WS_URL=ws://testnet.pylons.tech
 FAUCET_URL=http://faucet.testnet.pylons.tech
