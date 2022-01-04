@@ -99,6 +99,7 @@ class WalletsStoreImp implements WalletsStore {
     final response = await broadcastWalletCreationMessageOnBlockchain(
         creds, wallet.bech32Address, userName);
 
+    print(response);
     if (response.success) {
       wallets.value.add(creds.publicInfo);
 
@@ -157,7 +158,9 @@ class WalletsStoreImp implements WalletsStore {
           sender: '',
           data: result.getOrElse(() => TransactionResponse.initial()).hash,
           transaction: '');
-    } catch (error) {}
+    } catch (error) {
+      print(error);
+    }
     return SDKIPCResponse.failure(
         sender: '',
         error: 'Something went wrong while fetching wallets',
