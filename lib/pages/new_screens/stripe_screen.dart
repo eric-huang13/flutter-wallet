@@ -66,6 +66,10 @@ class _StripeScreenState extends State<StripeScreen> {
     );
   }
 
+  void hideSignout() {
+    _controller.runJavascript (kStripeSignoutJS);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,7 +91,6 @@ class _StripeScreenState extends State<StripeScreen> {
                   onMessageReceived: (JavascriptMessage message) {}),
             },
             navigationDelegate: (NavigationRequest request) {
-              print('request.url${request.url}');
               if (request.url.contains(baseEnv.baseStripeCallbackUrl)) {
                 widget.onBack();
                 return NavigationDecision.prevent;
@@ -110,6 +113,10 @@ class _StripeScreenState extends State<StripeScreen> {
 
             onPageStarted: (String url) {},
             onPageFinished: (String url) {
+              if(url.contains(kStripeLoginLinkPrefix) &&
+              url.contains(kStripeAccountSuffix)){
+                hideSignout();
+              }
               if (url.contains(kStripeLoginLinkPrefix) &&
                   !url.contains(kStripeAccountLinkPrefix) &&
                   !url.contains(kStripeEditSuffix)) {

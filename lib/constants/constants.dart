@@ -75,6 +75,10 @@ const String kStripeMerchantDisplayName = 'Pylons';
 const String kStripeLoginLinkPrefix = "https://connect.stripe.com/express/";
 const String kStripeAccountLinkPrefix = "https://connect.stripe.com/express/onboarding/";
 const String kStripeEditSuffix = "/edit";
+const String kStripeAccountSuffix = "#/account";
+const String kStripeSignoutJS = "const hidebutton = ()=>{  var ret=false; [...document.querySelectorAll('button')].filter(e=>e.innerHTML.toUpperCase().indexOf('SIGN OUT') > -1).forEach(button=>{button.style.display='none'; ret=true;});  setTimeout(hidebutton, 500);}; hidebutton();";
+
+
 
 const String NO_INTERNET = 'No internet';
 const String RECIPE_NOT_FOUND = 'Recipe not found';
@@ -84,6 +88,8 @@ const String WALLET_CREATION_FAILED = 'Wallet creation failed';
 const String EXECUTION_NOT_FOUND = 'Execution not found';
 const String ITEM_NOT_FOUND = 'Item not found';
 const String TRADE_NOT_FOUND = 'Trade not found';
+
+
 
 //STRIPE ERROR STRING
 const String UNKNOWN_EXCEPTION = 'Unknown Exception';
