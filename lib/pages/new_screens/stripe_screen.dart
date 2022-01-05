@@ -126,20 +126,27 @@ class _StripeScreenState extends State<StripeScreen> {
           ),
         ),
         floatingActionButton: Visibility(
-          visible: showReturnBtn,
-          child: FloatingActionButton.extended(
-            backgroundColor: kBlue,
-            onPressed: () {
-              widget.onBack();
-            },
-            icon: const Icon(Icons.arrow_back_ios, size: 14),
-            label: Text("return_to_pylons".tr(),
-                style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    letterSpacing: .1,
-                    fontFamily: 'Inter')),
-          ), // set it to false
+          child: Container(
+            height: 35,
+            child: FloatingActionButton.extended(
+              backgroundColor: kBlue,
+              onPressed: () {
+                widget.onBack();
+              },
+              extendedIconLabelSpacing: 0,
+              extendedPadding: EdgeInsets.only(left:10, right:10),
+
+              icon: Icon(Icons.arrow_back_ios, size: 12),
+              label: Text("return_to_pylons".tr(),
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 0,
+                      fontFamily: 'Inter')),
+            )
+          )
+         ,
+          visible: showReturnBtn, // set it to false
         ));
   }
 }
