@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/loading.dart';
@@ -9,11 +10,11 @@ import 'package:pylons_wallet/services/stripe_services/stripe_handler.dart';
 import 'package:pylons_wallet/utils/base_env.dart';
 import 'package:pylons_wallet/utils/third_party_services/local_storage_service.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class StripeScreen extends StatefulWidget {
   final String url;
   final VoidCallback onBack;
+
   const StripeScreen({Key? key, required this.url, required this.onBack})
       : super(key: key);
 
@@ -32,8 +33,9 @@ class _StripeScreenState extends State<StripeScreen> {
   @override
   void initState() {
     super.initState();
-    if (Platform.isAndroid)
+    if (Platform.isAndroid) {
       WebView.platform = SurfaceAndroidWebView();
+    }
   }
 
   Future<bool> backHistory(BuildContext context) async {
@@ -59,7 +61,7 @@ class _StripeScreenState extends State<StripeScreen> {
     return JavascriptChannel(
       name: 'Flutter',
       onMessageReceived: (JavascriptMessage message) {
-        String pageBody = message.message;
+        var pageBody = message.message;
       },
     );
   }
@@ -69,10 +71,6 @@ class _StripeScreenState extends State<StripeScreen> {
     return Scaffold(
         resizeToAvoidBottomInset: true,
         body: SafeArea(
-          top: true,
-          bottom: true,
-          left: true,
-          right: true,
           maintainBottomViewPadding: true,
           child: WebView(
             initialUrl: widget.url,
@@ -82,14 +80,14 @@ class _StripeScreenState extends State<StripeScreen> {
             onWebViewCreated: (WebViewController webViewController) {
               _controller = webViewController;
             },
-            javascriptChannels: [
+            javascriptChannels: {
               _extractDataJSChannel(context),
               JavascriptChannel(
                   name: 'Print',
                   onMessageReceived: (JavascriptMessage message) {}),
-            ].toSet(),
+            },
             navigationDelegate: (NavigationRequest request) {
-              print('request.url' + request.url);
+              print('request.url${request.url}');
               if (request.url.contains(baseEnv.baseStripeCallbackUrl)) {
                 widget.onBack();
                 return NavigationDecision.prevent;
@@ -128,20 +126,20 @@ class _StripeScreenState extends State<StripeScreen> {
           ),
         ),
         floatingActionButton: Visibility(
+          visible: showReturnBtn,
           child: FloatingActionButton.extended(
             backgroundColor: kBlue,
             onPressed: () {
               widget.onBack();
             },
-            icon: Icon(Icons.arrow_back_ios, size: 14),
+            icon: const Icon(Icons.arrow_back_ios, size: 14),
             label: Text("return_to_pylons".tr(),
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                     letterSpacing: .1,
                     fontFamily: 'Inter')),
-          ),
-          visible: showReturnBtn, // set it to false
+          ), // set it to false
         ));
   }
 }

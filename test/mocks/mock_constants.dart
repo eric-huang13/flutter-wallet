@@ -1,4 +1,3 @@
-import 'package:fixnum/fixnum.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart';
 import 'package:pylons_wallet/utils/base_env.dart';
 import 'package:transaction_signing_gateway/model/transaction_hash.dart';
@@ -155,8 +154,8 @@ const String MOCK_EXECUTION_ID = 'executionId';
 const String MOCK_ERROR = 'SOMETHING_WENT_WRONG';
 const String MOCK_RECIPE_VERSION = 'recipe version';
 const String MOCK_NODE_VERSION = 'node version';
-const String MOCK_MNEMONIC = 'badge major relax fine life payment monkey glow arrive logic token genuine disagree spice scrub ripple interest pottery fire okay gather measure race ill';
-
+const String MOCK_MNEMONIC =
+    'badge major relax fine life payment monkey glow arrive logic token genuine disagree spice scrub ripple interest pottery fire okay gather measure race ill';
 
 Item MOCK_ITEM = Item(
   owner: '',
@@ -168,7 +167,6 @@ Item MOCK_ITEM = Item(
   strings: [],
 );
 
-
 Execution MOCK_EXECUTION = Execution(
   creator: MOCK_ADDRESS,
   iD: MOCK_EXECUTION_ID,
@@ -176,6 +174,5 @@ Execution MOCK_EXECUTION = Execution(
   recipeVersion: MOCK_RECIPE_VERSION,
   nodeVersion: MOCK_NODE_VERSION,
 );
-
 
 BaseEnv MOCK_BASE_ENV = BaseEnv();

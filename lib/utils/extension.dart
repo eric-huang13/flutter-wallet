@@ -20,4 +20,3 @@ extension ScaffoldHelper on BuildContext? {
       ));
   }
 }
-

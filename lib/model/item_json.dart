@@ -31,20 +31,19 @@ class Item {
   late Int64 lastUpdate;
   late bool tradeable;
 
-  Item({
-    required this.owner,
-    required this.cookbookID,
-    required this.id,
-    required this.nodeVersion,
-    required this.doubles,
-    required this.longs,
-    required this.strings,
-    required this.mutableStrings,
-    required this.transferFee,
-    required this.tradePercentage,
-    required this.lastUpdate,
-    required this.tradeable
-  });
+  Item(
+      {required this.owner,
+      required this.cookbookID,
+      required this.id,
+      required this.nodeVersion,
+      required this.doubles,
+      required this.longs,
+      required this.strings,
+      required this.mutableStrings,
+      required this.transferFee,
+      required this.tradePercentage,
+      required this.lastUpdate,
+      required this.tradeable});
 
   Item.fromJson(dynamic json) {
     id = json['ID'] as String;
@@ -98,11 +97,9 @@ class Item {
     map['tradePercentage'] = tradePercentage;
     map['tradeable'] = tradeable;
     map['lastUpdate'] = lastUpdate.toString();
-    map['owner'] =owner;
+    map['owner'] = owner;
     map['coobookID'] = cookbookID;
     map['nodeVersion'] = nodeVersion;
     return map;
   }
 }
-
-

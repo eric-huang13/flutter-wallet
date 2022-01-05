@@ -20,9 +20,9 @@ class CustomTxSigner {
 
   /// Builds a new [TxSigner] from a given gRPC client channel and HTTP client.
   factory CustomTxSigner.build(
-      grpc.ClientChannel clientChannel,
-      http.Client httpClient,
-      ) {
+    grpc.ClientChannel clientChannel,
+    http.Client httpClient,
+  ) {
     return CustomTxSigner(
       authQuerier: AuthQuerier.build(clientChannel),
       nodeQuerier: NodeQuerier.build(httpClient),
@@ -39,12 +39,12 @@ class CustomTxSigner {
   /// the provided [wallet].
   /// Optional [TxConfig], memo, gas and fees can be supplied as well.
   Future<Tx> createAndSign(
-      Wallet wallet,
-      List<GeneratedMessage> msgs, {
-        TxConfig? config,
-        String? memo,
-        Fee? fee,
-      }) async {
+    Wallet wallet,
+    List<GeneratedMessage> msgs, {
+    TxConfig? config,
+    String? memo,
+    Fee? fee,
+  }) async {
     // Set the config to the default value if not given
     config ??= DefaultTxConfig.create();
     final signMode = config.defaultSignMode();
@@ -73,8 +73,8 @@ class CustomTxSigner {
     // Get the public key from the account, or generate it if the
     // chain does not have it yet
 
-      final secp256Key = secp256.PubKey.create()..key = wallet.publicKey;
-     var pubKey = Codec.serialize(secp256Key);
+    final secp256Key = secp256.PubKey.create()..key = wallet.publicKey;
+    var pubKey = Codec.serialize(secp256Key);
 
     // For SIGN_MODE_DIRECT, calling SetSignatures calls setSignerInfos on
     // TxBuilder under the hood, and SignerInfos is needed to generated the

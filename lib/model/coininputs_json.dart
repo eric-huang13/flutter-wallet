@@ -1,4 +1,3 @@
-
 import 'coins_json.dart';
 
 /// coins : [{"denom":"pylon","amount":"12"}]

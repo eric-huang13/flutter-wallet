@@ -1,12 +1,11 @@
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_message.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class SDKApprovalDialog {
   final BuildContext context;
@@ -56,7 +55,8 @@ class SDKApprovalDialog {
                       decoration: BoxDecoration(
                         color: kBlue.withOpacity(0.4),
                       ),
-                      padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 30, horizontal: 10),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         mainAxisSize: MainAxisSize.min,
@@ -71,7 +71,6 @@ class SDKApprovalDialog {
                                       fontWeight: FontWeight.w500,
                                     ),
                           ),
-
                           const VerticalSpace(30),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -82,17 +81,17 @@ class SDKApprovalDialog {
                                   onCancel.call();
                                 },
                                 child: Text(
-                                  "${'dont_allow'.tr()}",
+                                  'dont_allow'.tr(),
                                   style: const TextStyle(
-                                      fontSize: 16, color: kWhite,
-                                  fontWeight: FontWeight.w300),
+                                      fontSize: 16,
+                                      color: kWhite,
+                                      fontWeight: FontWeight.w300),
                                 ),
                               ),
                               const HorizontalSpace(30),
                               ElevatedButton(
                                 style: TextButton.styleFrom(
-                                  backgroundColor:
-                                      kWhite.withOpacity(0.7),
+                                  backgroundColor: kWhite.withOpacity(0.7),
                                   side: BorderSide(
                                       color: kWhite.withOpacity(0.5)),
                                   padding: const EdgeInsets.symmetric(
@@ -102,8 +101,8 @@ class SDKApprovalDialog {
                                   Navigator.of(_).pop();
                                   onApproved.call();
                                 },
-                                child:  Text(
-                                  "${'ok'.tr()}",
+                                child: Text(
+                                  'ok'.tr(),
                                   style: const TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600,

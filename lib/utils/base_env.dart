@@ -1,5 +1,4 @@
 import 'package:alan/alan.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:grpc/grpc.dart';
 
@@ -15,39 +14,37 @@ class BaseEnv {
   late String _stripeCallbackUrl;
   late String _stripeCallbackRefreshUrl;
 
-  void setEnv({
-    required String lcdUrl,
-    required String grpcUrl,
-    required String lcdPort,
-    required String grpcPort,
-    required String ethUrl,
-    required String wsUrl,
-    required String tendermintPort,
-    String? faucetUrl,
-    String? faucetPort,
-    String? stripeUrl,
-    String? stripePubKey,
-    bool? stripeTestEnv,
-    String? stripeCallbackUrl,
-    String? stripeCallbackRefreshUrl
-
-  }) {
+  void setEnv(
+      {required String lcdUrl,
+      required String grpcUrl,
+      required String lcdPort,
+      required String grpcPort,
+      required String ethUrl,
+      required String wsUrl,
+      required String tendermintPort,
+      String? faucetUrl,
+      String? faucetPort,
+      String? stripeUrl,
+      String? stripePubKey,
+      bool? stripeTestEnv,
+      String? stripeCallbackUrl,
+      String? stripeCallbackRefreshUrl}) {
     _networkInfo = NetworkInfo(
       bech32Hrp: 'pylo',
       lcdInfo: LCDInfo(host: lcdUrl, port: int.parse(lcdPort)),
       grpcInfo: GRPCInfo(
-          host: grpcUrl,
-          port: int.parse(grpcPort),
-          credentials: (dotenv.env['ENV']! == "local")
-              ? const ChannelCredentials.insecure() :
-              const ChannelCredentials.insecure(),
-              //For HTTPS
-              //: ChannelCredentials.secure(
-              //    onBadCertificate: (cert, host) {
-              //      return true;
-              //    },
-              //  )
-              ),
+        host: grpcUrl,
+        port: int.parse(grpcPort),
+        credentials: (dotenv.env['ENV']! == "local")
+            ? const ChannelCredentials.insecure()
+            : const ChannelCredentials.insecure(),
+        //For HTTPS
+        //: ChannelCredentials.secure(
+        //    onBadCertificate: (cert, host) {
+        //      return true;
+        //    },
+        //  )
+      ),
     );
     _baseApiUrl = "$lcdUrl:$lcdPort";
     _baseEthUrl = ethUrl;

@@ -18,12 +18,12 @@ class StripeGeneratePayoutTokenResponse {
       return StripeGeneratePayoutTokenResponse(
           token: ret.value?.entries
               .firstWhere((entry) => entry.key == 'token',
-              orElse: () => MapEntry('token', ''))
+                  orElse: () => const MapEntry('token', ''))
               .value as String,
           RedeemAmount: Int64.parseInt((ret.value?.entries
-              .firstWhere((entry) => entry.key == 'RedeemAmount',
-              orElse: () => MapEntry('RedeemAmount', 0))
-              .value as int)
+                  .firstWhere((entry) => entry.key == 'RedeemAmount',
+                      orElse: () => const MapEntry('RedeemAmount', 0))
+                  .value as int)
               .toString()),
           success: true);
     }

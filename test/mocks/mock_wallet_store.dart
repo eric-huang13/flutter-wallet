@@ -3,9 +3,7 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:mobx/src/core.dart';
-import 'package:mockito/annotations.dart';
 import 'package:pylons_wallet/entities/balance.dart';
-import 'package:pylons_wallet/ipc/handler/handlers/get_execution_by_recipe_handler.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
 import 'package:pylons_wallet/model/execution_list_by_recipe_response.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart';
@@ -19,7 +17,6 @@ import 'package:transaction_signing_gateway/model/wallet_public_info.dart';
 
 import 'mock_constants.dart';
 import 'mock_wallet_public_info.dart';
-
 
 class MockWalletStore implements WalletsStore {
   @override
@@ -68,8 +65,7 @@ class MockWalletStore implements WalletsStore {
   }
 
   @override
-  Future<void> sendCosmosMoney(
-     Balance balance, String toAddress) {
+  Future<void> sendCosmosMoney(Balance balance, String toAddress) {
     // TODO: implement sendCosmosMoney
     throw UnimplementedError();
   }
@@ -243,6 +239,7 @@ class MockWalletStore implements WalletsStore {
   void setStateUpdatedFlag(bool flag) {
     // TODO: implement setStateUpdatedFlag
   }
+
   @override
   Future<SDKIPCResponse> getRecipeByIdForSDK(
       {required String cookbookId, required String recipeId}) async {
@@ -292,7 +289,10 @@ class MockWalletStore implements WalletsStore {
       throw MOCK_ERROR;
     }
 
-    return SDKIPCResponse.success(data: jsonEncode([MOCK_ITEM.toProto3Json()]), sender: '', transaction: '');
+    return SDKIPCResponse.success(
+        data: jsonEncode([MOCK_ITEM.toProto3Json()]),
+        sender: '',
+        transaction: '');
   }
 
   @override
@@ -301,7 +301,10 @@ class MockWalletStore implements WalletsStore {
       throw MOCK_ERROR;
     }
 
-    return SDKIPCResponse.success(data: jsonEncode(MOCK_EXECUTION.toProto3Json()), sender: '', transaction: '');
+    return SDKIPCResponse.success(
+        data: jsonEncode(MOCK_EXECUTION.toProto3Json()),
+        sender: '',
+        transaction: '');
   }
 
   @override
@@ -314,7 +317,8 @@ class MockWalletStore implements WalletsStore {
   }
 
   @override
-  Future<Either<Failure, WalletPublicInfo>> importPylonsAccount({required String mnemonic, required String username}) async {
+  Future<Either<Failure, WalletPublicInfo>> importPylonsAccount(
+      {required String mnemonic, required String username}) async {
     if (mnemonic != MOCK_MNEMONIC && username != MOCK_USERNAME) {
       throw MOCK_ERROR;
     }

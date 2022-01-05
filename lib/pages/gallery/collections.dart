@@ -91,7 +91,7 @@ class _CollectionsScreenState extends State<CollectionsScreen> with SingleTicker
               itemBuilder: (context, index) {
                 return InkWell(
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (_) => DetailScreenWidget()));
+                      Navigator.of(context).push(MaterialPageRoute(builder: (_) => const DetailScreenWidget()));
                     },
                     child: Container(
                         decoration: const BoxDecoration(color: Colors.transparent, borderRadius: BorderRadius.all(Radius.circular(5))),

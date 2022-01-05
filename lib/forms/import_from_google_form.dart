@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:pylons_wallet/components/alert.dart';
 import 'package:pylons_wallet/components/buttons/pylons_blue_button_with_loader.dart';
-import 'package:pylons_wallet/components/pylons_blue_button.dart';
 import 'package:pylons_wallet/components/pylons_rounded_button.dart';
 import 'package:pylons_wallet/components/pylons_text_input_widget.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
@@ -14,7 +13,8 @@ import 'package:pylons_wallet/stores/wallet_store.dart';
 class ImportFromGoogleForm extends StatefulWidget {
   final WalletsStore walletStore;
 
-  const ImportFromGoogleForm({Key? key, required this.walletStore}) : super(key: key);
+  const ImportFromGoogleForm({Key? key, required this.walletStore})
+      : super(key: key);
 
   @override
   ImportFromGoogleFormState createState() {
@@ -37,7 +37,11 @@ class ImportFromGoogleFormState extends State<ImportFromGoogleForm> {
       child: Column(
         children: <Widget>[
           Padding(
-              padding: EdgeInsets.only(left: 16, right: 16, top: 50, bottom: MediaQuery.of(context).viewInsets.bottom),
+              padding: EdgeInsets.only(
+                  left: 16,
+                  right: 16,
+                  top: 50,
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
               child: Column(
                 children: [
                   const Image(
@@ -45,15 +49,23 @@ class ImportFromGoogleFormState extends State<ImportFromGoogleForm> {
                     alignment: Alignment.bottomCenter,
                   ),
                   const VerticalSpace(30),
-                  PylonsRoundedButton(glyph: const AssetImage('assets/images/gcloud.png'), text: "import_from_google_cloud".tr(), onTap: () {}),
+                  PylonsRoundedButton(
+                      glyph: const AssetImage('assets/images/gcloud.png'),
+                      text: "import_from_google_cloud".tr(),
+                      onTap: () {}),
                   const VerticalSpace(20),
-                  PylonsTextInput(controller: usernameController, label: "user_name".tr()),
+                  PylonsTextInput(
+                      controller: usernameController, label: "user_name".tr()),
                   const VerticalSpace(20),
-                  PylonsTextInput(controller: mnemonicController, label: "enter_mnemonic".tr()),
+                  PylonsTextInput(
+                      controller: mnemonicController,
+                      label: "enter_mnemonic".tr()),
                   const VerticalSpace(30),
                   PylonsBlueButtonLoading(
                     onTap: () {
-                      _loginExistingUser(neumonic: mnemonicController.text, userName: usernameController.text);
+                      _loginExistingUser(
+                          neumonic: mnemonicController.text,
+                          userName: usernameController.text);
                     },
                     text: "start_pylons".tr(),
                     loader: isLoadingNotifier,
@@ -67,10 +79,12 @@ class ImportFromGoogleFormState extends State<ImportFromGoogleForm> {
   }
 
   /// Create the new wallet and associate the chosen username with it.
-  Future _loginExistingUser({required String userName, required String neumonic}) async {
+  Future _loginExistingUser(
+      {required String userName, required String neumonic}) async {
     isLoadingNotifier.value = true;
 
-    final result = await widget.walletStore.importPylonsAccount(mnemonic: neumonic, username: userName);
+    final result = await widget.walletStore
+        .importPylonsAccount(mnemonic: neumonic, username: userName);
 
     isLoadingNotifier.value = false;
 
@@ -78,7 +92,9 @@ class ImportFromGoogleFormState extends State<ImportFromGoogleForm> {
       Alert.SnackbarAlert(context, failure.message);
     }, (walletInfo) {
       PylonsApp.currentWallet = walletInfo;
-      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => const NewHomeScreen()), (route) => true);
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (_) => const NewHomeScreen()),
+          (route) => true);
     });
   }
 }

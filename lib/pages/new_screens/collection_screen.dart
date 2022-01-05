@@ -1,22 +1,20 @@
 import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:device_apps/device_apps.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/loading.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
-import 'package:pylons_wallet/entities/amount.dart';
-import 'package:pylons_wallet/entities/balance.dart';
 import 'package:pylons_wallet/entities/nft.dart';
 import 'package:pylons_wallet/pages/new_screens/asset_detail_view.dart';
 import 'package:pylons_wallet/pages/new_screens/purchase_item_screen.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
-import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart';
-import 'package:device_apps/device_apps.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import '../../pylons_app.dart';
 
 class Collection {
@@ -72,18 +70,18 @@ class _CollectionScreenState extends State<CollectionScreen> {
       walletsStore.getStateUpdatedFlag().observe((flag) async {
         if (flag.newValue == true) {
 
-          Timer(Duration(milliseconds: 300), () async {
+          Timer(const Duration(milliseconds: 300), () async {
             await loadData(colType);
             walletsStore.setStateUpdatedFlag(false);
           });
         }
       }, fireImmediately: true);
     } else {
-      Timer(Duration(milliseconds: 300), () async {
+      Timer(const Duration(milliseconds: 300), () async {
         await loadData(colType);
       });
     }
-    Timer(Duration(milliseconds: 300), () async {
+    Timer(const Duration(milliseconds: 300), () async {
       await loadData(colType);
     });
   }
@@ -170,7 +168,7 @@ class _CollectionScreenState extends State<CollectionScreen> {
             ],
           ),
           const VerticalSpace(20),
-          if (assets.length > 0)
+          if (assets.isNotEmpty)
             Expanded(
               child: StaggeredGridView.countBuilder(
                   crossAxisCount: 3,
@@ -216,7 +214,7 @@ class _CollectionScreenState extends State<CollectionScreen> {
                         (index == 1 || index == 6) ? 2 : 1);
                   }),
             ),
-          if (recipes.length > 0)
+          if (recipes.isNotEmpty)
             Expanded(
               child: StaggeredGridView.countBuilder(
                   crossAxisCount: 3,

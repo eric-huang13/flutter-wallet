@@ -1,5 +1,3 @@
-
-
 import 'package:pylons_wallet/model/strings_json.dart';
 
 import 'coins_json.dart';

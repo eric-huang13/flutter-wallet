@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pylons_wallet/forms/new_user_form.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';

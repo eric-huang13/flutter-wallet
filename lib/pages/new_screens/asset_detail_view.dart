@@ -1,11 +1,11 @@
 import 'dart:ui';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
-import 'package:sprintf/sprintf.dart';
 import 'package:pylons_wallet/components/image_widgets.dart';
 import 'package:pylons_wallet/components/loading.dart';
 import 'package:pylons_wallet/components/nft_view.dart';
@@ -14,13 +14,15 @@ import 'package:pylons_wallet/components/user_image_widget.dart';
 import 'package:pylons_wallet/constants/constants.dart' as Constants;
 import 'package:pylons_wallet/entities/nft.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
-import 'package:pylons_wallet/utils/screen_size_utils.dart';
 import 'package:pylons_wallet/utils/formatter.dart';
+import 'package:pylons_wallet/utils/screen_size_utils.dart';
+import 'package:sprintf/sprintf.dart';
 
 import '../../pylons_app.dart';
 
 class AssetDetailViewScreen extends StatefulWidget {
   final NFT nftItem;
+
   const AssetDetailViewScreen({
     Key? key,
     required this.nftItem,
@@ -36,13 +38,12 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
   bool _showPay = false;
   String owner = "";
 
-  final GlobalKey key = new GlobalKey();
+  final GlobalKey key = GlobalKey();
 
   //detect card's outside tap
   void onTapUp(BuildContext context, TapUpDetails details) {
     if (key.currentContext != null) {
-      final RenderBox containerBox =
-          key.currentContext!.findRenderObject() as RenderBox;
+      final containerBox = key.currentContext!.findRenderObject() as RenderBox;
       final isHit = containerBox.hitTest(BoxHitTestResult(),
           position: details.localPosition);
       if (_showPay == true && !isHit) {
@@ -76,7 +77,7 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
         widget.nftItem.itemID
       ]);
     }
-    Clipboard.setData(new ClipboardData(text: msg)).then((_) {
+    Clipboard.setData(ClipboardData(text: msg)).then((_) {
       SnackbarToast.show("nft_address_copied".tr());
     });
   }
@@ -179,8 +180,8 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                                                       ElevatedButton.styleFrom(
                                                     shape: CircleBorder(),
                                                     padding: EdgeInsets.all(3),
-                                                    primary: Color(
-                                                        0x801212C4), // <-- Button color
+                                                    primary: Color(0x801212C4),
+                                                    // <-- Button color
                                                     onPrimary: Color(
                                                         0x801212C4), // <-- Splash color
                                                   )),
@@ -194,8 +195,8 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                                                       ElevatedButton.styleFrom(
                                                     shape: CircleBorder(),
                                                     padding: EdgeInsets.all(3),
-                                                    primary: Color(
-                                                        0x801212C4), // <-- Button color
+                                                    primary: Color(0x801212C4),
+                                                    // <-- Button color
                                                     onPrimary: Color(
                                                         0x801212C4), // <-- Splash color
                                                   )),
@@ -212,8 +213,8 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                                                       ElevatedButton.styleFrom(
                                                     shape: CircleBorder(),
                                                     padding: EdgeInsets.all(3),
-                                                    primary: Color(
-                                                        0x801212C4), // <-- Button color
+                                                    primary: Color(0x801212C4),
+                                                    // <-- Button color
                                                     onPrimary: Color(
                                                         0x801212C4), // <-- Splash color
                                                   )),
@@ -304,7 +305,8 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                                     children: [
                                       TextSpan(
                                           text: owner,
-                                          style: TextStyle(color: Constants.kBlue))
+                                          style:
+                                              TextStyle(color: Constants.kBlue))
                                     ]),
                               ),
                             ],
@@ -319,7 +321,8 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                                   labelColor: Colors.black,
                                   unselectedLabelColor: Colors.grey[700],
                                   indicatorSize: TabBarIndicatorSize.tab,
-                                  indicatorColor: Constants.kBlue.withOpacity(0.41),
+                                  indicatorColor:
+                                      Constants.kBlue.withOpacity(0.41),
                                   labelStyle: const TextStyle(fontSize: 16),
                                   tabs: [
                                     Padding(
@@ -343,12 +346,18 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                                             children: [
                                               Text(widget.nftItem.description),
                                               SizedBox(height: 20),
-                                              Text(
-                                                sprintf("current_price".tr(),[widget.nftItem.price.toString().UvalToVal(), widget.nftItem.denom.UdenomToDenom()] )
-                                              ),
-                                              Text(
-                                                sprintf("size_x".tr(), [widget.nftItem.width, widget.nftItem.height])
-                                              ),
+                                              Text(sprintf(
+                                                  "current_price".tr(), [
+                                                widget.nftItem.price
+                                                    .toString()
+                                                    .UvalToVal(),
+                                                widget.nftItem.denom
+                                                    .UdenomToDenom()
+                                              ])),
+                                              Text(sprintf("size_x".tr(), [
+                                                widget.nftItem.width,
+                                                widget.nftItem.height
+                                              ])),
                                               SizedBox(
                                                 height: 20,
                                               ),
@@ -379,6 +388,7 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
 
 class _ImageWidget extends StatelessWidget {
   final String imageUrl;
+
   _ImageWidget({Key? key, required this.imageUrl}) : super(key: key);
 
   @override
@@ -433,7 +443,10 @@ class _PayByCardWidget extends StatefulWidget {
 }
 
 class _PayByCardWidgetState extends State<_PayByCardWidget> {
-  static const paymentDenoms = [Constants.kUSDCoinName, Constants.kPylonCoinName];
+  static const paymentDenoms = [
+    Constants.kUSDCoinName,
+    Constants.kPylonCoinName
+  ];
   String selectedDenom = "USD";
   final amountController = TextEditingController();
 
@@ -548,16 +561,15 @@ class _PayByCardWidgetState extends State<_PayByCardWidget> {
                           color: Colors.white,
                         ),
                     hintText: "expecting_price".tr(),
-                    hintStyle: Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(color: Constants.kUnselectedIcon, fontSize: 16),
+                    hintStyle: Theme.of(context).textTheme.subtitle1!.copyWith(
+                        color: Constants.kUnselectedIcon, fontSize: 16),
                   ),
                 ),
                 TextButton.icon(
                     style: TextButton.styleFrom(
                       backgroundColor: Constants.kWhite.withOpacity(0.35),
-                      side: BorderSide(color: Constants.kWhite.withOpacity(0.4)),
+                      side:
+                          BorderSide(color: Constants.kWhite.withOpacity(0.4)),
                       padding: const EdgeInsets.symmetric(
                           vertical: 8, horizontal: 20),
                     ),

@@ -1,4 +1,3 @@
-
 class StripeRegisterAccountRequest {
   final String Address;
   final String Token;
@@ -7,9 +6,6 @@ class StripeRegisterAccountRequest {
   StripeRegisterAccountRequest(
       {required this.Address, required this.Token, required this.Signature});
 
-  Map<String, dynamic> toJson() => {
-    'address': this.Address,
-    'token': this.Token,
-    'signature': this.Signature
-  };
+  Map<String, dynamic> toJson() =>
+      {'address': Address, 'token': Token, 'signature': Signature};
 }

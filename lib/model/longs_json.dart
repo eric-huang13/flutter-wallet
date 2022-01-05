@@ -1,5 +1,3 @@
-
-
 import 'package:pylons_wallet/model/weightranges_json.dart';
 
 /// key : "Quantity"

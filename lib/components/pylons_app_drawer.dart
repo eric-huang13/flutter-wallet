@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/pages/dashboard/dashboard_assets.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import '../pylons_app.dart';
 
 class PylonsAppDrawer extends StatefulWidget {
   final String title;
 
-  PylonsAppDrawer({
+  const PylonsAppDrawer({
     Key? key,
     this.title = "",
   }) : super(key: key);
@@ -22,20 +23,19 @@ class PylonsAppDrawerState extends State<PylonsAppDrawer> {
   String walletAddress = PylonsApp.currentWallet.publicAddress;
   String avatarUrl = "";
 
-
   @override
   void initState() {
     super.initState();
   }
 
   void copyToClipboard() {
-    Clipboard.setData(new ClipboardData(text: PylonsApp.currentWallet.publicAddress)).then((_){
+    Clipboard.setData(
+            ClipboardData(text: PylonsApp.currentWallet.publicAddress))
+        .then((_) {
       Fluttertoast.showToast(
           msg: "Wallet address copied to clipboard",
           toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1
-      );
+          gravity: ToastGravity.CENTER);
     });
   }
 
@@ -46,34 +46,38 @@ class PylonsAppDrawerState extends State<PylonsAppDrawer> {
         child: ListView(
           children: [
             UserAccountsDrawerHeader(
-              accountName: Row(
+                accountName: Row(
                   children: [
-                    Text(accountName, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, fontFamily: 'Inter')),
-                    Icon(Icons.check_circle_rounded, size: 14, color: kPeach),
-                ],
-              ),
-              accountEmail: Row(
-                children: [
-                Flexible(
-                  child: Text(walletAddress),
+                    Text(accountName,
+                        style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Inter')),
+                    const Icon(Icons.check_circle_rounded,
+                        size: 14, color: kPeach),
+                  ],
                 ),
+                accountEmail: Row(children: [
+                  Flexible(
+                    child: Text(walletAddress),
+                  ),
                   IconButton(
-                    icon: ImageIcon(AssetImage('assets/icons/copy.png'), size: 20, color: kSelectedIcon),
-                    onPressed: ()=>{
-                      copyToClipboard()
-                    },
+                    icon: const ImageIcon(AssetImage('assets/icons/copy.png'),
+                        size: 20, color: kSelectedIcon),
+                    onPressed: () => {copyToClipboard()},
                   )
-                ]
-              ),
-              currentAccountPicture: CircleAvatar(
-                child: FlutterLogo(size: 42.0),
-              )
-            ),
+                ]),
+                currentAccountPicture: const CircleAvatar(
+                  child: FlutterLogo(size: 42.0),
+                )),
             ListTile(
                 title: const Text('Balances'),
                 leading: const Icon(Icons.account_balance_wallet),
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const DashboardAssets()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const DashboardAssets()));
                 })
           ],
         ),

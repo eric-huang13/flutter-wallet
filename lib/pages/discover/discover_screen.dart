@@ -41,10 +41,19 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             padding: const EdgeInsets.fromLTRB(0, 30, 0, 10),
             child: GFSearchBar(
               searchQueryBuilder: (query, list) {
-                return list.where((item) => item.toString().toLowerCase().contains(query.toLowerCase())).toList();
+                return list
+                    .where((item) => item
+                        .toString()
+                        .toLowerCase()
+                        .contains(query.toLowerCase()))
+                    .toList();
               },
               overlaySearchListItemBuilder: (item) {
-                return Container(width: screenSize.width(), padding: const EdgeInsets.all(8), child: Text(item.toString(), style: const TextStyle(fontSize: 18)));
+                return Container(
+                    width: screenSize.width(),
+                    padding: const EdgeInsets.all(8),
+                    child: Text(item.toString(),
+                        style: const TextStyle(fontSize: 18)));
               },
               onItemSelected: (item) {
                 setState(() {});
@@ -78,18 +87,27 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               itemCount: 15,
               itemBuilder: (context, index) {
                 return Container(
-                    decoration: const BoxDecoration(color: Colors.transparent, borderRadius: BorderRadius.all(Radius.circular(5))),
+                    decoration: const BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.all(Radius.circular(5))),
                     child: ClipRRect(
-                        borderRadius: const BorderRadius.all(Radius.circular(5)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5)),
                         child: InkWell(
-                          child: CachedNetworkImage(imageUrl: _getImage(index), fit: BoxFit.cover),
+                          child: CachedNetworkImage(
+                              imageUrl: _getImage(index), fit: BoxFit.cover),
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreenWidget()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const DetailScreenWidget()));
                           },
                         )));
               },
               staggeredTileBuilder: (index) {
-                return StaggeredTile.count((index == 1 || index == 6) ? 2 : 1, (index == 1 || index == 6) ? 2 : 1);
+                return StaggeredTile.count((index == 1 || index == 6) ? 2 : 1,
+                    (index == 1 || index == 6) ? 2 : 1);
               }),
         )
       ],

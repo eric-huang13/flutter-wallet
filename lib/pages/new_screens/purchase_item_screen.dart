@@ -1,30 +1,30 @@
-import 'package:fixnum/fixnum.dart';
 import 'dart:convert';
 import 'dart:ui';
-import 'package:sprintf/sprintf.dart';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get_it/get_it.dart';
-
-import 'package:pylons_wallet/model/export.dart';
-import 'package:pylons_wallet/services/repository/repository.dart';
-import 'package:pylons_wallet/utils/base_env.dart';
-import 'package:pylons_wallet/utils/formatter.dart';
 import 'package:pylons_wallet/components/image_widgets.dart';
 import 'package:pylons_wallet/components/nft_view.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/components/user_image_widget.dart';
 import 'package:pylons_wallet/constants/constants.dart';
-import 'package:pylons_wallet/entities/nft.dart';
-import 'package:pylons_wallet/stores/wallet_store.dart';
-import 'package:pylons_wallet/utils/screen_size_utils.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:pylons_wallet/constants/constants.dart' as Constants;
+import 'package:pylons_wallet/entities/nft.dart';
+import 'package:pylons_wallet/model/export.dart';
+import 'package:pylons_wallet/services/repository/repository.dart';
+import 'package:pylons_wallet/stores/wallet_store.dart';
+import 'package:pylons_wallet/utils/base_env.dart';
+import 'package:pylons_wallet/utils/formatter.dart';
+import 'package:pylons_wallet/utils/screen_size_utils.dart';
+import 'package:sprintf/sprintf.dart';
 
 class PurchaseItemScreen extends StatefulWidget {
   final NFT nft;
+
   const PurchaseItemScreen({
     Key? key,
     required this.nft,
@@ -42,8 +42,7 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
   //detect card's outside tap
   void onTapUp(BuildContext context, TapUpDetails details) {
     if (key.currentContext != null) {
-      final RenderBox containerBox =
-          key.currentContext!.findRenderObject() as RenderBox;
+      final containerBox = key.currentContext!.findRenderObject() as RenderBox;
       final isHit = containerBox.hitTest(BoxHitTestResult(),
           position: details.localPosition);
       if (_showPay == true && !isHit) {
@@ -99,12 +98,12 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
                           transitionBuilder:
                               (Widget child, Animation<double> animation) {
                             final offsetAnimation = Tween<Offset>(
-                                    begin: Offset(1.0, 0.0),
-                                    end: Offset(0.0, 0.0))
+                                    begin: const Offset(1.0, 0.0),
+                                    end: const Offset(0.0, 0.0))
                                 .animate(animation);
                             final offsetHideAnimation = Tween<Offset>(
-                                    begin: Offset(0.0, 0.0),
-                                    end: Offset(1.0, 0.0))
+                                    begin: const Offset(0.0, 0.0),
+                                    end: const Offset(1.0, 0.0))
                                 .animate(animation);
                             return SlideTransition(
                               position: offsetAnimation,
@@ -121,7 +120,7 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
                                   child: _PayByCardWidget(
                                     recipe: widget.nft,
                                   ))
-                              : SizedBox(),
+                              : const SizedBox(),
                         )
                       ],
                     ),
@@ -154,13 +153,13 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
                                 children: [
                                   TextSpan(
                                       text: widget.nft.creator,
-                                      style: TextStyle(color: kBlue))
+                                      style: const TextStyle(color: kBlue))
                                 ]),
                           ),
                           const VerticalSpace(20),
                           Row(
                             children: [
-                              UserImageWidget(
+                              const UserImageWidget(
                                 imageUrl: kImage2,
                                 radius: 10,
                               ),
@@ -177,7 +176,7 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
                                           text: widget.nft.owner == ""
                                               ? widget.nft.creator
                                               : widget.nft.owner,
-                                          style: TextStyle(color: kBlue))
+                                          style: const TextStyle(color: kBlue))
                                     ]),
                               ),
                             ],
@@ -209,13 +208,13 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
                                   children: [
                                     SingleChildScrollView(
                                         child: Padding(
-                                      padding: EdgeInsets.only(top: 20),
+                                      padding: const EdgeInsets.only(top: 20),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(widget.nft.description),
-                                          SizedBox(height: 20),
+                                          const SizedBox(height: 20),
                                           Text(sprintf("current_price".tr(), [
                                             widget.nft.price.UvalToVal(),
                                             widget.nft.denom.UdenomToDenom()
@@ -224,7 +223,6 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
                                             widget.nft.width,
                                             widget.nft.height
                                           ])),
-
                                           if (widget.nft.type ==
                                               NftType.TYPE_RECIPE)
                                             Text(sprintf(
@@ -321,6 +319,7 @@ class _PurchaseItemScreenState extends State<PurchaseItemScreen> {
 
 class _ImageWidget extends StatelessWidget {
   final String imageUrl;
+
   const _ImageWidget({
     Key? key,
     required this.imageUrl,
@@ -510,7 +509,8 @@ class _PayByCardWidget extends StatelessWidget {
             productID: "trade/${nft.tradeID}",
             coinInputIndex: 0,
             address: walletsStore.getWallets().value.last.publicAddress));
-    final pi_info = response.getOrElse(() => StripeCreatePaymentIntentResponse());
+    final pi_info =
+        response.getOrElse(() => StripeCreatePaymentIntentResponse());
     if (pi_info.clientsecret != "") {
       try {
         final pi =
@@ -533,7 +533,8 @@ class _PayByCardWidget extends StatelessWidget {
             StripeGeneratePaymentReceiptRequest(
                 paymentIntentID: pi.id, clientSecret: pi.clientSecret));
 
-        final receipt = receipt_response.getOrElse(() => StripeGeneratePaymentReceiptResponse());
+        final receipt = receipt_response
+            .getOrElse(() => StripeGeneratePaymentReceiptResponse());
 
         showLoading(context);
         const json = '''
@@ -599,12 +600,13 @@ class _PayByCardWidget extends StatelessWidget {
             productID: "recipe/${nft.cookbookID}/${nft.recipeID}",
             coinInputIndex: 0,
             address: walletsStore.getWallets().value.last.publicAddress));
-    final pi_info = response.getOrElse(() => StripeCreatePaymentIntentResponse());
+    final payment_intent =
+        response.getOrElse(() => StripeCreatePaymentIntentResponse());
 
-    if (pi_info.clientsecret != "") {
+    if (payment_intent.clientsecret != "") {
       try {
         final pi =
-            await Stripe.instance.retrievePaymentIntent(pi_info.clientsecret);
+            await Stripe.instance.retrievePaymentIntent(payment_intent.clientsecret);
 
         await Stripe.instance.initPaymentSheet(
             paymentSheetParameters: SetupPaymentSheetParameters(
@@ -614,7 +616,7 @@ class _PayByCardWidget extends StatelessWidget {
                 testEnv: baseEnv.baseStripeTestEnv,
                 merchantCountryCode: Constants.kStripeMerchantCountry,
                 merchantDisplayName: Constants.kStripeMerchantDisplayName,
-                paymentIntentClientSecret: pi_info.clientsecret));
+                paymentIntentClientSecret: payment_intent.clientsecret));
         Navigator.pop(context);
         await Stripe.instance.presentPaymentSheet();
 
@@ -622,7 +624,8 @@ class _PayByCardWidget extends StatelessWidget {
             StripeGeneratePaymentReceiptRequest(
                 paymentIntentID: pi.id, clientSecret: pi.clientSecret));
 
-        final receipt = receipt_response.getOrElse(() => StripeGeneratePaymentReceiptResponse());
+        final receipt = receipt_response
+            .getOrElse(() => StripeGeneratePaymentReceiptResponse());
 
         const jsonExecuteRecipe = '''
         {
@@ -648,8 +651,9 @@ class _PayByCardWidget extends StatelessWidget {
         Navigator.pop(context);
 
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(
-                "${execution.success ? "purchase_nft_success".tr() : execution.error}")));
+            content: Text(execution.success
+                ? "purchase_nft_success".tr()
+                : execution.error)));
       } catch (error) {
         Navigator.pop(context);
       }
@@ -657,7 +661,7 @@ class _PayByCardWidget extends StatelessWidget {
   }
 
   Future<void> executeRecipe(BuildContext context) async {
-    switch(recipe.type){
+    switch (recipe.type) {
       case NftType.TYPE_RECIPE:
         if (recipe.denom.UdenomToDenom().toLowerCase() ==
             Constants.kUSDCoinName) {
@@ -695,7 +699,7 @@ class _PayByCardWidget extends StatelessWidget {
                 ),
                 const HorizontalSpace(10),
                 Text(
-                    "loading".tr(),
+                  "loading".tr(),
                   style:
                       Theme.of(ctx).textTheme.subtitle2!.copyWith(fontSize: 12),
                 ),

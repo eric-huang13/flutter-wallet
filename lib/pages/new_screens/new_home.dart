@@ -20,13 +20,13 @@ class _NewHomeScreenState extends State<NewHomeScreen>
     Padding(
       padding: const EdgeInsets.all(4.0),
       child: Text('nft_collection'.tr(),
-          style: TextStyle(
+          style: const TextStyle(
               fontFamily: 'Inter', fontSize: 15, fontWeight: FontWeight.w500)),
     ),
     Padding(
       padding: const EdgeInsets.all(4.0),
       child: Text('currency'.tr(),
-          style: TextStyle(
+          style: const TextStyle(
               fontFamily: 'Inter', fontSize: 15, fontWeight: FontWeight.w500)),
     ),
   ];

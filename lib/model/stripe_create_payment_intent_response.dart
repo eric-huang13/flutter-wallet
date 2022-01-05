@@ -13,7 +13,7 @@ class StripeCreatePaymentIntentResponse {
       return StripeCreatePaymentIntentResponse(
           clientsecret: ret.value?.entries
               .firstWhere((entry) => entry.key == 'clientSecret',
-              orElse: () => MapEntry('clientSecret', ''))
+                  orElse: () => const MapEntry('clientSecret', ''))
               .value as String,
           success: true);
     }

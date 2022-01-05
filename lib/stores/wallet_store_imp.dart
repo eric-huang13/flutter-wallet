@@ -14,7 +14,6 @@ import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/entities/balance.dart';
 import 'package:pylons_wallet/ipc/handler/handler_factory.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
-import 'package:pylons_wallet/model/execution_list_by_recipe_response.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart'
     as pylons;
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart';
@@ -32,7 +31,6 @@ import 'package:transaction_signing_gateway/model/transaction_hash.dart';
 import 'package:transaction_signing_gateway/model/wallet_lookup_key.dart';
 import 'package:transaction_signing_gateway/transaction_signing_gateway.dart';
 
-
 class WalletsStoreImp implements WalletsStore {
   final TransactionSigningGateway _transactionSigningGateway;
   final CustomTransactionSigningGateway _customTransactionSigningGateway;
@@ -43,6 +41,7 @@ class WalletsStoreImp implements WalletsStore {
   WalletsStoreImp(this._transactionSigningGateway, this.baseEnv,
       this._customTransactionSigningGateway,
       {required this.repository});
+
   late pylons.QueryClient _queryClient;
   final http.Client _httpClient = http.Client();
 
@@ -403,7 +402,7 @@ class WalletsStoreImp implements WalletsStore {
 
   @override
   Future<TxResponse> getTxs(String txHash) async {
-    final url = "${this.baseEnv.baseApiUrl}/txs/$txHash";
+    final url = "${baseEnv.baseApiUrl}/txs/$txHash";
     final helper = QueryHelper(httpClient: _httpClient);
     final result = await helper.queryGet(url);
     if (!result.isSuccessful) {
@@ -454,7 +453,8 @@ class WalletsStoreImp implements WalletsStore {
 
   @override
   Future<bool> isAccountExists(String username) async {
-    final accountExistResult = await repository.getAddressBasedOnUsername(username);
+    final accountExistResult =
+        await repository.getAddressBasedOnUsername(username);
 
     return accountExistResult.fold((failure) {
       return false;
@@ -494,15 +494,13 @@ class WalletsStoreImp implements WalletsStore {
 
   @override
   Future<SDKIPCResponse> getProfile() async {
-
-    if(wallets.value.isEmpty){
+    if (wallets.value.isEmpty) {
       return SDKIPCResponse.failure(
           sender: '',
           error: 'create_profile_before_using'.tr(),
           errorCode: HandlerFactory.ERR_PROFILE_DOES_NOT_EXIST,
           transaction: '');
     }
-
 
     final publicAddress = wallets.value.last.publicAddress;
 
@@ -628,7 +626,7 @@ class WalletsStoreImp implements WalletsStore {
 
   @override
   void setStateUpdatedFlag(bool flag) {
-    Timer(Duration(milliseconds: 2000), () async {
+    Timer(const Duration(milliseconds: 2000), () async {
       isStateUpdated.value = flag;
       isStateUpdated.reportChanged();
     });
@@ -694,18 +692,31 @@ class WalletsStoreImp implements WalletsStore {
 
   @override
   Future<SDKIPCResponse> getTradesForSDK({required String creator}) async {
-    final tradesEither = await repository.getTradesBasedOnCreator(creator: creator);
+    final tradesEither =
+        await repository.getTradesBasedOnCreator(creator: creator);
 
     if (tradesEither.isLeft()) {
-      return SDKIPCResponse.failure(sender: '', error: tradesEither.swap().toOption().toNullable()!.message, errorCode: HandlerFactory.ERR_CANNOT_FETCH_TRADES, transaction: '');
+      return SDKIPCResponse.failure(
+          sender: '',
+          error: tradesEither.swap().toOption().toNullable()!.message,
+          errorCode: HandlerFactory.ERR_CANNOT_FETCH_TRADES,
+          transaction: '');
     }
 
-    return SDKIPCResponse.success(data: jsonEncode(tradesEither.getOrElse(() => []).map((trade) => trade.toProto3Json()).toList()), sender: '', transaction: '');
+    return SDKIPCResponse.success(
+        data: jsonEncode(tradesEither
+            .getOrElse(() => [])
+            .map((trade) => trade.toProto3Json())
+            .toList()),
+        sender: '',
+        transaction: '');
   }
 
   @override
-  Future<Either<Failure, WalletPublicInfo>> importPylonsAccount({required String mnemonic, required String username}) async {
-    final privateCredentialsEither = await repository.getPrivateCredentials(mnemonic: mnemonic, username: username);
+  Future<Either<Failure, WalletPublicInfo>> importPylonsAccount(
+      {required String mnemonic, required String username}) async {
+    final privateCredentialsEither = await repository.getPrivateCredentials(
+        mnemonic: mnemonic, username: username);
 
     if (privateCredentialsEither.isLeft()) {
       return Left(privateCredentialsEither.swap().toOption().toNullable()!);
@@ -713,10 +724,12 @@ class WalletsStoreImp implements WalletsStore {
 
     final credentials = privateCredentialsEither.toOption().toNullable()!;
 
-    final getAddressBasedOnUserNameEither = await repository.getAddressBasedOnUsername(username);
+    final getAddressBasedOnUserNameEither =
+        await repository.getAddressBasedOnUsername(username);
 
     if (getAddressBasedOnUserNameEither.isLeft()) {
-      return Left(getAddressBasedOnUserNameEither.swap().toOption().toNullable()!);
+      return Left(
+          getAddressBasedOnUserNameEither.swap().toOption().toNullable()!);
     }
 
     final userNameAddress = getAddressBasedOnUserNameEither.getOrElse(() => '');
@@ -728,7 +741,6 @@ class WalletsStoreImp implements WalletsStore {
     if (userNameAddress != credentials.publicInfo.publicAddress) {
       return Left(InvalidInputFailure('invalid_input'.tr()));
     }
-
 
     await _transactionSigningGateway.storeWalletCredentials(
       credentials: credentials,

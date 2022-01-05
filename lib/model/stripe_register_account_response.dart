@@ -17,11 +17,11 @@ class StripeRegisterAccountResponse {
       return StripeRegisterAccountResponse(
           accountlink: ret.value?.entries
               .firstWhere((entry) => entry.key == 'accountlink',
-              orElse: () => MapEntry('accountlink', ''))
+                  orElse: () => const MapEntry('accountlink', ''))
               .value as String,
           account: ret.value?.entries
               .firstWhere((entry) => entry.key == 'account',
-              orElse: () => MapEntry('account', ''))
+                  orElse: () => const MapEntry('account', ''))
               .value as String,
           success: true);
     }

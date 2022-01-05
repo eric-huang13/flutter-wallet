@@ -13,7 +13,7 @@ class StripeGenerateRegistrationTokenResponse {
       return StripeGenerateRegistrationTokenResponse(
           token: ret.value?.entries
               .firstWhere((entry) => entry.key == 'token',
-              orElse: () => MapEntry('token', ''))
+              orElse: () => const MapEntry('token', ''))
               .value as String,
           success: true);
     }

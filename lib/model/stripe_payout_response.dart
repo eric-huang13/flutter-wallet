@@ -11,7 +11,7 @@ class StripePayoutResponse {
       return StripePayoutResponse(
           transfer_id: ret.value?.entries
               .firstWhere((entry) => entry.key == 'transfer_id',
-              orElse: () => MapEntry('transfer_id', ''))
+                  orElse: () => const MapEntry('transfer_id', ''))
               .value as String,
           success: true);
     }

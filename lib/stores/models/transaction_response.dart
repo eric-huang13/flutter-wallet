@@ -1,10 +1,9 @@
-class TransactionResponse{
+class TransactionResponse {
   String hash;
 
   TransactionResponse({required this.hash});
 
-  factory TransactionResponse.initial(){
+  factory TransactionResponse.initial() {
     return TransactionResponse(hash: '');
   }
-
 }
