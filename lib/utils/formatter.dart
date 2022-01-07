@@ -1,4 +1,3 @@
-import 'package:intl/intl.dart';
 import 'package:decimal/decimal.dart';
 import 'package:pylons_wallet/constants/constants.dart' as Constants;
 
@@ -10,13 +9,14 @@ extension TrimZeroString on String {
 
 extension AmountValue on String {
   String UvalToVal() {
-    var amount = this == "" ? "0" : this;
+    final amount = this == "" ? "0" : this;
     return (num.parse(amount) / Constants.kBigIntBase).toString();
   }
 
   String ValToUval() {
-    var amount = this == "" ? "0" : this;
-    return (Decimal.parse(this) * Decimal.fromInt(Constants.kBigIntBase)).toInt().toString();
+    return (Decimal.parse(this) * Decimal.fromInt(Constants.kBigIntBase))
+        .toInt()
+        .toString();
   }
 }
 
@@ -26,19 +26,19 @@ extension DenomValue on String {
       return Constants.kPylonCoinName;
     } else if (this == Constants.kUSDDenom) {
       return Constants.kUSDCoinName;
-    } else if (this.startsWith("u")) {
-      return this.substring(1);
+    } else if (startsWith("u")) {
+      return substring(1);
     }
     return this;
   }
 
   String DenomToUdenom() {
-    if (this.toLowerCase() == Constants.kPylonCoinName) {
+    if (toLowerCase() == Constants.kPylonCoinName) {
       return Constants.kPylonDenom;
-    } else if (this.toLowerCase() == Constants.kUSDCoinName) {
+    } else if (toLowerCase() == Constants.kUSDCoinName) {
       return Constants.kUSDDenom;
-    } else if (!this.toLowerCase().startsWith("u")) {
-      return "u${this.toLowerCase()}";
+    } else if (!toLowerCase().startsWith("u")) {
+      return "u${toLowerCase()}";
     }
     return this;
   }

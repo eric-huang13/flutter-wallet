@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Alert {
-  static void SnackbarAlert(BuildContext context, String msg){
+  static void SnackbarAlert(BuildContext context, String msg) {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(SnackBar(

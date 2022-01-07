@@ -34,7 +34,7 @@ class PylonsHistoryCard extends StatelessWidget {
               text: " ${ActionTypeFactory.itemToString(activity.action).tr()} ",
               style: const TextStyle(color: kTextColor, fontWeight: FontWeight.w400, fontSize: 16),
             ),
-            TextSpan(text: "'${activity.itemName}'", style: TextStyle(color: kTextColor, fontWeight: FontWeight.w500, fontSize: 16))
+            TextSpan(text: "'${activity.itemName}'", style: const TextStyle(color: kTextColor, fontWeight: FontWeight.w500, fontSize: 16))
           ])),
           trailing: const Icon(Icons.arrow_forward_ios_sharp, size: 16, color: kUnselectedIcon),
           onTap: () {

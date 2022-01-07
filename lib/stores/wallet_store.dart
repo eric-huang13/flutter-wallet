@@ -172,7 +172,7 @@ abstract class WalletsStore {
   Future<String> signPureMessage(String message);
 
   /// This method returns the recipes based on cookbook
-  /// Input : [cookbookId] id of the cookbook
+  /// Input : [cookbookID] id of the cookbook
   /// Output : [SDKIPCResponse] returns the recipes
   Future<List<Recipe>> getRecipesByCookbookID(String cookbookID);
 

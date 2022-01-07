@@ -1,11 +1,12 @@
+import 'package:alan/alan.dart' as alan;
 import 'package:alan/proto/cosmos/bank/v1beta1/export.dart' as bank;
 import 'package:dartz/dartz.dart';
-import 'package:alan/alan.dart' as alan;
 import 'package:decimal/decimal.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/entities/amount.dart';
 import 'package:pylons_wallet/entities/balance.dart';
 import 'package:pylons_wallet/model/execution_list_by_recipe_response.dart';
+import 'package:pylons_wallet/model/export.dart';
 import 'package:pylons_wallet/model/stripe_loginlink_request.dart';
 import 'package:pylons_wallet/model/stripe_loginlink_response.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart'
@@ -14,11 +15,8 @@ import 'package:pylons_wallet/services/third_party_services/network_info.dart';
 import 'package:pylons_wallet/utils/base_env.dart';
 import 'package:pylons_wallet/utils/failure/failure.dart';
 import 'package:pylons_wallet/utils/query_helper.dart';
-import 'package:http/http.dart' as http;
-import 'package:transaction_signing_gateway/model/private_wallet_credentials.dart';
 import 'package:transaction_signing_gateway/transaction_signing_gateway.dart';
 
-import 'package:pylons_wallet/model/export.dart';
 abstract class Repository {
   /// This method returns the recipe based on cookbook id and recipe Id
   /// Input : [cookBookId] id of the cookbook that contains recipe, [recipeId] id of the recipe
@@ -105,20 +103,20 @@ abstract class Repository {
   /// Stripe Backend API to Create PaymentIntent
   /// Input: [StripeCreatePaymentIntentRequest]
   /// return [StripeCreatePaymentIntentResponse]
-  Future<Either<Failure, StripeCreatePaymentIntentResponse>> CreatePaymentIntent(
-      StripeCreatePaymentIntentRequest req);
+  Future<Either<Failure, StripeCreatePaymentIntentResponse>>
+      CreatePaymentIntent(StripeCreatePaymentIntentRequest req);
 
   /// Stripe Backend API to Generate Payment Receipt
   /// Input: [StripeGeneratePaymentReceiptRequest]
   /// return [StripeGeneratePaymentReceiptResponse]
-  Future<Either<Failure,StripeGeneratePaymentReceiptResponse>> GeneratePaymentReceipt(
-      StripeGeneratePaymentReceiptRequest req);
+  Future<Either<Failure, StripeGeneratePaymentReceiptResponse>>
+      GeneratePaymentReceipt(StripeGeneratePaymentReceiptRequest req);
 
   /// Stripe Backend API to Generate Registration Token
   /// Input: [address]
   /// return [StripeGenerateRegistrationTokenResponse]
-  Future<Either<Failure, StripeGenerateRegistrationTokenResponse>> GenerateRegistrationToken(
-      String address);
+  Future<Either<Failure, StripeGenerateRegistrationTokenResponse>>
+      GenerateRegistrationToken(String address);
 
   /// Stripe Backend API to Register Stripe connected Account
   /// Input: [StripeRegisterAccountRequest]
@@ -129,10 +127,11 @@ abstract class Repository {
   /// Stripe Backend API to Generate Updated Token for Connected Account
   /// Input: [address]
   /// return [StripeGenerateUpdateTokenResponse]
-  Future<Either<Failure, StripeGenerateUpdateTokenResponse>> GenerateUpdateToken(String address);
+  Future<Either<Failure, StripeGenerateUpdateTokenResponse>>
+      GenerateUpdateToken(String address);
 
   /// Stripe Backend API to Update Stripe Connected Account
-  /// Input: [address]
+  /// Input: [req]
   /// return [StripeGenerateUpdateTokenResponse]
   Future<Either<Failure, StripeUpdateAccountResponse>> UpdateAccount(
       StripeUpdateAccountRequest req);
@@ -140,8 +139,8 @@ abstract class Repository {
   /// Stripe Backend API to Generate Payout Token
   /// Input: [StripeGeneratePayoutTokenRequest]
   /// return [StripeGeneratePayoutTokenResponse]
-  Future<Either<Failure, StripeGeneratePayoutTokenResponse>> GeneratePayoutToken(
-      StripeGeneratePayoutTokenRequest req);
+  Future<Either<Failure, StripeGeneratePayoutTokenResponse>>
+      GeneratePayoutToken(StripeGeneratePayoutTokenRequest req);
 
   /// Stripe Backend API to Payout request
   /// Input: [StripePayoutRequest]
@@ -157,9 +156,9 @@ abstract class Repository {
   /// Stripe Backend API to Get Stripe Connected Account Login Link
   /// Input: [StripeLoginLinkRequest]
   /// return [StripeLoginLinkResponse]
-  Future<Either<Failure, StripeLoginLinkResponse>> StripeGetLoginLink(StripeLoginLinkRequest req);
-
-  }
+  Future<Either<Failure, StripeLoginLinkResponse>> StripeGetLoginLink(
+      StripeLoginLinkRequest req);
+}
 
 class RepositoryImp implements Repository {
   final NetworkInfo networkInfo;
@@ -307,7 +306,8 @@ class RepositoryImp implements Repository {
       balances.add(Balance(denom: "upylon", amount: Amount(Decimal.zero)));
     }
 
-    if(response.balances.indexWhere((element) => element.denom == 'ustripeusd') ==
+    if (response.balances
+            .indexWhere((element) => element.denom == 'ustripeusd') ==
         -1) {
       balances.add(Balance(denom: "ustripeusd", amount: Amount(Decimal.zero)));
     }
@@ -461,23 +461,24 @@ class RepositoryImp implements Repository {
       return const Left(TradeNotFoundFailure(TRADE_NOT_FOUND));
     }
   }
+
   /// Stripe Backend API to Payout request
   /// Input: [StripeCreatePaymentIntentRequest] {address:, productID:, coin_inputs_index:}
   /// return [StripeCreatePaymentIntentResponse] {client_secret}
   @override
-  Future<Either<Failure, StripeCreatePaymentIntentResponse>> CreatePaymentIntent(StripeCreatePaymentIntentRequest req) async {
+  Future<Either<Failure, StripeCreatePaymentIntentResponse>>
+      CreatePaymentIntent(StripeCreatePaymentIntentRequest req) async {
     if (!await networkInfo.isConnected) {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
 
-    try{
+    try {
       final result = await queryHelper.queryPost(
           "${baseEnv.baseStripeUrl}/create-payment-intent", req.toJson());
-      if(!result.isSuccessful){
+      if (!result.isSuccessful) {
         return Left(StripeFailure(result.error ?? CREATE_PAYMENTINTENT_FAILED));
       }
       return Right(StripeCreatePaymentIntentResponse.from(result));
-
     } on Exception catch (_) {
       return const Left(StripeFailure(CREATE_PAYMENTINTENT_FAILED));
     }
@@ -495,7 +496,8 @@ class RepositoryImp implements Repository {
   ///    signature: String
   /// }
   @override
-  Future<Either<Failure, StripeGeneratePaymentReceiptResponse>> GeneratePaymentReceipt(StripeGeneratePaymentReceiptRequest req) async {
+  Future<Either<Failure, StripeGeneratePaymentReceiptResponse>>
+      GeneratePaymentReceipt(StripeGeneratePaymentReceiptRequest req) async {
     if (!await networkInfo.isConnected) {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
@@ -503,22 +505,21 @@ class RepositoryImp implements Repository {
     try {
       final result = await queryHelper.queryPost(
           "${baseEnv.baseStripeUrl}/generate-payment-receipt", req.toJson());
-      if(!result.isSuccessful){
+      if (!result.isSuccessful) {
         return Left(StripeFailure(result.error ?? GEN_PAYMENTRECEIPT_FAILED));
       }
       return Right(StripeGeneratePaymentReceiptResponse.from(result));
-
     } on Exception catch (_) {
       return const Left(StripeFailure(GEN_PAYMENTRECEIPT_FAILED));
     }
   }
 
-
   /// Stripe Backend API to Generate payout token
   /// Input: [StripeGeneratePayoutTokenRequest] {address: String, amount: int}
   /// return [StripeGeneratePayoutTokenResponse] {token: String, RedeemAmount: int64}
   @override
-  Future<Either<Failure, StripeGeneratePayoutTokenResponse>> GeneratePayoutToken(StripeGeneratePayoutTokenRequest req) async {
+  Future<Either<Failure, StripeGeneratePayoutTokenResponse>>
+      GeneratePayoutToken(StripeGeneratePayoutTokenRequest req) async {
     if (!await networkInfo.isConnected) {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
@@ -526,11 +527,10 @@ class RepositoryImp implements Repository {
     try {
       final result = await queryHelper.queryGet(
           "${baseEnv.baseStripeUrl}/generate-payout-token?address=${req.address}&amount=${req.amount}");
-      if(!result.isSuccessful){
+      if (!result.isSuccessful) {
         return Left(StripeFailure(result.error ?? GEN_PAYOUTTOKEN_FAILED));
       }
       return Right(StripeGeneratePayoutTokenResponse.from(result));
-
     } on Exception catch (_) {
       return const Left(StripeFailure(GEN_PAYOUTTOKEN_FAILED));
     }
@@ -540,16 +540,18 @@ class RepositoryImp implements Repository {
   /// Input: [address] wallet address
   /// return [StripeGenerateRegistrationTokenResponse]
   @override
-  Future<Either<Failure, StripeGenerateRegistrationTokenResponse>> GenerateRegistrationToken(String address) async {
+  Future<Either<Failure, StripeGenerateRegistrationTokenResponse>>
+      GenerateRegistrationToken(String address) async {
     if (!await networkInfo.isConnected) {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
 
     try {
-      final result = await queryHelper
-          .queryGet("${baseEnv.baseStripeUrl}/generate-registration-token?address=${address}");
-      if(!result.isSuccessful){
-        return Left(StripeFailure(result.error ?? GEN_REGISTRATIONTOKEN_FAILED));
+      final result = await queryHelper.queryGet(
+          "${baseEnv.baseStripeUrl}/generate-registration-token?address=$address");
+      if (!result.isSuccessful) {
+        return Left(
+            StripeFailure(result.error ?? GEN_REGISTRATIONTOKEN_FAILED));
       }
       return Right(StripeGenerateRegistrationTokenResponse.from(result));
     } on Exception catch (_) {
@@ -561,15 +563,16 @@ class RepositoryImp implements Repository {
   /// Input: [address] wallet address
   /// return [StripeGenerateUpdateTokenResponse]
   @override
-  Future<Either<Failure, StripeGenerateUpdateTokenResponse>> GenerateUpdateToken(String address) async {
+  Future<Either<Failure, StripeGenerateUpdateTokenResponse>>
+      GenerateUpdateToken(String address) async {
     if (!await networkInfo.isConnected) {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
 
     try {
-      final result = await queryHelper
-          .queryGet("${baseEnv.baseStripeUrl}/generate-update-token?address=${address}");
-      if(!result.isSuccessful){
+      final result = await queryHelper.queryGet(
+          "${baseEnv.baseStripeUrl}/generate-update-token?address=$address");
+      if (!result.isSuccessful) {
         return Left(StripeFailure(result.error ?? GEN_UPDATETOKEN_FAILED));
       }
       return Right(StripeGenerateUpdateTokenResponse.from(result));
@@ -582,18 +585,19 @@ class RepositoryImp implements Repository {
   /// Input: [StripeAccountLinkRequest]
   /// return [StripeAccountLinkResponse]
   @override
-  Future<Either<Failure, StripeAccountLinkResponse>> GetAccountLink(StripeAccountLinkRequest req) async {
+  Future<Either<Failure, StripeAccountLinkResponse>> GetAccountLink(
+      StripeAccountLinkRequest req) async {
     if (!await networkInfo.isConnected) {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
     try {
-      final result =
-      await queryHelper.queryPost("${baseEnv.baseStripeUrl}/accountlink", req.toJson());
-      if(!result.isSuccessful){
+      final result = await queryHelper.queryPost(
+          "${baseEnv.baseStripeUrl}/accountlink", req.toJson());
+      if (!result.isSuccessful) {
         return Left(StripeFailure(result.error ?? GET_ACCOUNTLINK_FAILED));
       }
       return Right(StripeAccountLinkResponse.from(result));
-    } on Exception catch (error) {
+    } on Exception {
       return const Left(StripeFailure(GET_ACCOUNTLINK_FAILED));
     }
   }
@@ -602,17 +606,19 @@ class RepositoryImp implements Repository {
   /// Input: [StripePayoutRequest] {address:String, token:String, signature:String, amount:int}
   /// return [StripePayoutResponse] {transfer_id:String}
   @override
-  Future<Either<Failure, StripePayoutResponse>> Payout(StripePayoutRequest req) async {
+  Future<Either<Failure, StripePayoutResponse>> Payout(
+      StripePayoutRequest req) async {
     if (!await networkInfo.isConnected) {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
     try {
-      final result = await queryHelper.queryPost("${baseEnv.baseStripeUrl}/payout", req.toJson());
-      if(!result.isSuccessful){
+      final result = await queryHelper.queryPost(
+          "${baseEnv.baseStripeUrl}/payout", req.toJson());
+      if (!result.isSuccessful) {
         return Left(StripeFailure(result.error ?? PAYOUT_FAILED));
       }
       return Right(StripePayoutResponse.from(result));
-    } on Exception catch(_) {
+    } on Exception catch (_) {
       return const Left(StripeFailure(PAYOUT_FAILED));
     }
   }
@@ -621,18 +627,19 @@ class RepositoryImp implements Repository {
   /// Input: [StripeRegisterAccountRequest]
   /// return [StripeRegisterAccountResponse]
   @override
-  Future<Either<Failure, StripeRegisterAccountResponse>> RegisterAccount(StripeRegisterAccountRequest req) async {
+  Future<Either<Failure, StripeRegisterAccountResponse>> RegisterAccount(
+      StripeRegisterAccountRequest req) async {
     if (!await networkInfo.isConnected) {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
     try {
-      final result =
-      await queryHelper.queryPost("${baseEnv.baseStripeUrl}/register-account", req.toJson());
-      if(!result.isSuccessful){
+      final result = await queryHelper.queryPost(
+          "${baseEnv.baseStripeUrl}/register-account", req.toJson());
+      if (!result.isSuccessful) {
         return Left(StripeFailure(result.error ?? REGISTERACCOUNT_FAILED));
       }
       return Right(StripeRegisterAccountResponse.from(result));
-    } on Exception catch(_) {
+    } on Exception catch (_) {
       return const Left(StripeFailure(REGISTERACCOUNT_FAILED));
     }
   }
@@ -641,19 +648,20 @@ class RepositoryImp implements Repository {
   /// Input: [StripeUpdateAccountRequest] {address:String, token: String, signature: String}
   /// return [StripeUpdateAccountResponse] redirectURL
   @override
-  Future<Either<Failure, StripeUpdateAccountResponse>> UpdateAccount(StripeUpdateAccountRequest req) async {
+  Future<Either<Failure, StripeUpdateAccountResponse>> UpdateAccount(
+      StripeUpdateAccountRequest req) async {
     if (!await networkInfo.isConnected) {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
 
     try {
-      final result =
-      await queryHelper.queryPost("${baseEnv.baseStripeUrl}/update-account", req.toJson());
-      if(!result.isSuccessful){
+      final result = await queryHelper.queryPost(
+          "${baseEnv.baseStripeUrl}/update-account", req.toJson());
+      if (!result.isSuccessful) {
         return Left(StripeFailure(result.error ?? UPDATEACCOUNT_FAILED));
       }
       return Right(StripeUpdateAccountResponse.from(result));
-    } on Exception catch(_) {
+    } on Exception catch (_) {
       return const Left(StripeFailure(UPDATEACCOUNT_FAILED));
     }
   }
@@ -662,14 +670,15 @@ class RepositoryImp implements Repository {
   /// Input: [StripeLoginLinkRequest]
   /// return [StripeLoginLinkResponse]
   @override
-  Future<Either<Failure, StripeLoginLinkResponse>> StripeGetLoginLink(StripeLoginLinkRequest req) async {
+  Future<Either<Failure, StripeLoginLinkResponse>> StripeGetLoginLink(
+      StripeLoginLinkRequest req) async {
     if (!await networkInfo.isConnected) {
       return const Left(NoInternetFailure(NO_INTERNET));
     }
     try {
-      final result =
-      await queryHelper.queryPost("${baseEnv.baseStripeUrl}/loginlink", req.toJson());
-      if(!result.isSuccessful){
+      final result = await queryHelper.queryPost(
+          "${baseEnv.baseStripeUrl}/loginlink", req.toJson());
+      if (!result.isSuccessful) {
         return Left(StripeFailure(result.error ?? GET_LOGINLINK_FAILED));
       }
       return Right(StripeLoginLinkResponse.from(result));

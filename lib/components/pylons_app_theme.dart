@@ -1,4 +1,3 @@
-import 'package:cosmos_ui_components/cosmos_app_theme.dart';
 import 'package:cosmos_ui_components/cosmos_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:pylons_wallet/constants/constants.dart';
@@ -9,6 +8,11 @@ class PylonsAppTheme extends CosmosThemeData {
 
   static const IconThemeData ICON_THEME_ENABLED = IconThemeData(color: Colors.indigo, size: 14);
   static const IconThemeData ICON_THEME_DISABLED = IconThemeData(color: Colors.white70, size: 14);
+
+
+
+  static Color cardBackground = const Color(
+      0x80C4C4C4);
 
   ThemeData buildAppTheme() {
     return ThemeData(

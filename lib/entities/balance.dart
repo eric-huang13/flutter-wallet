@@ -1,4 +1,3 @@
-import 'package:decimal/decimal.dart';
 import 'package:equatable/equatable.dart';
 import 'package:pylons_wallet/entities/amount.dart';
 
@@ -24,4 +23,3 @@ class Balance extends Equatable {
         amount,
       ];
 }
-

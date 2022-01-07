@@ -151,5 +151,7 @@
   "loading": "Загрузка...",
   "create_profile_before_using" : "Создать профиль в кошельке",
   "blob_type_not_supported": "Загрузка файла BLOB-объекта не поддерживается",
-  "return_to_pylons": "Вернуться к Pylons"
+  "return_to_pylons": "Вернуться к Pylons",
+  "i_already_have_an_account" : "у меня уже есть аккаунт"
+
 }

@@ -5,6 +5,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:pylons_wallet/ipc/handler/handler_factory.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart'
     as pylons;
+import 'package:pylons_wallet/pages/new_screens/purchase_item/purchase_item_view_model.dart';
 import 'package:pylons_wallet/services/repository/repository.dart';
 import 'package:pylons_wallet/services/third_party_services/network_info.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
@@ -121,4 +122,10 @@ Future<void> init() async {
       bankQueryClient: sl(),
       queryHelper: sl(),
       baseEnv: sl()));
+
+
+
+
+  /// ViewModels
+  sl.registerLazySingleton(() => PurchaseItemViewModel(sl()));
 }

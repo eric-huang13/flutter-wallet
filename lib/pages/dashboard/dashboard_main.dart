@@ -107,7 +107,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                 label: "gallery".tr()),
           ],
         ),
-        drawer: PylonsAppDrawer(),
+        drawer: const PylonsAppDrawer(),
       ),
     );
   }

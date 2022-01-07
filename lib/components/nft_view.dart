@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:pylons_wallet/constants/constants.dart';
 
 class NFTViewWidget extends StatefulWidget {
   final String imageUrl;

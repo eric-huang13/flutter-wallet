@@ -17,7 +17,7 @@ class DetailTabWorkWidget extends StatefulWidget {
   final String itemName;
   final String itemDescription;
 
-  DetailTabWorkWidget({
+  const DetailTabWorkWidget({
     Key? key,
     this.cookbookID = "",
     this.recipeID = "",
@@ -37,7 +37,6 @@ class _DetailTabWorkWidgetState extends State<DetailTabWorkWidget> {
 
   static List<String> nfts = [...kImageList, kImage];
 
-
   @override
   void initState() {
     super.initState();
@@ -47,14 +46,19 @@ class _DetailTabWorkWidgetState extends State<DetailTabWorkWidget> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-          padding: const EdgeInsets.only(bottom: 100, top: 10, left: 20, right: 20),
+          padding:
+              const EdgeInsets.only(bottom: 100, top: 10, left: 20, right: 20),
           //margin: const EdgeInsets.only(bottom: 100.0),
           child: Column(
             children: [
               Row(
                 children: [
                   Flexible(
-                    child:Text(widget.itemName.tr(), style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 20, color: kTextBlackColor)),
+                    child: Text(widget.itemName.tr(),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 20,
+                            color: kTextBlackColor)),
                   ),
                   FavoriteButton(onTap: () {}),
                   ShareButton(onTap: () {})
@@ -88,16 +92,34 @@ class _DetailTabWorkWidgetState extends State<DetailTabWorkWidget> {
                         leading: UserImageWidget(imageUrl: kImage2),
                         title: Text(
                           'jimin',
-                          style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600),
                         ),
-                        subtitle: Text('Really Love the artwork!', style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w400)),
-                        trailing: Text('10 min', style: TextStyle(color: kUnselectedIcon, fontSize: 16, fontWeight: FontWeight.w400)),
+                        subtitle: Text('Really Love the artwork!',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400)),
+                        trailing: Text('10 min',
+                            style: TextStyle(
+                                color: kUnselectedIcon,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400)),
                       ),
                   separatorBuilder: (_, index) => const Divider(),
                   itemCount: 5),
 
               Row(
-                children: [Text('related_items'.tr(), style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF242423))), const Spacer(), MoreButton(onTap: () {})],
+                children: [
+                  Text('related_items'.tr(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF242423))),
+                  const Spacer(),
+                  MoreButton(onTap: () {})
+                ],
               ),
               GridView.count(
                 physics: const NeverScrollableScrollPhysics(),
@@ -107,7 +129,12 @@ class _DetailTabWorkWidgetState extends State<DetailTabWorkWidget> {
                 crossAxisSpacing: 20,
                 mainAxisSpacing: 20,
                 childAspectRatio: 3.5 / 4,
-                children: nfts.map((nft) => ClipRRect(borderRadius: BorderRadius.circular(5), child: CachedNetworkImage(imageUrl: nft, height: 60, fit: BoxFit.cover))).toList(),
+                children: nfts
+                    .map((nft) => ClipRRect(
+                        borderRadius: BorderRadius.circular(5),
+                        child: CachedNetworkImage(
+                            imageUrl: nft, height: 60, fit: BoxFit.cover)))
+                    .toList(),
               )
             ],
           )),

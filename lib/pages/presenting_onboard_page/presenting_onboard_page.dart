@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:cosmos_utils/mnemonic.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -9,15 +8,10 @@ import 'package:pylons_wallet/components/pylons_white_button.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/forms/import_from_google_form.dart';
-import 'package:pylons_wallet/forms/new_user_form.dart';
-import 'package:pylons_wallet/pages/new_screens/new_home.dart';
 import 'package:pylons_wallet/pages/presenting_onboard_page/components/create_account_bottom_sheet.dart';
-import 'package:pylons_wallet/pylons_app.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:pylons_wallet/components/loading.dart';
-import 'package:pylons_wallet/components/alert.dart';
 
 PageController _controller = PageController();
 
@@ -47,7 +41,18 @@ class PresentingOnboardPage extends StatelessWidget {
             height: screenSize.height(percent: 0.72),
             child: OnboardingPageView(),
           ),
-          PylonsWhiteButton(
+          PylonsBlueButton(
+            onTap: () {
+              final createAccountBottomSheet = CreateAccountBottomSheet(
+                context: context,
+                walletsStore: walletsStore,
+              );
+              createAccountBottomSheet.show();
+            },
+            text: "create_an_account".tr(),
+          ),
+          const VerticalSpace(10),
+          GestureDetector(
             onTap: () {
               showModalBottomSheet(
                 context: context,
@@ -65,18 +70,13 @@ class PresentingOnboardPage extends StatelessWidget {
                 ]),
               );
             },
-            text: "import_an_account".tr(),
-          ),
-          const VerticalSpace(10),
-          PylonsBlueButton(
-            onTap: () {
-              final createAccountBottomSheet = CreateAccountBottomSheet(
-                context: context,
-                walletsStore: walletsStore,
-              );
-              createAccountBottomSheet.show();
-            },
-            text: "create_an_account".tr(),
+            child: Text("i_already_have_an_account".tr(),
+                style: const TextStyle(
+                    fontFamily: 'Inter',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    // decoration: TextDecoration.underline,
+                    color: kBlue)),
           ),
           const VerticalSpace(10),
           GestureDetector(
@@ -104,7 +104,7 @@ class _OnboardingPageViewState extends State<OnboardingPageView> {
   // static const TextStyle textLooks = TextStyle(fontFamily: 'Inter');
 
   var _currentPage = 0;
-  Timer? timer = null;
+  Timer? timer;
 
   @override
   void initState() {
@@ -167,10 +167,8 @@ class Page1 extends StatelessWidget {
       ),
       Text(
         "manage_your_nft".tr(),
-        style: Theme.of(context)
-            .textTheme
-            .headline2!
-            .copyWith(color: kDarkGrey),
+        style:
+            Theme.of(context).textTheme.headline2!.copyWith(color: kDarkGrey),
       ),
       Text("pylons_infrastructure".tr(),
           style: Theme.of(context)

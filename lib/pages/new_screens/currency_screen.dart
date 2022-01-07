@@ -1,27 +1,27 @@
 import 'dart:async';
 
 import 'package:dartz/dartz.dart' as Dz;
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:sprintf/sprintf.dart';
-
 import 'package:pylons_wallet/components/loading.dart';
 import 'package:pylons_wallet/constants/constants.dart' as Constants;
 import 'package:pylons_wallet/entities/amount.dart';
 import 'package:pylons_wallet/entities/balance.dart';
 import 'package:pylons_wallet/pages/new_screens/stripe_screen.dart';
 import 'package:pylons_wallet/pylons_app.dart';
+import 'package:pylons_wallet/services/repository/repository.dart';
 import 'package:pylons_wallet/services/stripe_services/stripe_handler.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/stripe/stripe_payout_widget.dart';
-import 'package:pylons_wallet/utils/formatter.dart';
-import 'package:pylons_wallet/utils/screen_size_utils.dart';
-import 'package:pylons_wallet/services/repository/repository.dart';
 import 'package:pylons_wallet/utils/extension.dart';
 import 'package:pylons_wallet/utils/failure/failure.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:pylons_wallet/utils/formatter.dart';
+import 'package:pylons_wallet/utils/screen_size_utils.dart';
+import 'package:sprintf/sprintf.dart';
 
 class CurrencyScreen extends StatefulWidget {
   const CurrencyScreen({Key? key}) : super(key: key);
@@ -65,8 +65,9 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
     loading.dismiss();
     account_response.fold(
         (fail) => {SnackbarToast.show(fail.message)},
-        (accountlink) => {
+        (accountlink) {
               showDialog(
+                useSafeArea: false,
                   context: context,
                   builder: (BuildContext context) {
                     return StripeScreen(
@@ -74,7 +75,7 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
                         onBack: () {
                           navigatorKey.currentState!.pop();
                         });
-                  })
+                  });
             });
   }
 
@@ -86,7 +87,7 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
         backgroundColor: Colors.white,
         actions: [
           Padding(
-            padding: EdgeInsets.fromLTRB(16, 8, 16, 8),
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
             child: GestureDetector(
               onTap: () {
                 handleStripeAccountLink();
@@ -151,8 +152,8 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
   }
 
   Future copyClipboard() async {
-    var msg = "${PylonsApp.currentWallet.publicAddress}";
-    Clipboard.setData(new ClipboardData(text: msg)).then((_) {
+    final msg = PylonsApp.currentWallet.publicAddress;
+    Clipboard.setData(ClipboardData(text: msg)).then((_) {
       SnackbarToast.show("wallet_copied".tr());
     });
   }
@@ -202,6 +203,7 @@ class _BalanceWidget extends StatefulWidget {
   final Function onCallFaucet;
   final Function onCallStripePayout;
   final String backgroundAsset;
+
   @override
   State<_BalanceWidget> createState() => _BalanceWidgetState();
 }
@@ -261,7 +263,7 @@ class _BalanceWidgetState extends State<_BalanceWidget> {
                       .subtitle1!
                       .copyWith(color: Colors.white, fontSize: 18),
                 ),
-                Spacer(),
+                const Spacer(),
                 if (widget.balance.denom != Constants.kUSDDenom)
                   ElevatedButton(
                     onPressed: () {

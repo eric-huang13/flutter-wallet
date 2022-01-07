@@ -25,16 +25,16 @@ class ActionTypeFactory {
 }
 
 class Activity {
-  static final db_id = "id";
-  static final db_username = "username";
-  static final db_action = "action";
-  static final db_item_name = "itemname";
-  static final db_item_url = "itemurl";
-  static final db_item_desc = "itemdesc";
-  static final db_item_cookbookid = "cookbookid";
-  static final db_item_recipeid = "recipeid";
-  static final db_item_id = "itemid";
-  static final db_timestamp = "timestamp";
+  static const db_id = "id";
+  static const db_username = "username";
+  static const db_action = "action";
+  static const db_item_name = "itemname";
+  static const db_item_url = "itemurl";
+  static const db_item_desc = "itemdesc";
+  static const db_item_cookbookid = "cookbookid";
+  static const db_item_recipeid = "recipeid";
+  static const db_item_id = "itemid";
+  static const db_timestamp = "timestamp";
 
   String username = "",
       itemName = "",
@@ -44,8 +44,9 @@ class Activity {
       recipeID = "",
       itemID = "",
       timestamp = "";
-  ActionType action= ActionType.actionUnknonwn;
+  ActionType action = ActionType.actionUnknonwn;
   int id = 0;
+
   Activity({
     id,
     username,
@@ -59,21 +60,21 @@ class Activity {
     timestamp,
   });
 
-  String actionString(){
+  String actionString() {
     return ActionTypeFactory.itemToString(action);
   }
 
-  Activity.fromMap(Map<String, dynamic> map) : this(
-      id: map[db_id],
-      username: map[db_username],
-      action: ActionTypeFactory.fromString(map[db_action].toString()),
-      itemName: map[db_item_name],
-      itemUrl: map[db_item_url],
-      itemDesc: map[db_item_cookbookid],
-      cookbookID: map[db_item_cookbookid],
-      recipeID: map[db_item_recipeid],
-      timestamp: map[db_timestamp]
-  );
+  Activity.fromMap(Map<String, dynamic> map)
+      : this(
+            id: map[db_id],
+            username: map[db_username],
+            action: ActionTypeFactory.fromString(map[db_action].toString()),
+            itemName: map[db_item_name],
+            itemUrl: map[db_item_url],
+            itemDesc: map[db_item_cookbookid],
+            cookbookID: map[db_item_cookbookid],
+            recipeID: map[db_item_recipeid],
+            timestamp: map[db_timestamp]);
 
   Map<String, dynamic> toMap() {
     return {

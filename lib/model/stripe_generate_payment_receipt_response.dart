@@ -9,13 +9,14 @@ class StripeGeneratePaymentReceiptResponse {
   final String productID;
   final String signature;
 
-  StripeGeneratePaymentReceiptResponse({this.purchaseID = '',
-    this.processorName = '',
-    this.payerAddr = '',
-    this.amount = '',
-    this.productID = '',
-    this.signature = '',
-    this.success = false});
+  StripeGeneratePaymentReceiptResponse(
+      {this.purchaseID = '',
+      this.processorName = '',
+      this.payerAddr = '',
+      this.amount = '',
+      this.productID = '',
+      this.signature = '',
+      this.success = false});
 
   factory StripeGeneratePaymentReceiptResponse.from(
       RequestResult<Map<String, dynamic>> ret) {
@@ -23,35 +24,34 @@ class StripeGeneratePaymentReceiptResponse {
       return StripeGeneratePaymentReceiptResponse(
           productID: ret.value?.entries
               .firstWhere((entry) => entry.key == 'productID',
-              orElse: () => MapEntry('productID', ''))
+                  orElse: () => const MapEntry('productID', ''))
               .value as String,
           payerAddr: ret.value?.entries
               .firstWhere((entry) => entry.key == 'payerAddr',
-              orElse: () => MapEntry('payerAddr', ''))
+                  orElse: () => const MapEntry('payerAddr', ''))
               .value as String,
           amount: ret.value?.entries
               .firstWhere((entry) => entry.key == 'amount',
-              orElse: () => MapEntry('amount', ''))
+                  orElse: () => const MapEntry('amount', ''))
               .value as String,
           signature: ret.value?.entries
               .firstWhere((entry) => entry.key == 'signature',
-              orElse: () => MapEntry('signature', ''))
+                  orElse: () => const MapEntry('signature', ''))
               .value as String,
           purchaseID: ret.value?.entries
               .firstWhere((entry) => entry.key == 'purchaseID',
-              orElse: () => MapEntry('purchaseID', ''))
+                  orElse: () => const MapEntry('purchaseID', ''))
               .value as String,
           processorName: ret.value?.entries
               .firstWhere((entry) => entry.key == 'processorName',
-              orElse: () => MapEntry('processorName', ''))
+                  orElse: () => const MapEntry('processorName', ''))
               .value as String,
           success: true);
     }
     return StripeGeneratePaymentReceiptResponse();
   }
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         'purchaseID': purchaseID,
         'processorName': processorName,
         'payerAddr': payerAddr,

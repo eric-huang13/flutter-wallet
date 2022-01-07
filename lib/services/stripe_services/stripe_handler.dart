@@ -1,20 +1,17 @@
-
 import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/model/export.dart';
 import 'package:pylons_wallet/model/stripe_loginlink_request.dart';
 import 'package:pylons_wallet/model/stripe_loginlink_response.dart';
 import 'package:pylons_wallet/services/repository/repository.dart';
+import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/failure/failure.dart';
 import 'package:pylons_wallet/utils/formatter.dart';
-import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/third_party_services/local_storage_service.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class StripeHandler {
-
   /// handleStripePayout
   /// @param amount
   /// @return StripeFailure, String Payout Transfer id
@@ -27,39 +24,39 @@ class StripeHandler {
 
     await dataSource.loadData();
 
-    if(dataSource.StripeAccount == "") {
-      final response = await repository.GenerateRegistrationToken(walletsStore
-          .getWallets()
-          .value
-          .last
-          .publicAddress);
+    if (dataSource.StripeAccount == "") {
+      final response = await repository.GenerateRegistrationToken(
+          walletsStore.getWallets().value.last.publicAddress);
 
-      if (response.isLeft())
+      if (response.isLeft()) {
         return left(StripeFailure("stripe_registration_token_failed".tr()));
+      }
 
       token = response
           .getOrElse(() => StripeGenerateRegistrationTokenResponse())
           .token;
 
-      if (token == "")
+      if (token == "") {
         return left(StripeFailure("stripe_registration_token_failed".tr()));
-
+      }
 
       dataSource.StripeToken = token;
 
+      final register_response = await repository.RegisterAccount(
+          StripeRegisterAccountRequest(
+              Token: token,
+              Signature:
+              await walletsStore.signPureMessage(dataSource.StripeToken),
+              Address: walletsStore.getWallets().value.last.publicAddress));
 
-      final register_response = await repository.RegisterAccount(StripeRegisterAccountRequest(
-          Token: token,
-          Signature: await walletsStore.signPureMessage(dataSource.StripeToken),
-          Address: walletsStore.getWallets().value.last.publicAddress));
-
-      if(register_response.isLeft())
+      if (register_response.isLeft()) {
         return left(StripeFailure("stripe_register_account_failed".tr()));
+      }
 
-      final register_info = register_response.getOrElse(() => StripeRegisterAccountResponse());
+      final register_info =
+      register_response.getOrElse(() => StripeRegisterAccountResponse());
 
-      if(register_info.account == "" || register_info.accountlink == "")
-      {
+      if (register_info.account == "" || register_info.accountlink == "") {
         return left(StripeFailure("stripe_register_account_failed".tr()));
       }
 
@@ -69,16 +66,20 @@ class StripeHandler {
     //save stripe variables
     dataSource.saveData();
 
-    final payoutToken_response = await repository.GeneratePayoutToken(StripeGeneratePayoutTokenRequest(
+    final payoutToken_response =
+    await repository.GeneratePayoutToken(StripeGeneratePayoutTokenRequest(
       amount: Int64.parseInt(amount.ValToUval()),
-      address: walletsStore.getWallets().value.last.publicAddress, ));
+      address: walletsStore.getWallets().value.last.publicAddress,
+    ));
 
-    if(payoutToken_response.isLeft())
+    if (payoutToken_response.isLeft()) {
       return left(StripeFailure("stripe_payout_token_failed".tr()));
+    }
 
-    final payoutToken = payoutToken_response.getOrElse(() => StripeGeneratePayoutTokenResponse());
+    final payoutToken = payoutToken_response
+        .getOrElse(() => StripeGeneratePayoutTokenResponse());
 
-    if(payoutToken.token == "") {
+    if (payoutToken.token == "") {
       return left(StripeFailure("stripe_payout_token_failed".tr()));
     }
 
@@ -89,13 +90,13 @@ class StripeHandler {
       signature: await walletsStore.signPureMessage(payoutToken.token),
     ));
 
-    if(payout_response.isLeft())
+    if (payout_response.isLeft()) {
       return left(StripeFailure("stripe_payout_request_failed".tr()));
+    }
 
     final payout_info = payout_response.getOrElse(() => StripePayoutResponse());
 
-
-    if(payout_info.transfer_id == "") {
+    if (payout_info.transfer_id == "") {
       return left(StripeFailure("stripe_payout_request_failed".tr()));
     }
 
@@ -114,51 +115,58 @@ class StripeHandler {
     var token = '';
     var accountlink = "";
 
-    if(dataSource.StripeAccount != ""){
-
-      final accountlink_response = await repository.StripeGetLoginLink(StripeLoginLinkRequest(
-          Account: dataSource.StripeAccount,
-          Signature: await walletsStore.signPureMessage(dataSource.StripeToken)));
-      if(accountlink_response.isLeft())
+    if (dataSource.StripeAccount != "") {
+      final accountlink_response = await repository.StripeGetLoginLink(
+          StripeLoginLinkRequest(
+              Account: dataSource.StripeAccount,
+              Signature:
+              await walletsStore.signPureMessage(dataSource.StripeToken)));
+      if (accountlink_response.isLeft()) {
         return left(StripeFailure("stripe_account_link_failed".tr()));
+      }
 
-      final accountlink_info = accountlink_response.getOrElse(() => StripeLoginLinkResponse());
-      if(accountlink_info.accountlink == ""){
+      final accountlink_info =
+      accountlink_response.getOrElse(() => StripeLoginLinkResponse());
+      if (accountlink_info.accountlink == "") {
         return left(StripeFailure("stripe_account_link_failed".tr()));
       }
       accountlink = accountlink_info.accountlink;
-    }
-    else {
-      final response = await repository.GenerateRegistrationToken(walletsStore.getWallets().value.last.publicAddress);
-      if(response.isLeft())
+    } else {
+      final response = await repository.GenerateRegistrationToken(
+          walletsStore.getWallets().value.last.publicAddress);
+      if (response.isLeft()) {
         return left(StripeFailure("stripe_registration_token_failed".tr()));
+      }
 
-      final token_info = response.getOrElse(() => StripeGenerateRegistrationTokenResponse());
+      final token_info =
+      response.getOrElse(() => StripeGenerateRegistrationTokenResponse());
 
-      if(token_info.token == "") {
+      if (token_info.token == "") {
         return left(StripeFailure("stripe_registration_token_failed".tr()));
       }
 
       dataSource.StripeToken = token_info.token;
       token = token_info.token;
 
-      final register_response = await repository.RegisterAccount(StripeRegisterAccountRequest(
-          Token: token,
-          Signature: await walletsStore.signPureMessage(dataSource.StripeToken),
-          Address: walletsStore.getWallets().value.last.publicAddress));
-      if(register_response.isLeft())
+      final register_response = await repository.RegisterAccount(
+          StripeRegisterAccountRequest(
+              Token: token,
+              Signature:
+              await walletsStore.signPureMessage(dataSource.StripeToken),
+              Address: walletsStore.getWallets().value.last.publicAddress));
+      if (register_response.isLeft()) {
         return left(StripeFailure("stripe_register_account_failed".tr()));
+      }
 
+      final register_info =
+      register_response.getOrElse(() => StripeRegisterAccountResponse());
 
-      final register_info = register_response.getOrElse(() => StripeRegisterAccountResponse());
-
-      if(register_info.accountlink == ""|| register_info.account == ""){
+      if (register_info.accountlink == "" || register_info.account == "") {
         return left(StripeFailure("stripe_register_account_failed".tr()));
       }
 
       dataSource.StripeAccount = register_info.account;
       accountlink = register_info.accountlink;
-
     }
 
     dataSource.saveData();

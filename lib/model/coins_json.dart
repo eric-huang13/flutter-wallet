@@ -1,5 +1,3 @@
-
-
 /// denom : "pylon"
 /// amount : "12"
 

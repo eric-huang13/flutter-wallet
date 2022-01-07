@@ -7,21 +7,12 @@ import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/forms/card_info_form.dart';
 import 'package:pylons_wallet/forms/create_trade_form.dart';
-import 'package:pylons_wallet/model/recipe_json.dart';
-import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/client/pylons/recipe.pb.dart';
-import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/client/pylons/tx.pb.dart';
 import 'package:pylons_wallet/pages/detail/detail_tab_history.dart';
 import 'package:pylons_wallet/pages/detail/detail_tab_info.dart';
 import 'package:pylons_wallet/pages/detail/detail_tab_work.dart';
-import 'package:pylons_wallet/pages/payment/payment_info_screen.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 
-import '../../pylons_app.dart';
-
-enum DetailPageType {
-  typeRecipe,
-  typeItem
-}
+enum DetailPageType { typeRecipe, typeItem }
 
 class DetailScreenWidget extends StatefulWidget {
   final String recipeID;
@@ -31,12 +22,12 @@ class DetailScreenWidget extends StatefulWidget {
   final DetailPageType pageType;
 
   //final bool isOwner;
-  DetailScreenWidget({
+  const DetailScreenWidget({
     Key? key,
     this.recipeID = "",
     this.cookbookID = "",
     this.itemID = "",
-    this.nft_amount=1,
+    this.nft_amount = 1,
     this.pageType = DetailPageType.typeItem,
   }) : super(key: key);
 
@@ -44,7 +35,8 @@ class DetailScreenWidget extends StatefulWidget {
   State<DetailScreenWidget> createState() => _DetailScreenWidgetState();
 }
 
-class _DetailScreenWidgetState extends State<DetailScreenWidget> with SingleTickerProviderStateMixin {
+class _DetailScreenWidgetState extends State<DetailScreenWidget>
+    with SingleTickerProviderStateMixin {
   final walletsStore = GetIt.I.get<WalletsStore>();
 
   bool isOwner = false;
@@ -77,64 +69,75 @@ class _DetailScreenWidgetState extends State<DetailScreenWidget> with SingleTick
   ];
 
   static late List<Widget> _pages;
+
   @override
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: myTabs.length);
     _tabController.addListener(_tabSelect);
-    loadData().then((value) => (
-        _pages = <Widget>[
+    loadData().then((value) => _pages = <Widget>[
           DetailTabWorkWidget(
-              cookbookID:widget.cookbookID,
+              cookbookID: widget.cookbookID,
               recipeID: widget.recipeID,
               itemName: itemName,
-              itemDescription: itemDescription ),
-          DetailTabInfoWidget(),
-          DetailTabHistoryWidget(),
-        ]
-    ));
-
+              itemDescription: itemDescription),
+          const DetailTabInfoWidget(),
+          const DetailTabHistoryWidget(),
+        ]);
   }
 
   Future loadData() async {
-    switch(widget.pageType){
-      
+    switch (widget.pageType) {
       case DetailPageType.typeRecipe:
-      {
-        final recipeResponse = await walletsStore.getRecipe(widget.cookbookID, widget.recipeID);
-        if(recipeResponse.isRight()) {
+        {
+          final recipeResponse =
+              await walletsStore.getRecipe(widget.cookbookID, widget.recipeID);
+          if (recipeResponse.isRight()) {
+            final recipe = recipeResponse.toOption().toNullable()!;
+            setState(() {
+              itemName = recipe.entries.itemOutputs.first.strings
+                  .firstWhere((stKeyVal) => stKeyVal.key == "Name")
+                  .value;
 
-          final recipe = recipeResponse.toOption().toNullable()!;
-          setState((){
-            itemName = recipe.entries.itemOutputs.first.strings.firstWhere((stKeyVal) => stKeyVal.key == "Name").value;
+              itemUrl = recipe.entries.itemOutputs.first.strings
+                  .firstWhere((stKeyVal) => stKeyVal.key == "NFT_URL")
+                  .value;
 
-            itemUrl = recipe.entries.itemOutputs.first.strings.firstWhere((stKeyVal) => stKeyVal.key == "NFT_URL").value;
+              itemDescription = recipe.entries.itemOutputs.first.strings
+                  .firstWhere((stKeyVal) => stKeyVal.key == "Description")
+                  .value;
 
-            itemDescription = recipe.entries.itemOutputs.first.strings.firstWhere((stKeyVal) => stKeyVal.key == "Description").value;
+              imageWidth = recipe.entries.itemOutputs.first.longs
+                  .firstWhere((longKeyVal) => longKeyVal.key == "Width")
+                  .weightRanges
+                  .first
+                  .upper
+                  .toInt();
 
-            imageWidth = recipe.entries.itemOutputs.first.longs.firstWhere((longKeyVal) => longKeyVal.key == "Width").weightRanges.first.upper.toInt();
+              imageHeight = recipe.entries.itemOutputs.first.longs
+                  .firstWhere((longKeyVal) => longKeyVal.key == "Height")
+                  .weightRanges
+                  .first
+                  .upper
+                  .toInt();
 
-            imageHeight = recipe.entries.itemOutputs.first.longs.firstWhere((longKeyVal) => longKeyVal.key == "Height").weightRanges.first.upper.toInt();
+              itemPrice = recipe.coinInputs.first.coins.first.amount.toString();
 
-            itemPrice = recipe.coinInputs.first.coins.first.amount.toString();
+              itemCurrency =
+                  recipe.coinInputs.first.coins.first.denom.toString();
+            });
+          }
 
-            itemCurrency = recipe.coinInputs.first.coins.first.denom.toString();
-          });
+          break;
         }
-
-        break;
-      }
       case DetailPageType.typeItem:
-      {
-        await walletsStore.getItem(widget.cookbookID, widget.itemID);
-        break;
-      }
+        {
+          await walletsStore.getItem(widget.cookbookID, widget.itemID);
+          break;
+        }
     }
 
-    setState((){
-
-    });
-
+    setState(() {});
   }
 
   void _tabSelect() {
@@ -159,13 +162,16 @@ class _DetailScreenWidgetState extends State<DetailScreenWidget> with SingleTick
   void onPressPurchase(BuildContext context) {
     if (!isOwner) {
       //Navigator.push(context, MaterialPageRoute(builder: (context) => const PaymentInfoScreenWidget()));
-      switch(widget.pageType){
+      switch (widget.pageType) {
         case DetailPageType.typeRecipe:
-        {
-          walletsStore.executeRecipe({"cookbookID": widget.cookbookID, "recipeID": widget.recipeID, "coinInputsIndex":0}).then((value) => {
-          });
-          break;
-        }
+          {
+            walletsStore.executeRecipe({
+              "cookbookID": widget.cookbookID,
+              "recipeID": widget.recipeID,
+              "coinInputsIndex": 0
+            }).then((value) => {});
+            break;
+          }
         case DetailPageType.typeItem:
           // TODO: Handle this case.
           break;
@@ -255,7 +261,10 @@ class _DetailScreenWidgetState extends State<DetailScreenWidget> with SingleTick
                   fit: BoxFit.cover,
                 ),
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (_) => NFTViewWidget(imageUrl: itemUrl,)));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (_) => NFTViewWidget(
+                            imageUrl: itemUrl,
+                          )));
                 }),
             const VerticalSpace(10),
             //tab bar
@@ -273,7 +282,7 @@ class _DetailScreenWidgetState extends State<DetailScreenWidget> with SingleTick
                   tabs: myTabs,
                   labelPadding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
                 )),
-            Container(child: _pages.length > 0 ? _pages[tabIndex] : null)
+            Container(child: _pages.isNotEmpty ? _pages[tabIndex] : null)
           ],
         ),
       ),
@@ -287,53 +296,53 @@ class _DetailScreenWidgetState extends State<DetailScreenWidget> with SingleTick
           child: Column(
             children: [
               Row(children: [
-                Text("${itemPrice} ${itemCurrency}", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: kTextColor, fontFamily: 'Inter')),
+                Text("$itemPrice $itemCurrency",
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        color: kTextColor,
+                        fontFamily: 'Inter')),
                 const Spacer(),
                 ElevatedButton(
                     onPressed: () {
                       onPressPurchase(context);
                     },
-                    style: ElevatedButton.styleFrom(primary: kBlue, padding: const EdgeInsets.fromLTRB(50, 0, 50, 0)),
-                    child: Text(!isOwner ? 'purchase'.tr() : 'resell_nft'.tr(), style: const TextStyle(color: Colors.white)))
+                    style: ElevatedButton.styleFrom(
+                        primary: kBlue,
+                        padding: const EdgeInsets.fromLTRB(50, 0, 50, 0)),
+                    child: Text(!isOwner ? 'purchase'.tr() : 'resell_nft'.tr(),
+                        style: const TextStyle(color: Colors.white)))
               ]),
             ],
           )),
     );
-
-
   }
-
 
   void _showLoading(BuildContext context) {
     showDialog(
       context: context,
       barrierDismissible: true,
-      builder: (ctx) =>
-          AlertDialog(
-            content: Wrap(
+      builder: (ctx) => AlertDialog(
+        content: Wrap(
+          children: [
+            Row(
               children: [
-                Row(
-                  children: [
-                    const SizedBox(
-                      width: 30,
-                      height: 30,
-                      child: CircularProgressIndicator(),
-                    ),
-                    const HorizontalSpace(10),
-                    Text(
-                      "Loading...",
-                      style:
-                      Theme
-                          .of(ctx)
-                          .textTheme
-                          .subtitle2!
-                          .copyWith(fontSize: 12),
-                    ),
-                  ],
-                )
+                const SizedBox(
+                  width: 30,
+                  height: 30,
+                  child: CircularProgressIndicator(),
+                ),
+                const HorizontalSpace(10),
+                Text(
+                  "Loading...",
+                  style:
+                      Theme.of(ctx).textTheme.subtitle2!.copyWith(fontSize: 12),
+                ),
               ],
-            ),
-          ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
