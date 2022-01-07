@@ -390,7 +390,7 @@ class _CardWidget extends StatelessWidget {
             height: screenSize.width(percent: 0.3),
             padding: const EdgeInsets.all(30),
             decoration: BoxDecoration(
-              color: selected ? const Color(0x401212C4) : PylonsAppTheme.cardBackground, // const kUnselectedIcon.withOpacity(selected ? 0.5: 0.25),
+              color: selected ? PylonsAppTheme.cardBackgroundSelected : PylonsAppTheme.cardBackground, // const kUnselectedIcon.withOpacity(selected ? 0.5: 0.25),
             ),
             child: Image.asset(
               "assets/icons/$icon.png",

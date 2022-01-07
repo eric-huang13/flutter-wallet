@@ -10,6 +10,7 @@ import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/image_widgets.dart';
 import 'package:pylons_wallet/components/loading.dart';
 import 'package:pylons_wallet/components/nft_view.dart';
+import 'package:pylons_wallet/components/pylons_app_theme.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/components/user_image_widget.dart';
 import 'package:pylons_wallet/constants/constants.dart' as Constants;
@@ -162,8 +163,8 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                                               style: ElevatedButton.styleFrom(
                                                 shape: const CircleBorder(),
                                                 padding: const EdgeInsets.all(3),
-                                                primary: const Color(0x801212C4), // <-- Button color
-                                                onPrimary: const Color(0x801212C4), // <-- Splash color
+                                                primary: PylonsAppTheme.btnBackground, // <-- Button color
+                                                onPrimary: PylonsAppTheme.btnBackground, // <-- Splash color
                                               ),
                                               child: Image.asset('assets/icons/ico_dollar.png', width: 16, height: 16)),
                                           ElevatedButton(
@@ -171,8 +172,8 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                                               style: ElevatedButton.styleFrom(
                                                 shape: const CircleBorder(),
                                                 padding: const EdgeInsets.all(3),
-                                                primary: const Color(0x801212C4), // <-- Button color
-                                                onPrimary: const Color(0x801212C4), // <-- Splash color
+                                                primary: PylonsAppTheme.btnBackground, // <-- Button color
+                                                onPrimary: PylonsAppTheme.btnBackground, // <-- Splash color
                                               ),
                                               child: Image.asset('assets/icons/ico_share.png', width: 16, height: 16)),
                                           ElevatedButton(
@@ -182,8 +183,8 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                                               style: ElevatedButton.styleFrom(
                                                 shape: const CircleBorder(),
                                                 padding: const EdgeInsets.all(3),
-                                                primary: const Color(0x801212C4), // <-- Button color
-                                                onPrimary: const Color(0x801212C4), // <-- Splash color
+                                                primary: PylonsAppTheme.btnBackground, // <-- Button color
+                                                onPrimary: PylonsAppTheme.btnBackground, // <-- Splash color
                                               ),
                                               child: Image.asset('assets/icons/ico_clip.png', width: 16, height: 16)),
                                         ])
