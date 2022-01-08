@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -9,6 +10,7 @@ import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/image_widgets.dart';
 import 'package:pylons_wallet/components/loading.dart';
 import 'package:pylons_wallet/components/nft_view.dart';
+import 'package:pylons_wallet/components/pylons_app_theme.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/components/user_image_widget.dart';
 import 'package:pylons_wallet/constants/constants.dart' as Constants;
@@ -43,7 +45,8 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
   //detect card's outside tap
   void onTapUp(BuildContext context, TapUpDetails details) {
     if (key.currentContext != null) {
-      final containerBox = key.currentContext!.findRenderObject() as RenderBox;
+      final RenderBox containerBox =
+          key.currentContext!.findRenderObject() as RenderBox;
       final isHit = containerBox.hitTest(BoxHitTestResult(),
           position: details.localPosition);
       if (_showPay == true && !isHit) {
@@ -58,7 +61,6 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
   void initState() {
     super.initState();
     setState(() {
-      //_showPay = (widget.nftItem.type == nftType.type_item) ? true: false;
       owner = widget.nftItem.owner == PylonsApp.currentWallet.name
           ? "you"
           : widget.nftItem.owner;
@@ -103,14 +105,17 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
     final response = await walletsStore.createTrade(json);
 
     loading.dismiss();
-    setState(() {
-      _showPay = false;
-    });
 
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(response.success != false
-            ? "trade_create_success".tr()
-            : sprintf("trade_create_fail".tr(), response.error))));
+    log("$response", name: "OnCreateTrade");
+
+    if (!response.success) {
+      SnackbarToast.show(sprintf("trade_create_fail".tr(), [response.error]));
+      return;
+    }
+
+    SnackbarToast.show("trade_create_success".tr());
+
+    Navigator.of(context).pop();
   }
 
   @override
@@ -172,54 +177,57 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                                                       _showPay = true;
                                                     });
                                                   },
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    shape: const CircleBorder(),
+                                                    padding:
+                                                        const EdgeInsets.all(3),
+                                                    primary: PylonsAppTheme
+                                                        .btnBackground, // <-- Button color
+                                                    onPrimary: PylonsAppTheme
+                                                        .btnBackground, // <-- Splash color
+                                                  ),
                                                   child: Image.asset(
                                                       'assets/icons/ico_dollar.png',
                                                       width: 16,
-                                                      height: 16),
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                    shape: CircleBorder(),
-                                                    padding: EdgeInsets.all(3),
-                                                    primary: Color(0x801212C4),
-                                                    // <-- Button color
-                                                    onPrimary: Color(
-                                                        0x801212C4), // <-- Splash color
-                                                  )),
+                                                      height: 16)),
                                               ElevatedButton(
                                                   onPressed: () {},
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    shape: const CircleBorder(),
+                                                    padding:
+                                                        const EdgeInsets.all(3),
+                                                    primary: PylonsAppTheme
+                                                        .btnBackground, // <-- Button color
+                                                    onPrimary: PylonsAppTheme
+                                                        .btnBackground, // <-- Splash color
+                                                  ),
                                                   child: Image.asset(
                                                       'assets/icons/ico_share.png',
                                                       width: 16,
-                                                      height: 16),
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                    shape: CircleBorder(),
-                                                    padding: EdgeInsets.all(3),
-                                                    primary: Color(0x801212C4),
-                                                    // <-- Button color
-                                                    onPrimary: Color(
-                                                        0x801212C4), // <-- Splash color
-                                                  )),
+                                                      height: 16)),
                                               ElevatedButton(
                                                   onPressed: () {
                                                     copyClipboard(
                                                         widget.nftItem.itemID);
                                                   },
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    shape: const CircleBorder(),
+                                                    padding:
+                                                        const EdgeInsets.all(3),
+                                                    primary: PylonsAppTheme
+                                                        .btnBackground, // <-- Button color
+                                                    onPrimary: PylonsAppTheme
+                                                        .btnBackground, // <-- Splash color
+                                                  ),
                                                   child: Image.asset(
                                                       'assets/icons/ico_clip.png',
                                                       width: 16,
-                                                      height: 16),
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                    shape: CircleBorder(),
-                                                    padding: EdgeInsets.all(3),
-                                                    primary: Color(0x801212C4),
-                                                    // <-- Button color
-                                                    onPrimary: Color(
-                                                        0x801212C4), // <-- Splash color
-                                                  )),
+                                                      height: 16)),
                                             ])
-                                      : SizedBox(),
+                                      : const SizedBox(),
                                 )),
                           ]),
                         ),
@@ -227,12 +235,12 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                           transitionBuilder:
                               (Widget child, Animation<double> animation) {
                             final offsetAnimation = Tween<Offset>(
-                                    begin: Offset(1.0, 0.0),
-                                    end: Offset(0.0, 0.0))
+                                    begin: const Offset(1.0, 0.0),
+                                    end: const Offset(0.0, 0.0))
                                 .animate(animation);
                             final offsetHideAnimation = Tween<Offset>(
-                                    begin: Offset(0.0, 0.0),
-                                    end: Offset(1.0, 0.0))
+                                    begin: const Offset(0.0, 0.0),
+                                    end: const Offset(1.0, 0.0))
                                 .animate(animation);
                             return SlideTransition(
                               position: offsetAnimation,
@@ -284,13 +292,14 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                                 children: [
                                   TextSpan(
                                       text: widget.nftItem.creator,
-                                      style: TextStyle(color: Constants.kBlue))
+                                      style: const TextStyle(
+                                          color: Constants.kBlue))
                                 ]),
                           ),
                           const VerticalSpace(20),
                           Row(
                             children: [
-                              UserImageWidget(
+                              const UserImageWidget(
                                 imageUrl: Constants.kImage2,
                                 radius: 10,
                               ),
@@ -305,8 +314,8 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                                     children: [
                                       TextSpan(
                                           text: owner,
-                                          style:
-                                              TextStyle(color: Constants.kBlue))
+                                          style: const TextStyle(
+                                              color: Constants.kBlue))
                                     ]),
                               ),
                             ],
@@ -339,13 +348,14 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                                   children: [
                                     SingleChildScrollView(
                                       child: Padding(
-                                          padding: EdgeInsets.only(top: 20),
+                                          padding:
+                                              const EdgeInsets.only(top: 20),
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(widget.nftItem.description),
-                                              SizedBox(height: 20),
+                                              const SizedBox(height: 20),
                                               Text(sprintf(
                                                   "current_price".tr(), [
                                                 widget.nftItem.price
@@ -358,7 +368,7 @@ class _AssetDetailViewScreenState extends State<AssetDetailViewScreen> {
                                                 widget.nftItem.width,
                                                 widget.nftItem.height
                                               ])),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 20,
                                               ),
                                               if (widget.nftItem.type ==
@@ -447,7 +457,7 @@ class _PayByCardWidgetState extends State<_PayByCardWidget> {
     Constants.kUSDCoinName,
     Constants.kPylonCoinName
   ];
-  String selectedDenom = "USD";
+  String selectedDenom = Constants.kUSDCoinName;
   final amountController = TextEditingController();
 
   @override

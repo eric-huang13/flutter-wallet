@@ -67,7 +67,7 @@ class _StripeScreenState extends State<StripeScreen> {
   }
 
   void hideSignout() {
-    _controller.runJavascript (kStripeSignoutJS);
+    _controller.runJavascript(kStripeSignoutJS);
   }
 
   @override
@@ -91,6 +91,7 @@ class _StripeScreenState extends State<StripeScreen> {
                   onMessageReceived: (JavascriptMessage message) {}),
             },
             navigationDelegate: (NavigationRequest request) {
+              print('request.url${request.url}');
               if (request.url.contains(baseEnv.baseStripeCallbackUrl)) {
                 widget.onBack();
                 return NavigationDecision.prevent;
@@ -113,8 +114,8 @@ class _StripeScreenState extends State<StripeScreen> {
 
             onPageStarted: (String url) {},
             onPageFinished: (String url) {
-              if(url.contains(kStripeLoginLinkPrefix) &&
-              url.contains(kStripeAccountSuffix)){
+              if (url.contains(kStripeLoginLinkPrefix) &&
+                  url.contains(kStripeAccountSuffix)) {
                 hideSignout();
               }
               if (url.contains(kStripeLoginLinkPrefix) &&
@@ -134,25 +135,22 @@ class _StripeScreenState extends State<StripeScreen> {
         ),
         floatingActionButton: Visibility(
           child: Container(
-            height: 35,
-            child: FloatingActionButton.extended(
-              backgroundColor: kBlue,
-              onPressed: () {
-                widget.onBack();
-              },
-              extendedIconLabelSpacing: 0,
-              extendedPadding: EdgeInsets.only(left:10, right:10),
-
-              icon: Icon(Icons.arrow_back_ios, size: 12),
-              label: Text("return_to_pylons".tr(),
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: 0,
-                      fontFamily: 'Inter')),
-            )
-          )
-         ,
+              height: 35,
+              child: FloatingActionButton.extended(
+                backgroundColor: kBlue,
+                onPressed: () {
+                  widget.onBack();
+                },
+                extendedIconLabelSpacing: 0,
+                extendedPadding: EdgeInsets.only(left: 10, right: 10),
+                icon: Icon(Icons.arrow_back_ios, size: 12),
+                label: Text("return_to_pylons".tr(),
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 0,
+                        fontFamily: 'Inter')),
+              )),
           visible: showReturnBtn, // set it to false
         ));
   }

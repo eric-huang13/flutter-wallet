@@ -18,6 +18,7 @@ import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/stripe/stripe_payout_widget.dart';
 import 'package:pylons_wallet/utils/extension.dart';
 import 'package:pylons_wallet/utils/failure/failure.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:pylons_wallet/utils/formatter.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
 import 'package:sprintf/sprintf.dart';
@@ -62,19 +63,19 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
     final loading = Loading()..showLoading();
     final account_response = await StripeHandler().handleStripeAccountLink();
     loading.dismiss();
-    account_response.fold(
-        (fail) => {SnackbarToast.show(fail.message)},
-        (accountlink) => {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return StripeScreen(
-                        url: accountlink,
-                        onBack: () {
-                          navigatorKey.currentState!.pop();
-                        });
-                  })
-            });
+    account_response.fold((fail) => {SnackbarToast.show(fail.message)},
+        (accountlink) {
+      showDialog(
+          useSafeArea: false,
+          context: context,
+          builder: (BuildContext context) {
+            return StripeScreen(
+                url: accountlink,
+                onBack: () {
+                  navigatorKey.currentState!.pop();
+                });
+          });
+    });
   }
 
   @override

@@ -105,6 +105,8 @@ class WalletsStoreImp implements WalletsStore {
       return Right(creds.publicInfo);
     }
 
+    print(response);
+
     return const Left(WalletCreationFailure(WALLET_CREATION_FAILED));
   }
 

@@ -7,12 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pylons_wallet/components/loading.dart';
+import 'package:pylons_wallet/components/pylons_app_theme.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/entities/nft.dart';
 import 'package:pylons_wallet/pages/new_screens/asset_detail_view.dart';
-import 'package:pylons_wallet/pages/new_screens/purchase_item_screen.dart';
+import 'package:pylons_wallet/pages/new_screens/purchase_item/purchase_item_screen.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
+import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart';
+import 'package:device_apps/device_apps.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../pylons_app.dart';
@@ -69,7 +73,6 @@ class _CollectionScreenState extends State<CollectionScreen> {
     if (!walletsStore.getStateUpdatedFlag().hasObservers) {
       walletsStore.getStateUpdatedFlag().observe((flag) async {
         if (flag.newValue == true) {
-
           Timer(const Duration(milliseconds: 300), () async {
             await loadData(colType);
             walletsStore.setStateUpdatedFlag(false);
@@ -180,13 +183,7 @@ class _CollectionScreenState extends State<CollectionScreen> {
                     return GestureDetector(
                       onTap: () {
                         if (assets[index].type == NftType.TYPE_RECIPE) {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(
-                                  builder: (_) => PurchaseItemScreen(
-                                        nft: assets[index],
-                                      )))
-                              .then((_) =>
-                                  {walletsStore.setStateUpdatedFlag(true)});
+                          onRecipeClicked(assets[index]);
                         } else {
                           Navigator.of(context)
                               .push(MaterialPageRoute(
@@ -200,8 +197,10 @@ class _CollectionScreenState extends State<CollectionScreen> {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(5)),
                         child: CachedNetworkImage(
-                            placeholder: (context, url) =>
-                                const CircularProgressIndicator.adaptive(),
+                            placeholder: (context, url) => Shimmer(
+                                  child: const SizedBox.expand(),
+                                  color: PylonsAppTheme.cardBackground,
+                                ),
                             //imageUrl: _getImage(index),
                             imageUrl: assets[index].url,
                             fit: BoxFit.cover),
@@ -209,9 +208,7 @@ class _CollectionScreenState extends State<CollectionScreen> {
                     );
                   },
                   staggeredTileBuilder: (index) {
-                    return StaggeredTile.count(
-                        (index == 1 || index == 6) ? 2 : 1,
-                        (index == 1 || index == 6) ? 2 : 1);
+                    return PylonsAppTheme.getStaggeredStylex6(index);
                   }),
             ),
           if (recipes.isNotEmpty)
@@ -225,13 +222,7 @@ class _CollectionScreenState extends State<CollectionScreen> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(
-                                builder: (_) => PurchaseItemScreen(
-                                      nft: recipes[index],
-                                    )))
-                            .then((_) =>
-                                {walletsStore.setStateUpdatedFlag(true)});
+                        onRecipeClicked(recipes[index]);
                       },
                       child: ClipRRect(
                         borderRadius:
@@ -244,9 +235,7 @@ class _CollectionScreenState extends State<CollectionScreen> {
                     );
                   },
                   staggeredTileBuilder: (index) {
-                    return StaggeredTile.count(
-                        (index == 1 || index == 6) ? 2 : 1,
-                        (index == 1 || index == 6) ? 2 : 1);
+                    return PylonsAppTheme.getStaggeredStylex6(index);
                   }),
             )
         ],
@@ -308,25 +297,32 @@ class _CollectionScreenState extends State<CollectionScreen> {
 
         final items = await walletsStore
             .getItemsByOwner(PylonsApp.currentWallet.publicAddress);
-        items.forEach((item) async {
+
+        await Future.wait(items.map((item) async {
           final nft = await NFT.fromItem(item);
           if (nft.appType.toLowerCase() == "easel") {
-            setState(() {
-              assets.add(nft);
-            });
+            assets.add(nft);
           }
-        });
+        }).toList());
+
+        await Future.wait(items.map((item) async {
+          final nft = await NFT.fromItem(item);
+          if (nft.appType.toLowerCase() == "easel") {
+            assets.add(nft);
+          }
+        }).toList());
 
         final trades =
             await walletsStore.getTrades(PylonsApp.currentWallet.publicAddress);
-        trades.forEach((trade) async {
+
+        await Future.wait(trades.map((trade) async {
           final nft = await NFT.fromTrade(trade);
           if (nft.appType.toLowerCase() == "easel") {
-            setState(() {
-              assets.add(nft);
-            });
+            assets.add(nft);
           }
-        });
+        }).toList());
+
+        setState(() {});
       } else if (_colType == collectionType[4].title) {
         // avatar
         final cookbooks = await walletsStore
@@ -373,6 +369,17 @@ class _CollectionScreenState extends State<CollectionScreen> {
       loading.dismiss();
     }
   }
+
+  Future<void> onRecipeClicked(NFT asset) async {
+    Loading()..showLoading();
+
+    await asset.getCreator();
+    await asset.getOwnerAddress();
+
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (_) => PurchaseItemScreen(nft: asset)))
+        .then((_) => {walletsStore.setStateUpdatedFlag(true)});
+  }
 }
 
 class _CardWidget extends StatelessWidget {
@@ -401,9 +408,9 @@ class _CardWidget extends StatelessWidget {
             padding: const EdgeInsets.all(30),
             decoration: BoxDecoration(
               color: selected
-                  ? const Color(0x401212C4)
-                  : const Color(
-                      0x80C4C4C4), // const kUnselectedIcon.withOpacity(selected ? 0.5: 0.25),
+                  ? PylonsAppTheme.cardBackgroundSelected
+                  : PylonsAppTheme
+                      .cardBackground, // const kUnselectedIcon.withOpacity(selected ? 0.5: 0.25),
             ),
             child: Image.asset(
               "assets/icons/$icon.png",

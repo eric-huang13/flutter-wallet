@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:pylons_wallet/components/pylons_app_theme.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 import 'package:pylons_wallet/pages/detail/detail_screen.dart';
 
@@ -101,7 +102,7 @@ class _CollectionsScreenState extends State<CollectionsScreen> with SingleTicker
                         )));
               },
               staggeredTileBuilder: (index) {
-                return StaggeredTile.count((index == 1 || index == 6) ? 2 : 1, (index == 1 || index == 6) ? 2 : 1);
+                return PylonsAppTheme.getStaggeredStylex6(index);
               }),
         )
       ]),

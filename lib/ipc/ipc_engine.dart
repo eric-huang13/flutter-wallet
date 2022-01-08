@@ -13,11 +13,12 @@ import 'package:pylons_wallet/ipc/models/sdk_ipc_message.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
 import 'package:pylons_wallet/ipc/widgets/sdk_approval_dialog.dart';
 import 'package:pylons_wallet/pages/new_screens/asset_detail_view.dart';
-import 'package:pylons_wallet/pages/new_screens/purchase_item_screen.dart';
+import 'package:pylons_wallet/pages/new_screens/purchase_item/purchase_item_screen.dart';
 import 'package:pylons_wallet/pylons_app.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 //unilink key format constants
 const KEY_PURCHASE_NFT = "purchase_nft";
@@ -122,7 +123,6 @@ class IPCEngine {
     }
 
     await showApprovalDialog(sdkIPCMessage: sdkIPCMessage);
-
   }
 
   Future<void> _handleEaselLink(String link) async {
@@ -137,22 +137,22 @@ class IPCEngine {
 
     showLoader.dismiss();
 
+
     if (recipeResult.isLeft()) {
-      ScaffoldMessenger.of(navigatorKey.currentState!.overlay!.context).showSnackBar(
-        const SnackBar(
-          content: Text("NFT not exists"),
-        ),
-      );
-    } else {
-      await navigatorKey.currentState!.push(
-        MaterialPageRoute(
-          builder: (_) => PurchaseItemScreen(
-            nft: NFT.fromRecipe(recipeResult.toOption().toNullable()!),
-          ),
-        ),
-      );
-      walletsStore.setStateUpdatedFlag(true);
+      SnackbarToast.show("NFT not exists");
+      return;
     }
+
+    var nft = NFT.fromRecipe(recipeResult.toOption().toNullable()!);
+
+    await nft.getOwnerAddress();
+
+    await navigatorKey.currentState!.push(
+      MaterialPageRoute(
+        builder: (_) => PurchaseItemScreen(nft: nft),
+      ),
+    );
+    walletsStore.setStateUpdatedFlag(true);
   }
 
   Future<void> _handleNFTTradeLink(String link) async {
@@ -164,23 +164,28 @@ class IPCEngine {
 
     final recipeResult = await walletsStore.getTradeByID(Int64.parseInt(tradeId));
 
+    if (recipeResult == null) {
+      SnackbarToast.show("nft_does_not_exists".tr());
+      showLoader.dismiss();
+      return;
+    }
+
+    final item = await NFT.fromTrade(recipeResult);
+
+    await item.getOwnerAddress();
+    await item.getCreator();
     showLoader.dismiss();
 
-    if (recipeResult == null) {
-      ScaffoldMessenger.of(navigatorKey.currentState!.overlay!.context).showSnackBar(
-        const SnackBar(
-          content: Text("NFT not exists"),
+
+
+    await navigatorKey.currentState!.push(
+      MaterialPageRoute(
+        builder: (_) => PurchaseItemScreen(
+          nft: item,
         ),
-      );
-    } else {
-      final item = await NFT.fromTrade(recipeResult);
-      await navigatorKey.currentState!.push(
-        MaterialPageRoute(
-          builder: (_) => PurchaseItemScreen(nft: item),
-        ),
-      );
-      walletsStore.setStateUpdatedFlag(true);
-    }
+      ),
+    );
+    walletsStore.setStateUpdatedFlag(true);
   }
 
   Future<void> _handleNFTViewLink(String link) async {
@@ -209,7 +214,6 @@ class IPCEngine {
         ),
       );
       walletsStore.setStateUpdatedFlag(true);
-
     }
   }
 
@@ -252,7 +256,8 @@ class IPCEngine {
           await dispatchUniLink(handlerMessage.createMessageLink(isAndroid: Platform.isAndroid));
         },
         onCancel: () async {
-          final cancelledResponse = SDKIPCResponse.failure(sender: sdkIPCMessage.sender, error: 'User Declined the request', errorCode: HandlerFactory.ERR_USER_DECLINED, transaction: sdkIPCMessage.action);
+          final cancelledResponse =
+              SDKIPCResponse.failure(sender: sdkIPCMessage.sender, error: 'User Declined the request', errorCode: HandlerFactory.ERR_USER_DECLINED, transaction: sdkIPCMessage.action);
           await dispatchUniLink(cancelledResponse.createMessageLink(isAndroid: Platform.isAndroid));
         });
 
@@ -275,7 +280,11 @@ class IPCEngine {
   ///This method checks if the incoming link is generated from Easel
   bool _isEaselUniLink(String link) {
     final queryParam = Uri.parse(link).queryParameters;
-    return queryParam.containsKey("action") && queryParam['action'] == 'purchase_nft' && queryParam.containsKey("recipe_id") && queryParam.containsKey("nft_amount") && queryParam.containsKey("cookbook_id");
+    return queryParam.containsKey("action") &&
+        queryParam['action'] == 'purchase_nft' &&
+        queryParam.containsKey("recipe_id") &&
+        queryParam.containsKey("nft_amount") &&
+        queryParam.containsKey("cookbook_id");
   }
 
   bool _isNFTViewUniLink(String link) {

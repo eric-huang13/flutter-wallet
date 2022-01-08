@@ -33,6 +33,7 @@ class NFT extends Equatable {
   String height = "";
   String appType = "";
   String tradeID = "";
+  String ownerAddress = "";
 
   NftType type = NftType.TYPE_ITEM;
 
@@ -63,6 +64,15 @@ class NFT extends Equatable {
       creator = cookbook?.creator ?? "";
     }
     return creator;
+  }
+
+  Future<String> getOwnerAddress() async {
+    if (ownerAddress == "") {
+      final walletsStore = GetIt.I.get<WalletsStore>();
+      final cookbook = await walletsStore.getCookbookById(cookbookID);
+      ownerAddress = cookbook?.creator ?? "";
+    }
+    return ownerAddress;
   }
 
   static Future<NFT> fromItem(Item item) async {
@@ -199,8 +209,7 @@ class NFT extends Equatable {
       amountMinted: int.parse(
           recipe.entries.itemOutputs.firstOrNull?.amountMinted.toString() ??
               "0"),
-      quantity: int.parse(
-          recipe.entries.itemOutputs.firstOrNull?.quantity.toString() ?? "0"),
+      quantity: recipe.entries.itemOutputs.firstOrNull?.quantity.toInt() ?? 0,
       tradePercentage: recipe.entries.itemOutputs.firstOrNull?.tradePercentage
               .toString()
               .fromBigInt()
@@ -253,7 +262,7 @@ extension NFTValue on NFT {
   }
 }
 
-extension ValueContertor on String {
+extension ValueConvertor on String {
   double fromBigInt() {
     if (this == "") {
       return 0;

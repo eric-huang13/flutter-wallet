@@ -41,7 +41,18 @@ class PresentingOnboardPage extends StatelessWidget {
             height: screenSize.height(percent: 0.72),
             child: OnboardingPageView(),
           ),
-          PylonsWhiteButton(
+          PylonsBlueButton(
+            onTap: () {
+              final createAccountBottomSheet = CreateAccountBottomSheet(
+                context: context,
+                walletsStore: walletsStore,
+              );
+              createAccountBottomSheet.show();
+            },
+            text: "create_an_account".tr(),
+          ),
+          const VerticalSpace(10),
+          GestureDetector(
             onTap: () {
               showModalBottomSheet(
                 context: context,
@@ -59,18 +70,13 @@ class PresentingOnboardPage extends StatelessWidget {
                 ]),
               );
             },
-            text: "import_an_account".tr(),
-          ),
-          const VerticalSpace(10),
-          PylonsBlueButton(
-            onTap: () {
-              final createAccountBottomSheet = CreateAccountBottomSheet(
-                context: context,
-                walletsStore: walletsStore,
-              );
-              createAccountBottomSheet.show();
-            },
-            text: "create_an_account".tr(),
+            child: Text("i_already_have_an_account".tr(),
+                style: const TextStyle(
+                    fontFamily: 'Inter',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    // decoration: TextDecoration.underline,
+                    color: kBlue)),
           ),
           const VerticalSpace(10),
           GestureDetector(
