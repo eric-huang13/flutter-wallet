@@ -150,5 +150,6 @@
   "create_profile_before_using" : "Create profile in wallet",
   "blob_type_not_supported": "Blob file download not supported",
   "return_to_pylons": "Return to Pylons",
-  "i_already_have_an_account" : "I already have an account"
+  "i_already_have_an_account" : "I already have an account",
+  "nft_does_not_exists": "NFT does not exists"
 }

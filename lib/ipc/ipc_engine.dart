@@ -18,6 +18,7 @@ import 'package:pylons_wallet/pylons_app.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 //unilink key format constants
 const KEY_PURCHASE_NFT = "purchase_nft";
@@ -164,7 +165,7 @@ class IPCEngine {
     final recipeResult = await walletsStore.getTradeByID(Int64.parseInt(tradeId));
 
     if (recipeResult == null) {
-      SnackbarToast.show("NFT not exists");
+      SnackbarToast.show("nft_does_not_exists".tr());
       showLoader.dismiss();
       return;
     }

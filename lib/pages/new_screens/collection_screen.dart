@@ -200,7 +200,7 @@ class _CollectionScreenState extends State<CollectionScreen> {
                     );
                   },
                   staggeredTileBuilder: (index) {
-                    return StaggeredTile.count((index == 1 || index == 6) ? 2 : 1, (index == 1 || index == 6) ? 2 : 1);
+                    return PylonsAppTheme.getStaggeredStylex6(index);
                   }),
             ),
           if (recipes.isNotEmpty)
@@ -226,7 +226,7 @@ class _CollectionScreenState extends State<CollectionScreen> {
                     );
                   },
                   staggeredTileBuilder: (index) {
-                    return StaggeredTile.count((index == 1 || index == 6) ? 2 : 1, (index == 1 || index == 6) ? 2 : 1);
+                    return PylonsAppTheme.getStaggeredStylex6(index);
                   }),
             )
         ],

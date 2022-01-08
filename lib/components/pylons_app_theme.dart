@@ -1,5 +1,6 @@
 import 'package:cosmos_ui_components/cosmos_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:pylons_wallet/constants/constants.dart';
 
 class PylonsAppTheme extends CosmosThemeData {
@@ -17,6 +18,17 @@ class PylonsAppTheme extends CosmosThemeData {
 
   static Color cardBackgroundSelected = const Color(
       0x401212C4);
+
+  /// get Staggered Style
+  /// 1x1 2x2 2x2
+  /// 1x1 2x2 2x2
+  /// 1x1 1x1 1x1
+  /// input [int] index of tile
+  /// output [StaggeredTile] tile of the input index
+  static StaggeredTile getStaggeredStylex6(int index){
+    return StaggeredTile.count((index == 1 || index == 6) ? 2 : 1, (index == 1 || index == 6) ? 2 : 1);
+  }
+
 
   ThemeData buildAppTheme() {
     return ThemeData(

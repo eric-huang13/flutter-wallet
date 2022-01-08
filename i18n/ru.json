@@ -152,6 +152,7 @@
   "create_profile_before_using" : "Создать профиль в кошельке",
   "blob_type_not_supported": "Загрузка файла BLOB-объекта не поддерживается",
   "return_to_pylons": "Вернуться к Pylons",
-  "i_already_have_an_account" : "у меня уже есть аккаунт"
+  "i_already_have_an_account" : "у меня уже есть аккаунт",
+  "nft_does_not_exists": "NFT не существует"
 
 }

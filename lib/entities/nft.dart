@@ -233,7 +233,7 @@ extension NFTValue on NFT {
   }
 }
 
-extension ValueContertor on String {
+extension ValueConvertor on String {
   double fromBigInt() {
     if(this == "") {
       return 0;
