@@ -5,6 +5,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
 import 'package:pylons_wallet/constants/constants.dart';
+import 'package:pylons_wallet/utils/image_picker.dart';
 import 'package:pylons_wallet/utils/screen_size_utils.dart';
 
 class ImageSourceBottomSheet extends StatelessWidget {
@@ -19,7 +20,7 @@ class ImageSourceBottomSheet extends StatelessWidget {
             const VerticalSpace(40),
             _MenuButtonWidget(
               onTap: () {
-                _pickImageFromCamera().then((file) {
+                pickImageFromCamera(500, 500, 85, context).then((file) {
                   Navigator.pop(context);
                 });
               },
@@ -29,7 +30,7 @@ class ImageSourceBottomSheet extends StatelessWidget {
             _MenuButtonWidget(
               title: "Choose from ${Platform.isAndroid ? "Gallery" : "Photos"}",
               onTap: () {
-                _pickImageFromGallery().then((file) {
+                pickImageFromGallery(500, 500, 85, context).then((file) {
                   Navigator.pop(context);
                 });
               },
@@ -52,47 +53,7 @@ class ImageSourceBottomSheet extends StatelessWidget {
     );
   }
 
-  Future<File?> _pickImageFromCamera() async {
-    try {
-      final _picker = ImagePicker();
-      final _image = await _picker.pickImage(source: ImageSource.camera, imageQuality: 85, maxHeight: 500, maxWidth: 500);
 
-      if (_image != null) {
-        return _cropImage(_image.path);
-      }
-    } catch (error) {
-    }
-    return null;
-  }
-
-  Future<File?> _pickImageFromGallery() async {
-    try {
-      final _picker = ImagePicker();
-      final _image = await _picker.pickImage(
-        source: ImageSource.gallery,
-        imageQuality: 85,
-        maxHeight: 500,
-        maxWidth: 500,
-      );
-      if (_image != null) {
-        return _cropImage(_image.path);
-      }
-    } catch (error) {
-    }
-
-    return null;
-  }
-
-  Future<File?> _cropImage(String path) async {
-    return ImageCropper.cropImage(
-        sourcePath: path,
-        aspectRatioPresets: [CropAspectRatioPreset.square, CropAspectRatioPreset.ratio3x2, CropAspectRatioPreset.original, CropAspectRatioPreset.ratio4x3, CropAspectRatioPreset.ratio16x9],
-        androidUiSettings:
-            const AndroidUiSettings(toolbarTitle: 'Pylons', toolbarColor: kBlue, toolbarWidgetColor: Colors.white, initAspectRatio: CropAspectRatioPreset.original, lockAspectRatio: false),
-        iosUiSettings: const IOSUiSettings(
-          minimumAspectRatio: 1.0,
-        ));
-  }
 }
 
 class _MenuButtonWidget extends StatelessWidget {

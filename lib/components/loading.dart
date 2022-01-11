@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:pylons_wallet/components/space_widgets.dart';
 
@@ -18,10 +20,13 @@ class Loading {
   Loading();
 
   void dismiss() {
-    navigatorKey.currentState!.pop();
+    navigatorKey.currentState?.pop();
   }
 
   Future showLoading({String message = "Loading"}) {
+    if (navigatorKey.currentState?.overlay == null) {
+      return Completer().future; // return a fake future if state is screwy - this only ever happens during testing. todo: eliminate this hack
+    }
     return showDialog(
       context: navigatorKey.currentState!.overlay!.context,
       barrierDismissible: true,

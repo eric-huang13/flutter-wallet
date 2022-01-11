@@ -1,14 +1,15 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:fixnum/fixnum.dart';
-import 'package:mobx/src/core.dart';
+import 'package:mobx/mobx.dart';
 import 'package:pylons_wallet/entities/balance.dart';
 import 'package:pylons_wallet/ipc/models/sdk_ipc_response.dart';
 import 'package:pylons_wallet/model/execution_list_by_recipe_response.dart';
 import 'package:pylons_wallet/modules/Pylonstech.pylons.pylons/module/export.dart';
 import 'package:pylons_wallet/modules/cosmos.authz.v1beta1/module/client/cosmos/base/abci/v1beta1/abci.pb.dart';
-import 'package:pylons_wallet/modules/cosmos.authz.v1beta1/module/export.dart';
+//import 'package:pylons_wallet/modules/cosmos.authz.v1beta1/module/export.dart';
 import 'package:pylons_wallet/stores/wallet_store.dart';
 import 'package:pylons_wallet/utils/failure/failure.dart';
 import 'package:transaction_signing_gateway/alan/alan_private_wallet_credentials.dart';
@@ -114,8 +115,7 @@ class MockWalletStore implements WalletsStore {
 
   @override
   Future<List<Item>> getItemsByOwner(String owner) {
-    // TODO: implement getItemsByOwner
-    throw UnimplementedError();
+    return Completer<List<Item>>().future;
   }
 
   @override
@@ -229,15 +229,19 @@ class MockWalletStore implements WalletsStore {
     throw UnimplementedError();
   }
 
+  final Observable<bool> isStateUpdated = Observable(false);
+
   @override
   Observable<bool> getStateUpdatedFlag() {
-    // TODO: implement getStateUpdatedFlag
-    throw UnimplementedError();
+    return isStateUpdated;
   }
 
   @override
   void setStateUpdatedFlag(bool flag) {
-    // TODO: implement setStateUpdatedFlag
+    Timer(const Duration(milliseconds: 2000), () async {
+      isStateUpdated.value = flag;
+      isStateUpdated.reportChanged();
+    });
   }
 
   @override
